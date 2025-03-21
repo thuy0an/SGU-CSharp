@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../buildMultiTargeting/sgu-c-sharf-backend.props" />
+</Project>

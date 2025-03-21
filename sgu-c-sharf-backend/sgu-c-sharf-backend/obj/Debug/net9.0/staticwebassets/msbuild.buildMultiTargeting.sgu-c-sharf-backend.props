@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/sgu-c-sharf-backend.props" />
+</Project>

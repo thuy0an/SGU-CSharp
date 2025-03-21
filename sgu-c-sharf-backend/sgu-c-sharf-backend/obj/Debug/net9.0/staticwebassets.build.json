@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "wIo0NfycEpNNWxLA+C9rWd5RRNwGAI9EP5YSlg/iDWI=",
+  "Source": "sgu-c-sharf-backend",
+  "BasePath": "_content/sgu-c-sharf-backend",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}

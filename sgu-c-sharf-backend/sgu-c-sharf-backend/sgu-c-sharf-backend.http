@@ -1,0 +1,6 @@
+@sgu_c_sharf_backend_HostAddress = http://localhost:5244
+
+GET {{sgu_c_sharf_backend_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
