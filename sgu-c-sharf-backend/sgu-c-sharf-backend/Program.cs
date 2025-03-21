@@ -1,13 +1,30 @@
-var builder = WebApplication.CreateBuilder(args);
+using Microsoft.EntityFrameworkCore;
+using MySql.Data.MySqlClient;
+using sgu_c_sharf_backend.Models;
+using sgu_c_sharf_backend.Repositories;
+using sgu_c_sharf_backend.Services;
 
-// Đăng ký các service (giống như @Bean bên Spring)
+var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
+builder.Services.AddScoped<ThanhVienRepository>();
+builder.Services.AddScoped<ThanhVienService>();
+
+// Đăng ký MySqlConnection vào DI Container
+builder.Services.AddTransient<MySqlConnection>(_ =>
+    new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
+
+// Thêm DbContext với MySQL
+// var connectingString = builder.Configuration.GetConnectionString("DefaultConnection");
+// builder.Services.AddDbContext<AppDbContext>(options =>
+//     options.UseMySql(
+//         connectingString,
+//         ServerVersion.AutoDetect(connectingString)// Kiểm tra phiên bản MySQL của bạn
+//     )
+// );
+
 
 var app = builder.Build();
-
-// Thêm middleware (giống như filter trong Spring Boot)
-app.UseHttpsRedirection();
 app.UseAuthorization();
-app.MapControllers(); // Tự động tìm kiếm các Controller
-
+app.MapControllers();
 app.Run();

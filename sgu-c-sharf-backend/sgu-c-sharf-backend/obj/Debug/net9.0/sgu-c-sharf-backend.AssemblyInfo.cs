@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("sgu-c-sharf-backend")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ae7e35d2739045cc839cd4eb3604beb3b0ed84d6")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+8caa720ea609d61837555f32a344902a10ba73f1")]
 [assembly: System.Reflection.AssemblyProductAttribute("sgu-c-sharf-backend")]
 [assembly: System.Reflection.AssemblyTitleAttribute("sgu-c-sharf-backend")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
