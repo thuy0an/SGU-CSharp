@@ -119,5 +119,54 @@ namespace sgu_c_sharf_backend.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, ApiResponse<ThanhVienDetailResponseDto>.Ok(response, "Đăng ký thành công."));
         }
+        
+        
+        [HttpPut("{id}")]
+        public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> UpdateThanhVien(
+            int id,
+            [FromBody] ThanhVienUpdateForm request)
+        {
+            if (request == null)
+            {
+                return BadRequest(ApiResponse<ThanhVienDetailResponseDto>.Fail("Dữ liệu không hợp lệ."));
+            }
+
+            // Tạo đối tượng ThanhVien từ yêu cầu
+            var thanhVien = new ThanhVien
+            {
+                Id = id,
+                HoTen = request.HoTen,
+                NgaySinh = request.NgaySinh,
+                SoDienThoai = request.SoDienThoai,
+                TrangThai = request.TrangThai
+            };
+
+            // Gọi service để cập nhật thành viên
+            var updatedThanhVien = _service.CapNhatThanhVien(thanhVien);
+
+            // Kiểm tra nếu không có thành viên nào được cập nhật
+            if (updatedThanhVien == null)
+            {
+                return StatusCode(500, ApiResponse<ThanhVienDetailResponseDto>.Fail("Không thể cập nhật thông tin thành viên."));
+            }
+
+            // Chuyển đổi đối tượng thành viên thành DTO để trả về
+            ThanhVienDetailResponseDto response = new ThanhVienDetailResponseDto()
+            {
+                Id = updatedThanhVien.Id,
+                HoTen = updatedThanhVien.HoTen,
+                NgaySinh = updatedThanhVien.NgaySinh,
+                Email = updatedThanhVien.Email,
+                SoDienThoai = updatedThanhVien.SoDienThoai,
+                TrangThai = updatedThanhVien.TrangThai,
+                ThoiGianDangKy = updatedThanhVien.ThoiGianDangKy
+            };
+
+            // Trả về ApiResponse với thông báo thành công
+            return Ok(ApiResponse<ThanhVienDetailResponseDto>.Ok(response, "Cập nhật thông tin thành viên thành công."));
+        }
+
+
+        
     }
 }

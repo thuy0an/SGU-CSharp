@@ -38,8 +38,9 @@ namespace sgu_c_sharf_backend.Models.ThanhVien
 
     public enum TrangThaiEnum
     {
-        HOATDONG,
-        DINHCHI,
-        CAM
+        HOATDONG = 0,
+        DINHCHI = 1,
+        CAM = 2
     }
+
 }

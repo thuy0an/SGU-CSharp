@@ -36,5 +36,11 @@ namespace sgu_c_sharf_backend.Services
             // Gọi Repository để thêm mới thành viên
             return _thanhVienRepository.Create(thanhVien);
         }
+        
+        public ThanhVien? CapNhatThanhVien(ThanhVien thanhVien)
+        {
+            // Gọi Repository để thêm mới thành viên
+            return _thanhVienRepository.Update(thanhVien);
+        }
     }
 }

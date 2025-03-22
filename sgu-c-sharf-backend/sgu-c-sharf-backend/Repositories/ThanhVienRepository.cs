@@ -173,6 +173,35 @@ namespace sgu_c_sharf_backend.Repositories
             return null;
         }
 
+        public ThanhVien? Update(ThanhVien thanhVien)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = @"UPDATE ThanhVien 
+                     SET 
+                         HoTen = @HoTen, 
+                         NgaySinh = @NgaySinh, 
+                         SoDienThoai = @SoDienThoai, 
+                         TrangThai = @TrangThai
+                     WHERE Id = @Id";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Id", thanhVien.Id);
+            command.Parameters.AddWithValue("@HoTen", thanhVien.HoTen);
+            command.Parameters.AddWithValue("@NgaySinh", thanhVien.NgaySinh);
+            command.Parameters.AddWithValue("@SoDienThoai", thanhVien.SoDienThoai);
+            
+            // Truyền giá trị enum vào như chuỗi cho MySQL
+            command.Parameters.AddWithValue("@TrangThai", thanhVien.TrangThai.ToString());
+
+
+            int rowsAffected = command.ExecuteNonQuery();
+
+            return rowsAffected > 0 ? thanhVien : null;
+        }
+
+
         
     }
 }
