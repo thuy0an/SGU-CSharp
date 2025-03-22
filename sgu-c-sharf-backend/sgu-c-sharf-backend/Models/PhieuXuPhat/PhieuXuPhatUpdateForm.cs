@@ -15,7 +15,10 @@ namespace sgu_c_sharf_backend.Models.PhieuXuPhat
         public string MoTa { get; set; }
 
         public int? ThoiHanXuPhat { get; set; }
+        
+        public int? IdThanhVien { get; set; }  // Thêm IdThanhVien, cho phép null
 
+        
         public int? MucPhat { get; set; }
     }
 

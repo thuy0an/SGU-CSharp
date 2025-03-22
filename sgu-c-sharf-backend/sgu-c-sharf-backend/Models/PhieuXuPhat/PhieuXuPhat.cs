@@ -20,10 +20,18 @@ namespace sgu_c_sharf_backend.Models.PhieuXuPhat
         [MaxLength(255)]
         public string MoTa { get; set; }
 
-        public int? ThoiHanXuPhat { get; set; }  
+        public int? ThoiHanXuPhat { get; set; }
+
         public int? MucPhat { get; set; }
-       
+
+        // Foreign Key
+        public int? IdThanhVien { get; set; }
+
+        // Navigation property
+        [ForeignKey("IdThanhVien")]
+        public virtual ThanhVien.ThanhVien? ThanhVien { get; set; }
     }
+
     public enum TrangThaiPhieuXuPhatEnum
     {
         CHUA_XU_LY,

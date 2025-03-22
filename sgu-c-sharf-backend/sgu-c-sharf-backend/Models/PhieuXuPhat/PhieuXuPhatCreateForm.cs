@@ -17,6 +17,8 @@ namespace sgu_c_sharf_backend.Models.PhieuXuPhat
         public int? ThoiHanXuPhat { get; set; }
 
         public int? MucPhat { get; set; }
+
+        public int? IdThanhVien { get; set; }  // Thêm IdThanhVien, cho phép null
     }
 
    
