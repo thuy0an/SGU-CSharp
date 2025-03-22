@@ -12,6 +12,8 @@ public class ThanhVienListItemResponseDto
     public string SoDienThoai { get; set; }
 
     public TrangThaiEnum TrangThai { get; set; }
+    
+    public QuyenEnum Quyen { get; set; }
 
     public DateTime ThoiGianDangKy { get; set; } = DateTime.Now;
 }

@@ -17,5 +17,7 @@ public class ThanhVienDetailResponseDto
 
     public TrangThaiEnum TrangThai { get; set; }
     
+    public QuyenEnum Quyen { get; set; }
+    
     public DateTime ThoiGianDangKy { get; set; } = DateTime.Now;
 }
