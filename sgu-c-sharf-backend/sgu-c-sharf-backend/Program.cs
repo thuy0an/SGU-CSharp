@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using sgu_c_sharf_backend.Models;
@@ -13,6 +14,8 @@ builder.Services.AddScoped<ThanhVienService>();
 builder.Services.AddTransient<MySqlConnection>(_ =>
     new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
+
+builder.Services.AddSingleton<IPasswordHasher<object>, PasswordHasher<object>>();
 
 // Thêm DbContext với MySQL
 // var connectingString = builder.Configuration.GetConnectionString("DefaultConnection");

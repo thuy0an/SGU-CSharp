@@ -1,8 +1,10 @@
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using MySql.Data.MySqlClient;
 using sgu_c_sharf_backend.ApiResponse;
 using sgu_c_sharf_backend.Models;
 using sgu_c_sharf_backend.Models.ThanhVien;
+using sgu_c_sharf_backend.Services;
 
 namespace sgu_c_sharf_backend.Repositories
 {
@@ -131,7 +133,7 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     HoTen = reader.GetString("HoTen"),
-                    NgaySinh = reader.GetDateTime(2),
+                    NgaySinh = reader.GetDateTime("NgaySinh"),
                     Email = reader.GetString("Email"),
                     SoDienThoai = reader.GetString("SoDienThoai"),
                     TrangThai = Enum.Parse<TrangThaiEnum>(reader.GetString("TrangThai")),
@@ -142,6 +144,35 @@ namespace sgu_c_sharf_backend.Repositories
 
             return thanhVien;
         }
+        
+        public ThanhVien? Create(ThanhVien thanhVien)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = @"INSERT INTO ThanhVien (HoTen, NgaySinh, Email, SoDienThoai, TrangThai, MatKhau) 
+                     VALUES (@HoTen, @NgaySinh, @Email, @SoDienThoai, @TrangThai, @MatKhau);
+                     SELECT LAST_INSERT_ID();";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@HoTen", thanhVien.HoTen);
+            command.Parameters.AddWithValue("@NgaySinh", thanhVien.NgaySinh);
+            command.Parameters.AddWithValue("@Email", thanhVien.Email);
+            command.Parameters.AddWithValue("@SoDienThoai", thanhVien.SoDienThoai);
+            command.Parameters.AddWithValue("@TrangThai", thanhVien.TrangThai.ToString());
+            command.Parameters.AddWithValue("@MatKhau", thanhVien.MatKhau);
+
+            var id = command.ExecuteScalar();
+            if (id != null)
+            {
+                thanhVien.Id = Convert.ToInt32(id);
+                thanhVien.ThoiGianDangKy = DateTime.Now;
+                return thanhVien;
+            }
+
+            return null;
+        }
+
         
     }
 }

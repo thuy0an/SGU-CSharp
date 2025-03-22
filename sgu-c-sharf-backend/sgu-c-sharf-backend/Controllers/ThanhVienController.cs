@@ -80,11 +80,44 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
 
-        // [HttpPost]
-        // public ActionResult<ApiResponse<ThanhVien>> Register(ThanhVien thanhVien)
-        // {
-        //     _service.RegisterMember(thanhVien);
-        //     return CreatedAtAction(nameof(GetById), new { id = thanhVien.Id }, ApiResponse<ThanhVien>.Ok(thanhVien, "Đăng ký thành công"));
-        // }
+        [HttpPost("register")]
+        public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> AddThanhVien([FromBody] ThanhVienCreateForm request)
+        {
+            if (request == null)
+            {
+                return BadRequest(ApiResponse<ThanhVienDetailResponseDto>.Fail("Dữ liệu không hợp lệ."));
+            }
+
+            var thanhVien = new ThanhVien
+            {
+                HoTen = request.HoTen,
+                NgaySinh = request.NgaySinh,
+                Email = request.Email,
+                SoDienThoai = request.SoDienThoai,
+                TrangThai = TrangThaiEnum.HOATDONG,
+                MatKhau = request.MatKhau // Mật khẩu sẽ được mã hóa trong service
+            };
+
+            var createdThanhVien = _service.AddThanhVien(thanhVien);
+
+            if (createdThanhVien == null)
+            {
+                return StatusCode(500, ApiResponse<ThanhVienDetailResponseDto>.Fail("Không thể thêm thành viên."));
+            }
+
+            // Chuyển đổi sang DTO để trả về
+            ThanhVienDetailResponseDto response = new ThanhVienDetailResponseDto()
+            {
+                Id = createdThanhVien.Id,
+                HoTen = createdThanhVien.HoTen,
+                NgaySinh = createdThanhVien.NgaySinh,
+                Email = createdThanhVien.Email,
+                SoDienThoai = createdThanhVien.SoDienThoai,
+                TrangThai = createdThanhVien.TrangThai,
+                ThoiGianDangKy = createdThanhVien.ThoiGianDangKy
+            };
+
+            return CreatedAtAction(nameof(GetById), new { id = response.Id }, ApiResponse<ThanhVienDetailResponseDto>.Ok(response, "Đăng ký thành công."));
+        }
     }
 }
