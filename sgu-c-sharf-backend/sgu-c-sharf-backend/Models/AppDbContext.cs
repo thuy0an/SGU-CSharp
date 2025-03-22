@@ -1,7 +1,7 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace sgu_c_sharf_backend.Models
+namespace sgu_c_sharf_backend.Models.ThanhVien
 {
     public class AppDbContext : DbContext
     {

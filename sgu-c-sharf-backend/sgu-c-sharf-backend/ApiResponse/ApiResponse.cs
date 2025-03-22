@@ -1,26 +1,26 @@
-namespace sgu_c_sharf_backend.Models
+namespace sgu_c_sharf_backend.ApiResponse
 {
     public class ApiResponse<T>
     {
-        public bool Success { get; set; }
+        public int Status { get; set; }
         public string Message { get; set; }
         public T Data { get; set; }
 
-        private ApiResponse(bool success, T data, string message)
+        private ApiResponse(int status, T data, string message)
         {
-            Success = success;
+            Status = status;
             Data = data;
             Message = message;
         }
 
         public static ApiResponse<T> Ok(T data, string message = "Thành công")
         {
-            return new ApiResponse<T>(true, data, message);
+            return new ApiResponse<T>(200,  data, message);
         }
 
-        public static ApiResponse<T> Fail(string message)
+        public static ApiResponse<T?> Fail(string message)
         {
-            return new ApiResponse<T>(false, default, message);
+            return new ApiResponse<T?>(400, default, message);
         }
     }
 }
