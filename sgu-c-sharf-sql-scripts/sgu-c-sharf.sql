@@ -10,7 +10,6 @@ CREATE TABLE IF NOT EXISTS `ThanhVien` (
     `Email` NVARCHAR(255) NOT NULL UNIQUE,
     `SoDienThoai` NVARCHAR(10) NOT NULL,
     `TrangThai` ENUM('HOATDONG', 'DINHCHI', 'CAM') NOT NULL,
-    `Quyen`		ENUM ('USER', 'ADMIN') NOT NULL,
     `MatKhau` NVARCHAR(255) NOT NULL,
     `ThoiGianDangKy` DATETIME NOT NULL DEFAULT NOW()
 );
@@ -34,8 +33,7 @@ CREATE TABLE IF NOT EXISTS `PhieuXuPhat` (
 DROP TABLE IF EXISTS `LoaiThietBi`;
 CREATE TABLE IF NOT EXISTS `LoaiThietBi` (
     `Id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `TenLoaiThietBi` NVARCHAR(255) NOT NULL,
-    `DaXoa` TINYINT(1) NOT NULL DEFAULT 0  -- 0: chưa xóa, 1: đã xóa
+    `TenLoaiThietBi` NVARCHAR(255) NOT NULL
 );
 
 DROP TABLE IF EXISTS `ThietBi`;
@@ -43,10 +41,8 @@ CREATE TABLE IF NOT EXISTS `ThietBi` (
     `Id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `TenThietBi` NVARCHAR(255) NOT NULL,
     `IdLoaiThietBi` INT UNSIGNED NOT NULL,
-    `DaXoa` TINYINT(1) NOT NULL DEFAULT 0, -- 0: chưa xóa, 1: đã xóa
     FOREIGN KEY (`IdLoaiThietBi`) REFERENCES `LoaiThietBi`(`Id`)
 );
-
 
 DROP TABLE IF EXISTS `DauThietBi`;
 CREATE TABLE IF NOT EXISTS `DauThietBi` (
@@ -104,13 +100,13 @@ CREATE TABLE IF NOT EXISTS `ChiTietPhieuMuon` (
 );
 
 -- Thêm dữ liệu vào bảng ThanhVien
-INSERT INTO ThanhVien (HoTen, NgaySinh, Email, SoDienThoai, TrangThai, MatKhau, ThoiGianDangKy, Quyen) VALUES
-('Ngô Tuấn Hưng', '2004-11-11', 'hung@gmail.com', '0987654321', 'HOATDONG', '123456', NOW(), "ADMIN"),
-('Nguyễn Minh Phúc', '2004-11-01', 'phuc@gmail.com', '0978123456', 'HOATDONG', '123456', NOW(), "USER"),
-('Trần Văn Khánh', '2004-12-05', 'khanh@gmail.com', '0978567890', 'HOATDONG', '123456', NOW(), "USER"),
-('Đỗ Anh Đài', '2004-10-21', 'dai@gmail.com', '0978124444', 'DINHCHI', '123456', NOW(), "USER"),
-('Diệp Thụy An', '2004-08-18', 'an@gmail.com', '0967987654', 'CAM', '123456', NOW(), "USER");
-
+INSERT INTO ThanhVien (HoTen, NgaySinh, Email, SoDienThoai, TrangThai, MatKhau, ThoiGianDangKy) VALUES
+('Ngô Tuấn Hưng', '2004-11-11', 'hung@gmail.com', '0987654321', 'HOATDONG', '123456', NOW()),
+('Nguyễn Minh Phúc', '2004-11-01', 'phuc@gmail.com', '0978123456', 'HOATDONG', '123456', NOW()),1
+('Trần Văn Khánh', '2004-12-05', 'khanh@gmail.com', '0978567890', 'HOATDONG', '123456', NOW()),
+('Đỗ Anh Đài', '2004-10-21', 'dai@gmail.com', '0978124444', 'DINHCHI', '123456', NOW()),
+('Diệp Thụy An', '2004-08-18', 'an@gmail.com', '0967987654', 'CAM', '123456', NOW());
+3
 -- Thêm dữ liệu vào bảng CheckIn
 INSERT INTO CheckIn (ThoiGianCheckIn) VALUES
 ('2025-03-19 08:00:00'),
@@ -128,26 +124,25 @@ INSERT INTO PhieuXuPhat (TrangThai, NgayViPham, MoTa, ThoiHanXuPhat, MucPhat) VA
 ('CHUA_XU_LY', '2025-03-19 08:30:00', 'Không check-in đúng giờ', 2, 100000);
 
 -- Thêm dữ liệu vào bảng LoaiThietBi
-INSERT INTO LoaiThietBi (TenLoaiThietBi, DaXoa) VALUES
-('Máy tính', 0),
-('Máy chiếu', 0),
-('Loa', 0),
-('Máy in', 0),
-('Cáp kết nối', 0);
+INSERT INTO LoaiThietBi (TenLoaiThietBi) VALUES
+('Máy tính'),
+('Máy chiếu'),
+('Loa'),
+('Máy in'),
+('Cáp kết nối');
 
 -- Thêm dữ liệu vào bảng ThietBi
-INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi, DaXoa) VALUES
-('Laptop Dell XPS', 1, 0),
-('Laptop HP EliteBook', 1, 0),
-('Máy chiếu Sony', 2, 0),
-('Máy chiếu Epson', 2, 0),
-('Loa Bluetooth JBL', 3, 0),
-('Loa Sony SRS', 3, 0),
-('Máy in HP LaserJet', 4, 0),
-('Máy in Canon Pixma', 4, 0),
-('Cáp HDMI 2m', 5, 0),
-('Cáp USB-C 1m', 5, 0);
-
+INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi) VALUES
+('Laptop Dell XPS', 1),
+('Laptop HP EliteBook', 1),
+('Máy chiếu Sony', 2),
+('Máy chiếu Epson', 2),
+('Loa Bluetooth JBL', 3),
+('Loa Sony SRS', 3),
+('Máy in HP LaserJet', 4),
+('Máy in Canon Pixma', 4),
+('Cáp HDMI 2m', 5),
+('Cáp USB-C 1m', 5);
 
 -- Thêm dữ liệu vào bảng DauThietBi
 INSERT INTO DauThietBi (TrangThai, ThoiGianMua, IdThietBi) VALUES

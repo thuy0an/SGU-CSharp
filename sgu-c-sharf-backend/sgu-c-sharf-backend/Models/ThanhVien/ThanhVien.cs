@@ -27,6 +27,9 @@ namespace sgu_c_sharf_backend.Models.ThanhVien
 
         [Required]
         public TrangThaiEnum TrangThai { get; set; }
+        
+        [Required]
+        public QuyenEnum Quyen { get; set; }
 
         [Required]
         [MaxLength(255)]
@@ -41,6 +44,12 @@ namespace sgu_c_sharf_backend.Models.ThanhVien
         HOATDONG = 0,
         DINHCHI = 1,
         CAM = 2
+    }
+    
+    public enum QuyenEnum
+    {
+        ADMIN= 0,
+        USER = 1
     }
 
 }

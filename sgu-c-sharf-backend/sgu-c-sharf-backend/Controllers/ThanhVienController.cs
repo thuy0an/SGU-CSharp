@@ -37,7 +37,8 @@ namespace sgu_c_sharf_backend.Controllers
                     Email = tv.Email,
                     SoDienThoai = tv.SoDienThoai,
                     TrangThai = tv.TrangThai,
-                    ThoiGianDangKy = tv.ThoiGianDangKy
+                    ThoiGianDangKy = tv.ThoiGianDangKy,
+                    Quyen = tv.Quyen,
                 })
                 .ToList();
 
@@ -73,7 +74,8 @@ namespace sgu_c_sharf_backend.Controllers
                 NgaySinh = thanhVien.NgaySinh,
                 SoDienThoai = thanhVien.SoDienThoai,
                 TrangThai = thanhVien.TrangThai,
-                ThoiGianDangKy = thanhVien.ThoiGianDangKy
+                ThoiGianDangKy = thanhVien.ThoiGianDangKy,
+                Quyen = thanhVien.Quyen,
             };
 
             return Ok(ApiResponse<ThanhVienDetailResponseDto>.Ok(dto, "Lấy thông tin thành viên thành công"));
@@ -95,6 +97,7 @@ namespace sgu_c_sharf_backend.Controllers
                 Email = request.Email,
                 SoDienThoai = request.SoDienThoai,
                 TrangThai = TrangThaiEnum.HOATDONG,
+                Quyen = QuyenEnum.USER,
                 MatKhau = request.MatKhau // Mật khẩu sẽ được mã hóa trong service
             };
 
