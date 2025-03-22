@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace sgu_c_sharf_backend.Models // Thay 'YourNamespace' bằng namespace thực tế của bạn
+namespace sgu_c_sharf_backend.Models.ThietBi
 {
+    [Table("DauThietBi")]
     public class DauThietBi
     {
         [Key]
@@ -19,10 +20,8 @@ namespace sgu_c_sharf_backend.Models // Thay 'YourNamespace' bằng namespace th
         [ForeignKey("ThietBi")]
         public int IdThietBi { get; set; }
 
-        public virtual ThietBi ThietBi { get; set; } // Navigation property
+        public virtual Models.ThietBi.ThietBi ThietBi { get; set; } // Navigation property
     }
-
-    // Định nghĩa Enum tương ứng với ENUM trong database
     public enum TrangThaiDauThietBiEnum
     {
         KHADUNG,

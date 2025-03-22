@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace sgu_c_sharf_backend.Models // Thay 'YourNamespace' bằng namespace thực tế của bạn
+namespace sgu_c_sharf_backend.Models.ThietBi
 {
+    [Table("LoaiThietBi")]
     public class LoaiThietBi
     {
         [Key]
@@ -10,8 +11,10 @@ namespace sgu_c_sharf_backend.Models // Thay 'YourNamespace' bằng namespace th
         public int Id { get; set; }
 
         [Required]
-        [StringLength(255)]
+        [MaxLength(255)]
         public string TenLoaiThietBi { get; set; }
-        
+
+        [Required]
+        public bool DaXoa { get; set; } = false;
     }
 }
