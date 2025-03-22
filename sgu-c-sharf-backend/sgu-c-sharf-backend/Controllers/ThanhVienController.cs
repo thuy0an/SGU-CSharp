@@ -54,22 +54,32 @@ namespace sgu_c_sharf_backend.Controllers
             ));
         }
 
+        
+
+        [HttpGet("{id}")]
+        public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> GetById(int id)
+        {
+            ThanhVien? thanhVien = _service.GetById(id);
+            if (thanhVien == null)
+            {
+                return NotFound(ApiResponse<ThanhVienDetailResponseDto>.Fail("Không tìm thấy thành viên!"));
+            }
+
+            ThanhVienDetailResponseDto dto = new ThanhVienDetailResponseDto
+            {
+                Id = thanhVien.Id,
+                HoTen = thanhVien.HoTen,
+                Email = thanhVien.Email,
+                NgaySinh = thanhVien.NgaySinh,
+                SoDienThoai = thanhVien.SoDienThoai,
+                TrangThai = thanhVien.TrangThai,
+                ThoiGianDangKy = thanhVien.ThoiGianDangKy
+            };
+
+            return Ok(ApiResponse<ThanhVienDetailResponseDto>.Ok(dto, "Lấy thông tin thành viên thành công"));
+        }
 
 
-
-
-
-
-        // [HttpGet("{id}")]
-        // public ActionResult<ApiResponse<ThanhVien>> GetById(int id)
-        // {
-        //     var thanhVien = _service.GetMemberById(id);
-        //     if (thanhVien == null)
-        //         return NotFound(ApiResponse<ThanhVien>.Fail("Thành viên không tồn tại."));
-        //
-        //     return Ok(ApiResponse<ThanhVien>.Ok(thanhVien));
-        // }
-        //
         // [HttpPost]
         // public ActionResult<ApiResponse<ThanhVien>> Register(ThanhVien thanhVien)
         // {

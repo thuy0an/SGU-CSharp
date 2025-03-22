@@ -100,7 +100,7 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     HoTen = reader.GetString("HoTen"),
-                    NgaySinh = reader.GetDateTime("NgaySinh"),
+                    NgaySinh = reader.GetDateTime("NgaySInh"),
                     Email = reader.GetString("Email"),
                     SoDienThoai = reader.GetString("SoDienThoai"),
                     TrangThai = Enum.Parse<TrangThaiEnum>(reader.GetString("TrangThai")),
@@ -112,53 +112,36 @@ namespace sgu_c_sharf_backend.Repositories
             return new PagedResult<ThanhVien>(members, totalRecords, pageNumber, pageSize);
         }
 
-        
         public ThanhVien? GetById(int id)
         {
+            ThanhVien? thanhVien = null;
+
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            using var command = new MySqlCommand("SELECT * FROM ThanhVien WHERE Id = @id", connection);
-            command.Parameters.AddWithValue("@id", id);
-            
+            string query = "SELECT Id, HoTen, NgaySinh, Email, SoDienThoai, TrangThai, MatKhau, ThoiGianDangKy FROM ThanhVien WHERE Id = @Id";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Id", id);
+
             using var reader = command.ExecuteReader();
             if (reader.Read())
             {
-                return new ThanhVien
+                thanhVien = new ThanhVien
                 {
                     Id = reader.GetInt32("Id"),
                     HoTen = reader.GetString("HoTen"),
-                    NgaySinh = reader.GetDateTime("NgaySinh"),
+                    NgaySinh = reader.GetDateTime(2),
                     Email = reader.GetString("Email"),
                     SoDienThoai = reader.GetString("SoDienThoai"),
-                    TrangThai = Enum.Parse<TrangThaiEnum>(reader.GetString("TrangThai")) ,
+                    TrangThai = Enum.Parse<TrangThaiEnum>(reader.GetString("TrangThai")),
                     MatKhau = reader.GetString("MatKhau"),
                     ThoiGianDangKy = reader.GetDateTime("ThoiGianDangKy")
                 };
             }
 
-            return null;
+            return thanhVien;
         }
-
-        public void Create(ThanhVien thanhVien)
-        {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            using var command = new MySqlCommand(
-                "INSERT INTO ThanhVien (HoTen, NgaySinh, Email, SoDienThoai, TrangThai, MatKhau, ThoiGianDangKy) " +
-                "VALUES (@HoTen, @NgaySinh, @Email, @SoDienThoai, @TrangThai, @MatKhau, @ThoiGianDangKy)", 
-                connection);
-
-            command.Parameters.AddWithValue("@HoTen", thanhVien.HoTen);
-            command.Parameters.AddWithValue("@NgaySinh", thanhVien.NgaySinh);
-            command.Parameters.AddWithValue("@Email", thanhVien.Email);
-            command.Parameters.AddWithValue("@SoDienThoai", thanhVien.SoDienThoai);
-            command.Parameters.AddWithValue("@TrangThai", (int)thanhVien.TrangThai);
-            command.Parameters.AddWithValue("@MatKhau", thanhVien.MatKhau);
-            command.Parameters.AddWithValue("@ThoiGianDangKy", thanhVien.ThoiGianDangKy);
-
-            command.ExecuteNonQuery();
-        }
+        
     }
 }

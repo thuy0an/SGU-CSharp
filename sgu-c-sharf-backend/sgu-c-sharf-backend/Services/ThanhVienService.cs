@@ -19,8 +19,10 @@ namespace sgu_c_sharf_backend.Services
             return _thanhVienRepository.GetAll(pageNumber, pageSize, search, status, sortBy, sortDirection);
         }
 
-        // public ThanhVien? GetMemberById(int id) => _thanhVienRepository.GetById(id);
-        //
+        public ThanhVien? GetById(int id)
+        {
+            return _thanhVienRepository.GetById(id);
+        }
         // public void RegisterMember(ThanhVien thanhVien) => _thanhVienRepository.Create(thanhVien);
     }
 }
