@@ -22,7 +22,7 @@ namespace sgu_c_sharf_backend.Repositories
             var members = new List<ThanhVien>();
             int totalRecords = 0;
 
-            using var connection = new MySqlConnection(_connectionString);
+            using var connection = new MySqlConnection(_connectionString);  
             connection.Open();
 
             // Xây dựng câu truy vấn COUNT(*) để lấy tổng số bản ghi theo bộ lọc

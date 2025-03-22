@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/opt/lampp/htdocs/SGU-C-Sharf/sgu-c-sharf-backend/sgu-c-sharf-backend/sgu-c-sharf-backend.csproj": {}
+    "D:\\git\\SGU-C-Sharf\\sgu-c-sharf-backend\\sgu-c-sharf-backend\\sgu-c-sharf-backend.csproj": {}
   },
   "projects": {
-    "/opt/lampp/htdocs/SGU-C-Sharf/sgu-c-sharf-backend/sgu-c-sharf-backend/sgu-c-sharf-backend.csproj": {
+    "D:\\git\\SGU-C-Sharf\\sgu-c-sharf-backend\\sgu-c-sharf-backend\\sgu-c-sharf-backend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/opt/lampp/htdocs/SGU-C-Sharf/sgu-c-sharf-backend/sgu-c-sharf-backend/sgu-c-sharf-backend.csproj",
+        "projectUniqueName": "D:\\git\\SGU-C-Sharf\\sgu-c-sharf-backend\\sgu-c-sharf-backend\\sgu-c-sharf-backend.csproj",
         "projectName": "sgu-c-sharf-backend",
-        "projectPath": "/opt/lampp/htdocs/SGU-C-Sharf/sgu-c-sharf-backend/sgu-c-sharf-backend/sgu-c-sharf-backend.csproj",
-        "packagesPath": "/home/thug/.nuget/packages/",
-        "outputPath": "/opt/lampp/htdocs/SGU-C-Sharf/sgu-c-sharf-backend/sgu-c-sharf-backend/obj/",
+        "projectPath": "D:\\git\\SGU-C-Sharf\\sgu-c-sharf-backend\\sgu-c-sharf-backend\\sgu-c-sharf-backend.csproj",
+        "packagesPath": "C:\\Users\\Lap4all\\.nuget\\packages\\",
+        "outputPath": "D:\\git\\SGU-C-Sharf\\sgu-c-sharf-backend\\sgu-c-sharf-backend\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/home/thug/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Lap4all\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net9.0"
@@ -38,7 +38,7 @@
           "auditLevel": "low",
           "auditMode": "direct"
         },
-        "SdkAnalysisLevel": "9.0.100"
+        "SdkAnalysisLevel": "9.0.200"
       },
       "frameworks": {
         "net9.0": {
@@ -86,12 +86,6 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "downloadDependencies": [
-            {
-              "name": "Microsoft.AspNetCore.App.Ref",
-              "version": "[9.0.3, 9.0.3]"
-            }
-          ],
           "frameworkReferences": {
             "Microsoft.AspNetCore.App": {
               "privateAssets": "none"
@@ -100,7 +94,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.104/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.201/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
