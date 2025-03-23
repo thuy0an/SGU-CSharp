@@ -1,90 +1,128 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Text;
+using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-using sgu_c_sharf_backend.Interfaces;
 using sgu_c_sharf_backend.Models;
 using sgu_c_sharf_backend.Models.ThietBi;
 
 namespace sgu_c_sharf_backend.Repositories
 {
-    public class DauThietBiRepository : IDauThietBiRepository
+    public class DauThietBiRepository
     {
         private readonly string _connectionString;
-        private IDauThietBiRepository _dauThietBiRepositoryImplementation;
 
         public DauThietBiRepository(IConfiguration configuration)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public DauThietBi GetById(int id)
+        public DauThietBi? GetById(int id)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            DauThietBi? dauThietBi = null;
+
+            try
             {
+                using var connection = new MySqlConnection(_connectionString);
                 connection.Open();
-                string sql = "SELECT Id, TrangThai, ThoiGianMua, IdThietBi FROM DauThietBi WHERE Id = @Id";
-                MySqlCommand command = new MySqlCommand(sql, connection);
+
+                string query = @"
+                    SELECT 
+                        DB.Id, 
+                        DB.TrangThai, 
+                        DB.ThoiGianMua, 
+                        DB.IdThietBi,
+                        TB.TenThietBi, 
+                        LTB.TenLoaiThietBi
+                    FROM DauThietBi DB
+                    INNER JOIN ThietBi TB ON DB.IdThietBi = TB.Id
+                    INNER JOIN LoaiThietBi LTB ON TB.IdLoaiThietBi = LTB.Id
+                    WHERE DB.Id = @Id";
+
+                using var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Id", id);
 
-                using (MySqlDataReader reader = command.ExecuteReader())
+                using var reader = command.ExecuteReader();
+                if (reader.Read())
                 {
-                    if (reader.Read())
+                    dauThietBi = new DauThietBi
                     {
-                        if (Enum.TryParse(reader["TrangThai"].ToString(), out TrangThaiDauThietBiEnum trangThai))
+                        Id = reader.GetInt32("Id"),
+                        TrangThai = Enum.Parse<TrangThaiDauThietBiEnum>(reader.GetString("TrangThai")),
+                        ThoiGianMua = reader.GetDateTime("ThoiGianMua"),
+                        IdThietBi = reader.GetInt32("IdThietBi"),
+                        ThietBi = new ThietBi
                         {
-                            return new DauThietBi
+                            Id = reader.GetInt32("IdThietBi"), //Lấy luôn ID thiết bị
+                            TenThietBi = reader.GetString("TenThietBi"),
+                            LoaiThietBi = new LoaiThietBi
                             {
-                                Id = Convert.ToInt32(reader["Id"]),
-                                TrangThai = trangThai,
-                                ThoiGianMua = Convert.ToDateTime(reader["ThoiGianMua"]),
-                                IdThietBi = Convert.ToInt32(reader["IdThietBi"])
-                            };
+                                TenLoaiThietBi = reader.GetString("TenLoaiThietBi")
+                            }
                         }
-                        else
-                        {
-                            // Log lỗi hoặc xử lý trường hợp enum không hợp lệ
-                            Console.WriteLine($"Giá trị enum không hợp lệ: {reader["TrangThai"]}");
-                            return null; // Hoặc throw exception
-                        }
-                    }
-
-                    return null;
+                    };
                 }
             }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                Console.WriteLine($"Lỗi khi lấy DauThietBi theo ID: {ex.Message}");
+                return null; // Hoặc throw
+            }
+
+            return dauThietBi;
         }
 
         public IEnumerable<DauThietBi> GetAll()
         {
             List<DauThietBi> dauThietBis = new List<DauThietBi>();
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-                string sql = "SELECT Id, TrangThai, ThoiGianMua, IdThietBi FROM DauThietBi";
-                MySqlCommand command = new MySqlCommand(sql, connection);
 
-                using (MySqlDataReader reader = command.ExecuteReader())
+            try
+            {
+                using var connection = new MySqlConnection(_connectionString);
+                connection.Open();
+
+                string query = @"
+                    SELECT 
+                        DB.Id, 
+                        DB.TrangThai, 
+                        DB.ThoiGianMua, 
+                        DB.IdThietBi,
+                        TB.TenThietBi, 
+                        LTB.TenLoaiThietBi
+                    FROM DauThietBi DB
+                    INNER JOIN ThietBi TB ON DB.IdThietBi = TB.Id
+                    INNER JOIN LoaiThietBi LTB ON TB.IdLoaiThietBi = LTB.Id";
+
+                using var command = new MySqlCommand(query, connection);
+
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    dauThietBis.Add(new DauThietBi
                     {
-                        if (Enum.TryParse(reader["TrangThai"].ToString(), out TrangThaiDauThietBiEnum trangThai))
+                        Id = reader.GetInt32("Id"),
+                        TrangThai = Enum.Parse<TrangThaiDauThietBiEnum>(reader.GetString("TrangThai")),
+                        ThoiGianMua = reader.GetDateTime("ThoiGianMua"),
+                        IdThietBi = reader.GetInt32("IdThietBi"),
+                         ThietBi = new ThietBi
                         {
-                            dauThietBis.Add(new DauThietBi
+                            Id = reader.GetInt32("IdThietBi"), //Lấy luôn ID thiết bị
+                            TenThietBi = reader.GetString("TenThietBi"),
+                            LoaiThietBi = new LoaiThietBi
                             {
-                                Id = Convert.ToInt32(reader["Id"]),
-                                TrangThai = trangThai,
-                                ThoiGianMua = Convert.ToDateTime(reader["ThoiGianMua"]),
-                                IdThietBi = Convert.ToInt32(reader["IdThietBi"])
-                            });
+                                TenLoaiThietBi = reader.GetString("TenLoaiThietBi")
+                            }
                         }
-                        else
-                        {
-                            // Log lỗi hoặc xử lý trường hợp enum không hợp lệ
-                            Console.WriteLine($"Giá trị enum không hợp lệ: {reader["TrangThai"]}");
-                            continue; // Hoặc throw exception
-                        }
-                    }
+                    });
                 }
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                Console.WriteLine($"Lỗi khi lấy danh sách DauThietBi: {ex.Message}");
+                return new List<DauThietBi>(); // Hoặc throw
             }
 
             return dauThietBis;
@@ -92,101 +130,135 @@ namespace sgu_c_sharf_backend.Repositories
 
         public void Add(DauThietBiCreateForm dauThietBiCreateForm)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            try
             {
+                using var connection = new MySqlConnection(_connectionString);
                 connection.Open();
-                string sql =
-                    "INSERT INTO DauThietBi (TrangThai, ThoiGianMua, IdThietBi) VALUES (@TrangThai, @ThoiGianMua, @IdThietBi)";
-                MySqlCommand command = new MySqlCommand(sql, connection);
+
+                string query = @"INSERT INTO DauThietBi (TrangThai, ThoiGianMua, IdThietBi) 
+                                VALUES (@TrangThai, @ThoiGianMua, @IdThietBi)";
+
+                using var command = new MySqlCommand(query, connection);
                 command.Parameters.AddWithValue("@TrangThai", dauThietBiCreateForm.TrangThai.ToString());
                 command.Parameters.AddWithValue("@ThoiGianMua", dauThietBiCreateForm.ThoiGianMua);
                 command.Parameters.AddWithValue("@IdThietBi", dauThietBiCreateForm.IdThietBi);
+
                 command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                Console.WriteLine($"Lỗi khi thêm DauThietBi: {ex.Message}");
+                // Hoặc throw
             }
         }
 
         public void Update(DauThietBiUpdateForm dauThietBiUpdateForm)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            try
             {
+                using var connection = new MySqlConnection(_connectionString);
                 connection.Open();
-                string sql =
-                    "UPDATE DauThietBi SET TrangThai = @TrangThai, ThoiGianMua = @ThoiGianMua, IdThietBi = @IdThietBi WHERE Id = @Id";
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@Id", dauThietBiUpdateForm.IdThietBi); // Sử dụng ID truyền vào
+
+                string query = @"UPDATE DauThietBi 
+                                SET TrangThai = @TrangThai, 
+                                    ThoiGianMua = @ThoiGianMua, 
+                                    IdThietBi = @IdThietBi 
+                                WHERE Id = @Id";
+
+                using var command = new MySqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", dauThietBiUpdateForm.Id); //Use the ID from the form
                 command.Parameters.AddWithValue("@TrangThai", dauThietBiUpdateForm.TrangThai.ToString());
                 command.Parameters.AddWithValue("@ThoiGianMua", dauThietBiUpdateForm.ThoiGianMua);
                 command.Parameters.AddWithValue("@IdThietBi", dauThietBiUpdateForm.IdThietBi);
+
                 command.ExecuteNonQuery();
+            }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                Console.WriteLine($"Lỗi khi cập nhật DauThietBi: {ex.Message}");
+                // Hoặc throw
             }
         }
 
-        public IEnumerable<DauThietBi> Search(string trangThai, DateTime? thoiGianMuaStart, DateTime? thoiGianMuaEnd,
-            int? idThietBi)
+        public IEnumerable<DauThietBi> Search(string? trangThai, DateTime? thoiGianMuaStart, DateTime? thoiGianMuaEnd, int? idThietBi)
         {
             List<DauThietBi> dauThietBis = new List<DauThietBi>();
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+
+            try
             {
+                using var connection = new MySqlConnection(_connectionString);
                 connection.Open();
 
-                string sql = "SELECT Id, TrangThai, ThoiGianMua, IdThietBi FROM DauThietBi WHERE 1=1";
-                List<string> conditions = new List<string>();
+                StringBuilder queryBuilder = new StringBuilder(@"
+                    SELECT 
+                        DB.Id, 
+                        DB.TrangThai, 
+                        DB.ThoiGianMua, 
+                        DB.IdThietBi,
+                        TB.TenThietBi, 
+                        LTB.TenLoaiThietBi
+                    FROM DauThietBi DB
+                    INNER JOIN ThietBi TB ON DB.IdThietBi = TB.Id
+                    INNER JOIN LoaiThietBi LTB ON TB.IdLoaiThietBi = LTB.Id
+                    WHERE 1=1");
+
                 List<MySqlParameter> parameters = new List<MySqlParameter>();
 
                 if (!string.IsNullOrEmpty(trangThai))
                 {
-                    conditions.Add("TrangThai = @TrangThai");
+                    queryBuilder.Append(" AND DB.TrangThai = @TrangThai");
                     parameters.Add(new MySqlParameter("@TrangThai", trangThai));
                 }
 
                 if (thoiGianMuaStart.HasValue)
                 {
-                    conditions.Add("ThoiGianMua >= @ThoiGianMuaStart");
+                    queryBuilder.Append(" AND DB.ThoiGianMua >= @ThoiGianMuaStart");
                     parameters.Add(new MySqlParameter("@ThoiGianMuaStart", thoiGianMuaStart.Value));
                 }
 
                 if (thoiGianMuaEnd.HasValue)
                 {
-                    conditions.Add("ThoiGianMua <= @ThoiGianMuaEnd");
+                    queryBuilder.Append(" AND DB.ThoiGianMua <= @ThoiGianMuaEnd");
                     parameters.Add(new MySqlParameter("@ThoiGianMuaEnd", thoiGianMuaEnd.Value));
                 }
 
                 if (idThietBi.HasValue)
                 {
-                    conditions.Add("IdThietBi = @IdThietBi");
+                    queryBuilder.Append(" AND DB.IdThietBi = @IdThietBi");
                     parameters.Add(new MySqlParameter("@IdThietBi", idThietBi.Value));
                 }
 
-                if (conditions.Count > 0)
-                {
-                    sql += " AND " + string.Join(" AND ", conditions);
-                }
-
-                MySqlCommand command = new MySqlCommand(sql, connection);
+                using var command = new MySqlCommand(queryBuilder.ToString(), connection);
                 command.Parameters.AddRange(parameters.ToArray());
 
-                using (MySqlDataReader reader = command.ExecuteReader())
+                using var reader = command.ExecuteReader();
+                while (reader.Read())
                 {
-                    while (reader.Read())
+                    dauThietBis.Add(new DauThietBi
                     {
-                        if (Enum.TryParse(reader["TrangThai"].ToString(), out TrangThaiDauThietBiEnum trangThaiEnum))
+                        Id = reader.GetInt32("Id"),
+                        TrangThai = Enum.Parse<TrangThaiDauThietBiEnum>(reader.GetString("TrangThai")),
+                        ThoiGianMua = reader.GetDateTime("ThoiGianMua"),
+                        IdThietBi = reader.GetInt32("IdThietBi"),
+                         ThietBi = new ThietBi
                         {
-                            dauThietBis.Add(new DauThietBi
+                            Id = reader.GetInt32("IdThietBi"), //Lấy luôn ID thiết bị
+                            TenThietBi = reader.GetString("TenThietBi"),
+                            LoaiThietBi = new LoaiThietBi
                             {
-                                Id = Convert.ToInt32(reader["Id"]),
-                                TrangThai = trangThaiEnum,
-                                ThoiGianMua = Convert.ToDateTime(reader["ThoiGianMua"]),
-                                IdThietBi = Convert.ToInt32(reader["IdThietBi"])
-                            });
+                                TenLoaiThietBi = reader.GetString("TenLoaiThietBi")
+                            }
                         }
-                        else
-                        {
-                            // Log lỗi hoặc xử lý trường hợp enum không hợp lệ
-                            Console.WriteLine($"Giá trị enum không hợp lệ: {reader["TrangThai"]}");
-                            continue; // Hoặc throw exception
-                        }
-                    }
+                    });
                 }
+            }
+             catch (Exception ex)
+            {
+                // Ghi log lỗi
+                Console.WriteLine($"Lỗi khi tìm kiếm DauThietBi: {ex.Message}");
+                return new List<DauThietBi>(); // Hoặc throw
             }
 
             return dauThietBis;
@@ -197,68 +269,70 @@ namespace sgu_c_sharf_backend.Repositories
             DateTime? thoiGianMuaStartCondition,
             DateTime? thoiGianMuaEndCondition,
             int? idThietBiCondition,
-            DauThietBiUpdateForm? updateValues)
+            DauThietBiUpdateForm updateValues)
         {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+             int rowsAffected = 0;
+            try
             {
+                using var connection = new MySqlConnection(_connectionString);
                 connection.Open();
 
-                string sql = "UPDATE DauThietBi SET ";
+                StringBuilder queryBuilder = new StringBuilder("UPDATE DauThietBi SET ");
                 List<string> setClauses = new List<string>();
-                List<string> whereClauses = new List<string>();
                 List<MySqlParameter> parameters = new List<MySqlParameter>();
 
-                // Xây dựng mệnh đề SET
-                setClauses.Add("TrangThai = @NewTrangThai");
-                parameters.Add(new MySqlParameter("@NewTrangThai", updateValues.TrangThai.ToString()));
+                if (updateValues != null)
+                {
+                    setClauses.Add("TrangThai = @NewTrangThai");
+                    parameters.Add(new MySqlParameter("@NewTrangThai", updateValues.TrangThai.ToString()));
 
+                    setClauses.Add("ThoiGianMua = @NewThoiGianMua");
+                    parameters.Add(new MySqlParameter("@NewThoiGianMua", updateValues.ThoiGianMua));
 
-                setClauses.Add("ThoiGianMua = @NewThoiGianMua");
-                parameters.Add(new MySqlParameter("@NewThoiGianMua", updateValues.ThoiGianMua));
+                    setClauses.Add("IdThietBi = @NewIdThietBi");
+                    parameters.Add(new MySqlParameter("@NewIdThietBi", updateValues.IdThietBi));
+                }
 
+                queryBuilder.Append(string.Join(", ", setClauses));
 
-                setClauses.Add("IdThietBi = @NewIdThietBi");
-                parameters.Add(new MySqlParameter("@NewIdThietBi", updateValues.IdThietBi));
+                queryBuilder.Append(" WHERE 1=1");
 
-
-                sql += string.Join(", ", setClauses);
-
-                // Xây dựng mệnh đề WHERE
-                sql += " WHERE 1=1";
                 if (!string.IsNullOrEmpty(trangThaiCondition))
                 {
-                    whereClauses.Add("TrangThai = @TrangThaiCondition");
+                    queryBuilder.Append(" AND TrangThai = @TrangThaiCondition");
                     parameters.Add(new MySqlParameter("@TrangThaiCondition", trangThaiCondition));
                 }
 
                 if (thoiGianMuaStartCondition.HasValue)
                 {
-                    whereClauses.Add("ThoiGianMua >= @ThoiGianMuaStartCondition");
+                    queryBuilder.Append(" AND ThoiGianMua >= @ThoiGianMuaStartCondition");
                     parameters.Add(new MySqlParameter("@ThoiGianMuaStartCondition", thoiGianMuaStartCondition.Value));
                 }
 
                 if (thoiGianMuaEndCondition.HasValue)
                 {
-                    whereClauses.Add("ThoiGianMua <= @ThoiGianMuaEndCondition");
+                    queryBuilder.Append(" AND ThoiGianMua <= @ThoiGianMuaEndCondition");
                     parameters.Add(new MySqlParameter("@ThoiGianMuaEndCondition", thoiGianMuaEndCondition.Value));
                 }
 
                 if (idThietBiCondition.HasValue)
                 {
-                    whereClauses.Add("IdThietBi = @IdThietBiCondition");
+                    queryBuilder.Append(" AND IdThietBi = @IdThietBiCondition");
                     parameters.Add(new MySqlParameter("@IdThietBiCondition", idThietBiCondition.Value));
                 }
 
-                if (whereClauses.Count > 0)
-                {
-                    sql += " AND " + string.Join(" AND ", whereClauses);
-                }
-
-                MySqlCommand command = new MySqlCommand(sql, connection);
+                using var command = new MySqlCommand(queryBuilder.ToString(), connection);
                 command.Parameters.AddRange(parameters.ToArray());
 
-                return command.ExecuteNonQuery();
+                rowsAffected = command.ExecuteNonQuery();
             }
+            catch (Exception ex)
+            {
+                // Ghi log lỗi
+                Console.WriteLine($"Lỗi khi cập nhật theo điều kiện DauThietBi: {ex.Message}");
+                //Hoặc throw
+            }
+            return rowsAffected;
         }
     }
 }

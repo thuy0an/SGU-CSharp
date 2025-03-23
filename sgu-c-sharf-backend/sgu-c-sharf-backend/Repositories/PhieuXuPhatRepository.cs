@@ -2,14 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
-using sgu_c_sharf_backend.Interfaces;
 using sgu_c_sharf_backend.Models;
 using Microsoft.Extensions.Configuration;
 using sgu_c_sharf_backend.Models.PhieuXuPhat; // Import IConfiguration
 
 namespace sgu_c_sharf_backend.Repositories
 {
-    public class PhieuXuPhatRepository : IPhieuXuPhatRepository
+    public class PhieuXuPhatRepository 
     {
         private readonly string _connectionString;
 

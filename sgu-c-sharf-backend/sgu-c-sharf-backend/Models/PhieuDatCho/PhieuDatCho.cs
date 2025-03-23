@@ -1,8 +1,8 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+// Import List
 
-namespace sgu_c_sharf_backend.Models
+namespace sgu_c_sharf_backend.Models.PhieuDatCho
 {
     [Table("PhieuDatCho")]
     public class PhieuDatCho
@@ -25,6 +25,9 @@ namespace sgu_c_sharf_backend.Models
 
         [Required]
         public DateTime ThoiGianLapPhieu { get; set; } = DateTime.Now;
+
+        // Navigation property để truy cập danh sách các ChiTietPhieuDatCho
+        public virtual ICollection<ChiTietPhieuDatCho> ChiTietPhieuDatChos { get; set; } = new List<ChiTietPhieuDatCho>();
     }
     public enum TrangThaiPhieuDatChoEnum
     {

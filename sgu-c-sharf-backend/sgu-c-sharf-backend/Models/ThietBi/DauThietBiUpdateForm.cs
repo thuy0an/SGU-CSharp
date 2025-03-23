@@ -11,6 +11,9 @@ namespace sgu_c_sharf_backend.Models.ThietBi
         public DateTime ThoiGianMua { get; set; }
 
         [Required]
-        public int IdThietBi { get; set; } // Bạn có muốn cho phép thay đổi IdThietBi không? Nếu không, hãy bỏ qua nó.
+        public int IdThietBi { get; set; } 
+        
+        [Required]
+        public int Id { get; set; } 
     }
 }

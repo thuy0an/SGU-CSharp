@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
-using sgu_c_sharf_backend.Interfaces;
 using sgu_c_sharf_backend.Models;
 using Microsoft.Extensions.Configuration;
 using sgu_c_sharf_backend.Models.ThietBi; // Import IConfiguration
 
 namespace sgu_c_sharf_backend.Repositories
 {
-    public class LoaiThietBiRepository : ILoaiThietBiRepository
+    public class LoaiThietBiRepository 
     {
         private readonly string _connectionString;
-        private readonly IThietBiRepository _thietBiRepository; // Sửa kiểu dữ liệu
 
         public LoaiThietBiRepository(IConfiguration configuration,ThietBiRepository thietBiRepository)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection"); // Lấy từ config
-            _thietBiRepository = thietBiRepository; // Gán giá trị
 
         }
 
@@ -98,7 +95,6 @@ namespace sgu_c_sharf_backend.Repositories
 
         public void Delete(int id)
         {
-            _thietBiRepository.UpdateByCondition(null,id,null,null);
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();

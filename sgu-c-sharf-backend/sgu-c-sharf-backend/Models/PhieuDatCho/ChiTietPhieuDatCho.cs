@@ -17,7 +17,7 @@ namespace sgu_c_sharf_backend.Models
         [ForeignKey("DauThietBi")]
         public int IdDauThietBi { get; set; }
 
-        public virtual PhieuDatCho PhieuDatCho { get; set; }
+        public virtual PhieuDatCho.PhieuDatCho PhieuDatCho { get; set; }
         public virtual DauThietBi DauThietBi { get; set; }
     }
 }

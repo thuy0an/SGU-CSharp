@@ -2,22 +2,19 @@
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
-using sgu_c_sharf_backend.Interfaces;
 using sgu_c_sharf_backend.Models; // Chú ý: đã sửa namespace
 using Microsoft.Extensions.Configuration;
 using sgu_c_sharf_backend.Models.ThietBi; // Import IConfiguration
 
 namespace sgu_c_sharf_backend.Repositories
 {
-    public class ThietBiRepository : IThietBiRepository
+    public class ThietBiRepository 
     {
         private readonly string _connectionString;
-        private readonly IDauThietBiRepository _dauThietBiRepository; // Sửa kiểu dữ liệu
 
-        public ThietBiRepository(IConfiguration configuration, IDauThietBiRepository dauThietBiRepository)
+        public ThietBiRepository(IConfiguration configuration )
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection"); // Lấy chuỗi kết nối từ IConfiguration
-            _dauThietBiRepository = dauThietBiRepository; // Gán giá trị
         }
 
         public ThietBi GetById(int id)
@@ -205,13 +202,7 @@ namespace sgu_c_sharf_backend.Repositories
         public void Delete(int id)
         {
           
-            _dauThietBiRepository.UpdateByCondition(
-                null,       // trangThaiCondition
-                null,       // thoiGianMuaStartCondition
-                null,       // thoiGianMuaEndCondition
-                id,   // idThietBiCondition,
-                null  // Các giá trị cần cập nhật
-            );
+          
 
               using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
