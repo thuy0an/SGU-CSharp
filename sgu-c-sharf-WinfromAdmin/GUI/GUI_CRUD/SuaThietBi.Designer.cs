@@ -143,6 +143,7 @@
             // cbbLoaiThietBi
             // 
             cbbLoaiThietBi.Dock = DockStyle.Bottom;
+            cbbLoaiThietBi.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbLoaiThietBi.Enabled = false;
             cbbLoaiThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbbLoaiThietBi.FormattingEnabled = true;

@@ -10,10 +10,40 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Update="GUI\GUI_CRUD\SuaMuonDauThietBi.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUI\GUI_CRUD\SuaDauThietBi.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GUI\GUI_CRUD\MuonDauThietBi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\XemPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\SuaPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\ThemPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\XemPhieuXuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\SuaPhieuXuPhat .cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\ThemPhieuXuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\XemPhieuDatCho.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUI\GUI_CRUD\SuaThietBi.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\SuaPhieuDatCho.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUI\GUI_CRUD\XemThietBi.cs">
@@ -32,6 +62,15 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUI\GUI_CRUD\XemThanhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_Menu\QuanLyPhieuMuon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_Menu\QuanLyPhieuXuPhat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_Menu\QuanLyPhieuDatCho.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUI\GUI_Menu\QuanLyThietBi.cs">

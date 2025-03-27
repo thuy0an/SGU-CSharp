@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             pnlContent = new Panel();
+            panel2 = new Panel();
+            txtSoLuongThietBi = new TextBox();
+            label2 = new Label();
             btnThem = new Button();
             panel3 = new Panel();
             txtTenLoaiThietBi = new TextBox();
@@ -37,13 +40,10 @@
             txtMaLoaiThietBi = new TextBox();
             lblMaLoaiThietBi = new Label();
             label1 = new Label();
-            panel2 = new Panel();
-            txtSoLuongThietBi = new TextBox();
-            label2 = new Label();
             pnlContent.SuspendLayout();
+            panel2.SuspendLayout();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
             SuspendLayout();
             // 
             // pnlContent
@@ -61,6 +61,40 @@
             pnlContent.Size = new Size(740, 561);
             pnlContent.TabIndex = 0;
             pnlContent.Paint += pnlContent_Paint;
+            // 
+            // panel2
+            // 
+            panel2.Controls.Add(txtSoLuongThietBi);
+            panel2.Controls.Add(label2);
+            panel2.Location = new Point(56, 233);
+            panel2.Margin = new Padding(4, 3, 4, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(629, 73);
+            panel2.TabIndex = 2;
+            // 
+            // txtSoLuongThietBi
+            // 
+            txtSoLuongThietBi.Dock = DockStyle.Bottom;
+            txtSoLuongThietBi.Enabled = false;
+            txtSoLuongThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSoLuongThietBi.Location = new Point(0, 44);
+            txtSoLuongThietBi.Margin = new Padding(4, 3, 4, 3);
+            txtSoLuongThietBi.Name = "txtSoLuongThietBi";
+            txtSoLuongThietBi.Size = new Size(629, 29);
+            txtSoLuongThietBi.TabIndex = 1;
+            txtSoLuongThietBi.Text = "abc";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Dock = DockStyle.Top;
+            label2.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.Location = new Point(0, 0);
+            label2.Margin = new Padding(4, 0, 4, 0);
+            label2.Name = "label2";
+            label2.Size = new Size(268, 22);
+            label2.TabIndex = 0;
+            label2.Text = "Số lượng thiết bị thuộc loại này";
             // 
             // btnThem
             // 
@@ -160,40 +194,6 @@
             label1.Text = "Cập nhật thông tin";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // panel2
-            // 
-            panel2.Controls.Add(txtSoLuongThietBi);
-            panel2.Controls.Add(label2);
-            panel2.Location = new Point(56, 233);
-            panel2.Margin = new Padding(4, 3, 4, 3);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(629, 73);
-            panel2.TabIndex = 2;
-            // 
-            // txtSoLuongThietBi
-            // 
-            txtSoLuongThietBi.Dock = DockStyle.Bottom;
-            txtSoLuongThietBi.Enabled = false;
-            txtSoLuongThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSoLuongThietBi.Location = new Point(0, 44);
-            txtSoLuongThietBi.Margin = new Padding(4, 3, 4, 3);
-            txtSoLuongThietBi.Name = "txtSoLuongThietBi";
-            txtSoLuongThietBi.Size = new Size(629, 29);
-            txtSoLuongThietBi.TabIndex = 1;
-            txtSoLuongThietBi.Text = "abc";
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.Dock = DockStyle.Top;
-            label2.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label2.Location = new Point(0, 0);
-            label2.Margin = new Padding(4, 0, 4, 0);
-            label2.Name = "label2";
-            label2.Size = new Size(268, 22);
-            label2.TabIndex = 0;
-            label2.Text = "Số lượng thiết bị thuộc loại này";
-            // 
             // FormSuaLoaiThietBi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -208,12 +208,12 @@
             Text = "SuaLoaiThietBi";
             Load += FormSuaLoaiThietBi_Load;
             pnlContent.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
-            panel2.ResumeLayout(false);
-            panel2.PerformLayout();
             ResumeLayout(false);
         }
 

@@ -1,6 +1,6 @@
 ﻿namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 {
-    partial class SuaDauThietBi
+    partial class SuaMuonDauThietBi
     {
         /// <summary>
         /// Required designer variable.
@@ -40,11 +40,11 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Arial", 18F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label1.Location = new Point(139, 18);
+            label1.Location = new Point(59, 21);
             label1.Name = "label1";
-            label1.Size = new Size(183, 27);
+            label1.Size = new Size(358, 27);
             label1.TabIndex = 0;
-            label1.Text = "Sửa đầu thiết bị";
+            label1.Text = "Sửa thông tin mượn đầu thiết bị";
             // 
             // label2
             // 
@@ -90,13 +90,13 @@
             cbbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbTrangThai.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbbTrangThai.FormattingEnabled = true;
-            cbbTrangThai.Items.AddRange(new object[] { "Khả dụng", "Đang mượn", "Đặt trước", "Bảo trì", "Thanh lý", "Thất lạc", "Đã thất lạc" });
+            cbbTrangThai.Items.AddRange(new object[] { "Đang mượn", "Đã trả thiết bị", "Đã thất lạc" });
             cbbTrangThai.Location = new Point(235, 140);
             cbbTrangThai.Name = "cbbTrangThai";
             cbbTrangThai.Size = new Size(198, 30);
             cbbTrangThai.TabIndex = 6;
             // 
-            // SuaDauThietBi
+            // SuaMuonDauThietBi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -110,10 +110,10 @@
             Controls.Add(label1);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "SuaDauThietBi";
+            Name = "SuaMuonDauThietBi";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "SuaDauThietBi";
-            Load += SuaDauThietBi_Load;
+            Text = "SuaMuonDauThietBi";
+            Load += SuaMuonDauThietBi_Load;
             ResumeLayout(false);
             PerformLayout();
         }

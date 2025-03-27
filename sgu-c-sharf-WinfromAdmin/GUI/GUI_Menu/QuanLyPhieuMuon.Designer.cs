@@ -1,6 +1,6 @@
 ﻿namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 {
-    partial class QuanLyLoaiThietBi
+    partial class QuanLyPhieuMuon
     {
         /// <summary>
         /// Required designer variable.
@@ -32,9 +32,10 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
+            panel5 = new Panel();
+            label5 = new Label();
+            btnPDF = new PictureBox();
             btnReset = new Button();
             panel4 = new Panel();
             label4 = new Label();
@@ -49,9 +50,15 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column5 = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnPDF).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnXoa).BeginInit();
             panel3.SuspendLayout();
@@ -85,7 +92,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2 });
+            DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column5 });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -103,23 +110,10 @@
             DataGrid.Size = new Size(1479, 923);
             DataGrid.TabIndex = 1;
             // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column1.HeaderText = "Mã loại thiết bị";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column2.HeaderText = "Tên loại thiết bị";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            // 
             // pnlNavigate
             // 
             pnlNavigate.BackColor = Color.White;
+            pnlNavigate.Controls.Add(panel5);
             pnlNavigate.Controls.Add(btnReset);
             pnlNavigate.Controls.Add(panel4);
             pnlNavigate.Controls.Add(panel3);
@@ -132,6 +126,41 @@
             pnlNavigate.Name = "pnlNavigate";
             pnlNavigate.Size = new Size(1479, 138);
             pnlNavigate.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(label5);
+            panel5.Controls.Add(btnPDF);
+            panel5.Location = new Point(1359, 12);
+            panel5.Margin = new Padding(4, 3, 4, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(117, 115);
+            panel5.TabIndex = 4;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Bottom;
+            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 84);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(117, 31);
+            label5.TabIndex = 1;
+            label5.Text = "Xuất file";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnPDF
+            // 
+            btnPDF.Cursor = Cursors.Hand;
+            btnPDF.Dock = DockStyle.Top;
+            btnPDF.Image = Properties.Resources.pdf;
+            btnPDF.Location = new Point(0, 0);
+            btnPDF.Margin = new Padding(4, 3, 4, 3);
+            btnPDF.Name = "btnPDF";
+            btnPDF.Size = new Size(117, 81);
+            btnPDF.SizeMode = PictureBoxSizeMode.Zoom;
+            btnPDF.TabIndex = 0;
+            btnPDF.TabStop = false;
             // 
             // btnReset
             // 
@@ -152,7 +181,7 @@
             // 
             panel4.Controls.Add(label4);
             panel4.Controls.Add(btnXoa);
-            panel4.Location = new Point(1349, 12);
+            panel4.Location = new Point(1228, 12);
             panel4.Margin = new Padding(4, 3, 4, 3);
             panel4.Name = "panel4";
             panel4.Size = new Size(117, 115);
@@ -188,7 +217,7 @@
             // 
             panel3.Controls.Add(label3);
             panel3.Controls.Add(btnThem);
-            panel3.Location = new Point(950, 12);
+            panel3.Location = new Point(835, 12);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(117, 115);
@@ -224,7 +253,7 @@
             // 
             panel2.Controls.Add(label2);
             panel2.Controls.Add(btnXem);
-            panel2.Location = new Point(1216, 12);
+            panel2.Location = new Point(1097, 12);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(117, 115);
@@ -260,7 +289,7 @@
             // 
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnEdit);
-            panel1.Location = new Point(1083, 12);
+            panel1.Location = new Point(966, 12);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(117, 115);
@@ -302,19 +331,47 @@
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
             // 
-            // QuanLyLoaiThietBi
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column1.HeaderText = "Mã phiếu";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column2.HeaderText = "Mã thành viên";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column3.HeaderText = "Trạng thái";
+            Column3.Name = "Column3";
+            // 
+            // Column5
+            // 
+            Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column5.HeaderText = "Thời gian lập phiếu";
+            Column5.Name = "Column5";
+            // 
+            // QuanLyPhieuMuon
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1479, 1061);
             Controls.Add(pnlContent);
             Margin = new Padding(4, 3, 4, 3);
-            Name = "QuanLyLoaiThietBi";
-            Text = "QuanLyLoaiThietBi";
+            Name = "QuanLyPhieuMuon";
+            Text = "QuanLyPhieuMuon";
             pnlContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
             pnlNavigate.PerformLayout();
+            panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)btnPDF).EndInit();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnXoa).EndInit();
             panel3.ResumeLayout(false);
@@ -341,11 +398,16 @@
         private Panel panel3;
         private Label label3;
         private PictureBox btnThem;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
         private Panel panel4;
         private Label label4;
         private PictureBox btnXoa;
         private Button btnReset;
+        private Panel panel5;
+        private Label label5;
+        private PictureBox btnPDF;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column5;
     }
 }

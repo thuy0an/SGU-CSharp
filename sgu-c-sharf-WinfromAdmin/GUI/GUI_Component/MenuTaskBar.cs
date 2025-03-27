@@ -32,6 +32,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Component
             panelList.Add(pnlQLLoaiThietBi);
             panelList.Add(pnlQLThietBi);
             panelList.Add(pnlQLDatCho);
+            panelList.Add(pnlQLPhieuMuon);
             panelList.Add(pnlQLXuPhat);
 
             // Gán sự kiện cho từng panel
@@ -98,12 +99,15 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Component
                 case "pnlQLThietBi":
                     mainFrame.ChangePage(new QuanLyThietBi());
                     break;
-                //case "pnlQLDatCho":
-                //    mainFrame.ChangePage(new QuanLyDatCho());
-                //    break;
-                //case "pnlQLXuPhat":
-                //    mainFrame.ChangePage(new QuanLyXuPhat());
-                //    break;
+                case "pnlQLDatCho":
+                    mainFrame.ChangePage(new QuanLyPhieuDatCho());
+                    break;
+                case "pnlQLPhieuMuon":
+                    mainFrame.ChangePage(new QuanLyPhieuMuon());
+                    break;
+                case "pnlQLXuPhat":
+                    mainFrame.ChangePage(new QuanLyPhieuXuPhat());
+                    break;
                 default:
                     MessageBox.Show("Đây là giao diện quản lý: " + pnl.Name);
                     break;
@@ -154,6 +158,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Component
                 Login loginForm = new Login();
                 loginForm.Show();
             }
+        }
+
+        private void pnlQLXuPhat_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

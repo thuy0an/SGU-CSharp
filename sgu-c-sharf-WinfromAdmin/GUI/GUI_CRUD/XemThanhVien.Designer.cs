@@ -100,6 +100,7 @@
             // cbbTrangThai
             // 
             cbbTrangThai.Dock = DockStyle.Bottom;
+            cbbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             cbbTrangThai.Enabled = false;
             cbbTrangThai.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cbbTrangThai.FormattingEnabled = true;
