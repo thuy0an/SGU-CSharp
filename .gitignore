@@ -1,0 +1,8 @@
+# Bỏ qua thư mục build
+bin/
+obj/
+.vs/
+
+# Bỏ qua thư mục Debug & Release
+sgu-c-sharf-backend/sgu-c-sharf-backend/obj/Debug/
+sgu-c-sharf-backend/sgu-c-sharf-backend/obj/Release/
