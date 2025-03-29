@@ -29,8 +29,6 @@
 <script>
     var email = '';
 
-
-
     function loadUserInfoFromsessionStorage() {
         // Lấy dữ liệu từ sessionStorage
         var userData = sessionStorage.getItem("id");
