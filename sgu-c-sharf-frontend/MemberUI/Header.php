@@ -142,6 +142,11 @@
         </div>
 
     </div>
+    <div class="d-flex flex-row-reverse bd-highlight">
+    <div class="p-2 bd-highlight"><button class="btn btn-light text-danger" style="color:rgb(146, 26, 26) !important;font-weight:bold;">Flex item 1</button></div>
+    <div class="p-2 bd-highlight"><button class="btn btn-light text-danger" style="color:rgb(146, 26, 26) !important;font-weight:bold;">Flex item 1</button></div>
+    <div class="p-2 bd-highlight"><button class="btn btn-light text-danger" style="color:rgb(146, 26, 26) !important;font-weight:bold;">Flex item 1</button></div>
+</div>
 </header>
 
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
