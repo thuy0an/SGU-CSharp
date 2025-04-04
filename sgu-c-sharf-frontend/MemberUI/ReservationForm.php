@@ -69,29 +69,35 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Loại thiết bị</th>
+                            <th scope="col" style="width: 100px;">Số lượng</th>
+                            <th scope="col" style="width: 100px;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="datcho">Thêm</button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="datcho">Thêm</button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="datcho">Thêm</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -104,29 +110,41 @@
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">First</th>
-                            <th scope="col">Last</th>
-                            <th scope="col">Handle</th>
+                            <th scope="col">Loại thiết bị</th>
+                            <th scope="col" style="width: 100px;">Số lượng</th>
+                            <th scope="col" style="width: 100px;"></th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
                             <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
+                            <td></td>
+                            <td>
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 80px;">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="datcho">Xóa</button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
+                            <td></td>
+                            <td>
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 80px;">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="datcho">Xóa</button>
+                            </td>
                         </tr>
                         <tr>
                             <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
+                            <td></td>
+                            <td>
+                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 80px;">
+                            </td>
+                            <td>
+                                <button type="button" class="btn btn-primary" id="datcho">Xóa</button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

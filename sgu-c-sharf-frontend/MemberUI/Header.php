@@ -108,28 +108,28 @@
     <div id="Home-over-Header" class="row align-items-center justify-content-center" style="height: fit-content;">
         <!-- Logo -->
         <div class="col-12 col-md-2 text-center mb-2 mb-md-0">
-            <img id="Home-img" src="./img/logoWine.jpg" alt="Logo" class="img-fluid mx-auto" />
+            <!-- <img id="Home-img" src="./img/logoWine.jpg" alt="Logo" class="img-fluid mx-auto" /> -->
         </div>
 
-        <!-- Search Form -->
-        <div class="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
-            <form id="search" class="input__wrapper d-flex justify-content-center" method="post" action="SignedProduct.php" style="width:100%">
-                <input id="searchSanPham" name="searchFromAnotherPage" type="text" class="form-control me-2 search-input" placeholder="Tìm kiếm" style="width:90%" required="" />
-                <button id="search-button" class="btn btn-primary" type="submit" style="width:10%">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </button>
-            </form>
-        </div>
+        <!-- Search Form
+            <div class="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
+                <form id="search" class="input__wrapper d-flex justify-content-center" method="post" action="SignedProduct.php" style="width:100%">
+                    <input id="searchSanPham" name="searchFromAnotherPage" type="text" class="form-control me-2 search-input" placeholder="Tìm kiếm" style="width:90%" required="" />
+                    <button id="search-button" class="btn btn-primary" type="submit" style="width:10%">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </form>
+            </div> -->
 
 
         <!-- Icons Section -->
         <div class="col-12 col-md-4 d-flex justify-content-center align-items-center gap-4" style="height: fit-content;">
-            <div class="header-option" onclick="toCart()" style="height: fit-content;">
+            <!-- <div class="header-option" onclick="toCart()" style="height: fit-content;">
                 <i class="fa-solid fa-cart-shopping"></i>
-            </div>
-            <div class="header-option  header-option-login" onclick="toMyOrder()" style="height: fit-content;">
+            </div> -->
+            <!-- <div class="header-option  header-option-login" onclick="toMyOrder()" style="height: fit-content;">
                 <i class="fa-solid fa-truck-fast"></i>
-            </div>
+            </div> -->
             <div class="header-option  header-option-login" onclick="toProfile()" style="height: fit-content;">
                 <i class="fa-solid fa-user"></i>
             </div>
@@ -142,11 +142,7 @@
         </div>
 
     </div>
-    <div class="d-flex flex-row-reverse bd-highlight">
-    <div class="p-2 bd-highlight"><button class="btn btn-light text-danger" style="color:rgb(146, 26, 26) !important;font-weight:bold;">Flex item 1</button></div>
-    <div class="p-2 bd-highlight"><button class="btn btn-light text-danger" style="color:rgb(146, 26, 26) !important;font-weight:bold;">Flex item 1</button></div>
-    <div class="p-2 bd-highlight"><button class="btn btn-light text-danger" style="color:rgb(146, 26, 26) !important;font-weight:bold;">Flex item 1</button></div>
-</div>
+    
 </header>
 
 <script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>

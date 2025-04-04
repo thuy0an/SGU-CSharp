@@ -28,6 +28,14 @@
             top: 0;
             margin: 10px;
         }
+
+
+        a {
+            font-size: 16px;
+        }
+        p {
+            font-size: 16px;
+        }
     </style>
 </head>
 
@@ -43,12 +51,39 @@
             <table class="table table-striped" id="danhsachthietbi">
 
                 <tbody>
-                        <tr>
-                            <td scope="row"><a href="">xu phat 1</a></td>
-                        </tr>
+                    <tr>
+                        <td scope="row"><a href="" onclick="xemChiTietPhieu()">xử phạt ngày 1/1/1111</a></td>
+                    </tr>
                 </tbody>
 
             </table>
+
+            <div>
+                <form>
+                    <div class="form-group">
+                        <p>Thành viên</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Mã phiếu xử phạt</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Ngày xử phạt</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Trạng thái</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Thời gian phạt</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Mức phạt</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Mô tả</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Thoát</button>
+                </form>
+            </div>
 
         </div>
 
@@ -59,7 +94,12 @@
 
 
 <script>
+    function xemChiTietPhieu() {
+        event.preventDefault();
+        var container = document.getElementById("table-container");
 
+        container.innerHTML = "";
+    }
 </script>
 
 </html>
