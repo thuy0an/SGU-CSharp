@@ -33,58 +33,20 @@
         a {
             font-size: 16px;
         }
+
         p {
             font-size: 16px;
         }
     </style>
 </head>
 
-<body>
+<body onload="loaddsPhieuXuPhat()">
     <?php require_once "./Header.php" ?>
 
     <div class="container2">
 
         <div id="table-container">
-            <div style="text-align: center;">
-                <h3>Thong bao xu phat</h3>
-            </div>
-            <table class="table table-striped" id="danhsachthietbi">
-
-                <tbody>
-                    <tr>
-                        <td scope="row"><a href="" onclick="xemChiTietPhieu()">xử phạt ngày 1/1/1111</a></td>
-                    </tr>
-                </tbody>
-
-            </table>
-
-            <div>
-                <form>
-                    <div class="form-group">
-                        <p>Thành viên</p>
-                    </div>
-                    <div class="form-group">
-                        <p>Mã phiếu xử phạt</p>
-                    </div>
-                    <div class="form-group">
-                        <p>Ngày xử phạt</p>
-                    </div>
-                    <div class="form-group">
-                        <p>Trạng thái</p>
-                    </div>
-                    <div class="form-group">
-                        <p>Thời gian phạt</p>
-                    </div>
-                    <div class="form-group">
-                        <p>Mức phạt</p>
-                    </div>
-                    <div class="form-group">
-                        <p>Mô tả</p>
-                    </div>
-                    <button type="submit" class="btn btn-primary">Thoát</button>
-                </form>
-            </div>
-
+        
         </div>
 
     </div>
@@ -94,11 +56,99 @@
 
 
 <script>
-    function xemChiTietPhieu() {
-        event.preventDefault();
-        var container = document.getElementById("table-container");
+    function loaddsPhieuXuPhat() {
+        const idThanhVien = sessionStorage.getItem("IdThanhVien");
+        const API_URL = `http://localhost:5000/api/phieuxuphat/thanhvien/${idThanhVien}`;
+        fetch(API_URL)
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById("table-container");
+                container.innerHTML = "";
+                if (data.length === 0) {
+                    container.innerHTML = "<p>Không có phiếu xử phạt nào.</p>";
+                    return;
+                }
+                container.innerHTML += `
+                <div style="text-align: center;">
+                <h3>Thong bao xu phat</h3>
+            </div>
+            <table class="table table-striped">
 
-        container.innerHTML = "";
+                <tbody id="dsPhieuXuPhat">
+                `;
+                data.forEach(phieu => {
+                    const ngay = new Date(phieu.ngayViPham).toLocaleDateString("vi-VN");
+
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+          <td scope="row">
+            <a href="#" onclick="xemChiTietPhieu(${phieu.id})">
+              Phiếu xử phạt ${ngay}
+            </a>
+          </td>
+        `;
+                    container += (row);
+
+                });
+                container += "</tbody></table>";
+            })
+            .catch(error => {
+                console.error("Lỗi khi lấy danh sách phiếu:", error);
+                document.getElementById("dsPhieuXuPhat").innerHTML = "<tr><td>Lỗi tải dữ liệu!</td></tr>";
+            });
+
+    }
+
+    function xemChiTietPhieu(id) {
+        const idThanhVien = id;
+        const API_URL = `http://localhost:5000/api/phieuxuphat/thanhvien/${idThanhVien}`;
+
+        fetch(API_URL)
+            .then(response => {
+                if (!response.ok) throw new Error("Không thể lấy dữ liệu phiếu xử phạt.");
+                return response.json();
+            })
+            .then(data => {
+                const container = document.getElementById("table-container");
+                if (data.length === 0) {
+                    container.innerHTML = "<p>Không có phiếu xử phạt nào.</p>";
+                    return;
+                }
+
+                const html = data.map(p => `
+            <div>
+                <form>
+                    <div class="form-group">
+                        <p><strong>Họ tên:</strong> ${p.hoTen}</p>
+                    </div>
+                    <div class="form-group">
+                        <p>Mã phiếu xử phạt</p>
+                    </div>
+                    <div class="form-group">
+                        <p><strong>Ngày vi phạm:</strong> ${new Date(p.ngayViPham).toLocaleString()}</p>
+                    </div>
+                    <div class="form-group">
+                        <p><strong>Trạng thái:</strong> ${p.trangThai}</p>
+                    </div>
+                    <div class="form-group">
+                        <p><strong>Thời hạn xử phạt:</strong> ${p.thoiHanXuPhat} ngày</p>
+                    </div>
+                    <div class="form-group">
+                        <p><strong>Mức phạt:</strong> ${p.mucPhat.toLocaleString()} VNĐ</p>
+                    </div>
+                    <div class="form-group">
+                        <p><strong>Mô tả:</strong> ${p.moTa}</p>
+                    </div>
+                    <button type="submit" class="btn btn-primary" onclick="loaddsPhieuXuPhat()">Thoát</button>
+                </form>
+            </div>
+        `).join("");
+
+                container.innerHTML = html;
+            })
+            .catch(error => {
+                console.error("Lỗi khi gọi API:", error);
+            });
     }
 </script>
 
