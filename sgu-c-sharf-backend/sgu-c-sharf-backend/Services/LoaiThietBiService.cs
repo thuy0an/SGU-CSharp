@@ -45,6 +45,10 @@ public class LoaiThietBiService
     {
         _loaiThietBiRepository.Delete(id); 
     }
+
+    public int GetCountTB(int id){
+        return _loaiThietBiRepository.GetCountTB(id);
+    }
     
     
 }

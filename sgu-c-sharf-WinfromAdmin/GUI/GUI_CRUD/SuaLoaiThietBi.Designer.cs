@@ -32,7 +32,7 @@
             panel2 = new Panel();
             txtSoLuongThietBi = new TextBox();
             label2 = new Label();
-            btnThem = new Button();
+            btnSua = new Button();
             panel3 = new Panel();
             txtTenLoaiThietBi = new TextBox();
             lblTenLoaiThietBi = new Label();
@@ -50,7 +50,7 @@
             // 
             pnlContent.BackColor = Color.White;
             pnlContent.Controls.Add(panel2);
-            pnlContent.Controls.Add(btnThem);
+            pnlContent.Controls.Add(btnSua);
             pnlContent.Controls.Add(panel3);
             pnlContent.Controls.Add(panel1);
             pnlContent.Controls.Add(label1);
@@ -96,18 +96,19 @@
             label2.TabIndex = 0;
             label2.Text = "Số lượng thiết bị thuộc loại này";
             // 
-            // btnThem
+            // btnSua
             // 
-            btnThem.BackColor = Color.FromArgb(0, 123, 181);
-            btnThem.Cursor = Cursors.Hand;
-            btnThem.ForeColor = Color.White;
-            btnThem.Location = new Point(285, 471);
-            btnThem.Margin = new Padding(4, 3, 4, 3);
-            btnThem.Name = "btnThem";
-            btnThem.Size = new Size(189, 47);
-            btnThem.TabIndex = 7;
-            btnThem.Text = "Sửa";
-            btnThem.UseVisualStyleBackColor = false;
+            btnSua.BackColor = Color.FromArgb(0, 123, 181);
+            btnSua.Cursor = Cursors.Hand;
+            btnSua.ForeColor = Color.White;
+            btnSua.Location = new Point(285, 471);
+            btnSua.Margin = new Padding(4, 3, 4, 3);
+            btnSua.Name = "btnSua";
+            btnSua.Size = new Size(189, 47);
+            btnSua.TabIndex = 7;
+            btnSua.Text = "Sửa";
+            btnSua.UseVisualStyleBackColor = false;
+            btnSua.Click += btnSua_Click;
             // 
             // panel3
             // 
@@ -227,7 +228,7 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txtTenLoaiThietBi;
         private System.Windows.Forms.Label lblTenLoaiThietBi;
-        private System.Windows.Forms.Button btnThem;
+        private System.Windows.Forms.Button btnSua;
         private Panel panel2;
         private TextBox txtSoLuongThietBi;
         private Label label2;

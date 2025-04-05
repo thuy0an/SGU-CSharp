@@ -28,7 +28,7 @@ namespace sgu_c_sharf_backend.Controllers
         [HttpGet]
         public ActionResult<ApiResponse<PagedResult<LoaiThietBi>>> GetAll(
             [FromQuery] int pageNumber = 1,
-            [FromQuery] int pageSize = 10,
+            [FromQuery] int pageSize = 100,
             [FromQuery] string? search = null,
             [FromQuery] string? sortBy = null,
             [FromQuery] string? sortDirection = null)
@@ -137,5 +137,11 @@ namespace sgu_c_sharf_backend.Controllers
             return Ok(ApiResponse<LoaiThietBi>.Ok(null, "Xóa loại thiết bị thành công."));
         }
         
+        [HttpGet("CountThietBi/{id}")]
+        public ActionResult<ApiResponse<int>> GetCountLTB(int id){
+            int count = _loaiThietBiService.GetCountTB(id);
+            return Ok(ApiResponse<int>.Ok(count, "Lấy số lượng thiết bị thành công."));
+        }
+
     }
 }

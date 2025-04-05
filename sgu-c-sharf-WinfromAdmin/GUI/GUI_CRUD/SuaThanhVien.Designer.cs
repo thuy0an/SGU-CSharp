@@ -80,7 +80,6 @@
             pnlContent.Name = "pnlContent";
             pnlContent.Size = new Size(740, 611);
             pnlContent.TabIndex = 0;
-            pnlContent.Paint += pnlContent_Paint;
             // 
             // panel7
             // 
@@ -128,6 +127,7 @@
             btnCapNhat.TabIndex = 7;
             btnCapNhat.Text = "Cập nhật";
             btnCapNhat.UseVisualStyleBackColor = false;
+            btnCapNhat.Click += btnCapNhat_Click;
             // 
             // panel6
             // 
@@ -138,7 +138,6 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(295, 73);
             panel6.TabIndex = 6;
-            panel6.Paint += panel6_Paint;
             // 
             // txtEmail
             // 
@@ -173,7 +172,6 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(295, 73);
             panel5.TabIndex = 5;
-            panel5.Paint += panel5_Paint;
             // 
             // txtNgaySinh
             // 
@@ -208,7 +206,6 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(295, 73);
             panel4.TabIndex = 4;
-            panel4.Paint += panel4_Paint;
             // 
             // txtThoiGianDangKy
             // 
@@ -243,7 +240,6 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(295, 73);
             panel3.TabIndex = 3;
-            panel3.Paint += panel3_Paint;
             // 
             // txtTenNguoiDung
             // 
@@ -278,7 +274,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(295, 73);
             panel2.TabIndex = 2;
-            panel2.Paint += panel2_Paint;
             // 
             // txtSoDienThoai
             // 
@@ -313,7 +308,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(295, 73);
             panel1.TabIndex = 1;
-            panel1.Paint += panel1_Paint;
             // 
             // txtMaThanhVien
             // 

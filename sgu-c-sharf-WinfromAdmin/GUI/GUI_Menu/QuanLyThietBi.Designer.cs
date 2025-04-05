@@ -32,6 +32,8 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
             btnReset = new Button();
             panel4 = new Panel();
@@ -47,8 +49,6 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
@@ -75,6 +75,11 @@
             // 
             // DataGrid
             // 
+            DataGrid.AllowUserToAddRows = false;
+            DataGrid.AllowUserToDeleteRows = false;
+            DataGrid.AllowUserToOrderColumns = true;
+            DataGrid.AllowUserToResizeColumns = false;
+            DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.Gray;
@@ -99,9 +104,25 @@
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
+            DataGrid.RowTemplate.Height = 30;
+            DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGrid.Size = new Size(1479, 923);
             DataGrid.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column1.HeaderText = "Mã thiết bị";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column2.HeaderText = "Tên thiết bị";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
             // 
             // pnlNavigate
             // 
@@ -287,20 +308,6 @@
             txtSearch.Size = new Size(349, 26);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
-            // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column1.HeaderText = "Mã thiết bị";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column2.HeaderText = "Tên thiết bị";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
             // 
             // QuanLyThietBi
             // 

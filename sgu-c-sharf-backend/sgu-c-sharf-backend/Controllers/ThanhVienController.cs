@@ -124,9 +124,7 @@ namespace sgu_c_sharf_backend.Controllers
         
         
         [HttpPut("{id}")]
-        public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> UpdateThanhVien(
-            int id,
-            [FromBody] ThanhVienUpdateForm request)
+        public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> UpdateThanhVien( int id, [FromBody] ThanhVienUpdateForm request)
         {
             if (request == null)
             {

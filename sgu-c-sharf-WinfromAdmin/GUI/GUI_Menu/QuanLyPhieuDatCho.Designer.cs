@@ -73,6 +73,11 @@
             // 
             // DataGrid
             // 
+            DataGrid.AllowUserToAddRows = false;
+            DataGrid.AllowUserToDeleteRows = false;
+            DataGrid.AllowUserToOrderColumns = true;
+            DataGrid.AllowUserToResizeColumns = false;
+            DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.Gray;
@@ -97,6 +102,8 @@
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
+            DataGrid.RowTemplate.Height = 30;
+            DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGrid.Size = new Size(1479, 923);
             DataGrid.TabIndex = 1;

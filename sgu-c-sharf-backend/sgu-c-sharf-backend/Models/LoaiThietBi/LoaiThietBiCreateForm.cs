@@ -1,4 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿﻿using System.ComponentModel.DataAnnotations;
 
 namespace sgu_c_sharf_backend.Models.ThietBi
 {

@@ -7,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddScoped<ThanhVienRepository>();
 builder.Services.AddScoped<ThanhVienService>();
+builder.Services.AddScoped<LoaiThietBiRepository>();
+builder.Services.AddScoped<LoaiThietBiService>();
+builder.Services.AddScoped<ThietBiRepository>();
 
 builder.Services.AddScoped<LoaiThietBiRepository>();
 builder.Services.AddScoped<LoaiThietBiService>(); 

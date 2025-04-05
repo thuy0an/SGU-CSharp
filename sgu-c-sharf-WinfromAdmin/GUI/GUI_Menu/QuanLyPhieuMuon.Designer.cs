@@ -32,6 +32,10 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column5 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
             panel5 = new Panel();
             label5 = new Label();
@@ -50,10 +54,6 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column5 = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
@@ -82,6 +82,11 @@
             // 
             // DataGrid
             // 
+            DataGrid.AllowUserToAddRows = false;
+            DataGrid.AllowUserToDeleteRows = false;
+            DataGrid.AllowUserToOrderColumns = true;
+            DataGrid.AllowUserToResizeColumns = false;
+            DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.Gray;
@@ -106,9 +111,37 @@
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
+            DataGrid.RowTemplate.Height = 30;
+            DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGrid.Size = new Size(1479, 923);
             DataGrid.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column1.HeaderText = "Mã phiếu";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column2.HeaderText = "Mã thành viên";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column3.HeaderText = "Trạng thái";
+            Column3.Name = "Column3";
+            // 
+            // Column5
+            // 
+            Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column5.HeaderText = "Thời gian lập phiếu";
+            Column5.Name = "Column5";
             // 
             // pnlNavigate
             // 
@@ -330,32 +363,6 @@
             txtSearch.Size = new Size(349, 26);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
-            // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column1.HeaderText = "Mã phiếu";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column2.HeaderText = "Mã thành viên";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column3.HeaderText = "Trạng thái";
-            Column3.Name = "Column3";
-            // 
-            // Column5
-            // 
-            Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column5.HeaderText = "Thời gian lập phiếu";
-            Column5.Name = "Column5";
             // 
             // QuanLyPhieuMuon
             // 
