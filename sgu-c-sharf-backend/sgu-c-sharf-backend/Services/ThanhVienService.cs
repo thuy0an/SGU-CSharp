@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using Microsoft.AspNetCore.Identity;
 using sgu_c_sharf_backend.ApiResponse;
 using sgu_c_sharf_backend.Models.ThanhVien;

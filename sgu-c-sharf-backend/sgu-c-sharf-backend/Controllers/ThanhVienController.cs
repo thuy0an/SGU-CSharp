@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
 using sgu_c_sharf_backend.ApiResponse;
-using sgu_c_sharf_backend.Models;
 using sgu_c_sharf_backend.Models.ThanhVien;
 using sgu_c_sharf_backend.Services;
 

@@ -17,9 +17,7 @@ namespace sgu_c_sharf_backend.Models.ThietBi
         [Required]
         [ForeignKey("LoaiThietBi")]
         public int IdLoaiThietBi { get; set; }
-
-        public virtual LoaiThietBi LoaiThietBi { get; set; } 
-
+        
         [Required]
         public bool DaXoa { get; set; } = false;
     }

@@ -1,14 +1,15 @@
 
 using Microsoft.EntityFrameworkCore;
 
-namespace sgu_c_sharf_backend.Models.ThanhVien
+namespace sgu_c_sharf_backend.Models
 {
     public class AppDbContext : DbContext
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
-        public DbSet<ThanhVien> ThanhViens { get; set; }
-
+        public DbSet<ThanhVien.ThanhVien> ThanhViens { get; set; }
+        public DbSet<LoaiThietBi.LoaiThietBi> LoaiThietBis { get; set; }
+        
         // protected override void OnModelCreating(ModelBuilder modelBuilder)
         // {
         //     modelBuilder.Entity<ThanhVien>()
