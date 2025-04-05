@@ -118,7 +118,7 @@ namespace sgu_c_sharf_backend.Controllers
             var loaiThietBi = new LoaiThietBi
             {
                 Id = id,
-                TenLoaiThietBi = request.TenLoaiThietBi
+                TenLoaiThietBi = request.tenLoaiThietBi
             };
 
             // Cập nhật loại thiết bị
@@ -127,5 +127,15 @@ namespace sgu_c_sharf_backend.Controllers
             // Trả về phản hồi thành công với data = null
             return Ok(ApiResponse<LoaiThietBi>.Ok(loaiThietBiResponse, "Cập nhật loại thiết bị thành công."));
         }
+        
+        [HttpDelete("{id}")]
+        public ActionResult<ApiResponse<LoaiThietBi>> DeleteLoaiThietBi(int id)
+        {
+            _loaiThietBiService.XoaLoaiThietBi(id);
+
+            // Trả về phản hồi thành công với data = null
+            return Ok(ApiResponse<LoaiThietBi>.Ok(null, "Xóa loại thiết bị thành công."));
+        }
+        
     }
 }
