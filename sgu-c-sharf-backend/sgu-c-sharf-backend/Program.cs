@@ -21,17 +21,20 @@ builder.Services.AddTransient<MySqlConnection>(_ =>
 
 builder.Services.AddSingleton<IPasswordHasher<object>, PasswordHasher<object>>();
 
-// Thêm DbContext với MySQL
-// var connectingString = builder.Configuration.GetConnectionString("DefaultConnection");
-// builder.Services.AddDbContext<AppDbContext>(options =>
-//     options.UseMySql(
-//         connectingString,
-//         ServerVersion.AutoDetect(connectingString)// Kiểm tra phiên bản MySQL của bạn
-//     )
-// );
-
+// Cấu hình CORS cho phép truy cập từ bất kỳ nguồn nào
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll",
+        policy => policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader());
+});
 
 var app = builder.Build();
+
+// Kích hoạt CORS
+app.UseCors("AllowAll");
+
 app.UseAuthorization();
 app.MapControllers();
 app.Run();
