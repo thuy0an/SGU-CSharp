@@ -138,7 +138,7 @@
     });
 
     function loadLoaiThietBi() {
-        const API_LOAI_TB = "http://localhost:5000/api/loaithietbi"; // Đổi URL nếu khác
+        const API_LOAI_TB = "http://localhost:5244/api/loaithietbi"; // Đổi URL nếu khác
 
         fetch(API_LOAI_TB)
             .then(res => res.json())
@@ -173,7 +173,7 @@
             return;
         }
 
-        const API_THIETBI = `http://localhost:5000/api/thietbi/loai/${loaiId}`;
+        const API_THIETBI = `http://localhost:5244/api/thietbi/loai/${loaiId}`;
 
         fetch(API_THIETBI)
             .then(res => res.json())
@@ -276,7 +276,7 @@
         });
 
         // Gửi dữ liệu lên API
-        fetch("http://localhost:5000/api/datcho", {
+        fetch("http://localhost:5244/api/datcho", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

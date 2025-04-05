@@ -58,7 +58,7 @@
 <script>
     function loaddsPhieuXuPhat() {
         const idThanhVien = sessionStorage.getItem("IdThanhVien");
-        const API_URL = `http://localhost:5000/api/phieuxuphat/thanhvien/${idThanhVien}`;
+        const API_URL = `http://localhost:5244/api/phieuxuphat/thanhvien/${idThanhVien}`;
         fetch(API_URL)
             .then(response => response.json())
             .then(data => {
@@ -101,7 +101,7 @@
 
     function xemChiTietPhieu(id) {
         const idThanhVien = id;
-        const API_URL = `http://localhost:5000/api/phieuxuphat/thanhvien/${idThanhVien}`;
+        const API_URL = `http://localhost:5244/api/phieuxuphat/thanhvien/${idThanhVien}`;
 
         fetch(API_URL)
             .then(response => {
