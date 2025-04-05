@@ -108,7 +108,7 @@
     <div id="Home-over-Header" class="row align-items-center justify-content-center" style="height: fit-content;">
         <!-- Logo -->
         <div class="col-12 col-md-2 text-center mb-2 mb-md-0">
-            <!-- <img id="Home-img" src="./img/logoWine.jpg" alt="Logo" class="img-fluid mx-auto" /> -->
+            <img id="Home-img" src="./img/logoWine.jpg" alt="Logo" class="img-fluid mx-auto" />
         </div>
 
         <!-- Search Form

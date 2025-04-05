@@ -39,7 +39,7 @@
     </style>
 </head>
 
-<body>
+<body onload="loadLoaiThietBi()">
     <?php require_once "./Header.php" ?>
 
     <div class="container2">
@@ -138,7 +138,7 @@
     });
 
     function loadLoaiThietBi() {
-        const API_LOAI_TB = "http://localhost:5244/api/loaithietbi"; // Đổi URL nếu khác
+        const API_LOAI_TB = "http://localhost:5244/api/loai-thiet-bi"; // Đổi URL nếu khác
 
         fetch(API_LOAI_TB)
             .then(res => res.json())
@@ -156,7 +156,7 @@
                 data.forEach(loai => {
                     const option = document.createElement("option");
                     option.value = loai.id;
-                    option.text = loai.tenLoai;
+                    option.text = loai.tenLoaiThietBi;
                     select.appendChild(option);
                 });
             })
@@ -232,7 +232,7 @@
         row.setAttribute("data-id", id); // dùng để xóa sau này
 
         row.innerHTML = `
-        <th scope="row">${index}</th>
+        <th scope="row" class="index">${index}</th>
         <td>${ten}</td>
         <td>
             <input type="number" class="form-control" min="1" max="${soLuong}" style="width: 80px;" value="1">
@@ -246,8 +246,18 @@
     }
 
     function xoa(button) {
-        var row = button.closset('tr');
+        var row = button.closest('tr');
+
+        var id = row.querySelector('.index').textContent;
+
+        const index = danhSachDaChon.findIndex(item => item.id === id);
+
+        if (index !== -1) {
+            danhSachDaChon.splice(index, 1);
+        }
+
         row.remove();
+
     }
 
     function datCho() {
