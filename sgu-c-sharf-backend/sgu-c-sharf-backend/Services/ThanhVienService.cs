@@ -16,8 +16,7 @@ namespace sgu_c_sharf_backend.Services
             _passwordHasher = passwordHasher;
         }
 
-        public PagedResult<ThanhVien> GetAll(int pageNumber, int pageSize, string? search, TrangThaiEnum? status,
-            string? sortBy, string? sortDirection)
+        public PagedResult<ThanhVien> GetAll(int pageNumber, int pageSize, string? search, TrangThaiEnum? status, string? sortBy, string? sortDirection)
         {
             return _thanhVienRepository.GetAll(pageNumber, pageSize, search, status, sortBy, sortDirection);
         }

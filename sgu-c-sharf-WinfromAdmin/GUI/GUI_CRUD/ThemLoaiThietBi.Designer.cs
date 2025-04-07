@@ -69,6 +69,7 @@
             btnThem.TabIndex = 7;
             btnThem.Text = "Thêm";
             btnThem.UseVisualStyleBackColor = false;
+            btnThem.Click += btnThem_Click;
             // 
             // panel3
             // 

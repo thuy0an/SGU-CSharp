@@ -138,7 +138,7 @@
     });
 
     function loadLoaiThietBi() {
-        const API_LOAI_TB = "http://localhost:5244/api/loai-thiet-bi"; // Đổi URL nếu khác
+        const API_LOAI_TB = "http://localhost:5244/api/loai-thiet-bi/no-paging"; // Đổi URL nếu khác
 
         fetch(API_LOAI_TB)
             .then(res => res.json())
@@ -153,7 +153,7 @@
                 select.appendChild(defaultOption);
 
                 // Thêm từng loại thiết bị
-                data.forEach(loai => {
+                data.data.forEach(loai => {
                     const option = document.createElement("option");
                     option.value = loai.id;
                     option.text = loai.tenLoaiThietBi;

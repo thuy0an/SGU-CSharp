@@ -191,6 +191,7 @@ namespace sgu_c_sharf_backend.Repositories
                 loaiThietBi.Id = id;
                 return loaiThietBi;
             }
+
         }
 
 
@@ -210,7 +211,7 @@ namespace sgu_c_sharf_backend.Repositories
             }
         }
 
-        public void Delete(int id)
+        public bool Delete(int id)
         {
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
@@ -219,7 +220,26 @@ namespace sgu_c_sharf_backend.Repositories
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 command.ExecuteNonQuery();
+                return true;
             }
+            return false;
+        }
+        public int GetCountTB(int id){
+            using (MySqlConnection connect = new MySqlConnection(_connectionString)){
+                connect.Open();
+                string sql= "Select count(*) as count from ThietBi where DaXoa = 0 and IdLoaiThietBi = @Id";
+                MySqlCommand command = new MySqlCommand(sql, connect);
+                command.Parameters.AddWithValue("@Id", id);
+                using (MySqlDataReader reader = command.ExecuteReader()){
+                    if( reader.Read())
+                        return Convert.ToInt32(reader["count"]);
+                }
+            }
+            return -1;
         }
     }
+
 }
+
+
+

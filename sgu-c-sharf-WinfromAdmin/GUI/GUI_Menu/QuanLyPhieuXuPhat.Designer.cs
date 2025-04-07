@@ -32,7 +32,15 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            Column2 = new DataGridViewTextBoxColumn();
+            Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
+            Column5 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
+            panel5 = new Panel();
+            label5 = new Label();
+            btnPDF = new PictureBox();
             btnReset = new Button();
             panel4 = new Panel();
             label4 = new Label();
@@ -47,17 +55,11 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
-            panel5 = new Panel();
-            label5 = new Label();
-            btnPDF = new PictureBox();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
-            Column5 = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnPDF).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnXoa).BeginInit();
             panel3.SuspendLayout();
@@ -66,8 +68,6 @@
             ((System.ComponentModel.ISupportInitialize)btnXem).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnEdit).BeginInit();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)btnPDF).BeginInit();
             SuspendLayout();
             // 
             // pnlContent
@@ -83,6 +83,11 @@
             // 
             // DataGrid
             // 
+            DataGrid.AllowUserToAddRows = false;
+            DataGrid.AllowUserToDeleteRows = false;
+            DataGrid.AllowUserToOrderColumns = true;
+            DataGrid.AllowUserToResizeColumns = false;
+            DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.Gray;
@@ -107,9 +112,43 @@
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
+            DataGrid.RowTemplate.Height = 30;
+            DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGrid.Size = new Size(1479, 923);
             DataGrid.TabIndex = 1;
+            // 
+            // Column1
+            // 
+            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column1.HeaderText = "Mã phiếu";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            // 
+            // Column2
+            // 
+            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column2.HeaderText = "Mã thành viên";
+            Column2.Name = "Column2";
+            Column2.ReadOnly = true;
+            // 
+            // Column3
+            // 
+            Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column3.HeaderText = "Trạng thái";
+            Column3.Name = "Column3";
+            // 
+            // Column4
+            // 
+            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column4.HeaderText = "Ngày vi phạm";
+            Column4.Name = "Column4";
+            // 
+            // Column5
+            // 
+            Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column5.HeaderText = "Thời gian xử phạt";
+            Column5.Name = "Column5";
             // 
             // pnlNavigate
             // 
@@ -127,6 +166,41 @@
             pnlNavigate.Name = "pnlNavigate";
             pnlNavigate.Size = new Size(1479, 138);
             pnlNavigate.TabIndex = 0;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(label5);
+            panel5.Controls.Add(btnPDF);
+            panel5.Location = new Point(1359, 12);
+            panel5.Margin = new Padding(4, 3, 4, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(117, 115);
+            panel5.TabIndex = 4;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Bottom;
+            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 84);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(117, 31);
+            label5.TabIndex = 1;
+            label5.Text = "Xuất file";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnPDF
+            // 
+            btnPDF.Cursor = Cursors.Hand;
+            btnPDF.Dock = DockStyle.Top;
+            btnPDF.Image = Properties.Resources.pdf;
+            btnPDF.Location = new Point(0, 0);
+            btnPDF.Margin = new Padding(4, 3, 4, 3);
+            btnPDF.Name = "btnPDF";
+            btnPDF.Size = new Size(117, 81);
+            btnPDF.SizeMode = PictureBoxSizeMode.Zoom;
+            btnPDF.TabIndex = 0;
+            btnPDF.TabStop = false;
             // 
             // btnReset
             // 
@@ -297,73 +371,6 @@
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
             // 
-            // panel5
-            // 
-            panel5.Controls.Add(label5);
-            panel5.Controls.Add(btnPDF);
-            panel5.Location = new Point(1359, 12);
-            panel5.Margin = new Padding(4, 3, 4, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(117, 115);
-            panel5.TabIndex = 4;
-            // 
-            // label5
-            // 
-            label5.Dock = DockStyle.Bottom;
-            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(0, 84);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(117, 31);
-            label5.TabIndex = 1;
-            label5.Text = "Xuất file";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnPDF
-            // 
-            btnPDF.Cursor = Cursors.Hand;
-            btnPDF.Dock = DockStyle.Top;
-            btnPDF.Image = Properties.Resources.pdf;
-            btnPDF.Location = new Point(0, 0);
-            btnPDF.Margin = new Padding(4, 3, 4, 3);
-            btnPDF.Name = "btnPDF";
-            btnPDF.Size = new Size(117, 81);
-            btnPDF.SizeMode = PictureBoxSizeMode.Zoom;
-            btnPDF.TabIndex = 0;
-            btnPDF.TabStop = false;
-            // 
-            // Column1
-            // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column1.HeaderText = "Mã phiếu";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column2.HeaderText = "Mã thành viên";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column3.HeaderText = "Trạng thái";
-            Column3.Name = "Column3";
-            // 
-            // Column4
-            // 
-            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column4.HeaderText = "Ngày vi phạm";
-            Column4.Name = "Column4";
-            // 
-            // Column5
-            // 
-            Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column5.HeaderText = "Thời gian xử phạt";
-            Column5.Name = "Column5";
-            // 
             // QuanLyPhieuXuPhat
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -377,6 +384,8 @@
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
             pnlNavigate.PerformLayout();
+            panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)btnPDF).EndInit();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnXoa).EndInit();
             panel3.ResumeLayout(false);
@@ -385,8 +394,6 @@
             ((System.ComponentModel.ISupportInitialize)btnXem).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnEdit).EndInit();
-            panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)btnPDF).EndInit();
             ResumeLayout(false);
         }
 

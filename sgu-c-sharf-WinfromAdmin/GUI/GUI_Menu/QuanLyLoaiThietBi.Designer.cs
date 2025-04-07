@@ -75,6 +75,11 @@
             // 
             // DataGrid
             // 
+            DataGrid.AllowUserToAddRows = false;
+            DataGrid.AllowUserToDeleteRows = false;
+            DataGrid.AllowUserToOrderColumns = true;
+            DataGrid.AllowUserToResizeColumns = false;
+            DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = Color.Gray;
@@ -86,7 +91,7 @@
             DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2 });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
@@ -99,9 +104,12 @@
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
+            DataGrid.RowTemplate.Height = 30;
+            DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGrid.Size = new Size(1479, 923);
             DataGrid.TabIndex = 1;
+            DataGrid.CellContentClick += DataGrid_CellContentClick;
             // 
             // Column1
             // 
@@ -301,6 +309,7 @@
             txtSearch.Size = new Size(349, 26);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // QuanLyLoaiThietBi
             // 

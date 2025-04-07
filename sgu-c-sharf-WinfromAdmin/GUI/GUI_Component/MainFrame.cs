@@ -1,4 +1,5 @@
 ﻿using sgu_c_sharf_WinfromAdmin.GUI.GUI_Component;
+using sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,6 +27,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI
 
             // Gọi hàm để hiển thị form trong panel bên trái
             EmbedFormInPanel(menuTaskBar, pnlLeft1);
+            this.ChangePage(new QuanLyThanhVien());
         }
 
         protected override void OnFormClosed(FormClosedEventArgs e)

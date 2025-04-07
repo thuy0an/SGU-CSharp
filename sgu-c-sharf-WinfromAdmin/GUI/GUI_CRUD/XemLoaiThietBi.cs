@@ -7,15 +7,28 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using sgu_c_sharf_WinfromAdmin.Models;
+using sgu_c_sharf_WinfromAdmin.Services;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 {
     public partial class FormXemLoaiThietBi : Form
     {
-        public FormXemLoaiThietBi()
+        private LoaiThietbi loaiThietbi;
+        private LoaiThietBiService loaiThietBiService = new LoaiThietBiService();
+        public FormXemLoaiThietBi(LoaiThietbi ltb)
         {
             InitializeComponent();
+            loaiThietbi = ltb;
+            LoadData();
         }
+
+        private async void LoadData(){
+            txtMaLoaiThietBi.Text = loaiThietbi.Id.ToString();
+            txtSoLuongThietBi.Text = (await loaiThietBiService.CountTB(loaiThietbi.Id)).ToString();
+            txtTenLoaiThietBi.Text = loaiThietbi.TenLoaiThietBi;
+        }
+
 
         private void label2_Click(object sender, EventArgs e)
         {
