@@ -45,8 +45,11 @@
 
     <div class="container2">
 
+        <div style="text-align: center;">
+            <h3>Thong bao xu phat</h3>
+        </div>
         <div id="table-container">
-        
+
         </div>
 
     </div>
@@ -69,9 +72,7 @@
                     return;
                 }
                 container.innerHTML += `
-                <div style="text-align: center;">
-                <h3>Thong bao xu phat</h3>
-            </div>
+                
             <table class="table table-striped">
 
                 <tbody id="dsPhieuXuPhat">
