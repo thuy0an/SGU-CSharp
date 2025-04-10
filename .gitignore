@@ -3,6 +3,9 @@ bin/
 obj/
 .vs/
 
+**/bin/
+**/obj/
+
 # Bỏ qua thư mục Debug & Release
 sgu-c-sharf-backend/sgu-c-sharf-backend/obj/Debug/
 sgu-c-sharf-backend/sgu-c-sharf-backend/obj/Release/
