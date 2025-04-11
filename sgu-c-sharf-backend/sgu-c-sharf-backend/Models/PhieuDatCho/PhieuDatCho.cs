@@ -15,8 +15,6 @@ namespace sgu_c_sharf_backend.Models.PhieuDatCho
         [ForeignKey("ThanhVien")]
         public int IdThanhVien { get; set; }
 
-        public virtual ThanhVien.ThanhVien ThanhVien { get; set; } // Navigation property
-
         [Required]
         public TrangThaiPhieuDatChoEnum TrangThai { get; set; }
 
@@ -26,8 +24,8 @@ namespace sgu_c_sharf_backend.Models.PhieuDatCho
         [Required]
         public DateTime ThoiGianLapPhieu { get; set; } = DateTime.Now;
 
-        // Navigation property để truy cập danh sách các ChiTietPhieuDatCho
-        public virtual ICollection<ChiTietPhieuDatCho> ChiTietPhieuDatChos { get; set; } = new List<ChiTietPhieuDatCho>();
+        // // Navigation property để truy cập danh sách các ChiTietPhieuDatCho
+        // public virtual ICollection<ChiTietPhieuDatCho> ChiTietPhieuDatChos { get; set; } = new List<ChiTietPhieuDatCho>();
     }
     public enum TrangThaiPhieuDatChoEnum
     {
