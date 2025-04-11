@@ -1,13 +1,12 @@
-using MySql.Muona.MySqlClient;
+using MySql.Data.MySqlClient;
 using sgu_c_sharf_backend.Models;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using Microsoft.Extensions.Configuration;
 
 namespace sgu_c_sharf_backend.Repositories
 {
-    public class ChiTietPhieuMuonRepository 
+    public class ChiTietPhieuMuonRepository
     {
         private readonly string _connectionString;
 
@@ -18,7 +17,7 @@ namespace sgu_c_sharf_backend.Repositories
 
         public ChiTietPhieuMuon? GetByIdAsync(int id)
         {
-            throw new NotImplementedException("Không thể lấy ChiTietPhieuMuon bằng một ID duy nhất.");
+            throw new NotImplementedException("Không thể lấy ChiTietPhieuMuon bằng một ID duy nhất vì cần 2 khóa chính.");
         }
 
         public ChiTietPhieuMuon? GetByIdsAsync(int idPhieuMuon, int idDauThietBi)
@@ -40,9 +39,9 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
-                    ThoiGianMuon = reader.Get,
-                    ThoiGianTra = reader,
-                    TrangThai = reader
+                    ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
+                    ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
+                    TrangThai = reader.GetString("TrangThai")
                 };
             }
 
@@ -66,9 +65,9 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
-                    ThoiGianMuon = reader.Get,
-                    ThoiGianTra = reader,
-                    TrangThai = reader
+                    ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
+                    ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
+                    TrangThai = reader.GetString("TrangThai")
                 });
             }
 
@@ -85,17 +84,32 @@ namespace sgu_c_sharf_backend.Repositories
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
             command.Parameters.AddWithValue("@IdDauThietBi", entity.IdDauThietBi);
-            command.Parameters.AddWithValue("@ThoiGianMuon", entity.IdPhieuMuon);
-            command.Parameters.AddWithValue("@ThoiGianTra", entity.IdDauThietBi);
-            command.Parameters.AddWithValue("@TrangThai", entity.IdPhieuMuon);
+            command.Parameters.AddWithValue("@ThoiGianMuon", entity.ThoiGianMuon);
+            command.Parameters.AddWithValue("@ThoiGianTra", entity.ThoiGianTra.HasValue ? entity.ThoiGianTra : DBNull.Value);
+            command.Parameters.AddWithValue("@TrangThai", entity.TrangThai);
+
             command.ExecuteNonQuery();
         }
 
-        public void UpMuoneAsync(ChiTietPhieuMuon entity)
+        public void UpdateAsync(ChiTietPhieuMuon entity)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = "UPDATE ChiTietPhieuMuon SET ThoiGianMuon = @ThoiGianMuon, ThoiGianTra = @ThoiGianTra, TrangThai = @TrangThai WHERE IdPhieuMuon = @IdPhieuMuon AND IdDauThietBi = @IdDauThietBi";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
+            command.Parameters.AddWithValue("@IdDauThietBi", entity.IdDauThietBi);
+            command.Parameters.AddWithValue("@ThoiGianMuon", entity.ThoiGianMuon);
+            command.Parameters.AddWithValue("@ThoiGianTra", entity.ThoiGianTra.HasValue ? entity.ThoiGianTra : DBNull.Value);
+            command.Parameters.AddWithValue("@TrangThai", entity.TrangThai);
+
+            command.ExecuteNonQuery();
+        }
+        public void UpdateAsync(ChiTietPhieuMuon entity)
         {
             throw new NotImplementedException("Không hỗ trợ cập nhật ChiTietPhieuMuon.");
         }
-
-       
     }
 }
