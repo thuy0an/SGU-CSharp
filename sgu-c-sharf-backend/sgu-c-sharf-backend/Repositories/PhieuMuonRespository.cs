@@ -35,7 +35,7 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     IdThanhVien = reader.GetInt32("IdThanhVien"),
-                    TrangThai = reader.GetString("TrangThai"),
+                    TrangThai = Enum.Parse<TrangThaiPhieuMuonEnum>(reader.GetString("TrangThai")),
                     NgayTao = reader.GetDateTime("NgayTao")
                 };
             }
@@ -43,7 +43,7 @@ namespace sgu_c_sharf_backend.Repositories
             return null;
         }
 
-        public IEnumerable<PhieuMuon> GetAll()
+        public List<PhieuMuon> GetAll()
         {
             var list = new List<PhieuMuon>();
 
@@ -61,7 +61,7 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     IdThanhVien = reader.GetInt32("IdThanhVien"),
-                    TrangThai = reader.GetString("TrangThai"),
+                    TrangThai = Enum.Parse<TrangThaiPhieuMuonEnum>(reader.GetString("TrangThai")),
                     NgayTao = reader.GetDateTime("NgayTao")
                 });
             }
@@ -69,7 +69,7 @@ namespace sgu_c_sharf_backend.Repositories
             return list;
         }
 
-        public IEnumerable<PhieuMuon> GetAllPaging(int page, int limit)
+        public List<PhieuMuon> GetAllPaging(int page, int limit)
         {
             var list = new List<PhieuMuon>();
 
@@ -94,7 +94,7 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     IdThanhVien = reader.GetInt32("IdThanhVien"),
-                    TrangThai = reader.GetString("TrangThai"),
+                    TrangThai = Enum.Parse<TrangThaiPhieuMuonEnum>(reader.GetString("TrangThai")),
                     NgayTao = reader.GetDateTime("NgayTao")
                 });
             }
@@ -120,7 +120,7 @@ namespace sgu_c_sharf_backend.Repositories
             return Convert.ToInt32(command.ExecuteScalar());
         }
 
-        public void UpdateTrangThai(int id, string trangThai)
+        public int UpdateTrangThai(PhieuMuon phieuMuon)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
@@ -128,10 +128,10 @@ namespace sgu_c_sharf_backend.Repositories
             string query = "UPDATE PhieuMuon SET TrangThai = @TrangThai WHERE Id = @Id";
 
             using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@TrangThai", trangThai);
-            command.Parameters.AddWithValue("@Id", id);
+            command.Parameters.AddWithValue("@TrangThai", phieuMuon.TrangThai);
+            command.Parameters.AddWithValue("@Id", phieuMuon.Id);
 
-            command.ExecuteNonQuery();
+            return Convert.ToInt32( command.ExecuteNonQuery());
         }
     }
 }

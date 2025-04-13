@@ -22,7 +22,7 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public DateTime ThoiGianMuon { get; set; }
 
         [Required]
-        public DateTime ThoiGianTra { get; set; }
+        public DateTime? ThoiGianTra { get; set; }
 
         [Required]
         public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; }

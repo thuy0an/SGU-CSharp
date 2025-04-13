@@ -3,6 +3,7 @@ using sgu_c_sharf_backend.Models.PhieuMuon;
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
+using System.Data;
 
 namespace sgu_c_sharf_backend.Repositories
 {
@@ -41,7 +42,7 @@ namespace sgu_c_sharf_backend.Repositories
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
                     ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
                     ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
-                    TrangThai = reader.GetString("TrangThai")
+                    TrangThai = Enum.Parse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"))
                 };
             }
 
@@ -67,7 +68,7 @@ namespace sgu_c_sharf_backend.Repositories
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
                     ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
                     ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
-                    TrangThai = reader.GetString("TrangThai")
+                    TrangThai = Enum.Parse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"))
                 });
             }
 
