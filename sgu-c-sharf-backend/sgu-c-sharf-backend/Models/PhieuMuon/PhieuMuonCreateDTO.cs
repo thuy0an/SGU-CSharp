@@ -9,6 +9,5 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
 
         [Required]
         public TrangThaiPhieuMuonEnum TrangThai { get; set; }
-
     }
 }
