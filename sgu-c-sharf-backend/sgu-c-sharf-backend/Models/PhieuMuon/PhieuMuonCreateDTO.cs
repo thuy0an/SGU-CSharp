@@ -8,6 +8,7 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public int IdThanhVien { get; set; }
 
         [Required]
-        public TrangThaiMuonEnum TrangThai { get; set; }
+        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
+
     }
 }

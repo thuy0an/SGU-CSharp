@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using sgu_c_sharf_backend.Models.ThietBi;
 
-namespace sgu_c_sharf_backend.Models
+namespace sgu_c_sharf_backend.Models.PhieuMuon
 {
     [Table("ChiTietPhieuMuon")]
     public class ChiTietPhieuMuon

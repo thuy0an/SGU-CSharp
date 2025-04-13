@@ -1,6 +1,6 @@
 using MySql.Data.MySqlClient;
 using Microsoft.Extensions.Configuration;
-using sgu_c_sharf_backend.Models;
+using sgu_c_sharf_backend.Models.PhieuMuon;
 using System;
 using System.Collections.Generic;
 
@@ -69,6 +69,39 @@ namespace sgu_c_sharf_backend.Repositories
             return list;
         }
 
+        public IEnumerable<PhieuMuon> GetAllPaging(int page, int limit)
+        {
+            var list = new List<PhieuMuon>();
+
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            // Tính toán vị trí bắt đầu của dữ liệu cho trang hiện tại
+            int offset = (page - 1) * limit;
+
+            // Sử dụng LIMIT và OFFSET để phân trang
+            string query = "SELECT Id, IdThanhVien, TrangThai, NgayTao FROM PhieuMuon LIMIT @Limit OFFSET @Offset";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Limit", limit);
+            command.Parameters.AddWithValue("@Offset", offset);
+
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new PhieuMuon
+                {
+                    Id = reader.GetInt32("Id"),
+                    IdThanhVien = reader.GetInt32("IdThanhVien"),
+                    TrangThai = reader.GetString("TrangThai"),
+                    NgayTao = reader.GetDateTime("NgayTao")
+                });
+            }
+
+            return list;
+        }
+
         public int Add(PhieuMuon entity)
         {
             using var connection = new MySqlConnection(_connectionString);
@@ -96,19 +129,6 @@ namespace sgu_c_sharf_backend.Repositories
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@TrangThai", trangThai);
-            command.Parameters.AddWithValue("@Id", id);
-
-            command.ExecuteNonQuery();
-        }
-
-        public void Delete(int id)
-        {
-            using var connection = new MySqlConnection(_connectionString);
-            connection.Open();
-
-            string query = "DELETE FROM PhieuMuon WHERE Id = @Id";
-
-            using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@Id", id);
 
             command.ExecuteNonQuery();

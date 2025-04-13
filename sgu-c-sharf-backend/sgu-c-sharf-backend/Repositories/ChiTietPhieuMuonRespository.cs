@@ -1,5 +1,5 @@
 using MySql.Data.MySqlClient;
-using sgu_c_sharf_backend.Models;
+using sgu_c_sharf_backend.Models.PhieuMuon;
 using System;
 using System.Collections.Generic;
 using Microsoft.Extensions.Configuration;
@@ -106,10 +106,6 @@ namespace sgu_c_sharf_backend.Repositories
             command.Parameters.AddWithValue("@TrangThai", entity.TrangThai);
 
             command.ExecuteNonQuery();
-        }
-        public void UpdateAsync(ChiTietPhieuMuon entity)
-        {
-            throw new NotImplementedException("Không hỗ trợ cập nhật ChiTietPhieuMuon.");
         }
     }
 }
