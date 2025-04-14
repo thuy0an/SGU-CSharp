@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace sgu_c_sharf_backend.Models.ThietBi
 {
@@ -11,9 +12,6 @@ namespace sgu_c_sharf_backend.Models.ThietBi
         public DateTime ThoiGianMua { get; set; }
 
         [Required]
-        public int IdThietBi { get; set; } 
-        
-        [Required]
-        public int Id { get; set; } 
+        public int IdThietBi { get; set; }
     }
 }

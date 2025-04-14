@@ -9,16 +9,18 @@ builder.Services.AddScoped<ThanhVienRepository>();
 builder.Services.AddScoped<ThanhVienService>();
 builder.Services.AddScoped<LoaiThietBiRepository>();
 builder.Services.AddScoped<LoaiThietBiService>();
-builder.Services.AddScoped<ThietBiRepository>();
-
-builder.Services.AddScoped<LoaiThietBiRepository>();
-builder.Services.AddScoped<LoaiThietBiService>(); 
 
 builder.Services.AddScoped<PhieuDatChoRepository>();
 builder.Services.AddScoped<PhieuDatChoService>();
 
 builder.Services.AddScoped<PhieuMuonRepository>();
 builder.Services.AddScoped<PhieuMuonService>();
+
+builder.Services.AddScoped<ThietBiRepository>();
+builder.Services.AddScoped<ThietBiService>();
+
+builder.Services.AddScoped<DauThietBiRepository>();
+builder.Services.AddScoped<DauThietBiService>();
 
 // Đăng ký MySqlConnection vào DI Container
 builder.Services.AddTransient<MySqlConnection>(_ =>
