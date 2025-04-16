@@ -2,27 +2,30 @@
 using System.Collections.Generic;
 using System.Data;
 using MySql.Data.MySqlClient;
-using sgu_c_sharf_backend.Models; // Chú ý: đã sửa namespace
 using Microsoft.Extensions.Configuration;
-using sgu_c_sharf_backend.Models.ThietBi; // Import IConfiguration
+using sgu_c_sharf_backend.Models.ThietBi;
 
 namespace sgu_c_sharf_backend.Repositories
 {
-    public class ThietBiRepository 
+    public class ThietBiRepository
     {
         private readonly string _connectionString;
 
-        public ThietBiRepository(IConfiguration configuration )
+        public ThietBiRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection"); // Lấy chuỗi kết nối từ IConfiguration
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public ThietBi GetById(int id)
+        public ThietBiDetailDTO GetById(int id)
         {
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                string sql = "SELECT Id, TenThietBi, IdLoaiThietBi, DaXoa FROM ThietBi WHERE Id = @Id";
+                string sql = @"
+                    SELECT tb.Id, tb.TenThietBi, ltb.TenLoaiThietBi, tb.DaXoa
+                    FROM ThietBi tb
+                    INNER JOIN LoaiThietBi ltb ON tb.IdLoaiThietBi = ltb.Id AND ltb.DaXoa = 0
+                    WHERE tb.Id = @Id AND tb.DaXoa = 0";
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@Id", id);
 
@@ -30,11 +33,11 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     if (reader.Read())
                     {
-                        return new ThietBi
+                        return new ThietBiDetailDTO
                         {
                             Id = Convert.ToInt32(reader["Id"]),
                             TenThietBi = reader["TenThietBi"].ToString(),
-                            IdLoaiThietBi = Convert.ToInt32(reader["IdLoaiThietBi"]),
+                            TenLoaiThietBi = reader["TenLoaiThietBi"].ToString(),
                             DaXoa = Convert.ToBoolean(reader["DaXoa"])
                         };
                     }
@@ -43,24 +46,28 @@ namespace sgu_c_sharf_backend.Repositories
             }
         }
 
-        public IEnumerable<ThietBi> GetAll()
+        public IEnumerable<ThietBiListDTO> GetAll()
         {
-            List<ThietBi> thietBis = new List<ThietBi>();
+            List<ThietBiListDTO> thietBis = new List<ThietBiListDTO>();
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                string sql = "SELECT Id, TenThietBi, IdLoaiThietBi, DaXoa FROM ThietBi";
+                string sql = @"
+                    SELECT tb.Id, tb.TenThietBi, ltb.TenLoaiThietBi, tb.DaXoa
+                    FROM ThietBi tb
+                    INNER JOIN LoaiThietBi ltb ON tb.IdLoaiThietBi = ltb.Id AND ltb.DaXoa = 0
+                    WHERE tb.DaXoa = 0";
                 MySqlCommand command = new MySqlCommand(sql, connection);
 
                 using (MySqlDataReader reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        thietBis.Add(new ThietBi
+                        thietBis.Add(new ThietBiListDTO
                         {
                             Id = Convert.ToInt32(reader["Id"]),
                             TenThietBi = reader["TenThietBi"].ToString(),
-                            IdLoaiThietBi = Convert.ToInt32(reader["IdLoaiThietBi"]),
+                            TenLoaiThietBi = reader["TenLoaiThietBi"].ToString(),
                             DaXoa = Convert.ToBoolean(reader["DaXoa"])
                         });
                     }
@@ -74,7 +81,25 @@ namespace sgu_c_sharf_backend.Repositories
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                string sql = "INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi) VALUES (@TenThietBi, @IdLoaiThietBi)";
+                // Kiểm tra IdLoaiThietBi hợp lệ
+                string checkLoaiSql = "SELECT COUNT(*) FROM LoaiThietBi WHERE Id = @IdLoaiThietBi AND DaXoa = 0";
+                MySqlCommand checkLoaiCommand = new MySqlCommand(checkLoaiSql, connection);
+                checkLoaiCommand.Parameters.AddWithValue("@IdLoaiThietBi", thietBiCreateForm.IdLoaiThietBi);
+                int loaiCount = Convert.ToInt32(checkLoaiCommand.ExecuteScalar());
+
+                if (loaiCount == 0)
+                    throw new Exception("Loại thiết bị không tồn tại hoặc đã bị xóa.");
+
+                // Kiểm tra TenThietBi không trùng
+                string checkDuplicateSql = "SELECT COUNT(*) FROM ThietBi WHERE TenThietBi = @TenThietBi AND DaXoa = 0";
+                MySqlCommand checkDuplicateCommand = new MySqlCommand(checkDuplicateSql, connection);
+                checkDuplicateCommand.Parameters.AddWithValue("@TenThietBi", thietBiCreateForm.TenThietBi);
+                int duplicateCount = Convert.ToInt32(checkDuplicateCommand.ExecuteScalar());
+
+                if (duplicateCount > 0)
+                    throw new Exception("Tên thiết bị đã tồn tại.");
+
+                string sql = "INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi, DaXoa) VALUES (@TenThietBi, @IdLoaiThietBi, 0)";
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@TenThietBi", thietBiCreateForm.TenThietBi);
                 command.Parameters.AddWithValue("@IdLoaiThietBi", thietBiCreateForm.IdLoaiThietBi);
@@ -87,42 +112,76 @@ namespace sgu_c_sharf_backend.Repositories
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                string sql = "UPDATE ThietBi SET TenThietBi = @TenThietBi, IdLoaiThietBi = @IdLoaiThietBi WHERE Id = @Id";
+                // Kiểm tra IdLoaiThietBi hợp lệ
+                string checkLoaiSql = "SELECT COUNT(*) FROM LoaiThietBi WHERE Id = @IdLoaiThietBi AND DaXoa = 0";
+                MySqlCommand checkLoaiCommand = new MySqlCommand(checkLoaiSql, connection);
+                checkLoaiCommand.Parameters.AddWithValue("@IdLoaiThietBi", thietBiUpdateForm.IdLoaiThietBi);
+                int loaiCount = Convert.ToInt32(checkLoaiCommand.ExecuteScalar());
+
+                if (loaiCount == 0)
+                    throw new Exception("Loại thiết bị không tồn tại hoặc đã bị xóa.");
+
+                // Kiểm tra TenThietBi không trùng (ngoại trừ bản ghi hiện tại)
+                string checkDuplicateSql = "SELECT COUNT(*) FROM ThietBi WHERE TenThietBi = @TenThietBi AND DaXoa = 0 AND Id != @Id";
+                MySqlCommand checkDuplicateCommand = new MySqlCommand(checkDuplicateSql, connection);
+                checkDuplicateCommand.Parameters.AddWithValue("@TenThietBi", thietBiUpdateForm.TenThietBi);
+                checkDuplicateCommand.Parameters.AddWithValue("@Id", id);
+                int duplicateCount = Convert.ToInt32(checkDuplicateCommand.ExecuteScalar());
+
+                if (duplicateCount > 0)
+                    throw new Exception("Tên thiết bị đã tồn tại.");
+
+                string sql = "UPDATE ThietBi SET TenThietBi = @TenThietBi, IdLoaiThietBi = @IdLoaiThietBi WHERE Id = @Id AND DaXoa = 0";
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 command.Parameters.AddWithValue("@TenThietBi", thietBiUpdateForm.TenThietBi);
                 command.Parameters.AddWithValue("@IdLoaiThietBi", thietBiUpdateForm.IdLoaiThietBi);
-                command.ExecuteNonQuery();
+                int affectedRows = command.ExecuteNonQuery();
+
+                if (affectedRows == 0)
+                    throw new Exception("Thiết bị không tồn tại hoặc đã bị xóa.");
             }
         }
 
-        public IEnumerable<ThietBi> Search(string? tenThietBi, int? idLoaiThietBi, bool? daXoa)
+        public void Delete(int id)
         {
-            List<ThietBi> thietBis = new List<ThietBi>();
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
+                string sql = "UPDATE ThietBi SET DaXoa = 1 WHERE Id = @Id AND DaXoa = 0";
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@Id", id);
+                int affectedRows = command.ExecuteNonQuery();
 
-                string sql = "SELECT Id, TenThietBi, IdLoaiThietBi, DaXoa FROM ThietBi WHERE 1=1";
+                if (affectedRows == 0)
+                    throw new Exception("Thiết bị không tồn tại hoặc đã bị xóa.");
+            }
+        }
+
+        public IEnumerable<ThietBiListDTO> Search(string tenThietBi, int? idLoaiThietBi)
+        {
+            List<ThietBiListDTO> thietBis = new List<ThietBiListDTO>();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string sql = @"
+                    SELECT tb.Id, tb.TenThietBi, ltb.TenLoaiThietBi, tb.DaXoa
+                    FROM ThietBi tb
+                    INNER JOIN LoaiThietBi ltb ON tb.IdLoaiThietBi = ltb.Id AND ltb.DaXoa = 0
+                    WHERE tb.DaXoa = 0";
                 List<string> conditions = new List<string>();
                 List<MySqlParameter> parameters = new List<MySqlParameter>();
 
                 if (!string.IsNullOrEmpty(tenThietBi))
                 {
-                    conditions.Add("TenThietBi LIKE @TenThietBi");
-                    parameters.Add(new MySqlParameter("@TenThietBi", "%" + tenThietBi + "%")); // Sử dụng LIKE để tìm kiếm gần đúng
+                    conditions.Add("tb.TenThietBi LIKE @TenThietBi");
+                    parameters.Add(new MySqlParameter("@TenThietBi", "%" + tenThietBi + "%"));
                 }
 
                 if (idLoaiThietBi.HasValue)
                 {
-                    conditions.Add("IdLoaiThietBi = @IdLoaiThietBi");
+                    conditions.Add("tb.IdLoaiThietBi = @IdLoaiThietBi");
                     parameters.Add(new MySqlParameter("@IdLoaiThietBi", idLoaiThietBi.Value));
-                }
-
-                if (daXoa.HasValue)
-                {
-                    conditions.Add("DaXoa = @DaXoa");
-                    parameters.Add(new MySqlParameter("@DaXoa", daXoa.Value));
                 }
 
                 if (conditions.Count > 0)
@@ -137,81 +196,17 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     while (reader.Read())
                     {
-                        thietBis.Add(new ThietBi
+                        thietBis.Add(new ThietBiListDTO
                         {
                             Id = Convert.ToInt32(reader["Id"]),
                             TenThietBi = reader["TenThietBi"].ToString(),
-                            IdLoaiThietBi = Convert.ToInt32(reader["IdLoaiThietBi"]),
+                            TenLoaiThietBi = reader["TenLoaiThietBi"].ToString(),
                             DaXoa = Convert.ToBoolean(reader["DaXoa"])
                         });
                     }
                 }
             }
             return thietBis;
-        }
-
-        public int UpdateByCondition(string? tenThietBiCondition, int? idLoaiThietBiCondition, bool? daXoaCondition, ThietBiUpdateForm updateValues)
-        {
-            using (MySqlConnection connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-
-                string sql = "UPDATE ThietBi SET ";
-                List<string> setClauses = new List<string>();
-                List<string> whereClauses = new List<string>();
-                List<MySqlParameter> parameters = new List<MySqlParameter>();
-
-                // Xây dựng mệnh đề SET
-                setClauses.Add("TenThietBi = @NewTenThietBi");
-                parameters.Add(new MySqlParameter("@NewTenThietBi", updateValues.TenThietBi));
-
-                setClauses.Add("IdLoaiThietBi = @NewIdLoaiThietBi");
-                parameters.Add(new MySqlParameter("@NewIdLoaiThietBi", updateValues.IdLoaiThietBi));
-
-                sql += string.Join(", ", setClauses);
-
-                // Xây dựng mệnh đề WHERE
-                sql += " WHERE 1=1";
-                if (!string.IsNullOrEmpty(tenThietBiCondition))
-                {
-                    whereClauses.Add("TenThietBi LIKE @TenThietBiCondition");
-                    parameters.Add(new MySqlParameter("@TenThietBiCondition", "%" + tenThietBiCondition + "%")); // Dùng LIKE cho tìm kiếm gần đúng
-                }
-                if (idLoaiThietBiCondition.HasValue)
-                {
-                    whereClauses.Add("IdLoaiThietBi = @IdLoaiThietBiCondition");
-                    parameters.Add(new MySqlParameter("@IdLoaiThietBiCondition", idLoaiThietBiCondition.Value));
-                }
-                if (daXoaCondition.HasValue)
-                {
-                    whereClauses.Add("DaXoa = @DaXoaCondition");
-                    parameters.Add(new MySqlParameter("@DaXoaCondition", daXoaCondition.Value));
-                }
-
-                if (whereClauses.Count > 0)
-                {
-                    sql += " AND " + string.Join(" AND ", whereClauses);
-                }
-
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                command.Parameters.AddRange(parameters.ToArray());
-
-                return command.ExecuteNonQuery();
-            }
-        }
-        public void Delete(int id)
-        {
-          
-          
-
-              using (MySqlConnection connection = new MySqlConnection(_connectionString))
-            {
-                connection.Open();
-                string sql = "UPDATE ThietBi SET DaXoa = 1 WHERE Id = @Id";
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@Id", id);
-                command.ExecuteNonQuery();
-            }
         }
     }
 }

@@ -104,7 +104,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            FormThemLoaiThietBi form = new FormThemLoaiThietBi(listLTB,this);
+            FormThemLoaiThietBi form = new FormThemLoaiThietBi(listLTB, this);
             form.ShowDialog();
         }
 
@@ -118,9 +118,9 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 if (result == DialogResult.Yes)
                 {
                     int soluong = await loaiThietBiService.CountTB(selectedRow);
-                    if ( soluong != 0)
+                    if (soluong != 0)
                     {
-                        MessageBox.Show("Không thể xóa loại thiết đang có "+ soluong +" thiết bị thuộc loại này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        MessageBox.Show("Không thể xóa loại thiết đang có " + soluong + " thiết bị thuộc loại này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         return;
                     }
                     bool check = await loaiThietBiService.Delete(selectedRow);
@@ -154,10 +154,15 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         {
             string searchText = txtSearch.Text.ToLower();
             List<LoaiThietbi> filter = new List<LoaiThietbi>();
-            foreach(var ltb in listLTB)
+            foreach (var ltb in listLTB)
                 if (ltb.TenLoaiThietBi.ToLower().Contains(searchText) || ltb.Id.ToString().Contains(searchText))
                     filter.Add(ltb);
             LoadData(filter);
+        }
+
+        private void QuanLyLoaiThietBi_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

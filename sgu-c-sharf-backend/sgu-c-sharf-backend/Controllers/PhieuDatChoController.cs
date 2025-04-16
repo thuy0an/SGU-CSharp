@@ -20,6 +20,8 @@ namespace sgu_c_sharf_backend.Controllers
         _phieuDatChoService = phieuDatChoService;
     }
 
+
+    // cho winform
     [HttpGet]
     public ActionResult<ApiResponse<List<PhieuDatCho>>> GetAllNoPaging(){
         var res = _phieuDatChoService.GetAllNoPaging();

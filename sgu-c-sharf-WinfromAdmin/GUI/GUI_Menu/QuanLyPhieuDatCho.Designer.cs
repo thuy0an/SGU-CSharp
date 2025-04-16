@@ -300,6 +300,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "QuanLyPhieuDatCho";
             Text = "QuanLyPhieuDatCho";
+            Load += QuanLyPhieuDatCho_Load;
             pnlContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);

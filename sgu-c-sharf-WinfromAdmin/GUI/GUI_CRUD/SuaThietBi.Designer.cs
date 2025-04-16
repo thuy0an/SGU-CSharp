@@ -10,7 +10,7 @@
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing && (components != null))
@@ -28,21 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlContent = new Panel();
-            btnXoaDauThietBi = new Button();
-            btnSuaDauThietBi = new Button();
+            panel2 = new Panel();
+            txtDauThietBi = new TextBox();
+            label5 = new Label();
             btnCapNhat = new Button();
             label3 = new Label();
-            btnThemDauThietBi = new Button();
             panel7 = new Panel();
             cbbLoaiThietBi = new ComboBox();
             label8 = new Label();
-            dataGrid = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             txtTenThietBi = new TextBox();
             label4 = new Label();
@@ -51,8 +45,8 @@
             label2 = new Label();
             label1 = new Label();
             pnlContent.SuspendLayout();
+            panel2.SuspendLayout();
             panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             panel3.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
@@ -60,13 +54,10 @@
             // pnlContent
             // 
             pnlContent.BackColor = Color.White;
-            pnlContent.Controls.Add(btnXoaDauThietBi);
-            pnlContent.Controls.Add(btnSuaDauThietBi);
+            pnlContent.Controls.Add(panel2);
             pnlContent.Controls.Add(btnCapNhat);
             pnlContent.Controls.Add(label3);
-            pnlContent.Controls.Add(btnThemDauThietBi);
             pnlContent.Controls.Add(panel7);
-            pnlContent.Controls.Add(dataGrid);
             pnlContent.Controls.Add(panel3);
             pnlContent.Controls.Add(panel1);
             pnlContent.Controls.Add(label1);
@@ -74,40 +65,52 @@
             pnlContent.Location = new Point(0, 0);
             pnlContent.Margin = new Padding(4, 3, 4, 3);
             pnlContent.Name = "pnlContent";
-            pnlContent.Size = new Size(740, 746);
+            pnlContent.Size = new Size(740, 578);
             pnlContent.TabIndex = 0;
-            pnlContent.Paint += pnlContent_Paint;
             // 
-            // btnXoaDauThietBi
+            // panel2
             // 
-            btnXoaDauThietBi.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnXoaDauThietBi.Location = new Point(628, 523);
-            btnXoaDauThietBi.Name = "btnXoaDauThietBi";
-            btnXoaDauThietBi.Size = new Size(100, 50);
-            btnXoaDauThietBi.TabIndex = 13;
-            btnXoaDauThietBi.Text = "Xóa đầu thiết bị";
-            btnXoaDauThietBi.UseVisualStyleBackColor = true;
+            panel2.Controls.Add(txtDauThietBi);
+            panel2.Controls.Add(label5);
+            panel2.Location = new Point(120, 340);
+            panel2.Margin = new Padding(4, 3, 4, 3);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(500, 73);
+            panel2.TabIndex = 4;
             // 
-            // btnSuaDauThietBi
+            // txtDauThietBi
             // 
-            btnSuaDauThietBi.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSuaDauThietBi.Location = new Point(628, 438);
-            btnSuaDauThietBi.Name = "btnSuaDauThietBi";
-            btnSuaDauThietBi.Size = new Size(100, 50);
-            btnSuaDauThietBi.TabIndex = 12;
-            btnSuaDauThietBi.Text = "Sửa đầu thiết bị";
-            btnSuaDauThietBi.UseVisualStyleBackColor = true;
-            btnSuaDauThietBi.Click += btnSuaDauThietBi_Click;
+            txtDauThietBi.Dock = DockStyle.Bottom;
+            txtDauThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDauThietBi.Location = new Point(0, 44);
+            txtDauThietBi.Margin = new Padding(4, 3, 4, 3);
+            txtDauThietBi.Name = "txtDauThietBi";
+            txtDauThietBi.Size = new Size(500, 29);
+            txtDauThietBi.TabIndex = 1;
+            txtDauThietBi.Text = "abc";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Dock = DockStyle.Top;
+            label5.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 0);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(236, 22);
+            label5.TabIndex = 0;
+            label5.Text = "Thêm số lượng đầu thiết bị";
             // 
             // btnCapNhat
             // 
             btnCapNhat.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnCapNhat.Location = new Point(310, 694);
+            btnCapNhat.Location = new Point(314, 496);
             btnCapNhat.Name = "btnCapNhat";
             btnCapNhat.Size = new Size(120, 40);
             btnCapNhat.TabIndex = 11;
             btnCapNhat.Text = "Cập nhật";
             btnCapNhat.UseVisualStyleBackColor = true;
+            btnCapNhat.Click += btnCapNhat_Click;
             // 
             // label3
             // 
@@ -115,20 +118,8 @@
             label3.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             label3.Location = new Point(121, 326);
             label3.Name = "label3";
-            label3.Size = new Size(230, 22);
+            label3.Size = new Size(0, 22);
             label3.TabIndex = 10;
-            label3.Text = "Danh sách các đầu thiết bị";
-            // 
-            // btnThemDauThietBi
-            // 
-            btnThemDauThietBi.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnThemDauThietBi.Location = new Point(628, 368);
-            btnThemDauThietBi.Name = "btnThemDauThietBi";
-            btnThemDauThietBi.Size = new Size(100, 50);
-            btnThemDauThietBi.TabIndex = 9;
-            btnThemDauThietBi.Text = "Thêm đầu thiết bị";
-            btnThemDauThietBi.UseVisualStyleBackColor = true;
-            btnThemDauThietBi.Click += btnThemDauThietBi_Click;
             // 
             // panel7
             // 
@@ -165,53 +156,6 @@
             label8.TabIndex = 0;
             label8.Text = "Loại thiết bị";
             // 
-            // dataGrid
-            // 
-            dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGrid.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3 });
-            dataGrid.ImeMode = ImeMode.NoControl;
-            dataGrid.Location = new Point(0, 368);
-            dataGrid.Name = "dataGrid";
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dataGrid.RowHeadersVisible = false;
-            dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGrid.Size = new Size(620, 300);
-            dataGrid.TabIndex = 8;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Mã đầu thiết bị";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "Trạng thái";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
-            // 
-            // Column3
-            // 
-            Column3.HeaderText = "Thời gian mua";
-            Column3.Name = "Column3";
-            // 
             // panel3
             // 
             panel3.Controls.Add(txtTenThietBi);
@@ -221,7 +165,6 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(500, 73);
             panel3.TabIndex = 3;
-            panel3.Paint += panel3_Paint;
             // 
             // txtTenThietBi
             // 
@@ -255,7 +198,6 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(500, 73);
             panel1.TabIndex = 1;
-            panel1.Paint += panel1_Paint;
             // 
             // txtMaThietBi
             // 
@@ -280,7 +222,6 @@
             label2.Size = new Size(95, 22);
             label2.TabIndex = 0;
             label2.Text = "Mã thiết bị";
-            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -299,7 +240,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(740, 746);
+            ClientSize = new Size(740, 578);
             Controls.Add(pnlContent);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(4, 3, 4, 3);
@@ -307,12 +248,12 @@
             Name = "FormSuaThietBi";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "SuaThietBi";
-            Load += FormSuaThanhVien_Load;
             pnlContent.ResumeLayout(false);
             pnlContent.PerformLayout();
+            panel2.ResumeLayout(false);
+            panel2.PerformLayout();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGrid).EndInit();
             panel3.ResumeLayout(false);
             panel3.PerformLayout();
             panel1.ResumeLayout(false);
@@ -330,17 +271,13 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txtTenThietBi;
         private System.Windows.Forms.Label label4;
-        private DataGridView dataGrid;
         private Panel panel7;
         private Label label8;
         private ComboBox cbbLoaiThietBi;
-        private Button btnThemDauThietBi;
-        private Button btnCapNhat;
         private Label label3;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private Button btnXoaDauThietBi;
-        private Button btnSuaDauThietBi;
+        private Panel panel2;
+        private TextBox txtDauThietBi;
+        private Label label5;
+        private Button btnCapNhat;
     }
 }

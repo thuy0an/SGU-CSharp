@@ -20,7 +20,7 @@ namespace sgu_c_sharf_backend.Models.ThietBi
         [ForeignKey("ThietBi")]
         public int IdThietBi { get; set; }
 
-        public virtual Models.ThietBi.ThietBi ThietBi { get; set; } // Navigation property
+        public virtual Models.ThietBi.ThietBi ThietBi { get; set; }
     }
     public enum TrangThaiDauThietBiEnum
     {

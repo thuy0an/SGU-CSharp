@@ -6,20 +6,22 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD;
 using System.Windows.Forms;
 
-namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
+namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 {
-    public partial class FormThemThietBi : Form
+    public partial class QuanLyThongKe : Form
     {
-        public FormThemThietBi()
+        public QuanLyThongKe()
         {
             InitializeComponent();
+            LoadData();
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
+        private void LoadData()
         {
-            // Logic for adding a new device
+            // Logic to load data
         }
     }
 }
