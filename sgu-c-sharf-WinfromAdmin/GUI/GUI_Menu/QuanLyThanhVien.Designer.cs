@@ -30,6 +30,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuanLyThanhVien));
             pnlContent = new Panel();
             DataGrid = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
@@ -38,6 +39,9 @@
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
+            panel4 = new Panel();
+            label4 = new Label();
+            btnThem = new PictureBox();
             panel3 = new Panel();
             label3 = new Label();
             btnPDF = new PictureBox();
@@ -49,15 +53,22 @@
             btnEdit = new PictureBox();
             btnReset = new Button();
             txtSearch = new TextBox();
+            panel5 = new Panel();
+            label5 = new Label();
+            btnCheckIn = new PictureBox();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
+            panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnThem).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnPDF).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnXem).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnEdit).BeginInit();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnCheckIn).BeginInit();
             SuspendLayout();
             // 
             // pnlContent
@@ -153,6 +164,8 @@
             // pnlNavigate
             // 
             pnlNavigate.BackColor = Color.White;
+            pnlNavigate.Controls.Add(panel5);
+            pnlNavigate.Controls.Add(panel4);
             pnlNavigate.Controls.Add(panel3);
             pnlNavigate.Controls.Add(panel2);
             pnlNavigate.Controls.Add(panel1);
@@ -165,11 +178,47 @@
             pnlNavigate.Size = new Size(1479, 138);
             pnlNavigate.TabIndex = 0;
             // 
+            // panel4
+            // 
+            panel4.Controls.Add(label4);
+            panel4.Controls.Add(btnThem);
+            panel4.Location = new Point(825, 12);
+            panel4.Margin = new Padding(4, 3, 4, 3);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(117, 115);
+            panel4.TabIndex = 2;
+            // 
+            // label4
+            // 
+            label4.Dock = DockStyle.Bottom;
+            label4.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label4.Location = new Point(0, 84);
+            label4.Margin = new Padding(4, 0, 4, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(117, 31);
+            label4.TabIndex = 1;
+            label4.Text = "Thêm";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnThem
+            // 
+            btnThem.Cursor = Cursors.Hand;
+            btnThem.Dock = DockStyle.Top;
+            btnThem.Image = Properties.Resources.them;
+            btnThem.Location = new Point(0, 0);
+            btnThem.Margin = new Padding(4, 3, 4, 3);
+            btnThem.Name = "btnThem";
+            btnThem.Size = new Size(117, 81);
+            btnThem.SizeMode = PictureBoxSizeMode.Zoom;
+            btnThem.TabIndex = 0;
+            btnThem.TabStop = false;
+            btnThem.Click += btnThem_Click;
+            // 
             // panel3
             // 
             panel3.Controls.Add(label3);
             panel3.Controls.Add(btnPDF);
-            panel3.Location = new Point(1357, 14);
+            panel3.Location = new Point(1357, 12);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(117, 115);
@@ -184,19 +233,19 @@
             label3.Name = "label3";
             label3.Size = new Size(117, 31);
             label3.TabIndex = 1;
-            label3.Text = "Xuất file";
+            label3.Text = "Import Excel";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // btnPDF
             // 
             btnPDF.Cursor = Cursors.Hand;
             btnPDF.Dock = DockStyle.Top;
-            btnPDF.Image = Properties.Resources.pdf;
+            btnPDF.Image = (Image)resources.GetObject("btnPDF.Image");
             btnPDF.Location = new Point(0, 0);
             btnPDF.Margin = new Padding(4, 3, 4, 3);
             btnPDF.Name = "btnPDF";
-            btnPDF.Size = new Size(117, 74);
-            btnPDF.SizeMode = PictureBoxSizeMode.CenterImage;
+            btnPDF.Size = new Size(117, 81);
+            btnPDF.SizeMode = PictureBoxSizeMode.Zoom;
             btnPDF.TabIndex = 0;
             btnPDF.TabStop = false;
             // 
@@ -204,7 +253,7 @@
             // 
             panel2.Controls.Add(label2);
             panel2.Controls.Add(btnXem);
-            panel2.Location = new Point(1212, 14);
+            panel2.Location = new Point(958, 12);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(117, 115);
@@ -240,7 +289,7 @@
             // 
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnEdit);
-            panel1.Location = new Point(1068, 14);
+            panel1.Location = new Point(1091, 12);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(117, 115);
@@ -267,7 +316,7 @@
             btnEdit.Location = new Point(0, 0);
             btnEdit.Margin = new Padding(4, 3, 4, 3);
             btnEdit.Name = "btnEdit";
-            btnEdit.Size = new Size(117, 81);
+            btnEdit.Size = new Size(117, 78);
             btnEdit.SizeMode = PictureBoxSizeMode.Zoom;
             btnEdit.TabIndex = 0;
             btnEdit.TabStop = false;
@@ -299,6 +348,42 @@
             txtSearch.Text = "Tìm kiếm";
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
+            // panel5
+            // 
+            panel5.Controls.Add(label5);
+            panel5.Controls.Add(btnCheckIn);
+            panel5.Location = new Point(1224, 12);
+            panel5.Margin = new Padding(4, 3, 4, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(117, 115);
+            panel5.TabIndex = 3;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Bottom;
+            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 84);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(117, 31);
+            label5.TabIndex = 1;
+            label5.Text = "CheckIn";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnCheckIn
+            // 
+            btnCheckIn.Cursor = Cursors.Hand;
+            btnCheckIn.Dock = DockStyle.Top;
+            btnCheckIn.Image = (Image)resources.GetObject("btnCheckIn.Image");
+            btnCheckIn.Location = new Point(0, 0);
+            btnCheckIn.Margin = new Padding(4, 3, 4, 3);
+            btnCheckIn.Name = "btnCheckIn";
+            btnCheckIn.Size = new Size(117, 78);
+            btnCheckIn.SizeMode = PictureBoxSizeMode.CenterImage;
+            btnCheckIn.TabIndex = 0;
+            btnCheckIn.TabStop = false;
+            btnCheckIn.Click += btnCheckIn_Click;
+            // 
             // QuanLyThanhVien
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -313,12 +398,16 @@
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
             pnlNavigate.PerformLayout();
+            panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)btnThem).EndInit();
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnPDF).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnXem).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnEdit).EndInit();
+            panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)btnCheckIn).EndInit();
             ResumeLayout(false);
         }
 
@@ -343,5 +432,11 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column4;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column5;
+        private Panel panel4;
+        private Label label4;
+        private PictureBox btnThem;
+        private Panel panel5;
+        private Label label5;
+        private PictureBox btnCheckIn;
     }
 }

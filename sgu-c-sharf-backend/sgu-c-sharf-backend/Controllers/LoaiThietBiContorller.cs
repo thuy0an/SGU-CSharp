@@ -143,5 +143,11 @@ namespace sgu_c_sharf_backend.Controllers
             return Ok(ApiResponse<int>.Ok(count, "Lấy số lượng thiết bị thành công."));
         }
 
+        [HttpGet("NextIndex")]
+        public ActionResult<ApiResponse<string>> GetNextIndex()
+        {
+            string nextIndex = _loaiThietBiService.GetNextIndex();
+            return Ok(ApiResponse<string>.Ok(nextIndex, "Lấy chỉ số tiếp theo thành công."));
+        }
     }
 }

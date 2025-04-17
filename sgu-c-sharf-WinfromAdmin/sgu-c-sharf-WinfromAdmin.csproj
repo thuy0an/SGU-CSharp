@@ -19,6 +19,9 @@
     <Compile Update="GUI\GUI_CRUD\MuonDauThietBi.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="GUI\GUI_CRUD\ThemThanhVien.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="GUI\GUI_CRUD\XemPhieuMuon.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -44,6 +47,9 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUI\GUI_CRUD\SuaPhieuDatCho.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="GUI\GUI_CRUD\ThemCheckIn.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Update="GUI\GUI_CRUD\XemThietBi.cs">

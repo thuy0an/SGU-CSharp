@@ -38,7 +38,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 DataGrid.Rows.Clear();
                 foreach (var tb in listTB)
                 {
-                    DataGrid.Rows.Add(tb.Id, tb.TenThietBi, tb.TenLoaiThietBi);
+                    DataGrid.Rows.Add(tb.Id, tb.TenThietBi, tb.IdLoaiThietBi);
                 }
             }
             catch (Exception ex)
@@ -77,7 +77,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             {
                 int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
                 ThietBi tb = await thietBiService.GetById(selectedId);
-                FormXemThietBi form = new FormXemThietBi(tb);
+                FormXemThietBi form = new FormXemThietBi();
                 form.ShowDialog();
             }
             else
@@ -90,7 +90,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             {
                 int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
                 ThietBi tb = await thietBiService.GetById(selectedId);
-                FormSuaThietBi form = new FormSuaThietBi(tb, this);
+                FormSuaThietBi form = new FormSuaThietBi();
                 if (form.ShowDialog() == DialogResult.OK)
                 {
                     LoadData(); // Cập nhật danh sách sau khi sửa
@@ -102,7 +102,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-            FormThemThietBi form = new FormThemThietBi(listTB, this);
+            FormThemThietBi form = new FormThemThietBi();
             if (form.ShowDialog() == DialogResult.OK)
             {
                 LoadData(); // Cập nhật danh sách sau khi thêm
@@ -117,7 +117,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa thiết bị này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
-                    int soLuong = await thietBiService.CountDauThietBi(selectedId);
+                    int soLuong = 0;//await thietBiService.CountDauThietBi(selectedId);
                     if (soLuong > 0)
                     {
                         MessageBox.Show($"Không thể xóa thiết bị đang có {soLuong} đầu thiết bị thuộc loại này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -151,7 +151,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             foreach (var tb in listTB)
             {
                 if (tb.TenThietBi.ToLower().Contains(searchText) ||
-                    tb.TenLoaiThietBi.ToLower().Contains(searchText) ||
+                    tb.IdLoaiThietBi.ToString().Contains(searchText) ||
                     tb.Id.ToString().Contains(searchText))
                 {
                     filter.Add(tb);
@@ -160,8 +160,13 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             DataGrid.Rows.Clear();
             foreach (var tb in filter)
             {
-                DataGrid.Rows.Add(tb.Id, tb.TenThietBi, tb.TenLoaiThietBi);
+                DataGrid.Rows.Add(tb.Id, tb.TenThietBi, tb.IdLoaiThietBi);
             }
+        }
+
+        private void QuanLyThietBi_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

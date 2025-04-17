@@ -318,6 +318,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "QuanLyThietBi";
             Text = "QuanLyThietBi";
+            Load += QuanLyThietBi_Load;
             pnlContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
