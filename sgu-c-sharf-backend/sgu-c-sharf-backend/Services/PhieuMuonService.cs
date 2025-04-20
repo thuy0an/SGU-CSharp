@@ -35,9 +35,4 @@ public class PhieuMuonService
         return _phieuMuonRepository.Add(phieuMuon);
     }
 
-    /// Cập nhật phiếu mượn
-    public int UpdateTrangThai(PhieuMuon phieuMuon)
-    {
-        return _phieuMuonRepository.UpdateTrangThai(phieuMuon);
-    }
 }

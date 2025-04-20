@@ -56,29 +56,11 @@ namespace sgu_c_sharf_backend.Controllers
             var phieuMuon = new PhieuMuon()
             {
                 IdThanhVien = pm.IdThanhVien,
-                TrangThai = pm.TrangThai,
                 NgayTao = DateTime.Now,
             };
 
             var res = _phieuMuonService.AddPhieuMuon(phieuMuon);
             return Created("", ApiResponse<int>.Ok(res, "Thêm phiếu mượn thành công"));
-        }
-
-        // Cập nhật phiếu mượn
-        [HttpPut("{id}")]
-        public ActionResult<ApiResponse<int>> UpdatePhieuMuon(int id, [FromBody] PhieuMuonUpdateDTO pm)
-        {
-            if (pm == null)
-                return BadRequest(ApiResponse<PhieuMuon>.Fail("Dữ liệu không hợp lệ"));
-
-            var phieuMuon = new PhieuMuon()
-            {
-                Id = id,
-                TrangThai = pm.TrangThai
-            };
-
-            var res = _phieuMuonService.UpdateTrangThai(phieuMuon);
-            return Ok(ApiResponse<int>.Ok(res, "Cập nhật phiếu mượn thành công"));
         }
 
     }
