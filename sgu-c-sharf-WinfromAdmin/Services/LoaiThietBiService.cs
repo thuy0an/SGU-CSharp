@@ -43,12 +43,12 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
             catch (JsonException ex)
             {
-                Console.WriteLine($"Lỗi JSON: {ex.Message}");
+                MessageBox.Show($"Lỗi JSON: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new List<LoaiThietbi>();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new List<LoaiThietbi>();
             }
         }
@@ -74,12 +74,12 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
             catch (JsonException ex)
             {
-                Console.WriteLine($"Lỗi JSON: {ex.Message}");
+                MessageBox.Show($"Lỗi JSON: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new LoaiThietbi();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return new LoaiThietbi();
             }
         }
@@ -97,14 +97,14 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
             catch (JsonException ex)
             {
-                Console.WriteLine($"Lỗi JSON: {ex.Message}");
+                MessageBox.Show($"Lỗi JSON: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            }            
+            }       
         }
 
         public async Task<bool> Update(LoaiThietbi ltb){
@@ -119,14 +119,14 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
             catch (JsonException ex)
             {
-                Console.WriteLine($"Lỗi JSON: {ex.Message}");
+                MessageBox.Show($"Lỗi JSON: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            }            
+            }        
         }
         public async Task<bool> Delete(int id){
             string requestUrl = $"{BASE_URL}/{id}";
@@ -137,14 +137,14 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
             catch (JsonException ex)
             {
-                Console.WriteLine($"Lỗi JSON: {ex.Message}");
+                MessageBox.Show($"Lỗi JSON: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
-            }            
+            }  
         }
         public async Task<int> GetLastId(){
             string requestUrl = $"{BASE_URL}/lastId";
@@ -190,6 +190,30 @@ namespace sgu_c_sharf_WinfromAdmin.Services
                 return -1;
             }
             return -1;
+        }
+
+        public string GetNextIndex(){
+            string requestUrl = $"{BASE_URL}/NextIndex";
+            try
+            {
+                HttpResponseMessage res = _httpClient.GetAsync(requestUrl).Result;
+                string json = res.Content.ReadAsStringAsync().Result;
+                if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
+                {
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<string>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                    if (apiResponse.Data != null)
+                        return apiResponse.Data;
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+                return "";
+            }
+            return "";
         }
 
     }

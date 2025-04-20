@@ -237,6 +237,25 @@ namespace sgu_c_sharf_backend.Repositories
             }
             return -1;
         }
+
+        public string GetNextIndex()
+        {
+            using (MySqlConnection connect = new MySqlConnection(_connectionString))
+            {
+                connect.Open();
+                string query = "Select MAX(Id) + 1 AS NextId FROM loaithietbi";
+                MySqlCommand cmd = new MySqlCommand(query, connect);
+                using (var reader = cmd.ExecuteReader())
+                {
+                    if (reader.Read())
+                        return reader["NextId"].ToString();
+                }
+            }
+            return "";
+        }
+
+
+
     }
 
 }
