@@ -7,37 +7,67 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using sgu_c_sharf_WinfromAdmin.Models; // Thêm namespace để dùng ThietBi
+using sgu_c_sharf_WinfromAdmin.Models;
+using sgu_c_sharf_WinfromAdmin.Services;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 {
     public partial class FormXemThietBi : Form
     {
-        private ThietBi thietBi; 
+        private ThietBi thietBi;
+        private readonly ThietBiService thietBiService;
 
-        // Constructor mặc định
         public FormXemThietBi()
         {
             InitializeComponent();
+            thietBiService = new ThietBiService();
         }
 
-        // Constructor nhận tham số ThietBi
         public FormXemThietBi(ThietBi thietBi)
         {
             InitializeComponent();
-            this.thietBi = thietBi; // Lưu đối tượng ThietBi
-            HienThiThongTin(); // Gọi phương thức để hiển thị thông tin
+            this.thietBi = thietBi;
+            thietBiService = new ThietBiService();
+            HienThiThongTin();
+            HienThiDauThietBi();
         }
 
-        // Phương thức hiển thị thông tin thiết bị
         private void HienThiThongTin()
         {
             if (thietBi != null)
             {
-                txtMaThietBi.Text = thietBi.Id.ToString(); 
+                txtMaThietBi.Text = thietBi.Id.ToString();
                 txtTenThietBi.Text = thietBi.TenThietBi;
                 txtTenLoaiThietBi.Text = thietBi.TenLoaiThietBi;
-                // txtTrangThai.Text = thietBi.DaXoa ? "Đã xóa" : "Chưa xóa";
+            }
+        }
+
+        private async void HienThiDauThietBi()
+        {
+            if (thietBi != null)
+            {
+                try
+                {
+                    var dauThietBis = await thietBiService.GetDauThietBiByThietBiId(thietBi.Id);
+                    dataGrid.Rows.Clear();
+                    foreach (var dauThietBi in dauThietBis)
+                    {
+                        string trangThaiText = dauThietBi.TrangThai switch
+                        {
+                            DauThietBi.TrangThaiDauThietBi.KHADUNG => "Có thể sử dụng",
+                            DauThietBi.TrangThaiDauThietBi.DATTRUOC => "Đã đặt trước",
+                            DauThietBi.TrangThaiDauThietBi.DANGMUON => "Đang mượn",
+                            DauThietBi.TrangThaiDauThietBi.BAOTRI => "Bảo trì",
+                            DauThietBi.TrangThaiDauThietBi.THATLAC => "Thất lạc",
+                            _ => "Không xác định"
+                        };
+                        dataGrid.Rows.Add(dauThietBi.Id, trangThaiText, dauThietBi.ThoiGianMua.ToString("yyyy-MM-dd"));
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi tải danh sách đầu thiết bị: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
 
@@ -49,27 +79,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         {
         }
 
-        private void panel2_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
         private void panel3_Paint(object sender, PaintEventArgs e)
         {
         }
 
-        private void panel6_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
         private void panel1_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
-        private void panel5_Paint(object sender, PaintEventArgs e)
-        {
-        }
-
-        private void panel4_Paint(object sender, PaintEventArgs e)
         {
         }
 

@@ -117,7 +117,7 @@ namespace sgu_c_sharf_backend.Repositories
                 if (thietBiCount == 0)
                     throw new Exception("Thiết bị không tồn tại hoặc đã bị xóa.");
 
-                string sql = "UPDATE DauThietBi SET TrangThai = @TrangThai, ThoiGianMua = @ThoiGianMua, IdThietBi = @IdThietBi WHERE Id = @Id";
+                string sql = "UPDATE DauThietBi SET TrangThai = @TrangThai, ThoiGianMua = @IdThietBi WHERE Id = @Id";
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 command.Parameters.AddWithValue("@TrangThai", form.TrangThai.ToString());

@@ -50,5 +50,9 @@ public class LoaiThietBiService
         return _loaiThietBiRepository.GetCountTB(id);
     }
     
+
+    public string GetNextIndex(){
+        return _loaiThietBiRepository.GetNextIndex();
+    }
     
 }

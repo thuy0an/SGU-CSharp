@@ -81,29 +81,54 @@ namespace sgu_c_sharf_backend.Repositories
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
             {
                 connection.Open();
-                // Kiểm tra IdLoaiThietBi hợp lệ
-                string checkLoaiSql = "SELECT COUNT(*) FROM LoaiThietBi WHERE Id = @IdLoaiThietBi AND DaXoa = 0";
-                MySqlCommand checkLoaiCommand = new MySqlCommand(checkLoaiSql, connection);
-                checkLoaiCommand.Parameters.AddWithValue("@IdLoaiThietBi", thietBiCreateForm.IdLoaiThietBi);
-                int loaiCount = Convert.ToInt32(checkLoaiCommand.ExecuteScalar());
+                MySqlTransaction transaction = connection.BeginTransaction();
+                try
+                {
+                    // Kiểm tra IdLoaiThietBi hợp lệ
+                    string checkLoaiSql = "SELECT COUNT(*) FROM LoaiThietBi WHERE Id = @IdLoaiThietBi AND DaXoa = 0";
+                    MySqlCommand checkLoaiCommand = new MySqlCommand(checkLoaiSql, connection, transaction);
+                    checkLoaiCommand.Parameters.AddWithValue("@IdLoaiThietBi", thietBiCreateForm.IdLoaiThietBi);
+                    int loaiCount = Convert.ToInt32(checkLoaiCommand.ExecuteScalar());
 
-                if (loaiCount == 0)
-                    throw new Exception("Loại thiết bị không tồn tại hoặc đã bị xóa.");
+                    if (loaiCount == 0)
+                        throw new Exception("Loại thiết bị không tồn tại hoặc đã bị xóa.");
 
-                // Kiểm tra TenThietBi không trùng
-                string checkDuplicateSql = "SELECT COUNT(*) FROM ThietBi WHERE TenThietBi = @TenThietBi AND DaXoa = 0";
-                MySqlCommand checkDuplicateCommand = new MySqlCommand(checkDuplicateSql, connection);
-                checkDuplicateCommand.Parameters.AddWithValue("@TenThietBi", thietBiCreateForm.TenThietBi);
-                int duplicateCount = Convert.ToInt32(checkDuplicateCommand.ExecuteScalar());
+                    // Kiểm tra TenThietBi không trùng
+                    string checkDuplicateSql = "SELECT COUNT(*) FROM ThietBi WHERE TenThietBi = @TenThietBi AND DaXoa = 0";
+                    MySqlCommand checkDuplicateCommand = new MySqlCommand(checkDuplicateSql, connection, transaction);
+                    checkDuplicateCommand.Parameters.AddWithValue("@TenThietBi", thietBiCreateForm.TenThietBi);
+                    int duplicateCount = Convert.ToInt32(checkDuplicateCommand.ExecuteScalar());
 
-                if (duplicateCount > 0)
-                    throw new Exception("Tên thiết bị đã tồn tại.");
+                    if (duplicateCount > 0)
+                        throw new Exception("Tên thiết bị đã tồn tại.");
 
-                string sql = "INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi, DaXoa) VALUES (@TenThietBi, @IdLoaiThietBi, 0)";
-                MySqlCommand command = new MySqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@TenThietBi", thietBiCreateForm.TenThietBi);
-                command.Parameters.AddWithValue("@IdLoaiThietBi", thietBiCreateForm.IdLoaiThietBi);
-                command.ExecuteNonQuery();
+                    // Thêm thiết bị
+                    string insertThietBiSql = "INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi, DaXoa) VALUES (@TenThietBi, @IdLoaiThietBi, 0); SELECT LAST_INSERT_ID();";
+                    MySqlCommand insertThietBiCommand = new MySqlCommand(insertThietBiSql, connection, transaction);
+                    insertThietBiCommand.Parameters.AddWithValue("@TenThietBi", thietBiCreateForm.TenThietBi);
+                    insertThietBiCommand.Parameters.AddWithValue("@IdLoaiThietBi", thietBiCreateForm.IdLoaiThietBi);
+                    int thietBiId = Convert.ToInt32(insertThietBiCommand.ExecuteScalar());
+
+                    // Thêm các đầu thiết bị
+                    string insertDauThietBiSql = "INSERT INTO DauThietBi (TrangThai, ThoiGianMua, IdThietBi) VALUES (@TrangThai, @ThoiGianMua, @IdThietBi)";
+                    MySqlCommand insertDauThietBiCommand = new MySqlCommand(insertDauThietBiSql, connection, transaction);
+
+                    for (int i = 1; i <= thietBiCreateForm.SoLuongDauThietBi; i++)
+                    {
+                        insertDauThietBiCommand.Parameters.Clear();
+                        insertDauThietBiCommand.Parameters.AddWithValue("@TrangThai", TrangThaiDauThietBiEnum.KHADUNG.ToString());
+                        insertDauThietBiCommand.Parameters.AddWithValue("@ThoiGianMua", DateTime.Now);
+                        insertDauThietBiCommand.Parameters.AddWithValue("@IdThietBi", thietBiId);
+                        insertDauThietBiCommand.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+                catch (Exception)
+                {
+                    transaction.Rollback();
+                    throw;
+                }
             }
         }
 
@@ -208,6 +233,7 @@ namespace sgu_c_sharf_backend.Repositories
             }
             return thietBis;
         }
+
         public IEnumerable<DauThietBiListDTO> GetDauThietBiByThietBiId(int idThietBi)
         {
             List<DauThietBiListDTO> dauThietBis = new List<DauThietBiListDTO>();

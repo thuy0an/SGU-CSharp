@@ -13,14 +13,14 @@ namespace sgu_c_sharf_WinfromAdmin.Services
     public class ThanhVienService
     {
         private readonly HttpClient _httpClient;
-        private const string BASE_URL = "http://localhost:5244/api/thanh-vien";
+        private string BASE_URL = "http://localhost:5244/api/thanh-vien";
 
         public ThanhVienService()
         {
             this._httpClient = new HttpClient();
         }
 
-        public async Task<List<ThanhVien>> GetAll(int pageNumber = 1, int pageSize = 5){
+        public async Task<List<ThanhVien>> GetAll(int pageNumber = 1, int pageSize = 100){
             string requestUrl = $"{BASE_URL}?pageNumber={pageNumber}&pageSize={pageSize}";
             try
             {
@@ -104,17 +104,34 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
             catch (JsonException jsonEx)
             {
-                Console.WriteLine($"Lỗi JSON: {jsonEx.Message}");
+                MessageBox.Show($"Lỗi JSON: {jsonEx.Message}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Lỗi: {ex.Message}");
+                MessageBox.Show($"Lỗi: {ex.Message}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
+        public async Task<bool> Add(ThanhVien thanhVien){
+            string requestUrl = $"{BASE_URL}/register";
+            try {
+                var jsonContent = JsonSerializer.Serialize(thanhVien);
+                var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
+                HttpResponseMessage res = await _httpClient.PostAsync(requestUrl, content);
+                return res.IsSuccessStatusCode;
+            }
+            catch (JsonException jsonEx) {
+                MessageBox.Show($"Lỗi JSON: {jsonEx.Message}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            catch (Exception ex) {
+                MessageBox.Show($"Lỗi: {ex.Message}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
 
     }
 

@@ -308,6 +308,7 @@
             txtSearch.Size = new Size(349, 26);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // QuanLyThietBi
             // 
@@ -318,6 +319,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "QuanLyThietBi";
             Text = "QuanLyThietBi";
+            Load += QuanLyThietBi_Load;
             pnlContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);

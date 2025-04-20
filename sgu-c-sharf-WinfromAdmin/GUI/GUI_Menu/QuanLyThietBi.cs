@@ -70,43 +70,47 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 }
             };
         }
-
         private async void btnXem_Click(object sender, EventArgs e)
         {
             if (DataGrid.SelectedRows.Count > 0)
             {
                 int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
                 ThietBi tb = await thietBiService.GetById(selectedId);
-                FormXemThietBi form = new FormXemThietBi(tb);
+                FormXemThietBi form = new FormXemThietBi(tb); // Truyền tb vào constructor
                 form.ShowDialog();
             }
             else
                 MessageBox.Show("Vui lòng chọn một dòng để xem!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
+        public void RefreshDataGridView()
+        {
+            LoadData();
+        }
+
         private async void btnEdit_Click(object sender, EventArgs e)
         {
-            // if (DataGrid.SelectedRows.Count > 0)
-            // {
-            //     int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
-            //     ThietBi tb = await thietBiService.GetById(selectedId);
-            //     FormSuaThietBi form = new FormSuaThietBi(tb, this);
-            //     if (form.ShowDialog() == DialogResult.OK)
-            //     {
-            //         LoadData(); // Cập nhật danh sách sau khi sửa
-            //     }
-            // }
-            // else
-            //     MessageBox.Show("Vui lòng chọn một dòng để chỉnh sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (DataGrid.SelectedRows.Count > 0)
+            {
+                int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
+                ThietBi tb = await thietBiService.GetById(selectedId);
+                FormSuaThietBi form = new FormSuaThietBi(this);
+                if (form.ShowDialog() == DialogResult.OK)
+                {
+                    LoadData(); // Cập nhật danh sách sau khi sửa
+                }
+            }
+            else
+                MessageBox.Show("Vui lòng chọn một dòng để chỉnh sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnThem_Click(object sender, EventArgs e)
         {
-        //     FormThemThietBi form = new FormThemThietBi(listTB, this);
-        //     if (form.ShowDialog() == DialogResult.OK)
-        //     {
-        //         LoadData(); // Cập nhật danh sách sau khi thêm
-        //     }
+            FormThemThietBi form = new FormThemThietBi(this);
+            if (form.ShowDialog() == DialogResult.OK)
+            {
+                LoadData(); // Cập nhật danh sách sau khi thêm
+            }
         }
 
         private async void btnXoa_Click(object sender, EventArgs e)
@@ -142,26 +146,40 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             SetPlaceholder(txtSearch, "Tìm kiếm", Color.Gray);
             LoadData();
         }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
+        private void LoadDataSearch(List<ThietBi> danhsach)
         {
-            if (txtSearch.Text == "Tìm kiếm") return; // Bỏ qua giá trị mặc định
-            string searchText = txtSearch.Text.ToLower();
-            List<ThietBi> filter = new List<ThietBi>();
-            foreach (var tb in listTB)
-            {
-                if (tb.TenThietBi.ToLower().Contains(searchText) ||
-                    tb.TenLoaiThietBi.ToLower().Contains(searchText) ||
-                    tb.Id.ToString().Contains(searchText))
-                {
-                    filter.Add(tb);
-                }
-            }
             DataGrid.Rows.Clear();
-            foreach (var tb in filter)
+            foreach (var tb in danhsach)
             {
-                DataGrid.Rows.Add(tb.Id, tb.TenThietBi, tb.TenLoaiThietBi);
+                DataGrid.Rows.Add(tb.Id, tb.TenThietBi);
             }
         }
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            // Bỏ qua nếu văn bản là placeholder
+            if (txtSearch.Text == "Tìm kiếm" && txtSearch.ForeColor == Color.Gray)
+            {
+                return;
+            }
+
+            string searchText = txtSearch.Text.ToLower();
+            List<ThietBi> filterList = new List<ThietBi>();
+            foreach (var tb in listTB)
+            {
+                if (tb.Id.ToString().Contains(searchText) ||
+                    (tb.TenThietBi?.ToLower().Contains(searchText) ?? false) ||
+                    (tb.TenLoaiThietBi?.ToLower().Contains(searchText) ?? false))
+                {
+                    filterList.Add(tb);
+                }
+            }
+
+            LoadDataSearch(filterList);
+        }
+        private void QuanLyThietBi_Load(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

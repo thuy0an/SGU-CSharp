@@ -26,10 +26,10 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             LoadData();
         }
 
-        private async void LoadData(){
+        private void LoadData(){
             
-            // var cur = await loaiThietBiService.GetLastId()+1;
-            // this.txtMaLoaiThietBi.Text = cur.ToString();
+            var cur = loaiThietBiService.GetNextIndex();
+            this.txtMaLoaiThietBi.Text = cur.ToString();
         }
 
         private void label2_Click(object sender, EventArgs e)

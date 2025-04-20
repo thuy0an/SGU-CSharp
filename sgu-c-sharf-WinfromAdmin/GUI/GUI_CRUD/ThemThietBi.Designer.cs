@@ -85,7 +85,7 @@
             txtDauThietBi.Name = "txtDauThietBi";
             txtDauThietBi.Size = new Size(500, 29);
             txtDauThietBi.TabIndex = 1;
-            txtDauThietBi.Text = "abc";
+            txtDauThietBi.Text = "123";
             // 
             // label3
             // 
@@ -197,7 +197,7 @@
             txtMaThietBi.Name = "txtMaThietBi";
             txtMaThietBi.Size = new Size(500, 29);
             txtMaThietBi.TabIndex = 1;
-            txtMaThietBi.Text = "abc";
+            txtMaThietBi.Text = "123";
             // 
             // label2
             // 

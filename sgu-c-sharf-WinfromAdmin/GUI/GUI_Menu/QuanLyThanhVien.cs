@@ -34,7 +34,8 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             GetList();
         }
 
-        public async void GetList(){
+        public async void GetList()
+        {
             try
             {
                 listTV = await thanhVienService.GetAll();
@@ -144,6 +145,19 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private void btnThem_Click(object sender, EventArgs e)
+        {
+            FormThemThanhVien form = new FormThemThanhVien(this);
+            form.ShowDialog();
+        }
+
+        private void btnCheckIn_Click(object sender, EventArgs e)
+        {
+            ThemCheckIn form = new ThemCheckIn(listTV);
+            form.ShowDialog();
 
         }
     }

@@ -51,6 +51,7 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
         [HttpPost]
+        [Consumes("application/json")]
         public IActionResult Create([FromBody] ThietBiCreateForm form)
         {
             try

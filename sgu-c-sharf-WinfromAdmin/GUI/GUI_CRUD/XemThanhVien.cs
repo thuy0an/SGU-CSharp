@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using sgu_c_sharf_WinfromAdmin.Models;
+using sgu_c_sharf_WinfromAdmin.Services;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 {
     public partial class FormXemThanhVien : Form
     {
         private ThanhVien thanhVien;
+        List<CheckIn> listCheckIn = new List<CheckIn>();
+        private CheckInService checkInService = new CheckInService();
         private Dictionary<TrangThaiEnum, string> HienThiTrangThai = new Dictionary<TrangThaiEnum, string>
         {
             { TrangThaiEnum.HOATDONG, "Hoạt động" },
@@ -25,10 +28,12 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         {
             InitializeComponent();
             this.thanhVien = tv;
+            
             LoadData();
         }
 
-        private void LoadData(){
+        private async void LoadData(){
+            this.listCheckIn = await checkInService.GetAll(thanhVien.Id);
             cbbTrangThai.DataSource = new BindingSource(HienThiTrangThai, null);
             cbbTrangThai.DisplayMember = "Value";
             cbbTrangThai.ValueMember = "Key";
@@ -41,6 +46,10 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             txtThoiGianDangKy.Text = thanhVien.ThoiGianDangKy.ToString("dd/MM/yyyy HH:mm:ss");
             Console.WriteLine(thanhVien.TrangThai);
             cbbTrangThai.SelectedValue = thanhVien.TrangThai;
+
+            dataGrid.Columns["Column2"].DefaultCellStyle.Format = "dd/MM/yyyy HH:mm:ss";
+            for(int i = 0; i < listCheckIn.Count; i++)
+                dataGrid.Rows.Add(i+1, listCheckIn[i].ThoiGianCheckIn);
         }
 
 

@@ -1,6 +1,6 @@
 ﻿namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 {
-    partial class FormXemThanhVien
+    partial class ThemCheckIn
     {
         /// <summary>
         /// Required designer variable.
@@ -28,16 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlContent = new Panel();
+            panel8 = new Panel();
+            txtNow = new TextBox();
+            label9 = new Label();
+            btnCheckIn = new Button();
             panel7 = new Panel();
-            cbbTrangThai = new ComboBox();
+            txtCheckIn = new TextBox();
             label8 = new Label();
-            dataGrid = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
             panel6 = new Panel();
             txtEmail = new TextBox();
             label7 = new Label();
@@ -58,8 +56,8 @@
             label2 = new Label();
             label1 = new Label();
             pnlContent.SuspendLayout();
+            panel8.SuspendLayout();
             panel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             panel6.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
@@ -71,8 +69,9 @@
             // pnlContent
             // 
             pnlContent.BackColor = Color.White;
+            pnlContent.Controls.Add(panel8);
+            pnlContent.Controls.Add(btnCheckIn);
             pnlContent.Controls.Add(panel7);
-            pnlContent.Controls.Add(dataGrid);
             pnlContent.Controls.Add(panel6);
             pnlContent.Controls.Add(panel5);
             pnlContent.Controls.Add(panel4);
@@ -84,32 +83,76 @@
             pnlContent.Location = new Point(0, 0);
             pnlContent.Margin = new Padding(4, 3, 4, 3);
             pnlContent.Name = "pnlContent";
-            pnlContent.Size = new Size(740, 746);
+            pnlContent.Size = new Size(740, 677);
             pnlContent.TabIndex = 0;
-            pnlContent.Paint += this.pnlContent_Paint;
+            pnlContent.Paint += pnlContent_Paint;
+            // 
+            // panel8
+            // 
+            panel8.Controls.Add(txtNow);
+            panel8.Controls.Add(label9);
+            panel8.Location = new Point(36, 396);
+            panel8.Margin = new Padding(4, 3, 4, 3);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(672, 73);
+            panel8.TabIndex = 3;
+            // 
+            // txtNow
+            // 
+            txtNow.Dock = DockStyle.Bottom;
+            txtNow.Enabled = false;
+            txtNow.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNow.Location = new Point(0, 44);
+            txtNow.Margin = new Padding(4, 3, 4, 3);
+            txtNow.Name = "txtNow";
+            txtNow.Size = new Size(672, 29);
+            txtNow.TabIndex = 1;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Dock = DockStyle.Top;
+            label9.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Location = new Point(0, 0);
+            label9.Margin = new Padding(4, 0, 4, 0);
+            label9.Name = "label9";
+            label9.Size = new Size(188, 22);
+            label9.TabIndex = 0;
+            label9.Text = "Thời gian đã check in";
+            // 
+            // btnCheckIn
+            // 
+            btnCheckIn.BackColor = Color.FromArgb(0, 123, 181);
+            btnCheckIn.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCheckIn.ForeColor = Color.White;
+            btnCheckIn.Location = new Point(308, 606);
+            btnCheckIn.Name = "btnCheckIn";
+            btnCheckIn.Size = new Size(130, 46);
+            btnCheckIn.TabIndex = 7;
+            btnCheckIn.Text = "Check In";
+            btnCheckIn.UseVisualStyleBackColor = false;
+            btnCheckIn.Click += button1_Click;
             // 
             // panel7
             // 
-            panel7.Controls.Add(cbbTrangThai);
+            panel7.Controls.Add(txtCheckIn);
             panel7.Controls.Add(label8);
-            panel7.Location = new Point(413, 296);
+            panel7.Location = new Point(36, 509);
             panel7.Margin = new Padding(4, 3, 4, 3);
             panel7.Name = "panel7";
-            panel7.Size = new Size(295, 73);
-            panel7.TabIndex = 6;
+            panel7.Size = new Size(672, 73);
+            panel7.TabIndex = 2;
             // 
-            // cbbTrangThai
+            // txtCheckIn
             // 
-            cbbTrangThai.Dock = DockStyle.Bottom;
-            cbbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbbTrangThai.Enabled = false;
-            cbbTrangThai.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbTrangThai.FormattingEnabled = true;
-            cbbTrangThai.Items.AddRange(new object[] { "Hoạt động", "Đình chỉ", "Cấm" });
-            cbbTrangThai.Location = new Point(0, 43);
-            cbbTrangThai.Name = "cbbTrangThai";
-            cbbTrangThai.Size = new Size(295, 30);
-            cbbTrangThai.TabIndex = 1;
+            txtCheckIn.Dock = DockStyle.Bottom;
+            txtCheckIn.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtCheckIn.Location = new Point(0, 44);
+            txtCheckIn.Margin = new Padding(4, 3, 4, 3);
+            txtCheckIn.Name = "txtCheckIn";
+            txtCheckIn.Size = new Size(672, 29);
+            txtCheckIn.TabIndex = 1;
+            txtCheckIn.Text = "abc";
             // 
             // label8
             // 
@@ -119,60 +162,9 @@
             label8.Location = new Point(0, 0);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
-            label8.Size = new Size(194, 22);
+            label8.Size = new Size(275, 22);
             label8.TabIndex = 0;
-            label8.Text = "Trạng thái người dùng";
-            // 
-            // dataGrid
-            // 
-            dataGrid.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGrid.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.White;
-            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2 });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGrid.DefaultCellStyle = dataGridViewCellStyle2;
-            dataGrid.Dock = DockStyle.Bottom;
-            dataGrid.ImeMode = ImeMode.NoControl;
-            dataGrid.Location = new Point(0, 507);
-            dataGrid.Name = "dataGrid";
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
-            dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            dataGrid.RowHeadersVisible = false;
-            dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGrid.Size = new Size(740, 239);
-            dataGrid.TabIndex = 8;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "STT";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // Column2
-            // 
-            Column2.HeaderText = "Thời gian checkin";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
+            label8.Text = "Nhập mã thành viên để check in";
             // 
             // panel6
             // 
@@ -183,7 +175,7 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(295, 73);
             panel6.TabIndex = 6;
-            panel6.Paint += this.panel6_Paint;
+            panel6.Paint += panel6_Paint;
             // 
             // txtEmail
             // 
@@ -213,12 +205,12 @@
             // 
             panel5.Controls.Add(txtNgaySinh);
             panel5.Controls.Add(label6);
-            panel5.Location = new Point(36, 399);
+            panel5.Location = new Point(413, 296);
             panel5.Margin = new Padding(4, 3, 4, 3);
             panel5.Name = "panel5";
             panel5.Size = new Size(295, 73);
             panel5.TabIndex = 5;
-            panel5.Paint += this.panel5_Paint;
+            panel5.Paint += panel5_Paint;
             // 
             // txtNgaySinh
             // 
@@ -253,7 +245,7 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(295, 73);
             panel4.TabIndex = 4;
-            panel4.Paint += this.panel4_Paint;
+            panel4.Paint += panel4_Paint;
             // 
             // txtThoiGianDangKy
             // 
@@ -288,7 +280,7 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(295, 73);
             panel3.TabIndex = 3;
-            panel3.Paint += this.panel3_Paint;
+            panel3.Paint += panel3_Paint;
             // 
             // txtTenNguoiDung
             // 
@@ -323,7 +315,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(295, 73);
             panel2.TabIndex = 2;
-            panel2.Paint += this.panel2_Paint;
+            panel2.Paint += panel2_Paint;
             // 
             // txtSoDienThoai
             // 
@@ -358,7 +350,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(295, 73);
             panel1.TabIndex = 1;
-            panel1.Paint += this.panel1_Paint;
+            panel1.Paint += panel1_Paint;
             // 
             // txtMaThanhVien
             // 
@@ -383,7 +375,7 @@
             label2.Size = new Size(124, 22);
             label2.TabIndex = 0;
             label2.Text = "Mã thành viên";
-            label2.Click += this.label2_Click;
+            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -395,26 +387,27 @@
             label1.Name = "label1";
             label1.Size = new Size(740, 43);
             label1.TabIndex = 0;
-            label1.Text = "Xem Thông Tin";
+            label1.Text = "Check in thành viên";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // FormXemThanhVien
+            // ThemCheckIn
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(740, 746);
+            ClientSize = new Size(740, 677);
             Controls.Add(pnlContent);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(4, 3, 4, 3);
             MaximizeBox = false;
-            Name = "FormXemThanhVien";
+            Name = "ThemCheckIn";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "XemThanhVien";
-            Load += this.FormSuaThanhVien_Load;
+            Text = "CheckIn";
+            Load += FormSuaThanhVien_Load;
             pnlContent.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGrid).EndInit();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
             panel5.ResumeLayout(false);
@@ -440,9 +433,6 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TextBox txtNgaySinh;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Panel panel4;
-        private System.Windows.Forms.TextBox txtThoiGianDangKy;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txtTenNguoiDung;
         private System.Windows.Forms.Label label4;
@@ -452,11 +442,15 @@
         private System.Windows.Forms.Panel panel6;
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.Label label7;
-        private DataGridView dataGrid;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
+        private Panel panel4;
+        private TextBox txtThoiGianDangKy;
+        private Label label5;
         private Panel panel7;
+        private TextBox txtCheckIn;
         private Label label8;
-        private ComboBox cbbTrangThai;
+        private Button btnCheckIn;
+        private Panel panel8;
+        private TextBox txtNow;
+        private Label label9;
     }
 }

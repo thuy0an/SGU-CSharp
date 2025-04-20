@@ -1,5 +1,3 @@
-using System;
-
 namespace sgu_c_sharf_WinfromAdmin.Models
 {
     public class ThietBi
@@ -7,7 +5,8 @@ namespace sgu_c_sharf_WinfromAdmin.Models
         public int Id { get; set; }
         public string TenThietBi { get; set; }
         public string TenLoaiThietBi { get; set; }
-        public bool ThietbiEnum { get; set; }
+        public int IdLoaiThietBi { get; set; }
+        public ThietbiEnum ThietbiEnum { get; set; }
     }
 
     public enum ThietbiEnum
