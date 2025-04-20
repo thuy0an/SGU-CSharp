@@ -106,5 +106,20 @@ namespace sgu_c_sharf_backend.Controllers
                 return BadRequest(ApiResponse<IEnumerable<ThietBiListDTO>>.Fail(ex.Message));
             }
         }
+
+        [HttpGet("{id}/dau-thiet-bi")]
+        [AllowAnonymous]
+        public IActionResult GetDauThietBiByThietBiId(int id)
+        {
+            try
+            {
+                var dauThietBis = _thietBiService.GetDauThietBiByThietBiId(id);
+                return Ok(ApiResponse<IEnumerable<DauThietBiListDTO>>.Ok(dauThietBis));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ApiResponse<IEnumerable<DauThietBiListDTO>>.Fail(ex.Message));
+            }
+        }
     }
 }

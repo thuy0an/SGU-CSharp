@@ -208,5 +208,40 @@ namespace sgu_c_sharf_backend.Repositories
             }
             return thietBis;
         }
+        public IEnumerable<DauThietBiListDTO> GetDauThietBiByThietBiId(int idThietBi)
+        {
+            List<DauThietBiListDTO> dauThietBis = new List<DauThietBiListDTO>();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string sql = @"
+                    SELECT dtb.Id, dtb.TrangThai, dtb.ThoiGianMua, dtb.IdThietBi
+                    FROM DauThietBi dtb
+                    WHERE dtb.IdThietBi = @IdThietBi";
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@IdThietBi", idThietBi);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        string trangThaiString = reader["TrangThai"].ToString();
+                        if (!Enum.TryParse<TrangThaiDauThietBiEnum>(trangThaiString, true, out var trangThai))
+                        {
+                            throw new Exception($"Giá trị TrangThai không hợp lệ: {trangThaiString}");
+                        }
+
+                        dauThietBis.Add(new DauThietBiListDTO
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            TrangThai = trangThai,
+                            ThoiGianMua = Convert.ToDateTime(reader["ThoiGianMua"]),
+                            IdThietBi = Convert.ToInt32(reader["IdThietBi"])
+                        });
+                    }
+                }
+            }
+            return dauThietBis;
+        }
     }
 }

@@ -33,7 +33,7 @@
             pnlContent = new Panel();
             label3 = new Label();
             panel7 = new Panel();
-            cbbLoaiThietBi = new ComboBox();
+            txtTenLoaiThietBi = new TextBox();
             label8 = new Label();
             dataGrid = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
@@ -82,7 +82,7 @@
             // 
             // panel7
             // 
-            panel7.Controls.Add(cbbLoaiThietBi);
+            panel7.Controls.Add(txtTenLoaiThietBi);
             panel7.Controls.Add(label8);
             panel7.Location = new Point(120, 224);
             panel7.Margin = new Padding(4, 3, 4, 3);
@@ -92,16 +92,16 @@
             // 
             // cbbLoaiThietBi
             // 
-            cbbLoaiThietBi.Dock = DockStyle.Bottom;
-            cbbLoaiThietBi.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbbLoaiThietBi.Enabled = false;
-            cbbLoaiThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbLoaiThietBi.FormattingEnabled = true;
-            cbbLoaiThietBi.Items.AddRange(new object[] { "Loại A", "Loại B", "Loại C", "Loại D" });
-            cbbLoaiThietBi.Location = new Point(0, 43);
-            cbbLoaiThietBi.Name = "cbbLoaiThietBi";
-            cbbLoaiThietBi.Size = new Size(500, 30);
-            cbbLoaiThietBi.TabIndex = 1;
+            txtTenLoaiThietBi.Dock = DockStyle.Bottom;
+            // txtTenLoaiThietBi.DropDownStyle = ComboBoxStyle.DropDownList;
+            txtTenLoaiThietBi.Enabled = false;
+            txtTenLoaiThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            // txtTenLoaiThietBi.FormattingEnabled = true;
+            // txtTenLoaiThietBi.Items.AddRange(new object[] { "Loại A", "Loại B", "Loại C", "Loại D" });
+            txtTenLoaiThietBi.Location = new Point(0, 43);
+            txtTenLoaiThietBi.Name = "txtTenLoaiThietBi";
+            txtTenLoaiThietBi.Size = new Size(500, 30);
+            txtTenLoaiThietBi.TabIndex = 1;
             // 
             // label8
             // 
@@ -284,7 +284,7 @@
         private DataGridView dataGrid;
         private Panel panel7;
         private Label label8;
-        private ComboBox cbbLoaiThietBi;
+        private System.Windows.Forms.TextBox txtTenLoaiThietBi;
         private Label label3;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;

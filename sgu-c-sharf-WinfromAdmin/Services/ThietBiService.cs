@@ -90,7 +90,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 			string requestUrl = $"{BASE_URL}";
 			try
 			{
-				var jsonContent = JsonSerializer.Serialize(new { TenThietBi = thietBi.TenThietBi, IdLoaiThietBi = thietBi.IdLoaiThietBi });
+				var jsonContent = JsonSerializer.Serialize(new { TenThietBi = thietBi.TenThietBi, IdLoaiThietBi = thietBi.Id });
 				var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 				HttpResponseMessage res = await _httpClient.PostAsync(requestUrl, content);
 				return res.IsSuccessStatusCode;
@@ -112,7 +112,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 			string requestUrl = $"{BASE_URL}/{id}";
 			try
 			{
-				var jsonContent = JsonSerializer.Serialize(new { TenThietBi = thietBi.TenThietBi, IdLoaiThietBi = thietBi.IdLoaiThietBi });
+				var jsonContent = JsonSerializer.Serialize(new { TenThietBi = thietBi.TenThietBi, IdLoaiThietBi = thietBi.Id });
 				var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 				HttpResponseMessage res = await _httpClient.PutAsync(requestUrl, content);
 				return res.IsSuccessStatusCode;
