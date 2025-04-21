@@ -3,6 +3,7 @@ using sgu_c_sharf_backend.ApiResponse;
 using sgu_c_sharf_backend.Models.ThanhVien;
 using sgu_c_sharf_backend.Services;
 
+
 namespace sgu_c_sharf_backend.Controllers
 {
     [ApiController]
@@ -80,6 +81,12 @@ namespace sgu_c_sharf_backend.Controllers
             return Ok(ApiResponse<ThanhVienDetailResponseDto>.Ok(dto, "Lấy thông tin thành viên thành công"));
         }
 
+        [HttpGet("checkRole")]
+        public ActionResult<ApiResponse<int>> CheckRoleAdmin(string pass, string phoneOrEmail)
+        {
+            int isAdmin = _service.CheckRoleAdmin(pass, phoneOrEmail);
+            return Ok(ApiResponse<int>.Ok(isAdmin, "Kiểm tra quyền admin thành công."));
+        }
 
         [HttpPost("register")]
         public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> AddThanhVien([FromBody] ThanhVienCreateForm request)

@@ -27,9 +27,9 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(QuanLyThanhVien));
             pnlContent = new Panel();
             DataGrid = new DataGridView();
@@ -39,12 +39,15 @@
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
+            panel5 = new Panel();
+            label5 = new Label();
+            btnCheckIn = new PictureBox();
             panel4 = new Panel();
             label4 = new Label();
             btnThem = new PictureBox();
             panel3 = new Panel();
             label3 = new Label();
-            btnPDF = new PictureBox();
+            btnExcel = new PictureBox();
             panel2 = new Panel();
             label2 = new Label();
             btnXem = new PictureBox();
@@ -53,22 +56,19 @@
             btnEdit = new PictureBox();
             btnReset = new Button();
             txtSearch = new TextBox();
-            panel5 = new Panel();
-            label5 = new Label();
-            btnCheckIn = new PictureBox();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnCheckIn).BeginInit();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnThem).BeginInit();
             panel3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)btnPDF).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)btnExcel).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnXem).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnEdit).BeginInit();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)btnCheckIn).BeginInit();
             SuspendLayout();
             // 
             // pnlContent
@@ -91,32 +91,32 @@
             DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
             DataGrid.ClipboardCopyMode = DataGridViewClipboardCopyMode.EnableWithoutHeaderText;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.Gray;
-            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.Gray;
+            dataGridViewCellStyle7.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            DataGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            DataGrid.DefaultCellStyle = dataGridViewCellStyle8;
             DataGrid.Dock = DockStyle.Fill;
             DataGrid.Location = new Point(0, 138);
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
             DataGrid.RowHeadersWidthSizeMode = DataGridViewRowHeadersWidthSizeMode.DisableResizing;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            DataGrid.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            DataGrid.RowsDefaultCellStyle = dataGridViewCellStyle9;
             DataGrid.RowTemplate.Height = 30;
             DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
@@ -178,6 +178,42 @@
             pnlNavigate.Size = new Size(1479, 138);
             pnlNavigate.TabIndex = 0;
             // 
+            // panel5
+            // 
+            panel5.Controls.Add(label5);
+            panel5.Controls.Add(btnCheckIn);
+            panel5.Location = new Point(1224, 12);
+            panel5.Margin = new Padding(4, 3, 4, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(117, 115);
+            panel5.TabIndex = 3;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Bottom;
+            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 84);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(117, 31);
+            label5.TabIndex = 1;
+            label5.Text = "CheckIn";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnCheckIn
+            // 
+            btnCheckIn.Cursor = Cursors.Hand;
+            btnCheckIn.Dock = DockStyle.Top;
+            btnCheckIn.Image = (Image)resources.GetObject("btnCheckIn.Image");
+            btnCheckIn.Location = new Point(0, 0);
+            btnCheckIn.Margin = new Padding(4, 3, 4, 3);
+            btnCheckIn.Name = "btnCheckIn";
+            btnCheckIn.Size = new Size(117, 78);
+            btnCheckIn.SizeMode = PictureBoxSizeMode.CenterImage;
+            btnCheckIn.TabIndex = 0;
+            btnCheckIn.TabStop = false;
+            btnCheckIn.Click += btnCheckIn_Click;
+            // 
             // panel4
             // 
             panel4.Controls.Add(label4);
@@ -217,7 +253,7 @@
             // panel3
             // 
             panel3.Controls.Add(label3);
-            panel3.Controls.Add(btnPDF);
+            panel3.Controls.Add(btnExcel);
             panel3.Location = new Point(1357, 12);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
@@ -236,18 +272,19 @@
             label3.Text = "Import Excel";
             label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // btnPDF
+            // btnExcel
             // 
-            btnPDF.Cursor = Cursors.Hand;
-            btnPDF.Dock = DockStyle.Top;
-            btnPDF.Image = (Image)resources.GetObject("btnPDF.Image");
-            btnPDF.Location = new Point(0, 0);
-            btnPDF.Margin = new Padding(4, 3, 4, 3);
-            btnPDF.Name = "btnPDF";
-            btnPDF.Size = new Size(117, 81);
-            btnPDF.SizeMode = PictureBoxSizeMode.Zoom;
-            btnPDF.TabIndex = 0;
-            btnPDF.TabStop = false;
+            btnExcel.Cursor = Cursors.Hand;
+            btnExcel.Dock = DockStyle.Top;
+            btnExcel.Image = (Image)resources.GetObject("btnExcel.Image");
+            btnExcel.Location = new Point(0, 0);
+            btnExcel.Margin = new Padding(4, 3, 4, 3);
+            btnExcel.Name = "btnExcel";
+            btnExcel.Size = new Size(117, 81);
+            btnExcel.SizeMode = PictureBoxSizeMode.Zoom;
+            btnExcel.TabIndex = 0;
+            btnExcel.TabStop = false;
+            btnExcel.Click += btnExcel_Click;
             // 
             // panel2
             // 
@@ -348,42 +385,6 @@
             txtSearch.Text = "Tìm kiếm";
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
-            // panel5
-            // 
-            panel5.Controls.Add(label5);
-            panel5.Controls.Add(btnCheckIn);
-            panel5.Location = new Point(1224, 12);
-            panel5.Margin = new Padding(4, 3, 4, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(117, 115);
-            panel5.TabIndex = 3;
-            // 
-            // label5
-            // 
-            label5.Dock = DockStyle.Bottom;
-            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(0, 84);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(117, 31);
-            label5.TabIndex = 1;
-            label5.Text = "CheckIn";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnCheckIn
-            // 
-            btnCheckIn.Cursor = Cursors.Hand;
-            btnCheckIn.Dock = DockStyle.Top;
-            btnCheckIn.Image = (Image)resources.GetObject("btnCheckIn.Image");
-            btnCheckIn.Location = new Point(0, 0);
-            btnCheckIn.Margin = new Padding(4, 3, 4, 3);
-            btnCheckIn.Name = "btnCheckIn";
-            btnCheckIn.Size = new Size(117, 78);
-            btnCheckIn.SizeMode = PictureBoxSizeMode.CenterImage;
-            btnCheckIn.TabIndex = 0;
-            btnCheckIn.TabStop = false;
-            btnCheckIn.Click += btnCheckIn_Click;
-            // 
             // QuanLyThanhVien
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -398,16 +399,16 @@
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
             pnlNavigate.PerformLayout();
+            panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)btnCheckIn).EndInit();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnThem).EndInit();
             panel3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)btnPDF).EndInit();
+            ((System.ComponentModel.ISupportInitialize)btnExcel).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnXem).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnEdit).EndInit();
-            panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)btnCheckIn).EndInit();
             ResumeLayout(false);
         }
 
@@ -422,7 +423,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox btnPDF;
+        private System.Windows.Forms.PictureBox btnExcel;
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox btnXem;

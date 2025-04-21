@@ -20,7 +20,8 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             this._httpClient = new HttpClient();
         }
 
-        public async Task<List<ThanhVien>> GetAll(int pageNumber = 1, int pageSize = 100){
+        public async Task<List<ThanhVien>> GetAll(int pageNumber = 1, int pageSize = 100)
+        {
             string requestUrl = $"{BASE_URL}?pageNumber={pageNumber}&pageSize={pageSize}";
             try
             {
@@ -59,7 +60,8 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         }
 
 
-        public async Task<ThanhVien?> GetById(int id){
+        public async Task<ThanhVien?> GetById(int id)
+        {
             string requestUrl = $"{BASE_URL}/{id}";
             try
             {
@@ -81,7 +83,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             {
                 Console.WriteLine($"Lỗi JSON: {jsonEx.Message}");
                 return new ThanhVien();
-            }            
+            }
             catch (Exception ex)
             {
                 Console.WriteLine($"Lỗi: {ex.Message}");
@@ -114,25 +116,58 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
         }
 
-        public async Task<bool> Add(ThanhVien thanhVien){
+        public async Task<bool> Add(ThanhVien thanhVien)
+        {
             string requestUrl = $"{BASE_URL}/register";
-            try {
+            try
+            {
                 var jsonContent = JsonSerializer.Serialize(thanhVien);
                 var content = new StringContent(jsonContent, System.Text.Encoding.UTF8, "application/json");
 
                 HttpResponseMessage res = await _httpClient.PostAsync(requestUrl, content);
                 return res.IsSuccessStatusCode;
             }
-            catch (JsonException jsonEx) {
+            catch (JsonException jsonEx)
+            {
                 MessageBox.Show($"Lỗi JSON: {jsonEx.Message}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
-            catch (Exception ex) {
+            catch (Exception ex)
+            {
                 MessageBox.Show($"Lỗi: {ex.Message}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return false;
             }
         }
 
-    }
+        public async Task<int> CheckRole(String pass, String phoneOrEmail)
+        {
+            string requestUrl = $"{BASE_URL}/checkRole?pass={pass}&phoneOrEmail={phoneOrEmail}";
+            try
+            {
+                HttpResponseMessage res = await _httpClient.GetAsync(requestUrl);
+                string json = await res.Content.ReadAsStringAsync();
+                if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
+                {
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<int>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                    return apiResponse.Data;
+                }
+                else // lỗi request
+                    return 0;
+            }
+            catch (JsonException jsonEx)
+            {
+                Console.WriteLine($"Lỗi JSON: {jsonEx.Message}");
+                return 0;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+                return 0;
+            }
 
+        }
+    }
 }

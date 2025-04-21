@@ -1,4 +1,5 @@
-﻿using System;
+﻿using sgu_c_sharf_WinfromAdmin.Services;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,6 +13,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI
 {
     public partial class Login : Form
     {
+        private ThanhVienService TVService = new ThanhVienService();
         public Login()
         {
             InitializeComponent();
@@ -32,8 +34,27 @@ namespace sgu_c_sharf_WinfromAdmin.GUI
             txtMK.UseSystemPasswordChar = !chkMK.Checked;
         }
 
-        private void btnLogin_Click(object sender, EventArgs e)
+        private async void btnLogin_Click(object sender, EventArgs e)
         {
+            //String phoneOrEmail = txtTK.Text.Trim();
+            //String pass = txtMK.Text.Trim();
+            //if (phoneOrEmail == "" || phoneOrEmail == "")
+            //{
+            //    MessageBox.Show("Vui lòng nhập tài khoản và mật khẩu!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+            //int res = await TVService.CheckRole(pass, phoneOrEmail);
+            //if (res  == 0)
+            //{
+            //    MessageBox.Show("Tài khoản hoặc mật khẩu không đúng!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+            //else if (res  == 2 )
+            //{
+            //    MessageBox.Show("Tài khoản này không có quyền admin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            //    return;
+            //}
+
             Login.ActiveForm.Hide();
             MainFrame mF = new MainFrame();
             mF.Show();
