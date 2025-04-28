@@ -28,7 +28,7 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; }
 
         public virtual PhieuMuon PhieuMuon { get; set; }
-        public virtual DauThietBi DauThietBi { get; set; }
+        public virtual sgu_c_sharf_backend.Models.ThietBi.DauThietBi DauThietBi { get; set; }
     }
 
     public class ChiTietPhieuMuonCreateDTO

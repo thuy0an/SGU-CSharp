@@ -18,6 +18,6 @@ namespace sgu_c_sharf_backend.Models
         public int IdDauThietBi { get; set; }
 
         public virtual PhieuDatCho.PhieuDatCho PhieuDatCho { get; set; }
-        public virtual DauThietBi DauThietBi { get; set; }
+        public virtual sgu_c_sharf_backend.Models.ThietBi.DauThietBi DauThietBi { get; set; }
     }
 }

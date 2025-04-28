@@ -46,5 +46,14 @@ namespace sgu_c_sharf_backend.Services
         {
             return _thietBiRepository.Search(tenThietBi, idLoaiThietBi);
         }
+        public IEnumerable<DauThietBiListDTO> GetDauThietBiByThietBiId(int idThietBi)
+        {
+            // Kiểm tra thiết bị có tồn tại không
+            var thietBi = _thietBiRepository.GetById(idThietBi);
+            if (thietBi == null)
+                throw new Exception("Thiết bị không tồn tại hoặc đã bị xóa.");
+
+            return _thietBiRepository.GetDauThietBiByThietBiId(idThietBi);
+        }
     }
 }

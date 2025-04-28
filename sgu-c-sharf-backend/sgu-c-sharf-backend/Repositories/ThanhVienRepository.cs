@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.Win32.SafeHandles;
 using MySql.Data.MySqlClient;
 using sgu_c_sharf_backend.ApiResponse;
 using sgu_c_sharf_backend.Models.ThanhVien;
@@ -231,8 +232,21 @@ namespace sgu_c_sharf_backend.Repositories
 
             return rowsAffected > 0 ? thanhVien : null;
         }
+        public int CheckRoleAdmin(string password, string phoneOrEmail){
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
 
-
-        
+            string sql ="Select Quyen From thanhvien Where MatKhau=@MatKhau And (Email=@PassOrEmail OR SoDienThoai=@PassOrEmail)";
+            using var command = new MySqlCommand(sql, connection);
+            command.Parameters.AddWithValue("@MatKhau", password);
+            command.Parameters.AddWithValue("@PassOrEmail", phoneOrEmail);
+            var res = command.ExecuteScalar();
+            if (res == null)
+                return 0;
+            string quyen = res.ToString();
+            if( quyen.Equals("ADMIN", StringComparison.OrdinalIgnoreCase))
+                return 1;
+            return 2;
+        }
     }
 }

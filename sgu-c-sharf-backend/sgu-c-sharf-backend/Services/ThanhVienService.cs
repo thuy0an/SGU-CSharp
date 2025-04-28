@@ -40,5 +40,9 @@ namespace sgu_c_sharf_backend.Services
             // Gọi Repository để thêm mới thành viên
             return _thanhVienRepository.Update(thanhVien);
         }
+
+        public int CheckRoleAdmin(string pass, string phoneOrEmail){
+            return _thanhVienRepository.CheckRoleAdmin(pass, phoneOrEmail);
+        }
     }
 }

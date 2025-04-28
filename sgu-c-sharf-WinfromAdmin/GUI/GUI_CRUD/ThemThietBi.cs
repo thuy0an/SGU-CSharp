@@ -1,25 +1,89 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using sgu_c_sharf_WinfromAdmin.Models;
+using sgu_c_sharf_WinfromAdmin.Services;
+using sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 {
     public partial class FormThemThietBi : Form
     {
-        public FormThemThietBi()
+        private readonly ThietBiService _thietBiService;
+        private readonly QuanLyThietBi _parentForm;
+
+        public FormThemThietBi(QuanLyThietBi parentForm)
         {
             InitializeComponent();
+            _thietBiService = new ThietBiService();
+            _parentForm = parentForm;
+            LoadLoaiThietBi();
         }
 
-        private void btnThem_Click(object sender, EventArgs e)
+        private void LoadLoaiThietBi()
         {
-            // Logic for adding a new device
+            // Danh sách loại thiết bị tĩnh, thay bằng API nếu có
+            var loaiThietBiList = new List<KeyValuePair<int, string>>
+            {
+                new KeyValuePair<int, string>(1, "Máy tính"),
+                new KeyValuePair<int, string>(2, "Điện thoại"),
+                new KeyValuePair<int, string>(3, "Máy in")
+            };
+
+            cbbLoaiThietBi.DataSource = loaiThietBiList;
+            cbbLoaiThietBi.DisplayMember = "Value";
+            cbbLoaiThietBi.ValueMember = "Key";
+        }
+
+        private async void btnThem_Click(object sender, EventArgs e)
+        {
+            // Kiểm tra dữ liệu đầu vào
+            if (string.IsNullOrWhiteSpace(txtTenThietBi.Text))
+            {
+                MessageBox.Show("Vui lòng nhập tên thiết bị!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (cbbLoaiThietBi.SelectedIndex == -1)
+            {
+                MessageBox.Show("Vui lòng chọn loại thiết bị!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtDauThietBi.Text) || !int.TryParse(txtDauThietBi.Text, out int soLuongDauThietBi) || soLuongDauThietBi < 1 || soLuongDauThietBi > 100)
+            {
+                MessageBox.Show("Số lượng đầu thiết bị phải là số nguyên từ 1 đến 100!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Tạo đối tượng ThietBiCreateDTO
+            var thietBiCreate = new ThietBiCreateDTO
+            {
+                TenThietBi = txtTenThietBi.Text.Trim(),
+                IdLoaiThietBi = (int)cbbLoaiThietBi.SelectedValue,
+                SoLuongDauThietBi = soLuongDauThietBi
+            };
+
+            // Gọi API để thêm thiết bị
+            try
+            {
+                var result = await _thietBiService.Add(thietBiCreate);
+                if (result.Success)
+                {
+                    MessageBox.Show("Thêm thiết bị thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    _parentForm.RefreshDataGridView(); 
+                    DialogResult = DialogResult.OK;
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show($"Thêm thiết bị thất bại: {result.ErrorMessage}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi hệ thống: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

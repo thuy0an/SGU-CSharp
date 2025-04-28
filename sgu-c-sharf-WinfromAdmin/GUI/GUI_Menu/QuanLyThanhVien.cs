@@ -12,6 +12,8 @@ using System.Net.Http;
 using System.Text.Json;
 using sgu_c_sharf_WinfromAdmin.Services;
 using sgu_c_sharf_WinfromAdmin.Models;
+using OfficeOpenXml;
+
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 {
@@ -97,7 +99,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             if (DataGrid.SelectedRows.Count > 0)
             {
                 ThanhVien tv = await thanhVienService.GetById(int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString()));
-                //Console.WriteLine($"[btnEdit_Click] Found ThanhVien: ID={tv.Id}, HoTen={tv.HoTen}"); // Log dữ liệu lấy được
+                if ( tv.Quyen == QuyenEnum.ADMIN)
+                {
+                    MessageBox.Show("Không thể chỉnh sửa thông tin admin", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
 
                 FormSuaThanhVien form = new FormSuaThanhVien(tv, this);
                 form.ShowDialog();
@@ -159,6 +165,79 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             ThemCheckIn form = new ThemCheckIn(listTV);
             form.ShowDialog();
 
+        }
+
+        private async void btnExcel_Click(object sender, EventArgs e)
+        {
+        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+            string huongDan = "Nội dung file Excel gồm các cột sau:\n\n" +
+                              "1. Họ tên\n" +
+                              "2. Ngày sinh\n" +
+                              "3. Email\n" +
+                              "4. Số điện thoại\n" +
+                              "5. Quyền \n" +
+                              "6. Mật khẩu";
+            var res = MessageBox.Show(huongDan, "Định dạng excel", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+            if (res == DialogResult.Cancel)
+                return;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var path = openFileDialog.FileName;
+                try
+                {
+                    using (var pack = new ExcelPackage(new FileInfo(path)))
+                    {
+                        var worksheet = pack.Workbook.Worksheets[0];
+                        int rowCount = worksheet.Dimension.Rows;
+                        int done = 0;
+                        for (int row = 1; row <= rowCount; row++)
+                        {
+                            string hoten = worksheet.Cells[row, 1].Text.Trim();
+                            string ngaySinhStr = worksheet.Cells[row, 2].Text.Trim();
+                            string email = worksheet.Cells[row, 3].Text.Trim();
+                            string soDienThoai = worksheet.Cells[row, 4].Text.Trim();
+                            string quyen = worksheet.Cells[row, 5].Text.Trim();
+                            string matKhau = worksheet.Cells[row, 6].Text.Trim();
+
+                            if (string.IsNullOrEmpty(hoten) || string.IsNullOrEmpty(email) || string.IsNullOrEmpty(soDienThoai))
+                                continue;
+
+                            if (listTV.Any(x => x.Email == email || x.SoDienThoai == soDienThoai))
+                                continue;
+
+                            if (!DateTime.TryParse(ngaySinhStr, out DateTime ngaySinh))
+                                continue;
+
+                            if ((DateTime.Now.Year - ngaySinh.Year) < 18)
+                                continue;
+                            ThanhVien thanhVien = new ThanhVien()
+                            {
+                                HoTen = hoten,
+                                NgaySinh = ngaySinh,
+                                Email = email,
+                                SoDienThoai = soDienThoai,
+                                ThoiGianDangKy = DateTime.Now,
+                                MatKhau = matKhau,
+                                TrangThai = TrangThaiEnum.HOATDONG
+                            };
+
+                            bool resu = await thanhVienService.Add(thanhVien);
+                            if (resu)
+                                done++;
+                        }
+                        MessageBox.Show($"Thêm thành công {done} thành viên", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData(await thanhVienService.GetAll());
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 
