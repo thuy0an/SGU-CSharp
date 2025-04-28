@@ -16,9 +16,33 @@ namespace sgu_c_sharf_backend.Repositories
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public ChiTietPhieuMuon? GetByIdAsync(int id)
+        public List<ChiTietPhieuMuon?> GetById(int id)
         {
-            throw new NotImplementedException("Không thể lấy ChiTietPhieuMuon bằng một ID duy nhất vì cần 2 khóa chính.");
+            List<ChiTietPhieuMuon?> chiTietPhieuMuons = new List<ChiTietPhieuMuon?>();
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = "SELECT IdPhieuMuon, IdDauThietBi, ThoiGianMuon, ThoiGianTra, TrangThai FROM ChiTietPhieuMuon WHERE IdPhieuMuon = @IdPhieuMuon";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@IdPhieuMuon", id);
+
+            using var reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                var chiTiet = new ChiTietPhieuMuon
+                {
+                    IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
+                    IdDauThietBi = reader.GetInt32("IdDauThietBi"),
+                    ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
+                    ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
+                    TrangThai = Enum.Parse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"))
+                };
+
+                chiTietPhieuMuons.Add(chiTiet);
+            }
+
+            return chiTietPhieuMuons;
         }
 
         public ChiTietPhieuMuon? GetByIdsAsync(int idPhieuMuon, int idDauThietBi)

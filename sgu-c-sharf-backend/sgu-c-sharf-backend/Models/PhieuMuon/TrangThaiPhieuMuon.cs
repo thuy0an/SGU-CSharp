@@ -23,11 +23,28 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
 
         public virtual PhieuMuon PhieuMuon { get; set; }
     }
-    public enum TrangThaiPhieuMuonEnum
+
+    public class TrangThaiPhieuMuonCreateDTO
     {
-        HUY, 
-        XACNHAN, 
-        DANGSUDUNG, 
-        DATRATHIETBI
+        [Required]
+        public int IdPhieuMuon { get; set; }
+
+        [Required]
+        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
+
+        [Required]
+        public DateTime ThoiGianCapNhat { get; set; } = DateTime.Now;
     }
+
+    public class TrangThaiPhieuMuonDetailDTO
+    {
+        public int Id { get; set; }
+
+        public int IdPhieuMuon { get; set; }
+
+        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
+
+        public DateTime ThoiGianCapNhat { get; set; }
+    }
+    
 }

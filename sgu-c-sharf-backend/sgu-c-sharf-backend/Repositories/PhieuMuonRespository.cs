@@ -21,9 +21,16 @@ namespace sgu_c_sharf_backend.Repositories
             connection.Open();
 
             string query = @"
-                SELECT Id, IdThanhVien, NgayTao
-                FROM PhieuMuon
-                WHERE Id = @Id";
+                SELECT 
+                    p.Id, p.IdThanhVien, p.NgayTao, 
+                    t.TrangThai AS TrangThaiMoiNhat
+                FROM PhieuMuon p
+                LEFT JOIN (
+                    SELECT IdPhieuMuon, TrangThai
+                    FROM TrangThaiPhieuMuon
+                    WHERE ThoiGianCapNhat = (SELECT MAX(ThoiGianCapNhat) FROM TrangThaiPhieuMuon WHERE IdPhieuMuon = p.Id)
+                ) t ON p.Id = t.IdPhieuMuon
+                WHERE p.Id = @Id";
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@Id", id);
@@ -35,7 +42,8 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     IdThanhVien = reader.GetInt32("IdThanhVien"),
-                    NgayTao = reader.GetDateTime("NgayTao")
+                    NgayTao = reader.GetDateTime("NgayTao"),
+                    TrangThaiMoiNhat = reader.IsDBNull(reader.GetOrdinal("TrangThaiMoiNhat")) ? null : reader.GetString("TrangThaiMoiNhat")
                 };
             }
 
@@ -49,7 +57,16 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string query = "SELECT Id, IdThanhVien, NgayTao FROM PhieuMuon";
+            string query = @"
+                SELECT 
+                    p.Id, p.IdThanhVien, p.NgayTao, 
+                    t.TrangThai AS TrangThaiMoiNhat
+                FROM PhieuMuon p
+                LEFT JOIN (
+                    SELECT IdPhieuMuon, TrangThai
+                    FROM TrangThaiPhieuMuon
+                    WHERE ThoiGianCapNhat = (SELECT MAX(ThoiGianCapNhat) FROM TrangThaiPhieuMuon WHERE IdPhieuMuon = p.Id)
+                ) t ON p.Id = t.IdPhieuMuon";
 
             using var command = new MySqlCommand(query, connection);
             using var reader = command.ExecuteReader();
@@ -60,7 +77,8 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     IdThanhVien = reader.GetInt32("IdThanhVien"),
-                    NgayTao = reader.GetDateTime("NgayTao")
+                    NgayTao = reader.GetDateTime("NgayTao"),
+                    TrangThaiMoiNhat = reader.IsDBNull(reader.GetOrdinal("TrangThaiMoiNhat")) ? null : reader.GetString("TrangThaiMoiNhat")
                 });
             }
 
@@ -74,16 +92,23 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            // Tính toán vị trí bắt đầu của dữ liệu cho trang hiện tại
             int offset = (page - 1) * limit;
 
-            // Sử dụng LIMIT và OFFSET để phân trang
-            string query = "SELECT Id, IdThanhVien, NgayTao FROM PhieuMuon LIMIT @Limit OFFSET @Offset";
+            string query = @"
+                SELECT 
+                    p.Id, p.IdThanhVien, p.NgayTao, 
+                    t.TrangThai AS TrangThaiMoiNhat
+                FROM PhieuMuon p
+                LEFT JOIN (
+                    SELECT IdPhieuMuon, TrangThai
+                    FROM TrangThaiPhieuMuon
+                    WHERE ThoiGianCapNhat = (SELECT MAX(ThoiGianCapNhat) FROM TrangThaiPhieuMuon WHERE IdPhieuMuon = p.Id)
+                ) t ON p.Id = t.IdPhieuMuon
+                LIMIT @Limit OFFSET @Offset";
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@Limit", limit);
             command.Parameters.AddWithValue("@Offset", offset);
-
             using var reader = command.ExecuteReader();
 
             while (reader.Read())
@@ -92,7 +117,8 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     Id = reader.GetInt32("Id"),
                     IdThanhVien = reader.GetInt32("IdThanhVien"),
-                    NgayTao = reader.GetDateTime("NgayTao")
+                    NgayTao = reader.GetDateTime("NgayTao"),
+                    TrangThaiMoiNhat = reader.IsDBNull(reader.GetOrdinal("TrangThaiMoiNhat")) ? null : reader.GetString("TrangThaiMoiNhat")
                 });
             }
 
@@ -114,6 +140,23 @@ namespace sgu_c_sharf_backend.Repositories
             command.Parameters.AddWithValue("@NgayTao", entity.NgayTao);
 
             return Convert.ToInt32(command.ExecuteScalar());
+        }
+
+        public int Update(PhieuMuon entity)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = @"
+            UPDATE PhieuMuon
+            SET IdThanhVien = @IdThanhVien
+            WHERE Id = @Id";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Id", entity.Id);
+            command.Parameters.AddWithValue("@IdThanhVien", entity.IdThanhVien);
+
+            return Convert.ToInt32(command.ExecuteNonQuery());
         }
     }
 }

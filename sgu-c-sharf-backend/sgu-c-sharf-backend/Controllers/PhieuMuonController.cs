@@ -63,5 +63,17 @@ namespace sgu_c_sharf_backend.Controllers
             return Created("", ApiResponse<int>.Ok(res, "Thêm phiếu mượn thành công"));
         }
 
+        [HttpPut("{id}")]
+        public ActionResult<ApiResponse<int>> UpdatePhieuMuon(int id, [FromBody] PhieuMuon phieuMuon)
+        {
+            if (phieuMuon == null || phieuMuon.Id != id)
+            {
+                return BadRequest(ApiResponse<int>.Fail("Dữ liệu không hợp lệ"));
+            }
+
+            var res = _phieuMuonService.UpdatePhieuMuon(phieuMuon);
+            return Ok(ApiResponse<int>.Ok(res, "Cập nhật phiếu mượn thành công"));
+        }
+
     }
 }

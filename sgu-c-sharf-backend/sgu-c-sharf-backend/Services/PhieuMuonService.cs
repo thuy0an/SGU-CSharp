@@ -35,4 +35,8 @@ public class PhieuMuonService
         return _phieuMuonRepository.Add(phieuMuon);
     }
 
+    public int UpdatePhieuMuon(PhieuMuon phieuMuon){
+        return _phieuMuonRepository.Update(phieuMuon);
+    }
+
 }
