@@ -132,6 +132,31 @@ namespace sgu_c_sharf_backend.Repositories
             }
         }
 
+
+        public void ThemDauThietBi(int idThietBi, int soLuong)
+        {
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                using (var transaction = connection.BeginTransaction())
+                {
+                    string insertSql = "INSERT INTO DauThietBi (TrangThai, ThoiGianMua, IdThietBi) VALUES (@TrangThai, @ThoiGianMua, @IdThietBi)";
+                    MySqlCommand insertCommand = new MySqlCommand(insertSql, connection, transaction);
+
+                    for (int i = 0; i < soLuong; i++)
+                    {
+                        insertCommand.Parameters.Clear();
+                        insertCommand.Parameters.AddWithValue("@TrangThai", TrangThaiDauThietBiEnum.KHADUNG.ToString());
+                        insertCommand.Parameters.AddWithValue("@ThoiGianMua", DateTime.Now);
+                        insertCommand.Parameters.AddWithValue("@IdThietBi", idThietBi);
+                        insertCommand.ExecuteNonQuery();
+                    }
+                    transaction.Commit();
+                }
+            }
+        }
+
+
         public void Update(int id, ThietBiUpdateForm thietBiUpdateForm)
         {
             using (MySqlConnection connection = new MySqlConnection(_connectionString))

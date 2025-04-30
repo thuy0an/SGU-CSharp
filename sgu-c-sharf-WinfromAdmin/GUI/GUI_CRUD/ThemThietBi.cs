@@ -11,29 +11,29 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
     {
         private readonly ThietBiService _thietBiService;
         private readonly QuanLyThietBi _parentForm;
+        private readonly LoaiThietBiService _loaiThietBiService;
 
         public FormThemThietBi(QuanLyThietBi parentForm)
         {
             InitializeComponent();
             _thietBiService = new ThietBiService();
+            _loaiThietBiService = new LoaiThietBiService();
             _parentForm = parentForm;
             LoadLoaiThietBi();
         }
 
-        private void LoadLoaiThietBi()
-        {
-            // Danh sách loại thiết bị tĩnh, thay bằng API nếu có
-            var loaiThietBiList = new List<KeyValuePair<int, string>>
-            {
-                new KeyValuePair<int, string>(1, "Máy tính"),
-                new KeyValuePair<int, string>(2, "Điện thoại"),
-                new KeyValuePair<int, string>(3, "Máy in")
-            };
-
+    private async void LoadLoaiThietBi()
+    {
+        var loaiThietBiList = await _loaiThietBiService.GetAll();
+        if (loaiThietBiList != null && loaiThietBiList.Count > 0){
             cbbLoaiThietBi.DataSource = loaiThietBiList;
-            cbbLoaiThietBi.DisplayMember = "Value";
-            cbbLoaiThietBi.ValueMember = "Key";
+            cbbLoaiThietBi.DisplayMember = "TenLoaiThietBi";
+            cbbLoaiThietBi.ValueMember = "Id";
         }
+    }
+
+
+
 
         private async void btnThem_Click(object sender, EventArgs e)
         {

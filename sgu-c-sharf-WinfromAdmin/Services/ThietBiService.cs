@@ -151,6 +151,25 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 			}
 		}
 
+
+        public async Task<bool> AddDauThietBi(int idTB, int soluong){
+			string requestUrl = $"{BASE_URL}/ThemDauThietBi/{idTB}";
+			try
+			{
+				var jsonContent = JsonSerializer.Serialize(new { SoLuong = soluong });
+				var content = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+				HttpResponseMessage res = await _httpClient.PostAsync(requestUrl, content);
+				return res.IsSuccessStatusCode;
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error: {ex.Message}");
+				return false;
+			} 
+        }
+
+
+
 		public async Task<List<DauThietBi>> GetDauThietBiByThietBiId(int thietBiId)
 		{
 			string requestUrl = $"{BASE_URL}/{thietBiId}/dau-thiet-bi";

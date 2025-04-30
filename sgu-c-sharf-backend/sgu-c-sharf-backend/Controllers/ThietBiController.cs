@@ -65,6 +65,25 @@ namespace sgu_c_sharf_backend.Controllers
             }
         }
 
+
+        [HttpPost("ThemDauThietBi/{id}")]
+        public IActionResult ThemDauThietBi(int id, [FromBody] ThemDauThietBiForm form)
+        {
+            try
+            {
+                _thietBiService.ThemDauThietBi(id, form.SoLuong);
+                return Ok(ApiResponse<object>.Ok(null, "Thêm đầu thiết bị thành công"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<object>.Fail(ex.Message));
+            }
+        }
+
+
+
+
+
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ThietBiUpdateForm form)
         {

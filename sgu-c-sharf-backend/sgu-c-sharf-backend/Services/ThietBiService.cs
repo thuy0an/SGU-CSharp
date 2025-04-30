@@ -32,6 +32,12 @@ namespace sgu_c_sharf_backend.Services
             _thietBiRepository.Add(form);
         }
 
+        public void ThemDauThietBi(int idThietBi, int soLuong)
+        {
+            _thietBiRepository.ThemDauThietBi(idThietBi, soLuong);
+        }
+
+
         public void Update(int id, ThietBiUpdateForm form)
         {
             _thietBiRepository.Update(id, form);
