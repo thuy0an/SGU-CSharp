@@ -14,24 +14,24 @@ namespace sgu_c_sharf_backend.Services
             _repository = repository;
         }
 
-        public ChiTietPhieuMuon? GetByIds(int idPhieuMuon, int idDauThietBi)
-        {
-            return _repository.GetByIds(idPhieuMuon, idDauThietBi);
+        public List<ChiTietPhieuMuonDetailDTO> GetAllByPhieuMuonId(int idPhieuMuon){
+            return _repository.GetAllByPhieuMuonId(idPhieuMuon);
         }
 
-        public List<ChiTietPhieuMuon> GetAll()
-        {
-            return _repository.GetAll();
+        public ChiTietPhieuMuonDetailDTO? GetByPhieuMuonIdAndDauThietBiId(int idPhieuMuon, int idDauThietBi){
+            return _repository.GetByPhieuMuonIdAndDauThietBiId(idPhieuMuon, idDauThietBi);
         }
 
-        public void Add(ChiTietPhieuMuon entity)
-        {
-            _repository.Add(entity);
+        public bool Add(List<ChiTietPhieuMuonCreateDTO> entities){
+            return _repository.Add(entities);
         }
 
-        public void Update(ChiTietPhieuMuon entity)
-        {
-            _repository.Update(entity);
+        public bool Update(List<ChiTietPhieuMuonUpdateDTO> entities){
+            return _repository.Update(entities);
+        }
+
+        public bool Delete(List<ChiTietPhieuMuon> entities){
+            return _repository.Delete(entities);
         }
     }
 }

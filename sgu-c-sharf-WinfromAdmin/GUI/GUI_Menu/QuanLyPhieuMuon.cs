@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD;
+using sgu_c_sharf_WinfromAdmin.Services;
+using sgu_c_sharf_WinfromAdmin.Models;
 using System.Windows.Forms;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
@@ -20,9 +22,8 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             LoadData();
         }
 
-        private void LoadData()
+        private async Task LoadData()
         {
-
         }
 
         private void SetPlaceholder(TextBox txt, string placeholder, Color placeholderColor)
@@ -89,6 +90,21 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         }
 
         private void btnReset_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
+
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
         {
 
         }

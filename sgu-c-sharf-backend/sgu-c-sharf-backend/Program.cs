@@ -10,9 +10,6 @@ builder.Services.AddScoped<ThanhVienService>();
 builder.Services.AddScoped<LoaiThietBiRepository>();
 builder.Services.AddScoped<LoaiThietBiService>();
 
-builder.Services.AddScoped<PhieuDatChoRepository>();
-builder.Services.AddScoped<PhieuDatChoService>();
-
 builder.Services.AddScoped<PhieuMuonRepository>();
 builder.Services.AddScoped<PhieuMuonService>();
 

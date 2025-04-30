@@ -19,61 +19,61 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
         // Lấy danh sách phiếu mượn không có phân trang
-        [HttpGet]
-        public ActionResult<ApiResponse<List<PhieuMuon>>> GetAllNoPaging()
+        [HttpGet("nopaging")]
+        public ActionResult<ApiResponse<List<PhieuMuonDetailDTO>>> GetAllNoPaging()
         {
             var res = _phieuMuonService.GetAll();
-            return Ok(ApiResponse<List<PhieuMuon>>.Ok(res, "Thành công"));
+            return Ok(ApiResponse<List<PhieuMuonDetailDTO>>.Ok(res, "Thành công"));
         }
 
         // Lấy danh sách phiếu mượn với phân trang
         [HttpGet("paging")]
-        public ActionResult<ApiResponse<List<PhieuMuon>>> GetAllWithPaging(int page = 1, int limit = 10)
+        public ActionResult<ApiResponse<(List<PhieuMuonDetailDTO> items, int currentPage, int totalPages)>> GetAllWithPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai)
         {
-            var res = _phieuMuonService.GetAllPaging(page, limit);
-            return Ok(ApiResponse<List<PhieuMuon>>.Ok(res, "Thành công"));
+            var res = _phieuMuonService.GetAllPaging(page, limit, fromDate, toDate, trangThai);
+            return Ok(ApiResponse<(List<PhieuMuonDetailDTO> items, int currentPage, int totalPages)>.Ok(res, "Thành công"));
         }
 
         // Lấy chi tiết phiếu mượn theo ID
         [HttpGet("{id}")]
-        public ActionResult<ApiResponse<PhieuMuon>> GetById(int id)
+        public ActionResult<ApiResponse<PhieuMuonDetailDTO>> GetById(int id)
         {
             var res = _phieuMuonService.GetById(id);
             if (res == null)
             {
                 return NotFound(ApiResponse<PhieuMuon>.Fail("Không tìm thấy phiếu mượn"));
             }
-            return Ok(ApiResponse<PhieuMuon>.Ok(res, "Thành công"));
+            return Ok(ApiResponse<PhieuMuonDetailDTO>.Ok(res, "Thành công"));
         }
 
-        // Thêm mới phiếu mượn
+        // Thêm mới phiếu mượn 
         [HttpPost]
-        public ActionResult<ApiResponse<int>> AddPhieuMuon([FromBody] PhieuMuonCreateDTO pm)
+        public ActionResult<ApiResponse<int>> Add([FromBody] PhieuMuonCreateDTO pm)
         {
             if (pm == null)
-                return BadRequest(ApiResponse<PhieuMuon>.Fail("Dữ liệu không hợp lệ"));
+                return BadRequest(ApiResponse<int>.Fail("Dữ liệu không hợp lệ"));
 
-            var phieuMuon = new PhieuMuon()
+            var phieuMuon = new PhieuMuonCreateDTO()
             {
                 IdThanhVien = pm.IdThanhVien,
                 NgayTao = DateTime.Now,
             };
 
-            var res = _phieuMuonService.AddPhieuMuon(phieuMuon);
+            var res = _phieuMuonService.Add(phieuMuon);
             return Created("", ApiResponse<int>.Ok(res, "Thêm phiếu mượn thành công"));
         }
 
+        // Cập nhật phiếu mượn 
         [HttpPut("{id}")]
-        public ActionResult<ApiResponse<int>> UpdatePhieuMuon(int id, [FromBody] PhieuMuon phieuMuon)
+        public ActionResult<ApiResponse<bool>> Update(int id, [FromBody] PhieuMuonUpdateDTO phieuMuon)
         {
             if (phieuMuon == null || phieuMuon.Id != id)
             {
-                return BadRequest(ApiResponse<int>.Fail("Dữ liệu không hợp lệ"));
+                return BadRequest(ApiResponse<bool>.Fail("Dữ liệu không hợp lệ"));
             }
 
-            var res = _phieuMuonService.UpdatePhieuMuon(phieuMuon);
-            return Ok(ApiResponse<int>.Ok(res, "Cập nhật phiếu mượn thành công"));
+            var res = _phieuMuonService.Update(phieuMuon);
+            return Ok(ApiResponse<bool>.Ok(res, "Cập nhật phiếu mượn thành công"));
         }
-
     }
 }

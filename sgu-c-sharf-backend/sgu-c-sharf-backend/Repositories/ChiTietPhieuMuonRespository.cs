@@ -16,42 +16,73 @@ namespace sgu_c_sharf_backend.Repositories
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
-        public List<ChiTietPhieuMuon?> GetById(int id)
+        public List<ChiTietPhieuMuonDetailDTO> GetAllByPhieuMuonId(int idPhieuMuon)
         {
-            List<ChiTietPhieuMuon?> chiTietPhieuMuons = new List<ChiTietPhieuMuon?>();
+            var list = new List<ChiTietPhieuMuonDetailDTO>();
+
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string query = "SELECT IdPhieuMuon, IdDauThietBi, ThoiGianMuon, ThoiGianTra, TrangThai FROM ChiTietPhieuMuon WHERE IdPhieuMuon = @IdPhieuMuon";
+            string query = @"
+                    SELECT 
+                        c.IdPhieuMuon,
+                        c.IdDauThietBi,
+                        d.Ten AS TenDauThietBi,
+                        c.TrangThai,
+                        c.ThoiGianMuon,
+                        c.ThoiGianTra
+                    FROM ChiTietPhieuMuon c
+                    LEFT JOIN DauThietBi d ON d.Id = c.IdDauThietBi
+                    WHERE c.IdPhieuMuon = @IdPhieuMuon";
 
             using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@IdPhieuMuon", id);
+            command.Parameters.AddWithValue("@IdPhieuMuon", idPhieuMuon);
 
             using var reader = command.ExecuteReader();
             while (reader.Read())
             {
-                var chiTiet = new ChiTietPhieuMuon
+                var dto = new ChiTietPhieuMuonDetailDTO
                 {
                     IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
-                    ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
-                    ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
-                    TrangThai = Enum.Parse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"))
+                    TenDauThietBi = reader.IsDBNull(reader.GetOrdinal("TenDauThietBi"))
+                                    ? "(Không có tên)"
+                                    : reader.GetString("TenDauThietBi"),
+                    TrangThai = reader.IsDBNull(reader.GetOrdinal("TrangThai"))
+                                ? TrangThaiChiTietPhieuMuonEnum.DATHATLAC
+                                : Enum.TryParse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"), true, out var result)
+                                    ? result
+                                    : TrangThaiChiTietPhieuMuonEnum.DATHATLAC,
+                    ThoiGianMuon = reader.IsDBNull(reader.GetOrdinal("ThoiGianMuon"))
+                                    ? (DateTime?)null
+                                    : reader.GetDateTime("ThoiGianMuon"),
+                    ThoiGianTra = reader.IsDBNull(reader.GetOrdinal("ThoiGianTra"))
+                                    ? (DateTime?)null
+                                    : reader.GetDateTime("ThoiGianTra")
                 };
 
-                chiTietPhieuMuons.Add(chiTiet);
+                list.Add(dto);
             }
 
-            return chiTietPhieuMuons;
+            return list;
         }
 
-        public ChiTietPhieuMuon? GetByIdsAsync(int idPhieuMuon, int idDauThietBi)
+        public ChiTietPhieuMuonDetailDTO? GetByPhieuMuonIdAndDauThietBiId(int idPhieuMuon, int idDauThietBi)
         {
-            ChiTietPhieuMuon? chiTiet = null;
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string query = "SELECT IdPhieuMuon, IdDauThietBi, ThoiGianMuon, ThoiGianTra, TrangThai FROM ChiTietPhieuMuon WHERE IdPhieuMuon = @IdPhieuMuon AND IdDauThietBi = @IdDauThietBi";
+            string query = @"
+                SELECT 
+                    c.IdPhieuMuon,
+                    c.IdDauThietBi,
+                    d.Ten AS TenDauThietBi,
+                    c.ThoiGianMuon,
+                    c.ThoiGianTra,
+                    c.TrangThai
+                FROM ChiTietPhieuMuon c
+                LEFT JOIN DauThietBi d ON d.Id = c.IdDauThietBi
+                WHERE c.IdPhieuMuon = @IdPhieuMuon AND c.IdDauThietBi = @IdDauThietBi";
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@IdPhieuMuon", idPhieuMuon);
@@ -60,77 +91,126 @@ namespace sgu_c_sharf_backend.Repositories
             using var reader = command.ExecuteReader();
             if (reader.Read())
             {
-                chiTiet = new ChiTietPhieuMuon
+                return new ChiTietPhieuMuonDetailDTO
                 {
                     IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
-                    ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
-                    ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
-                    TrangThai = Enum.Parse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"))
+                    TenDauThietBi = reader.IsDBNull(reader.GetOrdinal("TenDauThietBi"))
+                                    ? "(Không có tên)"
+                                    : reader.GetString("TenDauThietBi"),
+                    ThoiGianMuon = reader.IsDBNull(reader.GetOrdinal("ThoiGianMuon"))
+                                    ? (DateTime?)null
+                                    : reader.GetDateTime("ThoiGianMuon"),
+                    ThoiGianTra = reader.IsDBNull(reader.GetOrdinal("ThoiGianTra"))
+                                    ? (DateTime?)null
+                                    : reader.GetDateTime("ThoiGianTra"),
+                    TrangThai = reader.IsDBNull(reader.GetOrdinal("TrangThai"))
+                                ? TrangThaiChiTietPhieuMuonEnum.DATHATLAC
+                                : Enum.TryParse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"), true, out var result)
+                                    ? result
+                                    : TrangThaiChiTietPhieuMuonEnum.DATHATLAC
                 };
             }
 
-            return chiTiet;
+            return null;
         }
 
-        public IEnumerable<ChiTietPhieuMuon> GetAllAsync()
+        public bool Add(List<ChiTietPhieuMuonCreateDTO> entities)
         {
-            var chiTietPhieuMuons = new List<ChiTietPhieuMuon>();
-
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string query = "SELECT IdPhieuMuon, IdDauThietBi, ThoiGianMuon, ThoiGianTra, TrangThai FROM ChiTietPhieuMuon";
+            using var transaction = connection.BeginTransaction();
 
-            using var command = new MySqlCommand(query, connection);
-            using var reader = command.ExecuteReader();
-            while (reader.Read())
+            try
             {
-                chiTietPhieuMuons.Add(new ChiTietPhieuMuon
+                string query = @"INSERT INTO ChiTietPhieuMuon 
+                         (IdPhieuMuon, IdDauThietBi, ThoiGianMuon, ThoiGianTra, TrangThai) 
+                         VALUES (@IdPhieuMuon, @IdDauThietBi, @ThoiGianMuon, @TrangThai)";
+
+                foreach (var entity in entities)
                 {
-                    IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
-                    IdDauThietBi = reader.GetInt32("IdDauThietBi"),
-                    ThoiGianMuon = reader.GetDateTime("ThoiGianMuon"),
-                    ThoiGianTra = reader.IsDBNull("ThoiGianTra") ? null : reader.GetDateTime("ThoiGianTra"),
-                    TrangThai = Enum.Parse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"))
-                });
+                    using var command = new MySqlCommand(query, connection, transaction);
+                    command.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
+                    command.Parameters.AddWithValue("@IdDauThietBi", entity.IdDauThietBi);
+                    command.Parameters.AddWithValue("@ThoiGianMuon", entity.ThoiGianMuon);
+                    command.Parameters.AddWithValue("@TrangThai", entity.TrangThai.ToString());
+
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+                return true;
             }
-
-            return chiTietPhieuMuons;
+            catch
+            {
+                transaction.Rollback();
+                return false;
+            }
         }
 
-        public void AddAsync(ChiTietPhieuMuon entity)
+        public bool Update(List<ChiTietPhieuMuonUpdateDTO> entities)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string query = "INSERT INTO ChiTietPhieuMuon (IdPhieuMuon, IdDauThietBi, ThoiGianMuon, ThoiGianTra, TrangThai) VALUES (@IdPhieuMuon, @IdDauThietBi, @ThoiGianMuon, @ThoiGianTra, @TrangThai)";
+            using var transaction = connection.BeginTransaction();
 
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
-            command.Parameters.AddWithValue("@IdDauThietBi", entity.IdDauThietBi);
-            command.Parameters.AddWithValue("@ThoiGianMuon", entity.ThoiGianMuon);
-            command.Parameters.AddWithValue("@ThoiGianTra", entity.ThoiGianTra.HasValue ? entity.ThoiGianTra : DBNull.Value);
-            command.Parameters.AddWithValue("@TrangThai", entity.TrangThai);
+            try
+            {
+                foreach (var entity in entities)
+                {
+                    string query = @"UPDATE ChiTietPhieuMuon 
+                             SET ThoiGianTra = @ThoiGianTra, 
+                                 TrangThai = @TrangThai 
+                             WHERE IdPhieuMuon = @IdPhieuMuon AND IdDauThietBi = @IdDauThietBi";
 
-            command.ExecuteNonQuery();
+                    using var command = new MySqlCommand(query, connection, transaction);
+                    command.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
+                    command.Parameters.AddWithValue("@IdDauThietBi", entity.IdDauThietBi);
+                    command.Parameters.AddWithValue("@ThoiGianTra", entity.ThoiGianTra ?? (object)DBNull.Value);
+                    command.Parameters.AddWithValue("@TrangThai", entity.TrangThai.ToString());
+
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+                return true;
+            }
+            catch
+            {
+                transaction.Rollback();
+                return false;
+            }
         }
-
-        public void UpdateAsync(ChiTietPhieuMuon entity)
+        public bool Delete(List<ChiTietPhieuMuon> entities)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string query = "UPDATE ChiTietPhieuMuon SET ThoiGianMuon = @ThoiGianMuon, ThoiGianTra = @ThoiGianTra, TrangThai = @TrangThai WHERE IdPhieuMuon = @IdPhieuMuon AND IdDauThietBi = @IdDauThietBi";
+            using var transaction = connection.BeginTransaction();
 
-            using var command = new MySqlCommand(query, connection);
-            command.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
-            command.Parameters.AddWithValue("@IdDauThietBi", entity.IdDauThietBi);
-            command.Parameters.AddWithValue("@ThoiGianMuon", entity.ThoiGianMuon);
-            command.Parameters.AddWithValue("@ThoiGianTra", entity.ThoiGianTra.HasValue ? entity.ThoiGianTra : DBNull.Value);
-            command.Parameters.AddWithValue("@TrangThai", entity.TrangThai);
+            try
+            {
+                foreach (var entity in entities)
+                {
+                    string query = "DELETE FROM ChiTietPhieuMuon WHERE IdPhieuMuon = @IdPhieuMuon AND IdDauThietBi = @IdDauThietBi";
 
-            command.ExecuteNonQuery();
+                    using var command = new MySqlCommand(query, connection, transaction);
+                    command.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
+                    command.Parameters.AddWithValue("@IdDauThietBi", entity.IdDauThietBi);
+
+                    command.ExecuteNonQuery();
+                }
+
+                transaction.Commit();
+                return true;
+            }
+            catch
+            {
+                transaction.Rollback();
+                return false;
+            }
         }
     }
 }

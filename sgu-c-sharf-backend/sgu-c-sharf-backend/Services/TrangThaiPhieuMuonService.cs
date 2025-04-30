@@ -14,15 +14,19 @@ namespace sgu_c_sharf_backend.Services
             _repository = repository;
         }
 
-        public async Task<List<TrangThaiPhieuMuon>> GetByPhieuMuonIdAsync(int idPhieuMuon)
+        public List<TrangThaiPhieuMuonDetailDTO> GetByPhieuMuonIdAsync(int idPhieuMuon)
         {
-            return await _repository.GetByPhieuMuonIdAsync(idPhieuMuon);
+            return  _repository.GetByPhieuMuonId(idPhieuMuon);
         }
 
-        public async Task AddAsync(TrangThaiPhieuMuon trangThai)
+        public bool Add(TrangThaiPhieuMuonCreateDTO trangThai)
         {
-            await _repository.AddAsync(trangThai);
+            return _repository.Add(trangThai);
         }
 
+        public TrangThaiPhieuMuonDetailDTO GetTrangThaiMoiNhat(int idPhieuMuon)
+        {
+            return _repository.GetTrangThaiMoiNhat(idPhieuMuon);
+        }
     }
 }

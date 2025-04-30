@@ -13,30 +13,27 @@ public class PhieuMuonService
         _phieuMuonRepository = phieuMuonRepository;
     }
 
-    /// Lấy tất cả phiếu mượn
-    public List<PhieuMuon> GetAll()
-    {
-        return _phieuMuonRepository.GetAll();
-    }
-    public List<PhieuMuon> GetAllPaging(int page, int limit)
-    {
-        return _phieuMuonRepository.GetAllPaging(page, limit);
-    }
-
-    /// Lấy phiếu mượn theo ID
-    public PhieuMuon? GetById(int id)
+    public PhieuMuonDetailDTO GetById(int id)
     {
         return _phieuMuonRepository.GetById(id);
     }
 
-    /// Thêm mới phiếu mượn
-    public int AddPhieuMuon(PhieuMuon phieuMuon)
+    public List<PhieuMuonDetailDTO> GetAll()
+    {
+        return _phieuMuonRepository.GetAll();
+    }
+    public (List<PhieuMuonDetailDTO> items, int currentPage, int totalPages) GetAllPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai)
+    {
+        return _phieuMuonRepository.GetAllPaging(page, limit, fromDate, toDate, trangThai);
+    }
+
+    public int Add(PhieuMuonCreateDTO phieuMuon)
     {
         return _phieuMuonRepository.Add(phieuMuon);
     }
 
-    public int UpdatePhieuMuon(PhieuMuon phieuMuon){
+    public bool Update(PhieuMuonUpdateDTO phieuMuon)
+    {
         return _phieuMuonRepository.Update(phieuMuon);
     }
-
 }

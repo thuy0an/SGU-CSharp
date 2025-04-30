@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
@@ -37,6 +37,8 @@
             Column3 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
+            label6 = new Label();
+            comboBox1 = new ComboBox();
             panel5 = new Panel();
             label5 = new Label();
             btnPDF = new PictureBox();
@@ -88,34 +90,35 @@
             DataGrid.AllowUserToResizeColumns = false;
             DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.Gray;
-            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.Gray;
+            dataGridViewCellStyle5.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column5 });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            DataGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            DataGrid.DefaultCellStyle = dataGridViewCellStyle6;
             DataGrid.Dock = DockStyle.Fill;
-            DataGrid.Location = new Point(0, 138);
+            DataGrid.Location = new Point(0, 211);
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
             DataGrid.RowTemplate.Height = 30;
             DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGrid.Size = new Size(1479, 923);
+            DataGrid.Size = new Size(1479, 850);
             DataGrid.TabIndex = 1;
+            DataGrid.CellContentClick += DataGrid_CellContentClick;
             // 
             // Column1
             // 
@@ -146,6 +149,8 @@
             // pnlNavigate
             // 
             pnlNavigate.BackColor = Color.White;
+            pnlNavigate.Controls.Add(label6);
+            pnlNavigate.Controls.Add(comboBox1);
             pnlNavigate.Controls.Add(panel5);
             pnlNavigate.Controls.Add(btnReset);
             pnlNavigate.Controls.Add(panel4);
@@ -157,8 +162,28 @@
             pnlNavigate.Location = new Point(0, 0);
             pnlNavigate.Margin = new Padding(4, 3, 4, 3);
             pnlNavigate.Name = "pnlNavigate";
-            pnlNavigate.Size = new Size(1479, 138);
+            pnlNavigate.Size = new Size(1479, 211);
             pnlNavigate.TabIndex = 0;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(12, 137);
+            label6.Name = "label6";
+            label6.Size = new Size(84, 21);
+            label6.TabIndex = 6;
+            label6.Text = "Trang thai";
+            label6.Click += label6_Click;
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(102, 135);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(168, 23);
+            comboBox1.TabIndex = 5;
+            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // panel5
             // 
@@ -416,5 +441,7 @@
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column5;
+        private ComboBox comboBox1;
+        private Label label6;
     }
 }

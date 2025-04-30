@@ -18,8 +18,7 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         [Required]
         public DateTime NgayTao { get; set; } = DateTime.Now;
 
-        // Optional: Add the latest status field (TrangThaiMoiNhat)
-        public string? TrangThaiMoiNhat { get; set; }  // Nullable for dynamic retrieval
+        public TrangThaiPhieuMuonEnum TrangThai { get; set; } 
     }
     public class PhieuMuonUpdateDTO
     {
@@ -31,22 +30,13 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         
     }
 
-    public class PhieuMuonListDTO
-    {
-        public int Id { get; set; }
-        public int IdThanhVien { get; set; }
-        public string TenThanhVien { get; set; } // To display member's name
-        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
-        public DateTime ThoiGianLapPhieu { get; set; }
-    }
-
     public class PhieuMuonDetailDTO
     {
         public int Id { get; set; }
         public int IdThanhVien { get; set; }
-        public string TenThanhVien { get; set; } 
+        public string TenThanhVien { get; set; } = string.Empty;
         public TrangThaiPhieuMuonEnum TrangThai { get; set; }
-        public DateTime ThoiGianLapPhieu { get; set; }
+        public DateTime NgayTao { get; set; }
         
 
     }
@@ -56,13 +46,9 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         [Required]
         public int IdThanhVien { get; set; }
 
-        // Optional: You can include NgayTao if needed
-        // This could also be handled in the controller or service
-        // [Required] if you want to set it from the input.
         public DateTime NgayTao { get; set; } = DateTime.Now;
     }
 
-    // Enum for TrangThaiPhieuMuon
     public enum TrangThaiPhieuMuonEnum
     {
         HUY,

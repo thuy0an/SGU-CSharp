@@ -16,29 +16,34 @@ namespace sgu_c_sharf_backend.Repositories
             _connectionString = connectionString;
         }
 
-        public async Task<List<TrangThaiPhieuMuon>> GetByPhieuMuonIdAsync(int idPhieuMuon)
+        public List<TrangThaiPhieuMuonDetailDTO> GetByPhieuMuonId(int idPhieuMuon)
         {
-            var list = new List<TrangThaiPhieuMuon>();
+            var list = new List<TrangThaiPhieuMuonDetailDTO>();
 
             using var conn = new MySqlConnection(_connectionString);
-            await conn.OpenAsync();
+            conn.Open();
 
-            string query = @"SELECT Id, IdPhieuMuon, TrangThai, ThoiGianCapNhat 
-                             FROM TrangThaiPhieuMuon 
-                             WHERE IdPhieuMuon = @idPhieuMuon
-                             ORDER BY ThoiGianCapNhat DESC";
+            string query = @"
+        SELECT Id, IdPhieuMuon, TrangThai, ThoiGianCapNhat 
+        FROM TrangThaiPhieuMuon 
+        WHERE IdPhieuMuon = @idPhieuMuon
+        ORDER BY ThoiGianCapNhat DESC";
 
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@idPhieuMuon", idPhieuMuon);
 
-            using var reader = await cmd.ExecuteReaderAsync();
-            while (await reader.ReadAsync())
+            using var reader = cmd.ExecuteReader();
+            while (reader.Read())
             {
-                list.Add(new TrangThaiPhieuMuon
+                list.Add(new TrangThaiPhieuMuonDetailDTO
                 {
                     Id = reader.GetInt32("Id"),
                     IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
-                    TrangThai = (TrangThaiPhieuMuonEnum)reader.GetInt32("TrangThai"),
+                    TrangThai = reader.IsDBNull(reader.GetOrdinal("TrangThai"))
+                                ? TrangThaiPhieuMuonEnum.HUY
+                                : Enum.TryParse<TrangThaiPhieuMuonEnum>(reader.GetString("TrangThai"), true, out var result)
+                                    ? result
+                                    : TrangThaiPhieuMuonEnum.HUY,
                     ThoiGianCapNhat = reader.GetDateTime("ThoiGianCapNhat")
                 });
             }
@@ -46,32 +51,53 @@ namespace sgu_c_sharf_backend.Repositories
             return list;
         }
 
-        public async Task AddAsync(TrangThaiPhieuMuon entity)
+        public TrangThaiPhieuMuonDetailDTO GetTrangThaiMoiNhat(int idPhieuMuon)
         {
             using var conn = new MySqlConnection(_connectionString);
-            await conn.OpenAsync();
+            conn.Open();
+
+            string query = @"SELECT Id, IdPhieuMuon, TrangThai, ThoiGianCapNhat
+                     FROM TrangThaiPhieuMuon
+                     WHERE IdPhieuMuon = @idPhieuMuon
+                     ORDER BY ThoiGianCapNhat DESC
+                     LIMIT 1";
+
+            using var cmd = new MySqlCommand(query, conn);
+            cmd.Parameters.AddWithValue("@idPhieuMuon", idPhieuMuon);
+
+            using var reader = cmd.ExecuteReader();
+            if (reader.Read())
+            {
+                return new TrangThaiPhieuMuonDetailDTO
+                {
+                    Id = reader.GetInt32("Id"),
+                    IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
+                    TrangThai = reader.IsDBNull(reader.GetOrdinal("TrangThai"))
+                                ? TrangThaiPhieuMuonEnum.HUY
+                                : Enum.TryParse<TrangThaiPhieuMuonEnum>(reader.GetString("TrangThai"), true, out var result)
+                                    ? result
+                                    : TrangThaiPhieuMuonEnum.HUY,
+                    ThoiGianCapNhat = reader.GetDateTime("ThoiGianCapNhat")
+                };
+            }
+
+            return null;
+        }
+
+        public bool Add(TrangThaiPhieuMuonCreateDTO entity)
+        {
+            using var conn = new MySqlConnection(_connectionString);
+            conn.Open();
 
             string query = @"INSERT INTO TrangThaiPhieuMuon (IdPhieuMuon, TrangThai, ThoiGianCapNhat)
-                             VALUES (@IdPhieuMuon, @TrangThai, @ThoiGianCapNhat)";
+                     VALUES (@IdPhieuMuon, @TrangThai, @ThoiGianCapNhat)";
 
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
             cmd.Parameters.AddWithValue("@TrangThai", (int)entity.TrangThai);
             cmd.Parameters.AddWithValue("@ThoiGianCapNhat", entity.ThoiGianCapNhat);
 
-            await cmd.ExecuteNonQueryAsync();
-        }
-
-        public async Task DeleteAsync(int id)
-        {
-            using var conn = new MySqlConnection(_connectionString);
-            await conn.OpenAsync();
-
-            string query = "DELETE FROM TrangThaiPhieuMuon WHERE Id = @Id";
-            using var cmd = new MySqlCommand(query, conn);
-            cmd.Parameters.AddWithValue("@Id", id);
-
-            await cmd.ExecuteNonQueryAsync();
+            return cmd.ExecuteNonQuery() > 0;
         }
     }
 }

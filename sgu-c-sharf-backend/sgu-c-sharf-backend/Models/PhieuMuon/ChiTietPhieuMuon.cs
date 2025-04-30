@@ -19,7 +19,7 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public int IdDauThietBi { get; set; }
 
         [Required]
-        public DateTime ThoiGianMuon { get; set; } = DateTime.Now;  // Default to current time
+        public DateTime ThoiGianMuon { get; set; } = DateTime.Now;
 
         [Required]
         public DateTime? ThoiGianTra { get; set; }
@@ -39,18 +39,16 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         [Required]
         public int IdDauThietBi { get; set; }
 
-        // Optional: time of loan and device return time
-        public DateTime ThoiGianMuon { get; set; } = DateTime.Now;  // Default to current time if not provided
+        public DateTime ThoiGianMuon { get; set; } = DateTime.Now; 
 
-        public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; } = TrangThaiChiTietPhieuMuonEnum.DANGMUON; // Default to "DANGMUON" status
+        public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; } = TrangThaiChiTietPhieuMuonEnum.DANGMUON;
     }
 
-    public class ChiTietPhieuMuonListDTO
+    public class ChiTietPhieuMuonDetailDTO
     {
         public int IdPhieuMuon { get; set; }
         public int IdDauThietBi { get; set; }
 
-        // Information to display
         public string TenDauThietBi { get; set; } 
         public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; }
         public DateTime? ThoiGianMuon { get; set; }  
@@ -65,7 +63,6 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         [Required]
         public int IdDauThietBi { get; set; }
 
-        // Optional fields for status or timestamps
         public DateTime? ThoiGianTra { get; set; }
         public TrangThaiChiTietPhieuMuonEnum? TrangThai { get; set; }
     }
