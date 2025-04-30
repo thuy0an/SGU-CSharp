@@ -87,7 +87,7 @@
             txtDauThietBi.Name = "txtDauThietBi";
             txtDauThietBi.Size = new Size(500, 29);
             txtDauThietBi.TabIndex = 1;
-            txtDauThietBi.Text = "abc";
+            txtDauThietBi.KeyPress += txtDauThietBi_KeyPress;
             // 
             // label5
             // 

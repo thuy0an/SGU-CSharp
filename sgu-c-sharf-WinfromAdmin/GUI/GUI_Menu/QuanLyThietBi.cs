@@ -94,11 +94,8 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             {
                 int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
                 ThietBi tb = await thietBiService.GetById(selectedId);
-                FormSuaThietBi form = new FormSuaThietBi(this);
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    LoadData(); // Cập nhật danh sách sau khi sửa
-                }
+                FormSuaThietBi form = new FormSuaThietBi(this, tb);
+                form.ShowDialog();
             }
             else
                 MessageBox.Show("Vui lòng chọn một dòng để chỉnh sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -115,30 +112,31 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private async void btnXoa_Click(object sender, EventArgs e)
         {
-            // if (DataGrid.SelectedRows.Count > 0)
-            // {
-            //     int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
-            //     DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa thiết bị này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-            //     if (result == DialogResult.Yes)
-            //     {
-            //         int soLuong = await thietBiService.CountDauThietBi(selectedId);
-            //         if (soLuong > 0)
-            //         {
-            //             MessageBox.Show($"Không thể xóa thiết bị đang có {soLuong} đầu thiết bị thuộc loại này", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            //             return;
-            //         }
-            //         bool check = await thietBiService.Delete(selectedId);
-            //         if (check)
-            //         {
-            //             MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            //             LoadData();
-            //         }
-            //         else
-            //             MessageBox.Show("Xóa không thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //     }
-            // }
-            // else
-            //     MessageBox.Show("Vui lòng chọn một dòng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            if (DataGrid.SelectedRows.Count > 0)
+            {
+                int selectedId = int.Parse(DataGrid.SelectedRows[0].Cells[0].Value.ToString());
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa thiết bị này không?", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                if (result == DialogResult.Yes)
+                {
+                    List<DauThietBi> listDTB = await thietBiService.GetDauThietBiByThietBiId(selectedId);
+                    // kiểm tra tồn tại đầu thiết bị có trạng thái đang mượn hoặc đặt trước thì không thể xóa
+                    if (listDTB.Any(dtb => dtb.TrangThai == DauThietBi.TrangThaiDauThietBi.DANGMUON || dtb.TrangThai == DauThietBi.TrangThaiDauThietBi.DATTRUOC))
+                    {
+                        MessageBox.Show("Không thể xóa thiết bị đang có đầu thiết bị thuộc trạng thái đã đặt trước, đang sử dụng", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+                    bool check = await thietBiService.Delete(selectedId);
+                    if (check)
+                    {
+                        MessageBox.Show("Xóa thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData();
+                    }
+                    else
+                        MessageBox.Show("Xóa không thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+                MessageBox.Show("Vui lòng chọn một dòng để xóa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         private void btnReset_Click(object sender, EventArgs e)
