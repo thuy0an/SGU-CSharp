@@ -27,6 +27,12 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
 
+        [HttpGet]
+        public ActionResult<ApiResponse<List<CheckIn>>> GetAll(){
+            var result = _checkInService.GetAll();
+            return Ok(ApiResponse<List<CheckIn>>.Ok(result, "Thành công"));
+        }
+
         [HttpPost]
         public ActionResult<ApiResponse<bool>> Create(CheckIn checkIn){
             var result = _checkInService.Create(checkIn);

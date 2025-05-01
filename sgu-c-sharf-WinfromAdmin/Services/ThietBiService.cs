@@ -221,5 +221,36 @@ namespace sgu_c_sharf_WinfromAdmin.Services
                 return new List<ThietBiListAvailabilityDTO>();
             }
         }
+
+		public async Task<List<DauThietBi>> GetDauThietBi()
+		{
+			string requestUrl = $"http://localhost:5244/api/DauThietBi";
+			try
+			{
+				HttpResponseMessage res = await _httpClient.GetAsync(requestUrl);
+				string json = await res.Content.ReadAsStringAsync();
+
+				if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
+				{
+					var options = new JsonSerializerOptions
+					{
+						PropertyNameCaseInsensitive = true
+					};
+					var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<DauThietBi>>>(json, options);
+
+					return apiResponse?.Data ?? new List<DauThietBi>();
+				}
+				else
+				{
+					Console.WriteLine($"Request failed: StatusCode={res.StatusCode}, ReasonPhrase={res.ReasonPhrase}");
+					return new List<DauThietBi>();
+				}
+			}
+			catch (Exception ex)
+			{
+				Console.WriteLine($"Error: {ex.Message}");
+				return new List<DauThietBi>();
+			}
+		}
     }
 }

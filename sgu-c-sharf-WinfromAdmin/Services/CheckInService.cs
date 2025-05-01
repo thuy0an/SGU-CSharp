@@ -49,6 +49,38 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
         }
 
+        public async Task<List<CheckIn>> GetAll(){
+            string requestUrl = $"{BASE_URL}";
+            try
+            {
+                HttpResponseMessage res =  await _httpClient.GetAsync(requestUrl);
+                string json = await res.Content.ReadAsStringAsync();
+                if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
+                {
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<CheckIn>>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+                    if (apiResponse?.Data != null)
+                        return apiResponse.Data;
+                    else
+                        return new List<CheckIn>();
+                }
+                else // lỗi request
+                    return new List<CheckIn>();
+            }
+            catch (JsonException jsonEx)
+            {
+                Console.WriteLine($"Lỗi JSON: {jsonEx.Message}");
+                return new List<CheckIn>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+                return new List<CheckIn>();
+            }
+        }
+
         public async Task<string> AddCheckIn(int idTV){
             string requestUrl = $"{BASE_URL}";
             CheckIn checkIn = new CheckIn();

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MenuTaskBar));
             pnlUser = new Panel();
             lblAdmin = new Label();
             pictureBox1 = new PictureBox();
@@ -37,9 +38,6 @@
             pnlQLLoaiThietBi = new Panel();
             label2 = new Label();
             pictureBox4 = new PictureBox();
-            pnlQLDatCho = new Panel();
-            label3 = new Label();
-            pictureBox5 = new PictureBox();
             pnlQLXuPhat = new Panel();
             label4 = new Label();
             pictureBox6 = new PictureBox();
@@ -47,29 +45,32 @@
             pictureBox2 = new PictureBox();
             lblThanhvien = new Label();
             panel1 = new Panel();
-            pnlExit = new Panel();
-            label5 = new Label();
-            pictureBox7 = new PictureBox();
             pnlQLPhieuMuon = new Panel();
             label6 = new Label();
             pictureBox8 = new PictureBox();
+            pnlExit = new Panel();
+            label5 = new Label();
+            pictureBox7 = new PictureBox();
+            pnlThongKe = new Panel();
+            label3 = new Label();
+            pictureBox5 = new PictureBox();
             pnlUser.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             pnlQLThietBi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             pnlQLLoaiThietBi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
-            pnlQLDatCho.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             pnlQLXuPhat.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             pnlQLThanhVien.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             panel1.SuspendLayout();
-            pnlExit.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
             pnlQLPhieuMuon.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox8).BeginInit();
+            pnlExit.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            pnlThongKe.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             SuspendLayout();
             // 
             // pnlUser
@@ -114,7 +115,7 @@
             pnlQLThietBi.BackColor = SystemColors.Info;
             pnlQLThietBi.Controls.Add(label1);
             pnlQLThietBi.Controls.Add(pictureBox3);
-            pnlQLThietBi.Location = new Point(12, 108);
+            pnlQLThietBi.Location = new Point(12, 112);
             pnlQLThietBi.Margin = new Padding(4, 3, 4, 3);
             pnlQLThietBi.Name = "pnlQLThietBi";
             pnlQLThietBi.Size = new Size(327, 69);
@@ -154,7 +155,7 @@
             pnlQLLoaiThietBi.BackColor = SystemColors.Info;
             pnlQLLoaiThietBi.Controls.Add(label2);
             pnlQLLoaiThietBi.Controls.Add(pictureBox4);
-            pnlQLLoaiThietBi.Location = new Point(12, 193);
+            pnlQLLoaiThietBi.Location = new Point(12, 201);
             pnlQLLoaiThietBi.Margin = new Padding(4, 3, 4, 3);
             pnlQLLoaiThietBi.Name = "pnlQLLoaiThietBi";
             pnlQLLoaiThietBi.Size = new Size(327, 69);
@@ -189,51 +190,12 @@
             pictureBox4.TabIndex = 0;
             pictureBox4.TabStop = false;
             // 
-            // pnlQLDatCho
-            // 
-            pnlQLDatCho.BackColor = SystemColors.Info;
-            pnlQLDatCho.Controls.Add(label3);
-            pnlQLDatCho.Controls.Add(pictureBox5);
-            pnlQLDatCho.Location = new Point(12, 278);
-            pnlQLDatCho.Margin = new Padding(4, 3, 4, 3);
-            pnlQLDatCho.Name = "pnlQLDatCho";
-            pnlQLDatCho.Size = new Size(327, 69);
-            pnlQLDatCho.TabIndex = 4;
-            // 
-            // label3
-            // 
-            label3.BackColor = SystemColors.Window;
-            label3.Cursor = Cursors.Hand;
-            label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(70, 0);
-            label3.Margin = new Padding(4, 0, 4, 0);
-            label3.Name = "label3";
-            label3.Size = new Size(257, 69);
-            label3.TabIndex = 1;
-            label3.Text = "Quản lý phiếu đặt chỗ";
-            label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // pictureBox5
-            // 
-            pictureBox5.BackColor = SystemColors.Window;
-            pictureBox5.Cursor = Cursors.Hand;
-            pictureBox5.Dock = DockStyle.Left;
-            pictureBox5.Image = Properties.Resources.qldatcho;
-            pictureBox5.Location = new Point(0, 0);
-            pictureBox5.Margin = new Padding(4, 3, 4, 3);
-            pictureBox5.Name = "pictureBox5";
-            pictureBox5.Size = new Size(70, 69);
-            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox5.TabIndex = 0;
-            pictureBox5.TabStop = false;
-            // 
             // pnlQLXuPhat
             // 
             pnlQLXuPhat.BackColor = SystemColors.Info;
             pnlQLXuPhat.Controls.Add(label4);
             pnlQLXuPhat.Controls.Add(pictureBox6);
-            pnlQLXuPhat.Location = new Point(12, 448);
+            pnlQLXuPhat.Location = new Point(12, 379);
             pnlQLXuPhat.Margin = new Padding(4, 3, 4, 3);
             pnlQLXuPhat.Name = "pnlQLXuPhat";
             pnlQLXuPhat.Size = new Size(327, 69);
@@ -312,11 +274,11 @@
             // 
             panel1.AutoSize = true;
             panel1.BackColor = Color.FromArgb(0, 123, 181);
+            panel1.Controls.Add(pnlThongKe);
             panel1.Controls.Add(pnlQLPhieuMuon);
             panel1.Controls.Add(pnlExit);
             panel1.Controls.Add(pnlQLThanhVien);
             panel1.Controls.Add(pnlQLXuPhat);
-            panel1.Controls.Add(pnlQLDatCho);
             panel1.Controls.Add(pnlQLLoaiThietBi);
             panel1.Controls.Add(pnlQLThietBi);
             panel1.Location = new Point(-1, 231);
@@ -324,6 +286,45 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(343, 1154);
             panel1.TabIndex = 1;
+            // 
+            // pnlQLPhieuMuon
+            // 
+            pnlQLPhieuMuon.BackColor = SystemColors.Info;
+            pnlQLPhieuMuon.Controls.Add(label6);
+            pnlQLPhieuMuon.Controls.Add(pictureBox8);
+            pnlQLPhieuMuon.Location = new Point(12, 290);
+            pnlQLPhieuMuon.Margin = new Padding(4, 3, 4, 3);
+            pnlQLPhieuMuon.Name = "pnlQLPhieuMuon";
+            pnlQLPhieuMuon.Size = new Size(327, 69);
+            pnlQLPhieuMuon.TabIndex = 6;
+            // 
+            // label6
+            // 
+            label6.BackColor = SystemColors.Window;
+            label6.Cursor = Cursors.Hand;
+            label6.Dock = DockStyle.Fill;
+            label6.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(70, 0);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(257, 69);
+            label6.TabIndex = 1;
+            label6.Text = "Quản lý phiếu mượn";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // pictureBox8
+            // 
+            pictureBox8.BackColor = SystemColors.Window;
+            pictureBox8.Cursor = Cursors.Hand;
+            pictureBox8.Dock = DockStyle.Left;
+            pictureBox8.Image = Properties.Resources.qldatcho;
+            pictureBox8.Location = new Point(0, 0);
+            pictureBox8.Margin = new Padding(4, 3, 4, 3);
+            pictureBox8.Name = "pictureBox8";
+            pictureBox8.Size = new Size(70, 69);
+            pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox8.TabIndex = 0;
+            pictureBox8.TabStop = false;
             // 
             // pnlExit
             // 
@@ -365,44 +366,44 @@
             pictureBox7.TabIndex = 0;
             pictureBox7.TabStop = false;
             // 
-            // pnlQLPhieuMuon
+            // pnlThongKe
             // 
-            pnlQLPhieuMuon.BackColor = SystemColors.Info;
-            pnlQLPhieuMuon.Controls.Add(label6);
-            pnlQLPhieuMuon.Controls.Add(pictureBox8);
-            pnlQLPhieuMuon.Location = new Point(12, 363);
-            pnlQLPhieuMuon.Margin = new Padding(4, 3, 4, 3);
-            pnlQLPhieuMuon.Name = "pnlQLPhieuMuon";
-            pnlQLPhieuMuon.Size = new Size(327, 69);
-            pnlQLPhieuMuon.TabIndex = 6;
+            pnlThongKe.BackColor = SystemColors.Info;
+            pnlThongKe.Controls.Add(label3);
+            pnlThongKe.Controls.Add(pictureBox5);
+            pnlThongKe.Location = new Point(12, 468);
+            pnlThongKe.Margin = new Padding(4, 3, 4, 3);
+            pnlThongKe.Name = "pnlThongKe";
+            pnlThongKe.Size = new Size(327, 69);
+            pnlThongKe.TabIndex = 6;
             // 
-            // label6
+            // label3
             // 
-            label6.BackColor = SystemColors.Window;
-            label6.Cursor = Cursors.Hand;
-            label6.Dock = DockStyle.Fill;
-            label6.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(70, 0);
-            label6.Margin = new Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(257, 69);
-            label6.TabIndex = 1;
-            label6.Text = "Quản lý phiếu mượn";
-            label6.TextAlign = ContentAlignment.MiddleCenter;
+            label3.BackColor = SystemColors.Window;
+            label3.Cursor = Cursors.Hand;
+            label3.Dock = DockStyle.Fill;
+            label3.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label3.Location = new Point(70, 0);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(257, 69);
+            label3.TabIndex = 1;
+            label3.Text = "Quản lý thống kê";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // pictureBox8
+            // pictureBox5
             // 
-            pictureBox8.BackColor = SystemColors.Window;
-            pictureBox8.Cursor = Cursors.Hand;
-            pictureBox8.Dock = DockStyle.Left;
-            pictureBox8.Image = Properties.Resources.qldatcho;
-            pictureBox8.Location = new Point(0, 0);
-            pictureBox8.Margin = new Padding(4, 3, 4, 3);
-            pictureBox8.Name = "pictureBox8";
-            pictureBox8.Size = new Size(70, 69);
-            pictureBox8.SizeMode = PictureBoxSizeMode.Zoom;
-            pictureBox8.TabIndex = 0;
-            pictureBox8.TabStop = false;
+            pictureBox5.BackColor = SystemColors.Window;
+            pictureBox5.Cursor = Cursors.Hand;
+            pictureBox5.Dock = DockStyle.Left;
+            pictureBox5.Image = (Image)resources.GetObject("pictureBox5.Image");
+            pictureBox5.Location = new Point(0, 0);
+            pictureBox5.Margin = new Padding(4, 3, 4, 3);
+            pictureBox5.Name = "pictureBox5";
+            pictureBox5.Size = new Size(70, 69);
+            pictureBox5.SizeMode = PictureBoxSizeMode.Zoom;
+            pictureBox5.TabIndex = 0;
+            pictureBox5.TabStop = false;
             // 
             // MenuTaskBar
             // 
@@ -424,17 +425,17 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             pnlQLLoaiThietBi.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
-            pnlQLDatCho.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             pnlQLXuPhat.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             pnlQLThanhVien.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             panel1.ResumeLayout(false);
-            pnlExit.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
             pnlQLPhieuMuon.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox8).EndInit();
+            pnlExit.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            pnlThongKe.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -450,9 +451,6 @@
         private System.Windows.Forms.Panel pnlQLLoaiThietBi;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.PictureBox pictureBox4;
-        private System.Windows.Forms.Panel pnlQLDatCho;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.PictureBox pictureBox5;
         private System.Windows.Forms.Panel pnlQLXuPhat;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.PictureBox pictureBox6;
@@ -466,5 +464,8 @@
         private Panel pnlQLPhieuMuon;
         private Label label6;
         private PictureBox pictureBox8;
+        private Panel pnlThongKe;
+        private Label label3;
+        private PictureBox pictureBox5;
     }
 }

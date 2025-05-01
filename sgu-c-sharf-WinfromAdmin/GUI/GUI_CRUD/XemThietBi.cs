@@ -17,6 +17,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         private ThietBi thietBi;
         private readonly ThietBiService thietBiService;
 
+
         public FormXemThietBi()
         {
             InitializeComponent();
@@ -52,16 +53,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                     dataGrid.Rows.Clear();
                     foreach (var dauThietBi in dauThietBis)
                     {
-                        string trangThaiText = dauThietBi.TrangThai switch
-                        {
-                            DauThietBi.TrangThaiDauThietBi.KHADUNG => "Có thể sử dụng",
-                            DauThietBi.TrangThaiDauThietBi.DATTRUOC => "Đã đặt trước",
-                            DauThietBi.TrangThaiDauThietBi.DANGMUON => "Đang mượn",
-                            DauThietBi.TrangThaiDauThietBi.BAOTRI => "Bảo trì",
-                            DauThietBi.TrangThaiDauThietBi.THATLAC => "Thất lạc",
-                            _ => "Không xác định"
-                        };
-                        dataGrid.Rows.Add(dauThietBi.Id, trangThaiText, dauThietBi.ThoiGianMua.ToString("yyyy-MM-dd"));
+                        dataGrid.Rows.Add(dauThietBi.Id, dauThietBi.TrangThai, dauThietBi.ThoiGianMua.ToString("yyyy-MM-dd"));
                     }
                 }
                 catch (Exception ex)

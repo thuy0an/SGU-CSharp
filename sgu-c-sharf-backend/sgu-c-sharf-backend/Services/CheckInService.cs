@@ -21,6 +21,11 @@ namespace sgu_c_sharf_backend.Services
             return _checkInRepository.GetAll(id);
         }
 
+        public List<CheckIn> GetAll()
+        {
+            return _checkInRepository.GetAll();
+        }
+
         public bool Create(CheckIn checkIn)
         {
             return _checkInRepository.Create(checkIn);

@@ -37,6 +37,25 @@ namespace sgu_c_sharf_backend.Repositories
             return listCheck;
         }
 
+        public List<CheckIn> GetAll(){
+            List<CheckIn> listCheck = new List<CheckIn>();
+            using (MySqlConnection connection = new MySqlConnection(_connectionString)){
+               connection.Open();
+                string sql = "Select Id, ThoiGianCheckIn, IdThanhVien From checkin";
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                using (MySqlDataReader reader = command.ExecuteReader()){
+                    while( reader.Read()){
+                        listCheck.Add( new CheckIn{
+                            Id = reader.GetInt32("Id"),
+                            ThoiGianCheckIn = reader.GetDateTime("ThoiGianCheckIn"),
+                            IdThanhVien = reader.GetInt32("IdThanhVien")
+                        });
+                    }
+                }
+            }
+            return listCheck;
+        }
+
         // insert
         public bool Create(CheckIn checkIn){
             using (MySqlConnection connection = new MySqlConnection(_connectionString)){

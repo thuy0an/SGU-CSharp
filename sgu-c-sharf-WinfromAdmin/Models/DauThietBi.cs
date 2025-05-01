@@ -16,6 +16,5 @@ namespace sgu_c_sharf_WinfromAdmin.Models
             BAOTRI,
             THATLAC
         }
-
-    }
+}
 }

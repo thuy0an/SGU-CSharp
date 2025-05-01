@@ -31,9 +31,9 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Component
             panelList.Add(pnlQLThanhVien);
             panelList.Add(pnlQLLoaiThietBi);
             panelList.Add(pnlQLThietBi);
-            panelList.Add(pnlQLDatCho);
             panelList.Add(pnlQLPhieuMuon);
             panelList.Add(pnlQLXuPhat);
+            panelList.Add(pnlThongKe);
 
             // Gán sự kiện cho từng panel
             foreach (var panel in panelList)
@@ -99,14 +99,14 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Component
                 case "pnlQLThietBi":
                     mainFrame.ChangePage(new QuanLyThietBi());
                     break;
-                case "pnlQLDatCho":
-                    mainFrame.ChangePage(new QuanLyPhieuDatCho());
-                    break;
                 case "pnlQLPhieuMuon":
                     mainFrame.ChangePage(new QuanLyPhieuMuon());
                     break;
                 case "pnlQLXuPhat":
                     mainFrame.ChangePage(new QuanLyPhieuXuPhat());
+                    break;
+                case "pnlThongKe":
+                    mainFrame.ChangePage(new QuanLyThongKe());
                     break;
                 default:
                     MessageBox.Show("Đây là giao diện quản lý: " + pnl.Name);
