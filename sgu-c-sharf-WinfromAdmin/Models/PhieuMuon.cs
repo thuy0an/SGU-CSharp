@@ -2,71 +2,92 @@
 
 namespace sgu_c_sharf_WinfromAdmin.Models
 {
-    public class PhieuMuon
+    public class PhieuMuonUpdateDTO
+    {
+        [Required]
+        public int Id { get; set; }
+
+        [Required]
+        public int IdThanhVien { get; set; }
+
+    }
+
+    public class PhieuMuonDetailDTO
     {
         public int Id { get; set; }
         public int IdThanhVien { get; set; }
         public string TenThanhVien { get; set; } = string.Empty;
+        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
         public DateTime NgayTao { get; set; }
-        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
+
+
     }
-    public class ChiTietPhieuMuon
+
+    public class PhieuMuonCreateDTO
     {
-        public int IdPhieuMuon { get; set; }
-        public int IdDauThietBi { get; set; }
-        public string TenDauThietBi { get; set; } = string.Empty;
-        public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; }
-        public DateTime ThoiGianMuon { get; set; }
-        public DateTime ThoiGianTra { get; set; }
-    }
-    public class TrangThaiPhieuMuonDetailDTO
-    {
-        public int Id { get; set; }
-        public int IdPhieuMuon { get; set; }
-        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
-        public DateTime ThoiGianCapNhat { get; set; }
-    }
-    public enum TrangThaiPhieuMuonEnum
-    {
-        HUY = 0,
-        XACNHAN = 1,
-        DANGSUDUNG = 2,
-        DATRATHIETBI = 3
-    }
-    public enum TrangThaiChiTietPhieuMuonEnum
-    {
-        DANGMUON = 0,
-        DATRATHIETBI = 1,
-        DATHATLAC = 2
+        [Required]
+        public int IdThanhVien { get; set; }
+
+        public DateTime NgayTao { get; set; } = DateTime.Now;
     }
 
     public class ChiTietPhieuMuonCreateDTO
     {
+        [Required]
+        public int IdPhieuMuon { get; set; }
+
+        [Required]
+        public int IdDauThietBi { get; set; }
+
+        public DateTime ThoiGianMuon { get; set; } = DateTime.Now;
+
+        public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; } = TrangThaiChiTietPhieuMuonEnum.DANGMUON;
+    }
+    public class ChiTietPhieuMuonDetailDTO
+    {
         public int IdPhieuMuon { get; set; }
         public int IdDauThietBi { get; set; }
-        public int SoLuong { get; set; }
-        public DateTime NgayMuon { get; set; }
+
+        public string TenDauThietBi { get; set; }
+        public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; }
+        public DateTime? ThoiGianMuon { get; set; }
+        public DateTime? ThoiGianTra { get; set; }
     }
 
     public class ChiTietPhieuMuonUpdateDTO
     {
+        [Required]
         public int IdPhieuMuon { get; set; }
+
+        [Required]
         public int IdDauThietBi { get; set; }
-        public int SoLuong { get; set; }
-        public DateTime? NgayTra { get; set; }
-    }
-    public class PhieuMuonCreateDTO
-    {
-        public int IdThanhVien { get; set; }
+
+        public DateTime? ThoiGianTra { get; set; }
+        public TrangThaiChiTietPhieuMuonEnum? TrangThai { get; set; }
     }
 
-    public class PhieuMuonPagingResponse
+    public class ChiTietPhieuMuonDeleteDTO
     {
-        public List<PhieuMuon> Items { get; set; }
-        public int CurrentPage { get; set; }
-        public int TotalPages { get; set; }
+        [Required]
+        public int IdPhieuMuon { get; set; }
+
+        [Required]
+        public int IdDauThietBi { get; set; }
     }
-    public class TrangThaiPhieuMuon
+
+    public class TrangThaiPhieuMuonCreateDTO
+    {
+        [Required]
+        public int IdPhieuMuon { get; set; }
+
+        [Required]
+        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
+
+        [Required]
+        public DateTime ThoiGianCapNhat { get; set; } = DateTime.Now;
+    }
+
+    public class TrangThaiPhieuMuonDetailDTO
     {
         public int Id { get; set; }
 
@@ -76,4 +97,25 @@ namespace sgu_c_sharf_WinfromAdmin.Models
 
         public DateTime ThoiGianCapNhat { get; set; }
     }
+    public enum TrangThaiPhieuMuonEnum
+    {
+        HUY,
+        DATCHO,
+        DANGSUDUNG,
+        DATRATHIETBI
+    }
+    public enum TrangThaiChiTietPhieuMuonEnum
+    {
+        DANGMUON,
+        DATRATHIETBI,
+        DATHATLAC
+    }
+
+    public class PhieuMuonPagingResponse
+    {
+        public List<PhieuMuonDetailDTO> Items { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+    }
+
 }

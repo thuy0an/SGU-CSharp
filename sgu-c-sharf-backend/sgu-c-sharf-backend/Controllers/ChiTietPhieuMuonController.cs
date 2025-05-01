@@ -25,14 +25,14 @@ namespace sgu_c_sharf_backend.Controllers
             var res = _chiTietPhieuMuonService.GetByPhieuMuonIdAndDauThietBiId(idPhieuMuon, idDauThietBi);
             if (res == null)
             {
-                return NotFound(ApiResponse<ChiTietPhieuMuon>.Fail("Không tìm thấy chi tiết phiếu mượn"));
+                return NotFound(ApiResponse<ChiTietPhieuMuonDetailDTO>.Fail("Không tìm thấy chi tiết phiếu mượn"));
             }
             return Ok(ApiResponse<ChiTietPhieuMuonDetailDTO>.Ok(res, "Thành công"));
         }
 
         // Lấy tất cả chi tiết phiếu mượn
         [HttpGet]
-        public ActionResult<ApiResponse<List<ChiTietPhieuMuon>>> GetAllByPhieuMuonId(int idPhieuMuon)
+        public ActionResult<ApiResponse<List<ChiTietPhieuMuonDetailDTO>>> GetAllByPhieuMuonId(int idPhieuMuon)
         {
             var res = _chiTietPhieuMuonService.GetAllByPhieuMuonId(idPhieuMuon);
             return Ok(ApiResponse<List<ChiTietPhieuMuonDetailDTO>>.Ok(res, "Thành công"));
@@ -55,29 +55,29 @@ namespace sgu_c_sharf_backend.Controllers
 
         // Cập nhật chi tiết phiếu mượn
         [HttpPut]
-        public ActionResult<ApiResponse<string>> Update([FromBody] List<ChiTietPhieuMuonUpdateDTO> chiTietPhieuMuonUpdates)
+        public ActionResult<ApiResponse<bool>> Update([FromBody] List<ChiTietPhieuMuonUpdateDTO> chiTietPhieuMuonUpdates)
         {
             var res = _chiTietPhieuMuonService.Update(chiTietPhieuMuonUpdates);
             if (res)
             {
-                return Ok(ApiResponse<string>.Ok("Cập nhật chi tiết phiếu mượn thành công"));
+                return Ok(ApiResponse<bool>.Ok(true, "Cập nhật chi tiết phiếu mượn thành công"));
             }
-            return NotFound(ApiResponse<string>.Fail("Không tìm thấy chi tiết phiếu mượn"));
+            return NotFound(ApiResponse<bool>.Fail("Không tìm thấy chi tiết phiếu mượn"));
         }
 
         // Xóa chi tiết phiếu mượn
         [HttpDelete]
-        public ActionResult<ApiResponse<string>> Delete([FromBody] List<ChiTietPhieuMuon> chiTietPhieuMuonList)
+        public ActionResult<ApiResponse<bool>> Delete([FromBody] List<ChiTietPhieuMuonDeleteDTO> chiTietPhieuMuonList)
         {
             if (chiTietPhieuMuonList == null || !chiTietPhieuMuonList.Any())
-                return BadRequest(ApiResponse<string>.Fail("Danh sách chi tiết phiếu mượn không hợp lệ"));
+                return BadRequest(ApiResponse<bool>.Fail("Danh sách chi tiết phiếu mượn không hợp lệ"));
 
             var res = _chiTietPhieuMuonService.Delete(chiTietPhieuMuonList);
             if (res)
             {
-                return Ok(ApiResponse<string>.Ok("Xóa chi tiết phiếu mượn thành công"));
+                return Ok(ApiResponse<bool>.Ok(true, "Xóa chi tiết phiếu mượn thành công"));
             }
-            return NotFound(ApiResponse<string>.Fail("Không tìm thấy chi tiết phiếu mượn"));
+            return NotFound(ApiResponse<bool>.Fail("Không tìm thấy chi tiết phiếu mượn"));
         }
     }
 }

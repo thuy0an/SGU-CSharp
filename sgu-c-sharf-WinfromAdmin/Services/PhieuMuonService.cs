@@ -15,7 +15,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         private static readonly HttpClient _httpClient = new HttpClient();
         private readonly string BASE_URL = "http://localhost:5244/api/phieu-muon";
 
-        public async Task<List<PhieuMuon>> GetAllNoPaging()
+        public async Task<List<PhieuMuonDetailDTO>> GetAllNoPaging()
         {
             try
             {
@@ -24,23 +24,23 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 
                 if (res.IsSuccessStatusCode)
                 {
-                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<PhieuMuon>>>(json, new JsonSerializerOptions
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<PhieuMuonDetailDTO>>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
 
-                    return apiResponse?.Data ?? new List<PhieuMuon>();
+                    return apiResponse?.Data ?? new List<PhieuMuonDetailDTO>();
                 }
-                return new List<PhieuMuon>();
+                return new List<PhieuMuonDetailDTO>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi lấy danh sách phiếu mượn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return new List<PhieuMuon>();
+                return new List<PhieuMuonDetailDTO>();
             }
         }
 
-        public async Task<PhieuMuon?> GetById(int id)
+        public async Task<PhieuMuonDetailDTO?> GetById(int id)
         {
             try
             {
@@ -49,7 +49,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 
                 if (res.IsSuccessStatusCode)
                 {
-                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<PhieuMuon>>(json, new JsonSerializerOptions
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<PhieuMuonDetailDTO>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
@@ -93,7 +93,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
         }
 
-        public async Task<bool> Update(PhieuMuon phieuMuon)
+        public async Task<bool> Update(PhieuMuonUpdateDTO phieuMuon)
         {
             try
             {
@@ -110,39 +110,67 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
         }
 
-        public async Task<(List<PhieuMuon> items, int currentPage, int totalPages)> GetAllWithPaging(int page, int limit, DateTime? fromDate = null, DateTime? toDate = null, int? trangThai = null)
+        public async Task<PhieuMuonPagingResponse> GetAllWithPaging(
+    int page,
+    int limit,
+    DateTime? fromDate = null,
+    DateTime? toDate = null,
+    TrangThaiPhieuMuonEnum? trangThai = null)
         {
             try
             {
                 var query = $"?page={page}&limit={limit}";
+
+                // Thêm điều kiện cho ngày bắt đầu và ngày kết thúc
                 if (fromDate != null)
                     query += $"&fromDate={fromDate.Value:yyyy-MM-dd}";
                 if (toDate != null)
                     query += $"&toDate={toDate.Value:yyyy-MM-dd}";
-                if (trangThai != null)
-                    query += $"&trangThai={trangThai}";
 
+                // Chuyển đổi enum trangThai thành chuỗi nếu có
+                if (trangThai != null)
+                    query += $"&trangThai={Enum.GetName(typeof(TrangThaiPhieuMuonEnum), trangThai)}"; // Dùng Enum.GetName để chuyển enum thành chuỗi
+
+                // Gửi yêu cầu API
                 var res = await _httpClient.GetAsync($"{BASE_URL}/paging{query}");
                 var json = await res.Content.ReadAsStringAsync();
 
                 if (res.IsSuccessStatusCode)
                 {
+                    // Xử lý dữ liệu nhận về
                     var apiResponse = JsonSerializer.Deserialize<ApiResponse<PhieuMuonPagingResponse>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
 
-                    return (apiResponse.Data.Items, apiResponse.Data.CurrentPage, apiResponse.Data.TotalPages);
+                    return apiResponse.Data ?? new PhieuMuonPagingResponse
+                    {
+                        Items = new List<PhieuMuonDetailDTO>(),
+                        CurrentPage = 1,
+                        TotalPages = 1
+                    };
                 }
 
-                return (new List<PhieuMuon>(), 1, 1);
+                return new PhieuMuonPagingResponse
+                {
+                    Items = new List<PhieuMuonDetailDTO>(),
+                    CurrentPage = 1,
+                    TotalPages = 1
+                };
             }
             catch (Exception ex)
             {
+                // Xử lý lỗi nếu có
                 MessageBox.Show($"Lỗi khi phân trang phiếu mượn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return (new List<PhieuMuon>(), 1, 1);
+                return new PhieuMuonPagingResponse
+                {
+                    Items = new List<PhieuMuonDetailDTO>(),
+                    CurrentPage = 1,
+                    TotalPages = 1
+                };
             }
         }
+
     }
 
 }

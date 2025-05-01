@@ -19,7 +19,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         }
 
         // Lấy danh sách trạng thái phiếu mượn theo IdPhiếuMượn
-        public async Task<List<TrangThaiPhieuMuon>> GetByPhieuMuonId(int idPhieuMuon)
+        public async Task<List<TrangThaiPhieuMuonDetailDTO>> GetByPhieuMuonId(int idPhieuMuon)
         {
             string requestUrl = $"{BASE_URL}/phieu-muon/{idPhieuMuon}";
             try
@@ -30,7 +30,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 
                 if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
                 {
-                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<TrangThaiPhieuMuon>>>(json, new JsonSerializerOptions
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<TrangThaiPhieuMuonDetailDTO>>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
@@ -40,27 +40,27 @@ namespace sgu_c_sharf_WinfromAdmin.Services
                         return apiResponse.Data;
                     // nếu không có dữ liệu thì trả về danh sách rỗng
                     else
-                        return new List<TrangThaiPhieuMuon>();
+                        return new List<TrangThaiPhieuMuonDetailDTO>();
                 }
                 else // lỗi request
-                    return new List<TrangThaiPhieuMuon>();
+                    return new List<TrangThaiPhieuMuonDetailDTO>();
             }
             catch (JsonException jsonEx)
             {
                 Console.WriteLine($"Lỗi JSON: {jsonEx.Message}");
-                return new List<TrangThaiPhieuMuon>();
+                return new List<TrangThaiPhieuMuonDetailDTO>();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Lỗi: {ex.Message}");
-                return new List<TrangThaiPhieuMuon>();
+                return new List<TrangThaiPhieuMuonDetailDTO>();
             }
         }
 
         // Lấy trạng thái mới nhất của phiếu mượn
-        public async Task<TrangThaiPhieuMuon?> GetTrangThaiMoiNhat(int idPhieuMuon)
+        public async Task<TrangThaiPhieuMuonDetailDTO?> GetTrangThaiMoiNhat(int idPhieuMuon)
         {
-            string requestUrl = $"{BASE_URL}/phieu-muon/{idPhieuMuon}/latest";
+            string requestUrl = $"{BASE_URL}/phieu-muon/{idPhieuMuon}/moi-nhat";    
             try
             {
                 // Gửi yêu cầu GET đến API
@@ -69,7 +69,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 
                 if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
                 {
-                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<TrangThaiPhieuMuon>>(json, new JsonSerializerOptions
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<TrangThaiPhieuMuonDetailDTO>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
@@ -91,7 +91,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         }
 
         // Thêm trạng thái phiếu mượn
-        public async Task<bool> Add(TrangThaiPhieuMuon trangThai)
+        public async Task<bool> Add(TrangThaiPhieuMuonCreateDTO trangThai)
         {
             string requestUrl = $"{BASE_URL}";
             try

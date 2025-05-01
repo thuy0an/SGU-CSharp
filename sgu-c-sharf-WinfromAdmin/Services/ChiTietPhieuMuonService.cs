@@ -16,7 +16,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         private readonly string BASE_URL = "http://localhost:5244/api/chi-tiet-phieu-muon";
 
         // Lấy tất cả chi tiết theo Id phiếu mượn
-        public async Task<List<ChiTietPhieuMuon>> GetAllByPhieuMuonId(int idPhieuMuon)
+        public async Task<List<ChiTietPhieuMuonDetailDTO>> GetAllByPhieuMuonId(int idPhieuMuon)
         {
             try
             {
@@ -25,25 +25,25 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 
                 if (res.IsSuccessStatusCode)
                 {
-                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<ChiTietPhieuMuon>>>(json, new JsonSerializerOptions
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<ChiTietPhieuMuonDetailDTO>>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
 
-                    return apiResponse?.Data ?? new List<ChiTietPhieuMuon>();
+                    return apiResponse?.Data ?? new List<ChiTietPhieuMuonDetailDTO>();
                 }
 
-                return new List<ChiTietPhieuMuon>();
+                return new List<ChiTietPhieuMuonDetailDTO>();
             }
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi khi lấy chi tiết phiếu mượn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return new List<ChiTietPhieuMuon>();
+                return new List<ChiTietPhieuMuonDetailDTO>();
             }
         }
 
         // Lấy chi tiết theo Id phiếu mượn + Id đầu thiết bị
-        public async Task<ChiTietPhieuMuon?> GetByPhieuMuonIdAndDauThietBiId(int idPhieuMuon, int idDauThietBi)
+        public async Task<ChiTietPhieuMuonDetailDTO?> GetByPhieuMuonIdAndDauThietBiId(int idPhieuMuon, int idDauThietBi)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 
                 if (res.IsSuccessStatusCode)
                 {
-                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<ChiTietPhieuMuon>>(json, new JsonSerializerOptions
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<ChiTietPhieuMuonDetailDTO>>(json, new JsonSerializerOptions
                     {
                         PropertyNameCaseInsensitive = true
                     });
@@ -106,7 +106,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         }
 
         // Xóa danh sách chi tiết
-        public async Task<bool> Delete(List<ChiTietPhieuMuon> list)
+        public async Task<bool> Delete(List<ChiTietPhieuMuonDeleteDTO> list)
         {
             try
             {

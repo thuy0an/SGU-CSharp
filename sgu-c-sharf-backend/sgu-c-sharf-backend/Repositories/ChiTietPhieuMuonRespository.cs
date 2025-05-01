@@ -154,6 +154,10 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
+            if(IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon)){
+                return false;
+            }
+
             using var transaction = connection.BeginTransaction();
 
             try
@@ -183,10 +187,35 @@ namespace sgu_c_sharf_backend.Repositories
                 return false;
             }
         }
-        public bool Delete(List<ChiTietPhieuMuon> entities)
+
+        private bool IsPhieuMuonEditable(MySqlConnection connection, int idPhieuMuon)
+        {
+            string query = @"
+                SELECT TrangThai 
+                FROM TrangThaiPhieuMuon 
+                WHERE IdPhieuMuon = @IdPhieuMuon 
+                ORDER BY ThoiGianCapNhat DESC 
+                LIMIT 1";
+
+            using var cmd = new MySqlCommand(query, connection);
+            cmd.Parameters.AddWithValue("@IdPhieuMuon", idPhieuMuon);
+
+            var result = cmd.ExecuteScalar();
+            if (result == null) return false;
+
+            var trangThaiStr = result.ToString();
+            return trangThaiStr == TrangThaiPhieuMuonEnum.HUY.ToString() ||
+                   trangThaiStr == TrangThaiPhieuMuonEnum.DATCHO.ToString();
+        }
+
+        public bool Delete(List<ChiTietPhieuMuonDeleteDTO> entities)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
+
+            if(IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon)){
+                return false;
+            }
 
             using var transaction = connection.BeginTransaction();
 

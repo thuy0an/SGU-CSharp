@@ -109,25 +109,26 @@ namespace sgu_c_sharf_backend.Repositories
             return list;
         }
 
-        public int GetTotalCount(DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai)
+        private int GetTotalCount(DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai, string? keyword)
         {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
             string query = @"
-                SELECT COUNT(*) 
-                FROM PhieuMuon p
-                LEFT JOIN (
-                    SELECT IdPhieuMuon, TrangThai
-                    FROM TrangThaiPhieuMuon t1
-                    WHERE ThoiGianCapNhat = (
-                        SELECT MAX(ThoiGianCapNhat)
-                        FROM TrangThaiPhieuMuon t2
-                        WHERE t2.IdPhieuMuon = t1.IdPhieuMuon
-                    )
-                ) t ON p.Id = t.IdPhieuMuon
-                WHERE 1=1
-            ";
+                        SELECT COUNT(*) 
+                        FROM PhieuMuon p
+                        LEFT JOIN (
+                            SELECT IdPhieuMuon, TrangThai
+                            FROM TrangThaiPhieuMuon t1
+                            WHERE ThoiGianCapNhat = (
+                                SELECT MAX(ThoiGianCapNhat)
+                                FROM TrangThaiPhieuMuon t2
+                                WHERE t2.IdPhieuMuon = t1.IdPhieuMuon
+                            )
+                        ) t ON p.Id = t.IdPhieuMuon
+                        LEFT JOIN ThanhVien tv ON tv.Id = p.IdThanhVien
+                        WHERE 1=1
+                    ";
 
             if (fromDate.HasValue)
                 query += " AND p.NgayTao >= @FromDate ";
@@ -138,50 +139,52 @@ namespace sgu_c_sharf_backend.Repositories
             if (trangThai.HasValue)
                 query += " AND t.TrangThai = @TrangThai ";
 
+            if (!string.IsNullOrWhiteSpace(keyword))
+                query += " AND (tv.HoTen LIKE @Keyword OR p.Id LIKE @Keyword OR p.IdThanhVien LIKE @Keyword) ";
+
             using var command = new MySqlCommand(query, connection);
 
             if (fromDate.HasValue)
                 command.Parameters.AddWithValue("@FromDate", fromDate.Value);
-
             if (toDate.HasValue)
                 command.Parameters.AddWithValue("@ToDate", toDate.Value);
-
             if (trangThai.HasValue)
                 command.Parameters.AddWithValue("@TrangThai", trangThai.Value.ToString());
+            if (!string.IsNullOrWhiteSpace(keyword))
+                command.Parameters.AddWithValue("@Keyword", $"%{keyword}%");
 
             return Convert.ToInt32(command.ExecuteScalar());
         }
 
 
-        public (List<PhieuMuonDetailDTO> items, int currentPage, int totalPages) GetAllPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai)
+        public PhieuMuonPagingResponse GetAllPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai, string? keyword = null)
         {
             var list = new List<PhieuMuonDetailDTO>();
-
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
             int offset = (page - 1) * limit;
 
             string query = @"
-        SELECT 
-            p.Id AS Id,
-            p.IdThanhVien AS IdThanhVien,
-            tv.HoTen AS TenThanhVien,
-            p.NgayTao AS NgayTao, 
-            t.TrangThai AS TrangThai
-        FROM PhieuMuon p
-        LEFT JOIN (
-            SELECT IdPhieuMuon, TrangThai
-            FROM TrangThaiPhieuMuon t1
-            WHERE ThoiGianCapNhat = (
-                SELECT MAX(ThoiGianCapNhat)
-                FROM TrangThaiPhieuMuon t2
-                WHERE t2.IdPhieuMuon = t1.IdPhieuMuon
-            )
-        ) t ON p.Id = t.IdPhieuMuon
-        LEFT JOIN ThanhVien tv ON tv.Id = p.IdThanhVien
-        WHERE 1=1
-    ";
+                        SELECT 
+                            p.Id AS Id,
+                            p.IdThanhVien AS IdThanhVien,
+                            tv.HoTen AS TenThanhVien,
+                            p.NgayTao AS NgayTao, 
+                            t.TrangThai AS TrangThai
+                        FROM PhieuMuon p
+                        LEFT JOIN (
+                            SELECT IdPhieuMuon, TrangThai
+                            FROM TrangThaiPhieuMuon t1
+                            WHERE ThoiGianCapNhat = (
+                                SELECT MAX(ThoiGianCapNhat)
+                                FROM TrangThaiPhieuMuon t2
+                                WHERE t2.IdPhieuMuon = t1.IdPhieuMuon
+                            )
+                        ) t ON p.Id = t.IdPhieuMuon
+                        LEFT JOIN ThanhVien tv ON tv.Id = p.IdThanhVien
+                        WHERE 1=1
+                    ";
 
             if (fromDate.HasValue)
                 query += " AND p.NgayTao >= @FromDate ";
@@ -191,6 +194,9 @@ namespace sgu_c_sharf_backend.Repositories
 
             if (trangThai.HasValue)
                 query += " AND t.TrangThai = @TrangThai ";
+
+            if (!string.IsNullOrWhiteSpace(keyword))
+                query += " AND (tv.HoTen LIKE @Keyword OR p.Id LIKE @Keyword OR p.IdThanhVien LIKE @Keyword) ";
 
             query += " ORDER BY p.Id DESC LIMIT @Limit OFFSET @Offset;";
 
@@ -198,18 +204,17 @@ namespace sgu_c_sharf_backend.Repositories
 
             if (fromDate.HasValue)
                 command.Parameters.AddWithValue("@FromDate", fromDate.Value);
-
             if (toDate.HasValue)
                 command.Parameters.AddWithValue("@ToDate", toDate.Value);
-
             if (trangThai.HasValue)
                 command.Parameters.AddWithValue("@TrangThai", trangThai.Value.ToString());
+            if (!string.IsNullOrWhiteSpace(keyword))
+                command.Parameters.AddWithValue("@Keyword", $"%{keyword}%");
 
             command.Parameters.AddWithValue("@Limit", limit);
             command.Parameters.AddWithValue("@Offset", offset);
 
             using var reader = command.ExecuteReader();
-
             while (reader.Read())
             {
                 list.Add(new PhieuMuonDetailDTO
@@ -226,11 +231,16 @@ namespace sgu_c_sharf_backend.Repositories
                 });
             }
 
-            // Gọi hàm đếm tổng
-            int totalCount = GetTotalCount(fromDate, toDate, trangThai);
+            // Cập nhật phần đếm tổng cũng truyền keyword
+            int totalCount = GetTotalCount(fromDate, toDate, trangThai, keyword);
             int totalPages = (int)Math.Ceiling((double)totalCount / limit);
 
-            return (list, page, totalPages);
+            return new PhieuMuonPagingResponse
+            {
+                Items = list,
+                CurrentPage = page,
+                TotalPages = totalPages
+            };
         }
 
         public int Add(PhieuMuonCreateDTO entity)

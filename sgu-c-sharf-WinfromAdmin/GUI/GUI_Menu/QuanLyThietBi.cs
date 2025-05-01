@@ -179,5 +179,9 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         }
 
+        private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }

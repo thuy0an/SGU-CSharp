@@ -22,9 +22,9 @@ public class PhieuMuonService
     {
         return _phieuMuonRepository.GetAll();
     }
-    public (List<PhieuMuonDetailDTO> items, int currentPage, int totalPages) GetAllPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai)
+    public PhieuMuonPagingResponse GetAllPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai, string? keyword = null)
     {
-        return _phieuMuonRepository.GetAllPaging(page, limit, fromDate, toDate, trangThai);
+        return _phieuMuonRepository.GetAllPaging(page, limit, fromDate, toDate, trangThai, keyword);
     }
 
     public int Add(PhieuMuonCreateDTO phieuMuon)

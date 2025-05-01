@@ -49,10 +49,16 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public DateTime NgayTao { get; set; } = DateTime.Now;
     }
 
+    public class PhieuMuonPagingResponse
+    {
+        public List<PhieuMuonDetailDTO> Items { get; set; }
+        public int CurrentPage { get; set; }
+        public int TotalPages { get; set; }
+    }
     public enum TrangThaiPhieuMuonEnum
     {
         HUY,
-        XACNHAN,
+        DATCHO,
         DANGSUDUNG,
         DATRATHIETBI
     }

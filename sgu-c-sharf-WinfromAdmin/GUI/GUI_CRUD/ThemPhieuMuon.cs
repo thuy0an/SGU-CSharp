@@ -86,5 +86,10 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         {
 
         }
+
+        private void txtMaThanhVien_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

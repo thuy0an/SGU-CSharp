@@ -30,7 +30,7 @@ namespace sgu_c_sharf_backend.Services
             return _repository.Update(entities);
         }
 
-        public bool Delete(List<ChiTietPhieuMuon> entities){
+        public bool Delete(List<ChiTietPhieuMuonDeleteDTO> entities){
             return _repository.Delete(entities);
         }
     }

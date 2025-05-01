@@ -28,10 +28,10 @@ namespace sgu_c_sharf_backend.Controllers
 
         // Lấy danh sách phiếu mượn với phân trang
         [HttpGet("paging")]
-        public ActionResult<ApiResponse<(List<PhieuMuonDetailDTO> items, int currentPage, int totalPages)>> GetAllWithPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai)
+        public ActionResult<ApiResponse<PhieuMuonPagingResponse>> GetAllWithPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai, string? keyword = null)
         {
-            var res = _phieuMuonService.GetAllPaging(page, limit, fromDate, toDate, trangThai);
-            return Ok(ApiResponse<(List<PhieuMuonDetailDTO> items, int currentPage, int totalPages)>.Ok(res, "Thành công"));
+            var res = _phieuMuonService.GetAllPaging(page, limit, fromDate, toDate, trangThai, keyword);
+            return Ok(ApiResponse<PhieuMuonPagingResponse>.Ok(res, "Thành công"));
         }
 
         // Lấy chi tiết phiếu mượn theo ID
@@ -41,7 +41,7 @@ namespace sgu_c_sharf_backend.Controllers
             var res = _phieuMuonService.GetById(id);
             if (res == null)
             {
-                return NotFound(ApiResponse<PhieuMuon>.Fail("Không tìm thấy phiếu mượn"));
+                return NotFound(ApiResponse<PhieuMuonDetailDTO>.Fail("Không tìm thấy phiếu mượn"));
             }
             return Ok(ApiResponse<PhieuMuonDetailDTO>.Ok(res, "Thành công"));
         }

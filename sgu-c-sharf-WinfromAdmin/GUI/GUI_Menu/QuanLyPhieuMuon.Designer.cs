@@ -28,17 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
+            label8 = new Label();
+            label7 = new Label();
+            toDate = new DateTimePicker();
+            fromDate = new DateTimePicker();
             label6 = new Label();
-            comboBox1 = new ComboBox();
+            comboBoxTrangThai = new ComboBox();
             panel5 = new Panel();
             label5 = new Label();
             btnPDF = new PictureBox();
@@ -56,6 +61,12 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
+            panel6 = new Panel();
+            btnFirst = new Button();
+            btnPrevious = new Button();
+            btnNext = new Button();
+            btnLast = new Button();
+            lblCurrentPage = new Label();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
@@ -69,6 +80,7 @@
             ((System.ComponentModel.ISupportInitialize)btnXem).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnEdit).BeginInit();
+            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // pnlContent
@@ -90,33 +102,33 @@
             DataGrid.AllowUserToResizeColumns = false;
             DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = Color.Gray;
-            dataGridViewCellStyle5.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = Color.Gray;
+            dataGridViewCellStyle9.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
+            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column5 });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            DataGrid.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = SystemColors.Window;
+            dataGridViewCellStyle10.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
+            DataGrid.DefaultCellStyle = dataGridViewCellStyle10;
             DataGrid.Dock = DockStyle.Fill;
-            DataGrid.Location = new Point(0, 211);
+            DataGrid.Location = new Point(0, 270);
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
             DataGrid.RowTemplate.Height = 30;
             DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGrid.Size = new Size(1479, 850);
+            DataGrid.Size = new Size(1479, 791);
             DataGrid.TabIndex = 1;
             DataGrid.CellContentClick += DataGrid_CellContentClick;
             // 
@@ -124,33 +136,52 @@
             // 
             Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Column1.HeaderText = "Mã phiếu";
-            Column1.Name = "Column1";
+            Column1.Name = "Id";
+            Column1.DataPropertyName = "Id";
             Column1.ReadOnly = true;
             // 
             // Column2
             // 
             Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             Column2.HeaderText = "Mã thành viên";
-            Column2.Name = "Column2";
+            Column2.Name = "IdThanhVien";
+            Column2.DataPropertyName = "IdThanhVien";
             Column2.ReadOnly = true;
             // 
             // Column3
             // 
             Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column3.HeaderText = "Trạng thái";
-            Column3.Name = "Column3";
+            Column3.HeaderText = "Tên thành viên";
+            Column3.Name = "TenThanhVien";
+            Column3.DataPropertyName = "TenThanhVien";
+            Column3.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Column4.HeaderText = "Ngày tạo";
+            Column4.Name = "NgayTao";
+            Column4.DataPropertyName = "NgayTao";
+            Column4.ReadOnly = true;
             // 
             // Column5
             // 
             Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column5.HeaderText = "Thời gian lập phiếu";
-            Column5.Name = "Column5";
+            Column5.HeaderText = "Trạng thái";
+            Column5.Name = "TrangThai";
+            Column5.DataPropertyName = "TrangThai";
+            Column5.ReadOnly = true;
             // 
             // pnlNavigate
             // 
             pnlNavigate.BackColor = Color.White;
+            pnlNavigate.Controls.Add(panel6);
+            pnlNavigate.Controls.Add(label8);
+            pnlNavigate.Controls.Add(label7);
+            pnlNavigate.Controls.Add(toDate);
+            pnlNavigate.Controls.Add(fromDate);
             pnlNavigate.Controls.Add(label6);
-            pnlNavigate.Controls.Add(comboBox1);
+            pnlNavigate.Controls.Add(comboBoxTrangThai);
             pnlNavigate.Controls.Add(panel5);
             pnlNavigate.Controls.Add(btnReset);
             pnlNavigate.Controls.Add(panel4);
@@ -162,28 +193,69 @@
             pnlNavigate.Location = new Point(0, 0);
             pnlNavigate.Margin = new Padding(4, 3, 4, 3);
             pnlNavigate.Name = "pnlNavigate";
-            pnlNavigate.Size = new Size(1479, 211);
+            pnlNavigate.Size = new Size(1479, 270);
             pnlNavigate.TabIndex = 0;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.Location = new Point(653, 143);
+            label8.Name = "label8";
+            label8.Size = new Size(74, 18);
+            label8.TabIndex = 10;
+            label8.Text = "Den ngay";
+            label8.Click += label8_Click;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(322, 143);
+            label7.Name = "label7";
+            label7.Size = new Size(61, 18);
+            label7.TabIndex = 9;
+            label7.Text = "Tu ngay";
+            // 
+            // toDate
+            // 
+            toDate.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toDate.Location = new Point(733, 137);
+            toDate.Name = "toDate";
+            toDate.Size = new Size(262, 26);
+            toDate.TabIndex = 8;
+            toDate.ValueChanged += dateTimePicker2_ValueChanged;
+            // 
+            // fromDate
+            // 
+            fromDate.CalendarFont = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            fromDate.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            fromDate.Location = new Point(389, 137);
+            fromDate.Name = "fromDate";
+            fromDate.Size = new Size(255, 26);
+            fromDate.TabIndex = 7;
+            fromDate.ValueChanged += dateTimePicker1_ValueChanged;
             // 
             // label6
             // 
             label6.AutoSize = true;
-            label6.Font = new Font("Times New Roman", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(12, 137);
+            label6.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(12, 143);
             label6.Name = "label6";
-            label6.Size = new Size(84, 21);
+            label6.Size = new Size(76, 18);
             label6.TabIndex = 6;
             label6.Text = "Trang thai";
             label6.Click += label6_Click;
             // 
-            // comboBox1
+            // comboBoxTrangThai
             // 
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(102, 135);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(168, 23);
-            comboBox1.TabIndex = 5;
-            comboBox1.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
+            comboBoxTrangThai.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxTrangThai.FormattingEnabled = true;
+            comboBoxTrangThai.Location = new Point(94, 137);
+            comboBoxTrangThai.Name = "comboBoxTrangThai";
+            comboBoxTrangThai.Size = new Size(200, 26);
+            comboBoxTrangThai.TabIndex = 5;
+            comboBoxTrangThai.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // panel5
             // 
@@ -388,6 +460,74 @@
             txtSearch.Size = new Size(349, 26);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
+            txtSearch.TextChanged += txtSearch_TextChanged;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(lblCurrentPage);
+            panel6.Controls.Add(btnLast);
+            panel6.Controls.Add(btnNext);
+            panel6.Controls.Add(btnPrevious);
+            panel6.Controls.Add(btnFirst);
+            panel6.Location = new Point(14, 196);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(413, 37);
+            panel6.TabIndex = 11;
+            // 
+            // btnFirst
+            // 
+            btnFirst.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnFirst.Location = new Point(3, 10);
+            btnFirst.Name = "btnFirst";
+            btnFirst.Size = new Size(75, 23);
+            btnFirst.TabIndex = 0;
+            btnFirst.Text = "First";
+            btnFirst.UseVisualStyleBackColor = true;
+            btnFirst.Click += btnFirst_Click;
+            // 
+            // btnPrevious
+            // 
+            btnPrevious.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPrevious.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPrevious.Location = new Point(84, 10);
+            btnPrevious.Name = "btnPrevious";
+            btnPrevious.Size = new Size(75, 23);
+            btnPrevious.TabIndex = 1;
+            btnPrevious.Text = "Previous";
+            btnPrevious.UseVisualStyleBackColor = true;
+            btnPrevious.Click += btnPrevious_Click;
+            // 
+            // btnNext
+            // 
+            btnNext.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnNext.ImageAlign = ContentAlignment.MiddleRight;
+            btnNext.Location = new Point(254, 10);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(75, 23);
+            btnNext.TabIndex = 2;
+            btnNext.Text = "Next";
+            btnNext.UseVisualStyleBackColor = true;
+            btnNext.Click += btnNext_Click;
+            // 
+            // btnLast
+            // 
+            btnLast.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLast.Location = new Point(335, 10);
+            btnLast.Name = "btnLast";
+            btnLast.Size = new Size(75, 23);
+            btnLast.TabIndex = 3;
+            btnLast.Text = "Last";
+            btnLast.UseVisualStyleBackColor = true;
+            btnLast.Click += btnLast_Click;
+            // 
+            // lblCurrentPage
+            // 
+            lblCurrentPage.AutoSize = true;
+            lblCurrentPage.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCurrentPage.Location = new Point(204, 12);
+            lblCurrentPage.Name = "lblCurrentPage";
+            lblCurrentPage.Size = new Size(0, 18);
+            lblCurrentPage.TabIndex = 4;
             // 
             // QuanLyPhieuMuon
             // 
@@ -398,6 +538,7 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "QuanLyPhieuMuon";
             Text = "QuanLyPhieuMuon";
+            Load += QuanLyPhieuMuon_Load;
             pnlContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
@@ -412,6 +553,8 @@
             ((System.ComponentModel.ISupportInitialize)btnXem).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnEdit).EndInit();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -440,8 +583,19 @@
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
         private DataGridViewTextBoxColumn Column5;
-        private ComboBox comboBox1;
+        private ComboBox comboBoxTrangThai;
         private Label label6;
+        private DateTimePicker toDate;
+        private DateTimePicker fromDate;
+        private Label label8;
+        private Label label7;
+        private Panel panel6;
+        private Button btnLast;
+        private Button btnNext;
+        private Button btnPrevious;
+        private Button btnFirst;
+        private Label lblCurrentPage;
     }
 }

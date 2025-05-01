@@ -134,6 +134,7 @@
             cbbThietBi.Name = "cbbThietBi";
             cbbThietBi.Size = new Size(200, 30);
             cbbThietBi.TabIndex = 9;
+            cbbThietBi.SelectedIndexChanged += cbbThietBi_SelectedIndexChanged;
             // 
             // MuonDauThietBi
             // 

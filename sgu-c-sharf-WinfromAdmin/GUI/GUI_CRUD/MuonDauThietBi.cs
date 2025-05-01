@@ -30,5 +30,10 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         {
 
         }
+
+        private void cbbThietBi_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }

@@ -109,6 +109,7 @@
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             DataGrid.Size = new Size(1479, 923);
             DataGrid.TabIndex = 1;
+            DataGrid.CellContentClick += DataGrid_CellContentClick;
             // 
             // Column1
             // 

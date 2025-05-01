@@ -67,6 +67,15 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public TrangThaiChiTietPhieuMuonEnum? TrangThai { get; set; }
     }
 
+    public class ChiTietPhieuMuonDeleteDTO
+    {
+        [Required]
+        public int IdPhieuMuon { get; set; }
+
+        [Required]
+        public int IdDauThietBi { get; set; }
+    }
+
     public enum TrangThaiChiTietPhieuMuonEnum
     {
         DANGMUON,  
