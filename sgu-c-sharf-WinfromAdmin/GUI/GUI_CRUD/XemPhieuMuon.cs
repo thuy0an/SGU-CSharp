@@ -64,8 +64,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 
         private void btnThemDauThietBi_Click(object sender, EventArgs e)
         {
-            MuonDauThietBi form = new MuonDauThietBi();
-            form.ShowDialog();
+            
         }
 
         private void btnSuaDauThietBi_Click(object sender, EventArgs e)

@@ -195,5 +195,92 @@ namespace sgu_c_sharf_backend.Repositories
             }
             return dauThietBis;
         }
+
+        public List<DauThietBiListDTO> GetDauThietBiByIdVaSoLuong(int idThietBi, int soLuong)
+        {
+            List<DauThietBiListDTO> devices = new List<DauThietBiListDTO>();
+
+            // Câu lệnh SQL để lấy số lượng đầu thiết bị (DauThietBi) với idThietBi và giới hạn số lượng
+            string query = @"
+            SELECT Id, IdThietBi, TrangThai, ThoiGianMua 
+            FROM DauThietBi 
+            WHERE IdThietBi = @IdThietBi AND TrangThai = 'KHADUNG'
+            LIMIT @SoLuong";
+
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    connection.Open();
+
+                    using (var cmd = new MySqlCommand(query, connection))
+                    {
+                        // Thêm tham số vào truy vấn
+                        cmd.Parameters.AddWithValue("@IdThietBi", idThietBi);
+                        cmd.Parameters.AddWithValue("@SoLuong", soLuong);
+
+                        using (var reader = cmd.ExecuteReader())
+                        {
+                            // Đọc dữ liệu từ cơ sở dữ liệu và thêm vào danh sách
+                            while (reader.Read())
+                            {
+                                DauThietBiListDTO device = new DauThietBiListDTO()
+                                {
+                                    Id = reader.GetInt32("Id"),
+                                    IdThietBi = reader.GetInt32("IdThietBi"),
+                                    TrangThai = TrangThaiDauThietBiEnum.KHADUNG,
+                                    ThoiGianMua = reader.GetDateTime("ThoiGianMua")
+                                };
+                                devices.Add(device);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine("Lỗi kết nối cơ sở dữ liệu: " + ex.Message);
+                }
+            }
+
+            return devices;
+        }
+
+        public bool UpdateDanhSachDauThietBi(List<DauThietBiListDTO> dauThietBiList)
+        {
+            if (dauThietBiList == null || dauThietBiList.Count == 0)
+                return false; // Danh sách rỗng không cần update
+
+            try
+            {
+                using (MySqlConnection connection = new MySqlConnection(_connectionString))
+                {
+                    connection.Open();
+
+                    foreach (var dauThietBi in dauThietBiList)
+                    {
+                        string updateSql = "UPDATE DauThietBi SET TrangThai = @TrangThai WHERE Id = @Id";
+                        using (MySqlCommand updateCommand = new MySqlCommand(updateSql, connection))
+                        {
+                            updateCommand.Parameters.AddWithValue("@Id", dauThietBi.Id);
+                            updateCommand.Parameters.AddWithValue("@TrangThai", dauThietBi.TrangThai.ToString());
+
+                            int affectedRows = updateCommand.ExecuteNonQuery();
+                            if (affectedRows == 0)
+                            {
+                                return false;
+                            }
+                        }
+                    }
+                }
+
+                return true; // Tất cả thành công
+            }
+            catch (Exception ex)
+            {
+                // Log lỗi nếu cần
+                Console.WriteLine($"Lỗi khi update danh sách: {ex.Message}");
+                return false;
+            }
+        }
     }
 }

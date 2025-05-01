@@ -194,5 +194,32 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 				return new List<DauThietBi>();
 			}
 		}
-	}
+
+        public async Task<List<ThietBiListAvailabilityDTO>> GetAllWithAvailability()
+        {
+            string requestUrl = $"{BASE_URL}/kha-dung"; // URL API lấy danh sách có kiểm tra khả dụng
+            try
+            {
+                HttpResponseMessage res = await _httpClient.GetAsync(requestUrl);
+                string json = await res.Content.ReadAsStringAsync();
+
+                if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
+                {
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<List<ThietBiListAvailabilityDTO>>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    return apiResponse?.Data ?? new List<ThietBiListAvailabilityDTO>();
+                }
+
+                return new List<ThietBiListAvailabilityDTO>();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return new List<ThietBiListAvailabilityDTO>();
+            }
+        }
+    }
 }

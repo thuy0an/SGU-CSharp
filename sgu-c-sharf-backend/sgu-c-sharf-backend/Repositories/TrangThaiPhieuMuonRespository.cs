@@ -11,9 +11,9 @@ namespace sgu_c_sharf_backend.Repositories
     {
         private readonly string _connectionString;
 
-        public TrangThaiPhieuMuonRepository(string connectionString)
+        public TrangThaiPhieuMuonRepository(IConfiguration configuration)
         {
-            _connectionString = connectionString;
+            _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
 
         public List<TrangThaiPhieuMuonDetailDTO> GetByPhieuMuonId(int idPhieuMuon)
@@ -94,7 +94,7 @@ namespace sgu_c_sharf_backend.Repositories
 
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@IdPhieuMuon", entity.IdPhieuMuon);
-            cmd.Parameters.AddWithValue("@TrangThai", (int)entity.TrangThai);
+            cmd.Parameters.AddWithValue("@TrangThai", entity.TrangThai.ToString());
             cmd.Parameters.AddWithValue("@ThoiGianCapNhat", entity.ThoiGianCapNhat);
 
             return cmd.ExecuteNonQuery() > 0;

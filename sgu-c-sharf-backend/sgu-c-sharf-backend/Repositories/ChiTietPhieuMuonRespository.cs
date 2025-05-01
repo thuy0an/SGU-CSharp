@@ -125,7 +125,7 @@ namespace sgu_c_sharf_backend.Repositories
             try
             {
                 string query = @"INSERT INTO ChiTietPhieuMuon 
-                         (IdPhieuMuon, IdDauThietBi, ThoiGianMuon, ThoiGianTra, TrangThai) 
+                         (IdPhieuMuon, IdDauThietBi, ThoiGianMuon, TrangThai) 
                          VALUES (@IdPhieuMuon, @IdDauThietBi, @ThoiGianMuon, @TrangThai)";
 
                 foreach (var entity in entities)

@@ -111,7 +111,7 @@
             dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
             DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column5 });
+            DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
             dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle10.BackColor = SystemColors.Window;
             dataGridViewCellStyle10.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);

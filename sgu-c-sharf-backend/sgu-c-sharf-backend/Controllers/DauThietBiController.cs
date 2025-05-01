@@ -50,6 +50,25 @@ namespace sgu_c_sharf_backend.Controllers
             }
         }
 
+        [HttpGet("{id}/{soLuong}")]
+        [AllowAnonymous]
+        public IActionResult GetDauThietBiByIdVaSoLuong(int id, int soLuong)
+        {
+            try
+            {
+                // Gọi dịch vụ để lấy danh sách đầu thiết bị theo IdThietBi và SoLuong
+                var dauThietBis = _dauThietBiService.GetDauThietBiByIdVaSoLuong(id, soLuong);
+
+                // Trả về phản hồi thành công với dữ liệu
+                return Ok(ApiResponse<IEnumerable<DauThietBiListDTO>>.Ok(dauThietBis));
+            }
+            catch (Exception ex)
+            {
+                // Trả về phản hồi lỗi nếu có ngoại lệ xảy ra
+                return BadRequest(ApiResponse<IEnumerable<DauThietBiListDTO>>.Fail(ex.Message));
+            }
+        }
+
         [HttpPost]
         public IActionResult Create([FromBody] DauThietBiCreateForm form)
         {
@@ -71,6 +90,27 @@ namespace sgu_c_sharf_backend.Controllers
             {
                 _dauThietBiService.Update(id, form);
                 return Ok(ApiResponse<object>.Ok(null, "Cập nhật đầu thiết bị thành công"));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<object>.Fail(ex.Message));
+            }
+        }
+
+        [HttpPut("update-danhsach")]
+        public IActionResult UpdateDanhSach([FromBody] List<DauThietBiListDTO> formList)
+        {
+            try
+            {
+                bool result = _dauThietBiService.UpdateDanhSachDauThietBi(formList);
+                if (result)
+                {
+                    return Ok(ApiResponse<object>.Ok(result, "Cập nhật danh sách đầu thiết bị thành công"));
+                }
+                else
+                {
+                    return BadRequest(ApiResponse<object>.Fail("Cập nhật thất bại (có thiết bị không tồn tại hoặc lỗi)"));
+                }
             }
             catch (Exception ex)
             {

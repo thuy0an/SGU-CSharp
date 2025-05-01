@@ -14,4 +14,13 @@ namespace sgu_c_sharf_WinfromAdmin.Models
         CHUAXOA = 0,
         DAXOA = 1
     }
+
+    public class ThietBiListAvailabilityDTO
+    {
+        public int Id { get; set; }
+        public string TenThietBi { get; set; }
+        public string TenLoaiThietBi { get; set; }
+
+        public int SoLuongKhaDung { get; set; }
+    }
 }

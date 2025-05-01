@@ -46,5 +46,14 @@ namespace sgu_c_sharf_backend.Services
         {
             return _dauThietBiRepository.Search(idThietBi, trangThai);
         }
+
+        public List<DauThietBiListDTO> GetDauThietBiByIdVaSoLuong(int idThietBi, int soLuong){
+            return _dauThietBiRepository.GetDauThietBiByIdVaSoLuong(idThietBi, soLuong);
+        }
+
+        public bool UpdateDanhSachDauThietBi(List<DauThietBiListDTO> dauThietBiList)
+        {
+            return _dauThietBiRepository.UpdateDanhSachDauThietBi(dauThietBiList);
+        }
     }
 }

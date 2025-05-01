@@ -50,6 +50,21 @@ namespace sgu_c_sharf_backend.Controllers
             }
         }
 
+        [HttpGet("kha-dung")]
+        [AllowAnonymous]
+        public IActionResult GetAllWithAvailability()
+        {
+            try
+            {
+                var thietBis = _thietBiService.GetAllWithAvailability();
+                return Ok(ApiResponse<List<ThietBiListAvailabilityDTO>>.Ok(thietBis));
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ApiResponse<List<ThietBiListAvailabilityDTO>>.Fail(ex.Message));
+            }
+        }
+
         [HttpPost]
         [Consumes("application/json")]
         public IActionResult Create([FromBody] ThietBiCreateForm form)

@@ -76,6 +76,46 @@ namespace sgu_c_sharf_backend.Repositories
             return thietBis;
         }
 
+        public List<ThietBiListAvailabilityDTO> GetAllWithAvailability()
+        {
+            List<ThietBiListAvailabilityDTO> thietBis = new List<ThietBiListAvailabilityDTO>();
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string sql = @"
+                                    SELECT 
+                            tb.Id, 
+                            tb.TenThietBi, 
+                            ltb.TenLoaiThietBi, 
+                            COALESCE(COUNT(CASE WHEN dtb.TrangThai = 'KHADUNG' THEN 1 END), 0) AS SoLuongKhaDung
+                        FROM ThietBi tb
+                        INNER JOIN LoaiThietBi ltb ON tb.IdLoaiThietBi = ltb.Id AND ltb.DaXoa = 0
+                        LEFT JOIN DauThietBi dtb ON dtb.IdThietBi = tb.Id
+                        WHERE tb.DaXoa = 0
+                        GROUP BY tb.Id, tb.TenThietBi, ltb.TenLoaiThietBi
+                        HAVING SoLuongKhaDung > 0";
+
+                MySqlCommand command = new MySqlCommand(sql, connection);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        thietBis.Add(new ThietBiListAvailabilityDTO
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            TenThietBi = reader["TenThietBi"].ToString(),
+                            TenLoaiThietBi = reader["TenLoaiThietBi"].ToString(),
+                            SoLuongKhaDung = Convert.ToInt32(reader["SoLuongKhaDung"])
+                        });
+                    }
+                }
+            }
+
+            return thietBis;
+        }
+
         public void Add(ThietBiCreateForm thietBiCreateForm)
         {
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
@@ -294,5 +334,7 @@ namespace sgu_c_sharf_backend.Repositories
             }
             return dauThietBis;
         }
+
+
     }
 }

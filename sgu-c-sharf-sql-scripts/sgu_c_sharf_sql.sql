@@ -89,7 +89,7 @@ CREATE TABLE IF NOT EXISTS `ChiTietPhieuMuon` (
     `IdPhieuMuon` INT UNSIGNED NOT NULL,
     `IdDauThietBi` INT UNSIGNED NOT NULL,
     `ThoiGianMuon` DATETIME NOT NULL,
-    `ThoiGianTra` DATETIME NOT NULL,
+    `ThoiGianTra` DATETIME,
     `TrangThai` ENUM('DANGMUON', 'DATRATHIETBI', 'DATHATLAC') NOT NULL,
     PRIMARY KEY (`IdPhieuMuon`, `IdDauThietBi`),
     FOREIGN KEY (`IdPhieuMuon`) REFERENCES `PhieuMuon`(`Id`),

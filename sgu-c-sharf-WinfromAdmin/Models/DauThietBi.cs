@@ -5,7 +5,7 @@ namespace sgu_c_sharf_WinfromAdmin.Models
         public int Id { get; set; }
         public TrangThaiDauThietBi TrangThai { get; set; }
         public DateTime ThoiGianMua { get; set; }
-        public int ThietBiId { get; set; }
+        public int IdThietBi { get; set; }
 
 
         public enum TrangThaiDauThietBi

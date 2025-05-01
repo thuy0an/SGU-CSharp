@@ -13,6 +13,12 @@ builder.Services.AddScoped<LoaiThietBiService>();
 builder.Services.AddScoped<PhieuMuonRepository>();
 builder.Services.AddScoped<PhieuMuonService>();
 
+builder.Services.AddScoped<TrangThaiPhieuMuonRepository>();
+builder.Services.AddScoped<TrangThaiPhieuMuonService>();
+
+builder.Services.AddScoped<ChiTietPhieuMuonRepository>();
+builder.Services.AddScoped<ChiTietPhieuMuonService>();
+
 builder.Services.AddScoped<ThietBiRepository>();
 builder.Services.AddScoped<ThietBiService>();
 
