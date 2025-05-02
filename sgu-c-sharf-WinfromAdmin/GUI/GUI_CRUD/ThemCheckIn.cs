@@ -16,12 +16,12 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
     {
 
         private CheckInService checkInService = new CheckInService();
-        private List<ThanhVien> listTV = new List<ThanhVien>();
+        private ThanhVienService thanhVienService = new ThanhVienService();
+        private List<ThanhVien> listTV;
 
-        public ThemCheckIn(List<ThanhVien> list)
+        public ThemCheckIn()
         {
             InitializeComponent();
-            this.listTV = list;
             LoadData();
         }
 
@@ -78,6 +78,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 
         private async void button1_Click(object sender, EventArgs e)
         {
+            listTV = await thanhVienService.GetAll();
             foreach (ThanhVien tv in listTV)
             {
                 if (tv.Id.ToString().Equals(txtCheckIn.Text.Trim()))

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle8 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
@@ -49,6 +49,9 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
+            panel5 = new Panel();
+            label5 = new Label();
+            btnExcel = new PictureBox();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
@@ -60,6 +63,8 @@
             ((System.ComponentModel.ISupportInitialize)btnXem).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnEdit).BeginInit();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)btnExcel).BeginInit();
             SuspendLayout();
             // 
             // pnlContent
@@ -81,24 +86,24 @@
             DataGrid.AllowUserToResizeColumns = false;
             DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = Color.Gray;
-            dataGridViewCellStyle1.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
-            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle7.BackColor = Color.Gray;
+            dataGridViewCellStyle7.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle7.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle7.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle7.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle7.WrapMode = DataGridViewTriState.True;
+            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle7;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2 });
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            DataGrid.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle8.BackColor = SystemColors.Window;
+            dataGridViewCellStyle8.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle8.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle8.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = DataGridViewTriState.False;
+            DataGrid.DefaultCellStyle = dataGridViewCellStyle8;
             DataGrid.Dock = DockStyle.Fill;
             DataGrid.Location = new Point(0, 138);
             DataGrid.Margin = new Padding(4, 3, 4, 3);
@@ -128,6 +133,7 @@
             // pnlNavigate
             // 
             pnlNavigate.BackColor = Color.White;
+            pnlNavigate.Controls.Add(panel5);
             pnlNavigate.Controls.Add(btnReset);
             pnlNavigate.Controls.Add(panel4);
             pnlNavigate.Controls.Add(panel3);
@@ -160,7 +166,7 @@
             // 
             panel4.Controls.Add(label4);
             panel4.Controls.Add(btnXoa);
-            panel4.Location = new Point(1349, 12);
+            panel4.Location = new Point(1218, 12);
             panel4.Margin = new Padding(4, 3, 4, 3);
             panel4.Name = "panel4";
             panel4.Size = new Size(117, 115);
@@ -196,7 +202,7 @@
             // 
             panel3.Controls.Add(label3);
             panel3.Controls.Add(btnThem);
-            panel3.Location = new Point(950, 12);
+            panel3.Location = new Point(825, 12);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(117, 115);
@@ -232,7 +238,7 @@
             // 
             panel2.Controls.Add(label2);
             panel2.Controls.Add(btnXem);
-            panel2.Location = new Point(1216, 12);
+            panel2.Location = new Point(1087, 12);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(117, 115);
@@ -268,7 +274,7 @@
             // 
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnEdit);
-            panel1.Location = new Point(1083, 12);
+            panel1.Location = new Point(956, 12);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(117, 115);
@@ -311,6 +317,42 @@
             txtSearch.Text = "Tìm kiếm";
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
+            // panel5
+            // 
+            panel5.Controls.Add(label5);
+            panel5.Controls.Add(btnExcel);
+            panel5.Location = new Point(1349, 12);
+            panel5.Margin = new Padding(4, 3, 4, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(117, 115);
+            panel5.TabIndex = 4;
+            // 
+            // label5
+            // 
+            label5.Dock = DockStyle.Bottom;
+            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label5.Location = new Point(0, 84);
+            label5.Margin = new Padding(4, 0, 4, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(117, 31);
+            label5.TabIndex = 1;
+            label5.Text = "Import Excel";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // btnExcel
+            // 
+            btnExcel.Cursor = Cursors.Hand;
+            btnExcel.Dock = DockStyle.Top;
+            btnExcel.Image = Properties.Resources.import_excel;
+            btnExcel.Location = new Point(0, 0);
+            btnExcel.Margin = new Padding(4, 3, 4, 3);
+            btnExcel.Name = "btnExcel";
+            btnExcel.Size = new Size(117, 81);
+            btnExcel.SizeMode = PictureBoxSizeMode.Zoom;
+            btnExcel.TabIndex = 0;
+            btnExcel.TabStop = false;
+            btnExcel.Click += btnExcel_Click;
+            // 
             // QuanLyThietBi
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -333,6 +375,8 @@
             ((System.ComponentModel.ISupportInitialize)btnXem).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnEdit).EndInit();
+            panel5.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)btnExcel).EndInit();
             ResumeLayout(false);
         }
 
@@ -357,5 +401,8 @@
         private Button btnReset;
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
+        private Panel panel5;
+        private Label label5;
+        private PictureBox btnExcel;
     }
 }

@@ -32,6 +32,8 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             tabControl1 = new TabControl();
             tabTKThanhVien = new TabPage();
             btnTK = new Button();
@@ -60,11 +62,24 @@
             label1 = new Label();
             cbbThietBi = new ComboBox();
             tabTKXuPhat = new TabPage();
+            comboBox1 = new ComboBox();
+            label2 = new Label();
+            lblTongTien = new Label();
+            dataGridView1 = new DataGridView();
+            dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
+            dataGridViewTextBoxColumn8 = new DataGridViewTextBoxColumn();
+            Column4 = new DataGridViewTextBoxColumn();
+            Column6 = new DataGridViewTextBoxColumn();
+            Column7 = new DataGridViewTextBoxColumn();
             tabControl1.SuspendLayout();
             tabTKThanhVien.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridTV).BeginInit();
             tabTKThietBi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridTB).BeginInit();
+            tabTKXuPhat.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -406,13 +421,143 @@
             // 
             // tabTKXuPhat
             // 
-            tabTKXuPhat.BackColor = Color.Tomato;
+            tabTKXuPhat.BackColor = Color.White;
+            tabTKXuPhat.Controls.Add(comboBox1);
+            tabTKXuPhat.Controls.Add(label2);
+            tabTKXuPhat.Controls.Add(lblTongTien);
+            tabTKXuPhat.Controls.Add(dataGridView1);
             tabTKXuPhat.Location = new Point(4, 31);
             tabTKXuPhat.Name = "tabTKXuPhat";
             tabTKXuPhat.Padding = new Padding(3);
             tabTKXuPhat.Size = new Size(1471, 1026);
             tabTKXuPhat.TabIndex = 2;
             tabTKXuPhat.Text = "Xử lý vi phạm";
+            // 
+            // comboBox1
+            // 
+            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBox1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(338, 86);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(334, 26);
+            comboBox1.TabIndex = 27;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Arial", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label2.ForeColor = Color.Black;
+            label2.Location = new Point(79, 88);
+            label2.Name = "label2";
+            label2.Size = new Size(240, 24);
+            label2.TabIndex = 26;
+            label2.Text = "Trạng thái phiếu xử phạt:";
+            // 
+            // lblTongTien
+            // 
+            lblTongTien.AutoSize = true;
+            lblTongTien.Font = new Font("Arial", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTongTien.ForeColor = Color.FromArgb(0, 123, 181);
+            lblTongTien.Location = new Point(523, 234);
+            lblTongTien.Name = "lblTongTien";
+            lblTongTien.Size = new Size(424, 32);
+            lblTongTien.TabIndex = 23;
+            lblTongTien.Text = "Tổng số tiền đã được bồi thường:";
+            // 
+            // dataGridView1
+            // 
+            dataGridView1.AllowUserToAddRows = false;
+            dataGridView1.AllowUserToDeleteRows = false;
+            dataGridView1.AllowUserToOrderColumns = true;
+            dataGridView1.AllowUserToResizeColumns = false;
+            dataGridView1.AllowUserToResizeRows = false;
+            dataGridView1.BackgroundColor = Color.White;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = Color.Gray;
+            dataGridViewCellStyle5.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
+            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, Column4, Column6, Column7 });
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridView1.Dock = DockStyle.Bottom;
+            dataGridView1.Location = new Point(3, 298);
+            dataGridView1.Margin = new Padding(4, 3, 4, 3);
+            dataGridView1.Name = "dataGridView1";
+            dataGridView1.RowHeadersVisible = false;
+            dataGridView1.RowTemplate.Height = 30;
+            dataGridView1.RowTemplate.ReadOnly = true;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.Size = new Size(1465, 725);
+            dataGridView1.TabIndex = 22;
+            // 
+            // dataGridViewTextBoxColumn5
+            // 
+            dataGridViewTextBoxColumn5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn5.DataPropertyName = "Id";
+            dataGridViewTextBoxColumn5.HeaderText = "STT";
+            dataGridViewTextBoxColumn5.MinimumWidth = 50;
+            dataGridViewTextBoxColumn5.Name = "dataGridViewTextBoxColumn5";
+            dataGridViewTextBoxColumn5.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn6
+            // 
+            dataGridViewTextBoxColumn6.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn6.DataPropertyName = "IdThanhVien";
+            dataGridViewTextBoxColumn6.HeaderText = "Mã vi phạm";
+            dataGridViewTextBoxColumn6.MinimumWidth = 140;
+            dataGridViewTextBoxColumn6.Name = "dataGridViewTextBoxColumn6";
+            dataGridViewTextBoxColumn6.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn7
+            // 
+            dataGridViewTextBoxColumn7.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn7.DataPropertyName = "TenThanhVien";
+            dataGridViewTextBoxColumn7.HeaderText = "Tên thành viên";
+            dataGridViewTextBoxColumn7.MinimumWidth = 300;
+            dataGridViewTextBoxColumn7.Name = "dataGridViewTextBoxColumn7";
+            dataGridViewTextBoxColumn7.ReadOnly = true;
+            // 
+            // dataGridViewTextBoxColumn8
+            // 
+            dataGridViewTextBoxColumn8.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewTextBoxColumn8.DataPropertyName = "TrangThai";
+            dataGridViewTextBoxColumn8.HeaderText = "Mô tả";
+            dataGridViewTextBoxColumn8.MinimumWidth = 400;
+            dataGridViewTextBoxColumn8.Name = "dataGridViewTextBoxColumn8";
+            dataGridViewTextBoxColumn8.ReadOnly = true;
+            // 
+            // Column4
+            // 
+            Column4.HeaderText = "Ngày vi phạm";
+            Column4.MinimumWidth = 200;
+            Column4.Name = "Column4";
+            Column4.Width = 200;
+            // 
+            // Column6
+            // 
+            Column6.HeaderText = "Mức phạt";
+            Column6.MinimumWidth = 200;
+            Column6.Name = "Column6";
+            Column6.Width = 200;
+            // 
+            // Column7
+            // 
+            Column7.HeaderText = "Trạng thái";
+            Column7.MinimumWidth = 200;
+            Column7.Name = "Column7";
+            Column7.Width = 200;
             // 
             // QuanLyThongKe
             // 
@@ -432,6 +577,9 @@
             tabTKThietBi.ResumeLayout(false);
             tabTKThietBi.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridTB).EndInit();
+            tabTKXuPhat.ResumeLayout(false);
+            tabTKXuPhat.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
             ResumeLayout(false);
         }
 
@@ -465,5 +613,16 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
+        private DataGridView dataGridView1;
+        private Label lblTongTien;
+        private Label label2;
+        private ComboBox comboBox1;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
+        private DataGridViewTextBoxColumn dataGridViewTextBoxColumn8;
+        private DataGridViewTextBoxColumn Column4;
+        private DataGridViewTextBoxColumn Column6;
+        private DataGridViewTextBoxColumn Column7;
     }
 }
