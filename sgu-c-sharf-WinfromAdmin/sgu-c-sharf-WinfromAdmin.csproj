@@ -104,6 +104,7 @@
 
   <ItemGroup>
     <PackageReference Include="EPPlus" Version="8.0.2" />
+    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1001" />
     <PackageReference Include="MySql.Data" Version="9.2.0" />
   </ItemGroup>
 

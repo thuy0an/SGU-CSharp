@@ -15,6 +15,7 @@ using sgu_c_sharf_WinfromAdmin.Models;
 using OfficeOpenXml;
 
 
+
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 {
     public partial class QuanLyThanhVien : Form
@@ -162,14 +163,15 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private void btnCheckIn_Click(object sender, EventArgs e)
         {
-            ThemCheckIn form = new ThemCheckIn(listTV);
+            ThemCheckIn form = new ThemCheckIn();
             form.ShowDialog();
 
         }
 
         private async void btnExcel_Click(object sender, EventArgs e)
         {
-        ExcelPackage.LicenseContext = OfficeOpenXml.LicenseContext.NonCommercial;
+
+            ExcelPackage.License.SetNonCommercialPersonal("ToiDay");
             string huongDan = "Nội dung file Excel gồm các cột sau:\n\n" +
                               "1. Họ tên\n" +
                               "2. Ngày sinh\n" +
@@ -189,9 +191,9 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 var path = openFileDialog.FileName;
                 try
                 {
-                    using (var pack = new ExcelPackage(new FileInfo(path)))
+                    using (ExcelPackage pack = new ExcelPackage(new FileInfo(path)))
                     {
-                        var worksheet = pack.Workbook.Worksheets[0];
+                        ExcelWorksheet worksheet = pack.Workbook.Worksheets[0];
                         int rowCount = worksheet.Dimension.Rows;
                         int done = 0;
                         for (int row = 1; row <= rowCount; row++)

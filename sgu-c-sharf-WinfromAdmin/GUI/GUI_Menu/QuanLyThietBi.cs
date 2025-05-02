@@ -10,6 +10,7 @@ using sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD;
 using System.Windows.Forms;
 using sgu_c_sharf_WinfromAdmin.Services;
 using sgu_c_sharf_WinfromAdmin.Models;
+using OfficeOpenXml;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 {
@@ -17,6 +18,8 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
     {
         private List<ThietBi> listTB;
         private ThietBiService thietBiService = new ThietBiService();
+        private LoaiThietBiService loaiThietBiService = new LoaiThietBiService();
+        private List<LoaiThietbi> listLTB;
         private Dictionary<DaXoaEnum, string> HienThiTrangThai = new Dictionary<DaXoaEnum, string>
         {
             { DaXoaEnum.CHUAXOA, "Chưa xóa" },
@@ -34,6 +37,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         {
             try
             {
+                listLTB = await loaiThietBiService.GetAll();
                 listTB = await thietBiService.GetAll();
                 DataGrid.Rows.Clear();
                 foreach (var tb in listTB)
@@ -181,6 +185,71 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private void DataGrid_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
+
+        }
+
+        private async void btnExcel_Click(object sender, EventArgs e)
+        {
+            ExcelPackage.License.SetNonCommercialPersonal("ToiDay");
+            string huongDan = "Nội dung file Excel gồm các cột sau:\n\n" +
+                              "1. Tên thiết bị (Không được trùng với thiết bị trong hệ thống)\n" +
+                              "2. Tên loại thiết bị\n" +
+                              "3. Ảnh minh họa (nếu có)\n" +
+                              "4. Số lượng đầu thiết bị\n";
+            var res = MessageBox.Show(huongDan, "Định dạng excel", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+
+            if (res == DialogResult.Cancel)
+                return;
+
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Excel Files|*.xls;*.xlsx;*.xlsm";
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                var path = openFileDialog.FileName;
+                try
+                {
+                    using (ExcelPackage pack = new ExcelPackage(new FileInfo(path)))
+                    {
+                        ExcelWorksheet worksheet = pack.Workbook.Worksheets[0];
+                        int rowCount = worksheet.Dimension.Rows;
+                        int done = 0;
+                        for (int row = 1; row <= rowCount; row++)
+                        {
+                            string tenTB = worksheet.Cells[row, 1].Text.Trim();
+                            string tenLTB = worksheet.Cells[row, 2].Text.Trim();
+                            string anhMinhHoa = worksheet.Cells[row, 3].Text.Trim();
+                            string soluong = worksheet.Cells[row, 4].Text.Trim();
+
+                            if (string.IsNullOrEmpty(tenTB) || string.IsNullOrEmpty(tenLTB) || string.IsNullOrEmpty(soluong))
+                                continue;
+
+                            if (listTB.Any(x => x.TenThietBi == tenTB))
+                                continue;
+
+                            if (!listLTB.Any(x => x.TenLoaiThietBi == tenLTB))
+                                continue;
+
+
+                            ThietBiCreateDTO cur = new ThietBiCreateDTO()
+                            {
+                                TenThietBi = tenTB,
+                                IdLoaiThietBi = listLTB.FirstOrDefault(x => x.TenLoaiThietBi == tenLTB).Id,
+                                SoLuongDauThietBi = int.Parse(soluong)
+                            };
+
+                            var resu = await  thietBiService.Add(cur);
+                            if( resu.Success)
+                                done++;
+                        }
+                        MessageBox.Show($"Thêm thành công {done} thiết bị", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadData();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Lỗi: " + ex.Message, "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
 
         }
     }
