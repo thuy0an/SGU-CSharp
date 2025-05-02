@@ -30,10 +30,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private async void QuanLyPhieuMuon_Load(object sender, EventArgs e)
         {
-            await LoadData(1, limit);
-            LoadTrangThaiComboBox();
             fromDate.Checked = false;
             toDate.Checked = false;
+            await LoadData(1, limit);
+            LoadTrangThaiComboBox();
+            
         }
 
         private async Task LoadData(int page = 1, int limit = 10)
@@ -43,7 +44,6 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 string searchKeyword = txtSearch.Text.Trim();
                 TrangThaiPhieuMuonEnum? selectedTrangThai = comboBoxTrangThai.SelectedIndex != 0 ? (TrangThaiPhieuMuonEnum?)comboBoxTrangThai.SelectedItem : null;
 
-                // Chỉ lấy ngày nếu Checked là true
                 DateTime? fromDateQr = fromDate.Checked ? fromDate.Value.Date : null;
                 DateTime? toDateQr = toDate.Checked ? toDate.Value.Date : null;
 
@@ -51,7 +51,6 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 {
                     toDateQr = fromDateQr;
                     toDate.Value = fromDateQr.Value;
-                    toDate.Checked = true;
                 }
 
                 PhieuMuonPagingResponse response = await _phieuMuonService.GetAllWithPaging(page, limit, fromDateQr, toDateQr, selectedTrangThai);
@@ -242,6 +241,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 currentPage++;
                 await LoadData(currentPage, limit);
             }
+        }
+
+        private void pnlNavigate_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

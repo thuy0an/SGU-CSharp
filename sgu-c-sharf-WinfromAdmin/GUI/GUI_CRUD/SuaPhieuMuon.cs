@@ -182,7 +182,10 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                             IdPhieuMuon = _idPhieuMuon,
                             IdDauThietBi = ct.IdDauThietBi,
                             TrangThai = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI)
-                            ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI : ct.TrangThai,
+                            ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI 
+                            : (trangThaiMoi == TrangThaiPhieuMuonEnum.HUY)
+                            ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI
+                            : ct.TrangThai,
                             ThoiGianTra = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI) ? DateTime.Now : ct.ThoiGianTra
                         }).ToList();
 

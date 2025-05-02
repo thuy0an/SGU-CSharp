@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DataGridViewCellStyle dataGridViewCellStyle9 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle10 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
             Column1 = new DataGridViewTextBoxColumn();
@@ -38,6 +38,12 @@
             Column4 = new DataGridViewTextBoxColumn();
             Column5 = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
+            panel6 = new Panel();
+            lblCurrentPage = new Label();
+            btnLast = new Button();
+            btnNext = new Button();
+            btnPrevious = new Button();
+            btnFirst = new Button();
             label8 = new Label();
             label7 = new Label();
             toDate = new DateTimePicker();
@@ -48,9 +54,6 @@
             label5 = new Label();
             btnPDF = new PictureBox();
             btnReset = new Button();
-            panel4 = new Panel();
-            label4 = new Label();
-            btnXoa = new PictureBox();
             panel3 = new Panel();
             label3 = new Label();
             btnThem = new PictureBox();
@@ -61,26 +64,18 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
-            panel6 = new Panel();
-            btnFirst = new Button();
-            btnPrevious = new Button();
-            btnNext = new Button();
-            btnLast = new Button();
-            lblCurrentPage = new Label();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
+            panel6.SuspendLayout();
             panel5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnPDF).BeginInit();
-            panel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)btnXoa).BeginInit();
             panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnThem).BeginInit();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnXem).BeginInit();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnEdit).BeginInit();
-            panel6.SuspendLayout();
             SuspendLayout();
             // 
             // pnlContent
@@ -102,24 +97,24 @@
             DataGrid.AllowUserToResizeColumns = false;
             DataGrid.AllowUserToResizeRows = false;
             DataGrid.BackgroundColor = Color.White;
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.BackColor = Color.Gray;
-            dataGridViewCellStyle9.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle9.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle9.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle9.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle9.WrapMode = DataGridViewTriState.True;
-            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.Gray;
+            dataGridViewCellStyle3.Font = new Font("Arial", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle10.BackColor = SystemColors.Window;
-            dataGridViewCellStyle10.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle10.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle10.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle10.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle10.WrapMode = DataGridViewTriState.False;
-            DataGrid.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            DataGrid.DefaultCellStyle = dataGridViewCellStyle4;
             DataGrid.Dock = DockStyle.Fill;
             DataGrid.Location = new Point(0, 270);
             DataGrid.Margin = new Padding(4, 3, 4, 3);
@@ -135,41 +130,41 @@
             // Column1
             // 
             Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column1.HeaderText = "Mã phiếu";
-            Column1.Name = "Id";
             Column1.DataPropertyName = "Id";
+            Column1.HeaderText = "Mã phiếu";
+            Column1.Name = "Column1";
             Column1.ReadOnly = true;
             // 
             // Column2
             // 
             Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column2.HeaderText = "Mã thành viên";
-            Column2.Name = "IdThanhVien";
             Column2.DataPropertyName = "IdThanhVien";
+            Column2.HeaderText = "Mã thành viên";
+            Column2.Name = "Column2";
             Column2.ReadOnly = true;
             // 
             // Column3
             // 
             Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column3.HeaderText = "Tên thành viên";
-            Column3.Name = "TenThanhVien";
             Column3.DataPropertyName = "TenThanhVien";
+            Column3.HeaderText = "Tên thành viên";
+            Column3.Name = "Column3";
             Column3.ReadOnly = true;
             // 
             // Column4
             // 
             Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column4.HeaderText = "Ngày tạo";
-            Column4.Name = "NgayTao";
             Column4.DataPropertyName = "NgayTao";
+            Column4.HeaderText = "Ngày tạo";
+            Column4.Name = "Column4";
             Column4.ReadOnly = true;
             // 
             // Column5
             // 
             Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column5.HeaderText = "Trạng thái";
-            Column5.Name = "TrangThai";
             Column5.DataPropertyName = "TrangThai";
+            Column5.HeaderText = "Trạng thái";
+            Column5.Name = "Column5";
             Column5.ReadOnly = true;
             // 
             // pnlNavigate
@@ -184,7 +179,6 @@
             pnlNavigate.Controls.Add(comboBoxTrangThai);
             pnlNavigate.Controls.Add(panel5);
             pnlNavigate.Controls.Add(btnReset);
-            pnlNavigate.Controls.Add(panel4);
             pnlNavigate.Controls.Add(panel3);
             pnlNavigate.Controls.Add(panel2);
             pnlNavigate.Controls.Add(panel1);
@@ -195,6 +189,74 @@
             pnlNavigate.Name = "pnlNavigate";
             pnlNavigate.Size = new Size(1479, 270);
             pnlNavigate.TabIndex = 0;
+            pnlNavigate.Paint += pnlNavigate_Paint;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(lblCurrentPage);
+            panel6.Controls.Add(btnLast);
+            panel6.Controls.Add(btnNext);
+            panel6.Controls.Add(btnPrevious);
+            panel6.Controls.Add(btnFirst);
+            panel6.Location = new Point(14, 196);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(413, 37);
+            panel6.TabIndex = 11;
+            // 
+            // lblCurrentPage
+            // 
+            lblCurrentPage.AutoSize = true;
+            lblCurrentPage.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCurrentPage.Location = new Point(204, 12);
+            lblCurrentPage.Name = "lblCurrentPage";
+            lblCurrentPage.Size = new Size(0, 18);
+            lblCurrentPage.TabIndex = 4;
+            // 
+            // btnLast
+            // 
+            btnLast.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLast.Location = new Point(335, 10);
+            btnLast.Name = "btnLast";
+            btnLast.Size = new Size(75, 23);
+            btnLast.TabIndex = 3;
+            btnLast.Text = "Last";
+            btnLast.UseVisualStyleBackColor = true;
+            btnLast.Click += btnLast_Click;
+            // 
+            // btnNext
+            // 
+            btnNext.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnNext.ImageAlign = ContentAlignment.MiddleRight;
+            btnNext.Location = new Point(254, 10);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(75, 23);
+            btnNext.TabIndex = 2;
+            btnNext.Text = "Next";
+            btnNext.UseVisualStyleBackColor = true;
+            btnNext.Click += btnNext_Click;
+            // 
+            // btnPrevious
+            // 
+            btnPrevious.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPrevious.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPrevious.Location = new Point(84, 10);
+            btnPrevious.Name = "btnPrevious";
+            btnPrevious.Size = new Size(75, 23);
+            btnPrevious.TabIndex = 1;
+            btnPrevious.Text = "Previous";
+            btnPrevious.UseVisualStyleBackColor = true;
+            btnPrevious.Click += btnPrevious_Click;
+            // 
+            // btnFirst
+            // 
+            btnFirst.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnFirst.Location = new Point(3, 10);
+            btnFirst.Name = "btnFirst";
+            btnFirst.Size = new Size(75, 23);
+            btnFirst.TabIndex = 0;
+            btnFirst.Text = "First";
+            btnFirst.UseVisualStyleBackColor = true;
+            btnFirst.Click += btnFirst_Click;
             // 
             // label8
             // 
@@ -307,47 +369,11 @@
             btnReset.UseVisualStyleBackColor = false;
             btnReset.Click += btnReset_Click;
             // 
-            // panel4
-            // 
-            panel4.Controls.Add(label4);
-            panel4.Controls.Add(btnXoa);
-            panel4.Location = new Point(1228, 12);
-            panel4.Margin = new Padding(4, 3, 4, 3);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(117, 115);
-            panel4.TabIndex = 3;
-            // 
-            // label4
-            // 
-            label4.Dock = DockStyle.Bottom;
-            label4.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label4.Location = new Point(0, 84);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(117, 31);
-            label4.TabIndex = 1;
-            label4.Text = "Xóa";
-            label4.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // btnXoa
-            // 
-            btnXoa.Cursor = Cursors.Hand;
-            btnXoa.Dock = DockStyle.Top;
-            btnXoa.Image = Properties.Resources.xoa;
-            btnXoa.Location = new Point(0, 0);
-            btnXoa.Margin = new Padding(4, 3, 4, 3);
-            btnXoa.Name = "btnXoa";
-            btnXoa.Size = new Size(117, 81);
-            btnXoa.SizeMode = PictureBoxSizeMode.Zoom;
-            btnXoa.TabIndex = 0;
-            btnXoa.TabStop = false;
-            btnXoa.Click += btnXoa_Click;
-            // 
             // panel3
             // 
             panel3.Controls.Add(label3);
             panel3.Controls.Add(btnThem);
-            panel3.Location = new Point(835, 12);
+            panel3.Location = new Point(984, 12);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(117, 115);
@@ -383,7 +409,7 @@
             // 
             panel2.Controls.Add(label2);
             panel2.Controls.Add(btnXem);
-            panel2.Location = new Point(1097, 12);
+            panel2.Location = new Point(1234, 12);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(117, 115);
@@ -419,7 +445,7 @@
             // 
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnEdit);
-            panel1.Location = new Point(966, 12);
+            panel1.Location = new Point(1109, 12);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(117, 115);
@@ -462,73 +488,6 @@
             txtSearch.Text = "Tìm kiếm";
             txtSearch.TextChanged += txtSearch_TextChanged;
             // 
-            // panel6
-            // 
-            panel6.Controls.Add(lblCurrentPage);
-            panel6.Controls.Add(btnLast);
-            panel6.Controls.Add(btnNext);
-            panel6.Controls.Add(btnPrevious);
-            panel6.Controls.Add(btnFirst);
-            panel6.Location = new Point(14, 196);
-            panel6.Name = "panel6";
-            panel6.Size = new Size(413, 37);
-            panel6.TabIndex = 11;
-            // 
-            // btnFirst
-            // 
-            btnFirst.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnFirst.Location = new Point(3, 10);
-            btnFirst.Name = "btnFirst";
-            btnFirst.Size = new Size(75, 23);
-            btnFirst.TabIndex = 0;
-            btnFirst.Text = "First";
-            btnFirst.UseVisualStyleBackColor = true;
-            btnFirst.Click += btnFirst_Click;
-            // 
-            // btnPrevious
-            // 
-            btnPrevious.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnPrevious.ImageAlign = ContentAlignment.MiddleLeft;
-            btnPrevious.Location = new Point(84, 10);
-            btnPrevious.Name = "btnPrevious";
-            btnPrevious.Size = new Size(75, 23);
-            btnPrevious.TabIndex = 1;
-            btnPrevious.Text = "Previous";
-            btnPrevious.UseVisualStyleBackColor = true;
-            btnPrevious.Click += btnPrevious_Click;
-            // 
-            // btnNext
-            // 
-            btnNext.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnNext.ImageAlign = ContentAlignment.MiddleRight;
-            btnNext.Location = new Point(254, 10);
-            btnNext.Name = "btnNext";
-            btnNext.Size = new Size(75, 23);
-            btnNext.TabIndex = 2;
-            btnNext.Text = "Next";
-            btnNext.UseVisualStyleBackColor = true;
-            btnNext.Click += btnNext_Click;
-            // 
-            // btnLast
-            // 
-            btnLast.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnLast.Location = new Point(335, 10);
-            btnLast.Name = "btnLast";
-            btnLast.Size = new Size(75, 23);
-            btnLast.TabIndex = 3;
-            btnLast.Text = "Last";
-            btnLast.UseVisualStyleBackColor = true;
-            btnLast.Click += btnLast_Click;
-            // 
-            // lblCurrentPage
-            // 
-            lblCurrentPage.AutoSize = true;
-            lblCurrentPage.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            lblCurrentPage.Location = new Point(204, 12);
-            lblCurrentPage.Name = "lblCurrentPage";
-            lblCurrentPage.Size = new Size(0, 18);
-            lblCurrentPage.TabIndex = 4;
-            // 
             // QuanLyPhieuMuon
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -543,18 +502,16 @@
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
             pnlNavigate.PerformLayout();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             panel5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnPDF).EndInit();
-            panel4.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)btnXoa).EndInit();
             panel3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnThem).EndInit();
             panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnXem).EndInit();
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnEdit).EndInit();
-            panel6.ResumeLayout(false);
-            panel6.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -573,9 +530,6 @@
         private Panel panel3;
         private Label label3;
         private PictureBox btnThem;
-        private Panel panel4;
-        private Label label4;
-        private PictureBox btnXoa;
         private Button btnReset;
         private Panel panel5;
         private Label label5;
