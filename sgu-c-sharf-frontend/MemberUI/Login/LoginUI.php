@@ -297,66 +297,71 @@
     // Hàm xử lý kiểm tra tài khoản
     function login(email, password) {
 
-        $.ajax({
-            url: '../../../Controllers/AccountController.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                "email": email,
-                "password": password,
-                "action": "loginUser"
-            },
-            success: function(response) {
-                // Kiểm tra xem phản hồi có thành công hay không
 
-                if (response.status === 200) {
-                    Swal.fire({
-                        title: 'Thành công!',
-                        text: response.message,
-                        icon: 'success',
-                        confirmButtonText: 'OK'
-                    }).then((result) => {
-                        if (result) {
-                            const quyen = response.data.role;
+        sessionStorage.setItem('id', 2);
+                            // sessionStorage.setItem('email', response.data.email);
+                            // sessionStorage.setItem('role', response.data.role);
 
-                            sessionStorage.setItem('id', response.data.id);
-                            sessionStorage.setItem('email', response.data.email);
-                            sessionStorage.setItem('role', response.data.role);
+        // $.ajax({
+        //     url: '../../../Controllers/AccountController.php',
+        //     type: 'POST',
+        //     dataType: 'json',
+        //     data: {
+        //         "email": email,
+        //         "password": password,
+        //         "action": "loginUser"
+        //     },
+        //     success: function(response) {
+        //         // Kiểm tra xem phản hồi có thành công hay không
 
-                            switch (quyen) {
-                                case 'Admin':
-                                    window.location.href = `../../AdminUI/QLTaiKhoan.php`;
-                                    break;
-                                case 'Manager':
-                                    window.location.href = `../../ManagerUI/QLLoaiSanPham/QLLoaiSanPham.php`;
-                                    break;
-                                default:
-                                    window.location.href = `../HomePage.php`;
-                                    break;
-                            }
-                        }
-                    });
-                } else {
-                    console.error(response);
-                    // Trường hợp đăng nhập thất bại
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: response.message,
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Lỗi:', error);
-                Swal.fire({
-                    title: 'Lỗi!',
-                    text: 'Đã xảy ra lỗi khi kiểm tra tài khoản!',
-                    icon: 'error',
-                    confirmButtonText: 'OK'
-                });
-            }
-        });
+        //         if (response.status === 200) {
+        //             Swal.fire({
+        //                 title: 'Thành công!',
+        //                 text: response.message,
+        //                 icon: 'success',
+        //                 confirmButtonText: 'OK'
+        //             }).then((result) => {
+        //                 if (result) {
+        //                     const quyen = response.data.role;
+
+        //                     sessionStorage.setItem('id', response.data.id);
+        //                     sessionStorage.setItem('email', response.data.email);
+        //                     sessionStorage.setItem('role', response.data.role);
+
+        //                     switch (quyen) {
+        //                         case 'Admin':
+        //                             window.location.href = `../../AdminUI/QLTaiKhoan.php`;
+        //                             break;
+        //                         case 'Manager':
+        //                             window.location.href = `../../ManagerUI/QLLoaiSanPham/QLLoaiSanPham.php`;
+        //                             break;
+        //                         default:
+        //                             window.location.href = `../HomePage.php`;
+        //                             break;
+        //                     }
+        //                 }
+        //             });
+        //         } else {
+        //             console.error(response);
+        //             // Trường hợp đăng nhập thất bại
+        //             Swal.fire({
+        //                 title: 'Lỗi!',
+        //                 text: response.message,
+        //                 icon: 'error',
+        //                 confirmButtonText: 'OK'
+        //             });
+        //         }
+        //     },
+        //     error: function(xhr, status, error) {
+        //         console.error('Lỗi:', error);
+        //         Swal.fire({
+        //             title: 'Lỗi!',
+        //             text: 'Đã xảy ra lỗi khi kiểm tra tài khoản!',
+        //             icon: 'error',
+        //             confirmButtonText: 'OK'
+        //         });
+        //     }
+        // });
     }
     
     sendEmailButton.addEventListener("click", async (event) => {
