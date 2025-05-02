@@ -31,6 +31,7 @@ namespace sgu_c_sharf_backend.Services
         }
 
         public bool Delete(List<ChiTietPhieuMuonDeleteDTO> entities){
+            Console.WriteLine(entities);
             return _repository.Delete(entities);
         }
     }

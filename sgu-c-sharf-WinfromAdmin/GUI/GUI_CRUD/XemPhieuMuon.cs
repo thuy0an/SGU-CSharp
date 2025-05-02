@@ -113,11 +113,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         {
             if (dataGrid.SelectedRows.Count > 0)
             {
-                SuaMuonDauThietBi form = new SuaMuonDauThietBi();
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    // cập nhật thông tin
-                }
+                //SuaMuonDauThietBi form = new SuaMuonDauThietBi();
+                //if (form.ShowDialog() == DialogResult.OK)
+                //{
+                //    // cập nhật thông tin
+                //}
             }
             else
                 MessageBox.Show("Vui lòng chọn một dòng để sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);

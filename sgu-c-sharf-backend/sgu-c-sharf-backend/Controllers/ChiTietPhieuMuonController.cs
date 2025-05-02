@@ -70,8 +70,10 @@ namespace sgu_c_sharf_backend.Controllers
         public ActionResult<ApiResponse<bool>> Delete([FromBody] List<ChiTietPhieuMuonDeleteDTO> chiTietPhieuMuonList)
         {
             if (chiTietPhieuMuonList == null || !chiTietPhieuMuonList.Any())
+            {
                 return BadRequest(ApiResponse<bool>.Fail("Danh sách chi tiết phiếu mượn không hợp lệ"));
-
+            }
+            Console.WriteLine(chiTietPhieuMuonList);
             var res = _chiTietPhieuMuonService.Delete(chiTietPhieuMuonList);
             if (res)
             {

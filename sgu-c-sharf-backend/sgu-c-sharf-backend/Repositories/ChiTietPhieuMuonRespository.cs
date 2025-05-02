@@ -193,8 +193,8 @@ namespace sgu_c_sharf_backend.Repositories
 
             var result = cmd.ExecuteScalar();
             if (result == null) return false;
-
             var trangThaiStr = result.ToString();
+            Console.WriteLine(trangThaiStr);
             return trangThaiStr == TrangThaiPhieuMuonEnum.HUY.ToString() ||
                    trangThaiStr == TrangThaiPhieuMuonEnum.DATCHO.ToString();
         }
@@ -204,13 +204,12 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            if (IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon))
+            if (!IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon))
             {
                 return false;
             }
 
             using var transaction = connection.BeginTransaction();
-
             try
             {
                 foreach (var entity in entities)

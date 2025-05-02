@@ -45,10 +45,10 @@
             btnSua = new Button();
             btnThemDauThietBi = new Button();
             dataGrid = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
+            IdDauThietBi = new DataGridViewTextBoxColumn();
+            TrangThai = new DataGridViewTextBoxColumn();
+            ThoiGianMuon = new DataGridViewTextBoxColumn();
+            ThoiGianTra = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             txtTenNguoiDung = new TextBox();
             label4 = new Label();
@@ -105,6 +105,7 @@
             cbbTrangThai.Name = "cbbTrangThai";
             cbbTrangThai.Size = new Size(214, 30);
             cbbTrangThai.TabIndex = 1;
+            cbbTrangThai.SelectedIndexChanged += cbbTrangThai_SelectedIndexChanged;
             // 
             // label6
             // 
@@ -203,6 +204,7 @@
             btnXoaDauThietBi.TabIndex = 13;
             btnXoaDauThietBi.Text = "Xóa đầu thiết bị";
             btnXoaDauThietBi.UseVisualStyleBackColor = true;
+            btnXoaDauThietBi.Click += btnXoaDauThietBi_Click;
             // 
             // btnSua
             // 
@@ -213,7 +215,7 @@
             btnSua.TabIndex = 11;
             btnSua.Text = "Sửa  phiếu";
             btnSua.UseVisualStyleBackColor = true;
-            btnSua.Click += btnThem_Click;
+            btnSua.Click += btnSua_Click;
             // 
             // btnThemDauThietBi
             // 
@@ -239,7 +241,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4 });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { IdDauThietBi, TrangThai, ThoiGianMuon, ThoiGianTra });
             dataGrid.ImeMode = ImeMode.NoControl;
             dataGrid.Location = new Point(32, 272);
             dataGrid.Name = "dataGrid";
@@ -255,28 +257,31 @@
             dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGrid.Size = new Size(594, 300);
             dataGrid.TabIndex = 8;
+            dataGrid.CellContentClick += dataGrid_CellContentClick;
             // 
-            // Column1
+            // IdDauThietBi
             // 
-            Column1.HeaderText = "Mã đầu thiết bị";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
+            IdDauThietBi.HeaderText = "Mã đầu thiết bị";
+            IdDauThietBi.Name = "IdDauThietBi";
+            IdDauThietBi.ReadOnly = true;
             // 
-            // Column2
+            // TrangThai
             // 
-            Column2.HeaderText = "Trạng thái";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
+            TrangThai.HeaderText = "Trạng thái";
+            TrangThai.Name = "TrangThai";
+            TrangThai.ReadOnly = true;
             // 
-            // Column3
+            // ThoiGianMuon
             // 
-            Column3.HeaderText = "Ngày mượn";
-            Column3.Name = "Column3";
+            ThoiGianMuon.HeaderText = "Ngày mượn";
+            ThoiGianMuon.Name = "ThoiGianMuon";
+            ThoiGianMuon.ReadOnly = true;
             // 
-            // Column4
+            // ThoiGianTra
             // 
-            Column4.HeaderText = "Ngày trả";
-            Column4.Name = "Column4";
+            ThoiGianTra.HeaderText = "Ngày trả";
+            ThoiGianTra.Name = "ThoiGianTra";
+            ThoiGianTra.ReadOnly = true;
             // 
             // panel3
             // 
@@ -400,10 +405,6 @@
         private Button btnThemDauThietBi;
         private Button btnSua;
         private Button btnXoaDauThietBi;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
         private Button btnSuaDauThietBi;
         private Panel panel2;
         private Label label3;
@@ -415,5 +416,9 @@
         private TextBox txtTenNguoiDung;
         private ComboBox cbbTrangThai;
         private TextBox txtNgayTao;
+        private DataGridViewTextBoxColumn IdDauThietBi;
+        private DataGridViewTextBoxColumn TrangThai;
+        private DataGridViewTextBoxColumn ThoiGianMuon;
+        private DataGridViewTextBoxColumn ThoiGianTra;
     }
 }

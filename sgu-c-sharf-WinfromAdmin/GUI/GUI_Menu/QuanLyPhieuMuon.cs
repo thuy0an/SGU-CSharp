@@ -139,8 +139,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (DataGrid.SelectedRows.Count > 0
-                && DataGrid.SelectedRows[0].Cells["TrangThai"].Value.Equals(TrangThaiPhieuMuonEnum.DATCHO))
+            if (DataGrid.SelectedRows.Count > 0)
             {
                 int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Id"].Value);
                 FormSuaPhieuMuon form = new FormSuaPhieuMuon(idPhieuMuon);
