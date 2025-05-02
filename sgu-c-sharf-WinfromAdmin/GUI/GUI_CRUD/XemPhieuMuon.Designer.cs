@@ -32,10 +32,10 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             panel5 = new Panel();
-            cbbTrangThai = new ComboBox();
+            txtTrangThai = new TextBox();
             label6 = new Label();
             panel4 = new Panel();
-            dateTimeNgayTao = new DateTimePicker();
+            txtNgayTao = new TextBox();
             label5 = new Label();
             panel2 = new Panel();
             txtMaPhieu = new TextBox();
@@ -46,7 +46,7 @@
             Column3 = new DataGridViewTextBoxColumn();
             Column4 = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
-            cbbNguoiDung = new ComboBox();
+            txtTenNguoiDung = new TextBox();
             label4 = new Label();
             panel1 = new Panel();
             txtMaThanhVien = new TextBox();
@@ -81,26 +81,23 @@
             // 
             // panel5
             // 
-            panel5.Controls.Add(cbbTrangThai);
+            panel5.Controls.Add(txtTrangThai);
             panel5.Controls.Add(label6);
-            panel5.Location = new Point(482, 161);
+            panel5.Location = new Point(372, 161);
             panel5.Margin = new Padding(4, 3, 4, 3);
             panel5.Name = "panel5";
             panel5.Size = new Size(220, 73);
             panel5.TabIndex = 10;
+            panel5.Paint += panel5_Paint_1;
             // 
-            // cbbTrangThai
+            // txtTrangThai
             // 
-            cbbTrangThai.Dock = DockStyle.Bottom;
-            cbbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbbTrangThai.Enabled = false;
-            cbbTrangThai.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbTrangThai.FormattingEnabled = true;
-            cbbTrangThai.Items.AddRange(new object[] { "Đang sử dụng", "Đã trả thiết bị", "Hủy" });
-            cbbTrangThai.Location = new Point(0, 43);
-            cbbTrangThai.Name = "cbbTrangThai";
-            cbbTrangThai.Size = new Size(220, 30);
-            cbbTrangThai.TabIndex = 1;
+            txtTrangThai.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTrangThai.Location = new Point(3, 47);
+            txtTrangThai.Name = "txtTrangThai";
+            txtTrangThai.ReadOnly = true;
+            txtTrangThai.Size = new Size(214, 29);
+            txtTrangThai.TabIndex = 1;
             // 
             // label6
             // 
@@ -116,23 +113,22 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(dateTimeNgayTao);
+            panel4.Controls.Add(txtNgayTao);
             panel4.Controls.Add(label5);
-            panel4.Location = new Point(182, 161);
+            panel4.Location = new Point(26, 161);
             panel4.Margin = new Padding(4, 3, 4, 3);
             panel4.Name = "panel4";
-            panel4.Size = new Size(220, 73);
+            panel4.Size = new Size(297, 73);
             panel4.TabIndex = 9;
             // 
-            // dateTimeNgayTao
+            // txtNgayTao
             // 
-            dateTimeNgayTao.Dock = DockStyle.Bottom;
-            dateTimeNgayTao.Enabled = false;
-            dateTimeNgayTao.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dateTimeNgayTao.Location = new Point(0, 51);
-            dateTimeNgayTao.Name = "dateTimeNgayTao";
-            dateTimeNgayTao.Size = new Size(220, 22);
-            dateTimeNgayTao.TabIndex = 1;
+            txtNgayTao.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNgayTao.Location = new Point(3, 47);
+            txtNgayTao.Name = "txtNgayTao";
+            txtNgayTao.ReadOnly = true;
+            txtNgayTao.Size = new Size(294, 29);
+            txtNgayTao.TabIndex = 1;
             // 
             // label5
             // 
@@ -164,9 +160,10 @@
             txtMaPhieu.Location = new Point(0, 44);
             txtMaPhieu.Margin = new Padding(4, 3, 4, 3);
             txtMaPhieu.Name = "txtMaPhieu";
+            txtMaPhieu.ReadOnly = true;
             txtMaPhieu.Size = new Size(250, 29);
             txtMaPhieu.TabIndex = 1;
-            txtMaPhieu.Text = "abc";
+            txtMaPhieu.TextChanged += txtMaPhieu_TextChanged;
             // 
             // label3
             // 
@@ -234,7 +231,7 @@
             // 
             // panel3
             // 
-            panel3.Controls.Add(cbbNguoiDung);
+            panel3.Controls.Add(txtTenNguoiDung);
             panel3.Controls.Add(label4);
             panel3.Location = new Point(620, 68);
             panel3.Margin = new Padding(4, 3, 4, 3);
@@ -243,17 +240,14 @@
             panel3.TabIndex = 3;
             panel3.Paint += panel3_Paint;
             // 
-            // cbbNguoiDung
+            // txtTenNguoiDung
             // 
-            cbbNguoiDung.Dock = DockStyle.Bottom;
-            cbbNguoiDung.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbbNguoiDung.Enabled = false;
-            cbbNguoiDung.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbNguoiDung.FormattingEnabled = true;
-            cbbNguoiDung.Location = new Point(0, 43);
-            cbbNguoiDung.Name = "cbbNguoiDung";
-            cbbNguoiDung.Size = new Size(250, 30);
-            cbbNguoiDung.TabIndex = 1;
+            txtTenNguoiDung.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTenNguoiDung.Location = new Point(3, 46);
+            txtTenNguoiDung.Name = "txtTenNguoiDung";
+            txtTenNguoiDung.ReadOnly = true;
+            txtTenNguoiDung.Size = new Size(244, 29);
+            txtTenNguoiDung.TabIndex = 1;
             // 
             // label4
             // 
@@ -286,9 +280,10 @@
             txtMaThanhVien.Location = new Point(0, 44);
             txtMaThanhVien.Margin = new Padding(4, 3, 4, 3);
             txtMaThanhVien.Name = "txtMaThanhVien";
+            txtMaThanhVien.ReadOnly = true;
             txtMaThanhVien.Size = new Size(250, 29);
             txtMaThanhVien.TabIndex = 1;
-            txtMaThanhVien.Text = "abc";
+            txtMaThanhVien.TextChanged += txtMaThanhVien_TextChanged;
             // 
             // label2
             // 
@@ -328,7 +323,7 @@
             Name = "FormXemPhieuMuon";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Xemphieumuon";
-            Load += FormSuaThanhVien_Load;
+            Load += FormXemPhieuMuon_Load;
             pnlContent.ResumeLayout(false);
             panel5.ResumeLayout(false);
             panel5.PerformLayout();
@@ -358,15 +353,15 @@
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
         private DataGridViewTextBoxColumn Column4;
-        private ComboBox cbbNguoiDung;
         private Panel panel2;
         private TextBox txtMaPhieu;
         private Label label3;
         private Panel panel5;
-        private ComboBox cbbTrangThai;
         private Label label6;
         private Panel panel4;
-        private DateTimePicker dateTimeNgayTao;
         private Label label5;
+        private TextBox txtTrangThai;
+        private TextBox txtTenNguoiDung;
+        private TextBox txtNgayTao;
     }
 }

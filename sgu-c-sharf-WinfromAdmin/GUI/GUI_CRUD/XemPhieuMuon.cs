@@ -7,16 +7,58 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using sgu_c_sharf_WinfromAdmin.Services;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 {
     public partial class FormXemPhieuMuon : Form
     {
-        public FormXemPhieuMuon()
+        private readonly int _idPhieuMuon;
+        private readonly PhieuMuonService _phieuMuonService;
+        private readonly ChiTietPhieuMuonService _chiTietPhieuMuonService;
+        public FormXemPhieuMuon(int IdPhieuMuon)
         {
             InitializeComponent();
+            _idPhieuMuon = IdPhieuMuon;
+            _phieuMuonService = new PhieuMuonService();
+            _chiTietPhieuMuonService = new ChiTietPhieuMuonService();
+        }
+        private async void FormXemPhieuMuon_Load(object sender, EventArgs e)
+        {
+            await LoadData();
         }
 
+        private async Task LoadData()
+        {
+            var detail = await _phieuMuonService.GetById(_idPhieuMuon);
+
+            if (detail == null)
+            {
+                MessageBox.Show("Không tìm thấy phiếu mượn.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                this.Close();
+                return;
+            }
+
+            // Hiển thị thông tin phiếu mượn
+            txtMaPhieu.Text = detail.Id.ToString();
+            txtMaThanhVien.Text = detail.IdThanhVien.ToString();
+            txtTenNguoiDung.Text = detail.TenThanhVien;
+            txtNgayTao.Text = detail.NgayTao.ToString("dd/MM/yyyy HH:mm:ss");
+            txtTrangThai.Text = detail.TrangThai.ToString();
+            // Bind danh sách chi tiết phiếu mượn vào DataGridView
+
+            var chiTietPhieuMuons = await _chiTietPhieuMuonService.GetAllByPhieuMuonId(_idPhieuMuon);
+            dataGrid.Rows.Clear();
+            foreach (var item in chiTietPhieuMuons)
+            {
+                dataGrid.Rows.Add(
+                    item.IdDauThietBi,
+                    item.TrangThai.ToString(), // Hiển thị enum dưới dạng string
+                    item.ThoiGianMuon?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
+                    item.ThoiGianTra?.ToString("dd/MM/yyyy HH:mm:ss") ?? ""
+                );
+            }
+        }
         private void label2_Click(object sender, EventArgs e)
         {
 
@@ -64,7 +106,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 
         private void btnThemDauThietBi_Click(object sender, EventArgs e)
         {
-            
+
         }
 
         private void btnSuaDauThietBi_Click(object sender, EventArgs e)
@@ -82,6 +124,26 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         }
 
         private void btnThem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMaPhieu_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void txtMaThanhVien_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cbbNguoiDung_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel5_Paint_1(object sender, PaintEventArgs e)
         {
 
         }

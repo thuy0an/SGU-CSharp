@@ -18,7 +18,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         int currentPage;
         int totalPages;
         List<PhieuMuonDetailDTO> phieuMuonDetailDTOs;
-        PhieuMuonService phieuDatChoService = new PhieuMuonService();
+        PhieuMuonService _phieuMuonService = new PhieuMuonService();
         int limit = 10;
 
         public QuanLyPhieuMuon()
@@ -30,7 +30,6 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private async void QuanLyPhieuMuon_Load(object sender, EventArgs e)
         {
-            // Gọi hàm LoadData khi form được tải
             await LoadData(1, limit);
             LoadTrangThaiComboBox();
             fromDate.Checked = false;
@@ -55,7 +54,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                     toDate.Checked = true;
                 }
 
-                PhieuMuonPagingResponse response = await phieuDatChoService.GetAllWithPaging(page, limit, fromDateQr, toDateQr, selectedTrangThai);
+                PhieuMuonPagingResponse response = await _phieuMuonService.GetAllWithPaging(page, limit, fromDateQr, toDateQr, selectedTrangThai);
                 currentPage = response.CurrentPage;
                 totalPages = response.TotalPages;
                 phieuMuonDetailDTOs = response.Items;
@@ -130,11 +129,9 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         {
             if (DataGrid.SelectedRows.Count > 0)
             {
-                FormXemPhieuMuon form = new FormXemPhieuMuon();
-                if (form.ShowDialog() == DialogResult.OK)
-                {
-                    // cập nhật thông tin
-                }
+                int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Id"].Value);
+                FormXemPhieuMuon form = new FormXemPhieuMuon(idPhieuMuon);
+                form.ShowDialog();
             }
             else
                 MessageBox.Show("Vui lòng chọn một dòng để xem!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
@@ -142,12 +139,14 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            if (DataGrid.SelectedRows.Count > 0)
+            if (DataGrid.SelectedRows.Count > 0
+                && DataGrid.SelectedRows[0].Cells["TrangThai"].Value.Equals(TrangThaiPhieuMuonEnum.DATCHO))
             {
-                FormSuaPhieuMuon form = new FormSuaPhieuMuon();
+                int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Id"].Value);
+                FormSuaPhieuMuon form = new FormSuaPhieuMuon(idPhieuMuon);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
-                    // cập nhật thông tin
+                    LoadData(currentPage, limit);
                 }
             }
             else
@@ -196,6 +195,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private async void dateTimePicker2_ValueChanged(object sender, EventArgs e)
         {
+            toDate.Checked = true;
             await LoadData(1, limit);
         }
 
@@ -206,6 +206,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 
         private async void dateTimePicker1_ValueChanged(object sender, EventArgs e)
         {
+            fromDate.Checked = true;
             await LoadData(1, limit);
         }
 

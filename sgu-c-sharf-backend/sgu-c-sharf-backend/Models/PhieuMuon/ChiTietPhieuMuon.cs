@@ -49,7 +49,6 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public int IdPhieuMuon { get; set; }
         public int IdDauThietBi { get; set; }
 
-        public string TenDauThietBi { get; set; } 
         public TrangThaiChiTietPhieuMuonEnum TrangThai { get; set; }
         public DateTime? ThoiGianMuon { get; set; }  
         public DateTime? ThoiGianTra { get; set; }  

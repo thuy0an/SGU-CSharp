@@ -24,16 +24,14 @@ namespace sgu_c_sharf_backend.Repositories
             connection.Open();
 
             string query = @"
-                    SELECT 
-                        c.IdPhieuMuon,
-                        c.IdDauThietBi,
-                        d.Ten AS TenDauThietBi,
-                        c.TrangThai,
-                        c.ThoiGianMuon,
-                        c.ThoiGianTra
-                    FROM ChiTietPhieuMuon c
-                    LEFT JOIN DauThietBi d ON d.Id = c.IdDauThietBi
-                    WHERE c.IdPhieuMuon = @IdPhieuMuon";
+        SELECT 
+            IdPhieuMuon,
+            IdDauThietBi,
+            TrangThai,
+            ThoiGianMuon,
+            ThoiGianTra
+        FROM ChiTietPhieuMuon
+        WHERE IdPhieuMuon = @IdPhieuMuon";
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@IdPhieuMuon", idPhieuMuon);
@@ -45,9 +43,6 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
-                    TenDauThietBi = reader.IsDBNull(reader.GetOrdinal("TenDauThietBi"))
-                                    ? "(Không có tên)"
-                                    : reader.GetString("TenDauThietBi"),
                     TrangThai = reader.IsDBNull(reader.GetOrdinal("TrangThai"))
                                 ? TrangThaiChiTietPhieuMuonEnum.DATHATLAC
                                 : Enum.TryParse<TrangThaiChiTietPhieuMuonEnum>(reader.GetString("TrangThai"), true, out var result)
@@ -74,15 +69,13 @@ namespace sgu_c_sharf_backend.Repositories
 
             string query = @"
                 SELECT 
-                    c.IdPhieuMuon,
-                    c.IdDauThietBi,
-                    d.Ten AS TenDauThietBi,
-                    c.ThoiGianMuon,
-                    c.ThoiGianTra,
-                    c.TrangThai
-                FROM ChiTietPhieuMuon c
-                LEFT JOIN DauThietBi d ON d.Id = c.IdDauThietBi
-                WHERE c.IdPhieuMuon = @IdPhieuMuon AND c.IdDauThietBi = @IdDauThietBi";
+                    IdPhieuMuon,
+                    IdDauThietBi,
+                    ThoiGianMuon,
+                    ThoiGianTra,
+                    TrangThai
+                FROM ChiTietPhieuMuon
+                WHERE IdPhieuMuon = @IdPhieuMuon";
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@IdPhieuMuon", idPhieuMuon);
@@ -95,9 +88,6 @@ namespace sgu_c_sharf_backend.Repositories
                 {
                     IdPhieuMuon = reader.GetInt32("IdPhieuMuon"),
                     IdDauThietBi = reader.GetInt32("IdDauThietBi"),
-                    TenDauThietBi = reader.IsDBNull(reader.GetOrdinal("TenDauThietBi"))
-                                    ? "(Không có tên)"
-                                    : reader.GetString("TenDauThietBi"),
                     ThoiGianMuon = reader.IsDBNull(reader.GetOrdinal("ThoiGianMuon"))
                                     ? (DateTime?)null
                                     : reader.GetDateTime("ThoiGianMuon"),
@@ -154,7 +144,8 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            if(IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon)){
+            if (IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon))
+            {
                 return false;
             }
 
@@ -213,7 +204,8 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            if(IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon)){
+            if (IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon))
+            {
                 return false;
             }
 
