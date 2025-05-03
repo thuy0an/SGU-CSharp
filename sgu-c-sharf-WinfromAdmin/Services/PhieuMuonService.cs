@@ -115,7 +115,8 @@ namespace sgu_c_sharf_WinfromAdmin.Services
     int limit,
     DateTime? fromDate = null,
     DateTime? toDate = null,
-    TrangThaiPhieuMuonEnum? trangThai = null)
+    TrangThaiPhieuMuonEnum? trangThai = null,
+    string searchKey = null)
         {
             try
             {
@@ -130,6 +131,11 @@ namespace sgu_c_sharf_WinfromAdmin.Services
                 // Chuyển đổi enum trangThai thành chuỗi nếu có
                 if (trangThai != null)
                     query += $"&trangThai={Enum.GetName(typeof(TrangThaiPhieuMuonEnum), trangThai)}"; // Dùng Enum.GetName để chuyển enum thành chuỗi
+
+                // Thêm điều kiện tìm kiếm từ khóa
+                if (!string.IsNullOrWhiteSpace(searchKey))
+                    query += $"&keyword={Uri.EscapeDataString(searchKey)}";
+
 
                 // Gửi yêu cầu API
                 var res = await _httpClient.GetAsync($"{BASE_URL}/paging{query}");
