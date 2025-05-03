@@ -25,7 +25,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         {
             InitializeComponent();
             SetPlaceholder(txtSearch, "Tìm kiếm", Color.Gray);
-
+            runLoad();
         }
 
         private async void QuanLyPhieuMuon_Load(object sender, EventArgs e)
@@ -37,11 +37,21 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             
         }
 
+        private async void runLoad()
+        {
+            LoadTrangThaiComboBox();
+            txtSearch.Text = "";
+            comboBoxTrangThai.SelectedIndex = 0;
+            fromDate.Checked = false;
+            toDate.Checked = false;
+            await LoadData(1, limit);
+        }
+
         private async Task LoadData(int page = 1, int limit = 10)
         {
             try
             {
-                string searchKeyword = txtSearch.Text.Trim();
+                string searchKeyword = txtSearch.Text.Trim().ToLower();
                 TrangThaiPhieuMuonEnum? selectedTrangThai = comboBoxTrangThai.SelectedIndex != 0 ? (TrangThaiPhieuMuonEnum?)comboBoxTrangThai.SelectedItem : null;
 
                 DateTime? fromDateQr = fromDate.Checked ? fromDate.Value.Date : null;
@@ -53,7 +63,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                     toDate.Value = fromDateQr.Value;
                 }
 
-                PhieuMuonPagingResponse response = await _phieuMuonService.GetAllWithPaging(page, limit, fromDateQr, toDateQr, selectedTrangThai);
+                PhieuMuonPagingResponse response = await _phieuMuonService.GetAllWithPaging(page, limit, fromDateQr, toDateQr, selectedTrangThai, searchKeyword);
                 currentPage = response.CurrentPage;
                 totalPages = response.TotalPages;
                 phieuMuonDetailDTOs = response.Items;
@@ -128,7 +138,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         {
             if (DataGrid.SelectedRows.Count > 0)
             {
-                int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Id"].Value);
+                int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Column1"].Value);
                 FormXemPhieuMuon form = new FormXemPhieuMuon(idPhieuMuon);
                 form.ShowDialog();
             }
@@ -140,7 +150,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         {
             if (DataGrid.SelectedRows.Count > 0)
             {
-                int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Id"].Value);
+                int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Column1"].Value);
                 FormSuaPhieuMuon form = new FormSuaPhieuMuon(idPhieuMuon);
                 if (form.ShowDialog() == DialogResult.OK)
                 {
