@@ -1,5 +1,5 @@
+<!-- CSS -->
 <style>
-    /* Base Styles */
     #Home-img {
         width: 110px;
         height: 80px;
@@ -13,90 +13,46 @@
         justify-content: center;
     }
 
-    .search-input {
-        padding-left: 25px;
-        /* background-image: url("../img/search.png");*/
-        background-size: 20px;
-        background-repeat: no-repeat;
-        background-position: 5px center;
-        border: 2px solid rgb(133, 6, 6);
-        border-radius: 20px;
-        width: 100%;
-        max-width: 800px;
-        height: 35px;
-    }
-
-    #search-button {
-        background-color: white;
-        color: rgb(146, 26, 26);
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        margin-right: 10px;
-    }
-
     .header-option {
         cursor: pointer;
         font-size: 24px;
-        /* Adjust icon size */
         display: flex;
         align-items: center;
         justify-content: center;
-        width: 20%;
+        width: auto;
         height: 40px;
         background-color: white;
         color: rgb(146, 26, 26);
-        padding: 5px 15px;
+        padding: 10px 25px;
         border: none;
         border-radius: 5px;
-        margin-left: 5px;
     }
 
-    .header-option a {
-        color: inherit;
-        text-decoration: none;
+    .header-option:hover {
+        background-color: rgb(241, 221, 221);
     }
 
-
-
-    /* Responsive Styles */
     @media (max-width: 768px) {
-
-        /* Adjust logo size */
         #Home-img {
             width: 100px;
             height: auto;
         }
-
-        /* Adjust search input */
-        .search-input {
-            width: 100%;
-            max-width: none;
-            height: 30px;
-        }
-
-        /* Stack buttons vertically */
         .header-option {
             padding: 5px;
         }
     }
 
     @media (max-width: 576px) {
-
-        /* Logo center alignment on small screens */
         .col-md-2 {
             text-align: center;
         }
 
-        /* Center the search form on small screens */
         .input__wrapper {
             flex-direction: column;
             align-items: stretch;
             gap: 5px;
         }
 
-        /* Stack login options vertically */
         .col-md-4 {
             flex-direction: column;
             align-items: center;
@@ -104,151 +60,85 @@
         }
     }
 </style>
+
+<!-- HTML -->
 <header class="container-fluid bg-danger" style="background-color: rgb(146, 26, 26) !important;">
-    <div id="Home-over-Header" class="row align-items-center justify-content-center" style="height: fit-content;">
+    <div class="row align-items-center justify-content-center">
         <!-- Logo -->
         <div class="col-12 col-md-2 text-center mb-2 mb-md-0">
             <img id="Home-img" src="./img/logoWine.jpg" alt="Logo" class="img-fluid mx-auto" />
         </div>
 
-        <!-- Search Form
-            <div class="col-12 col-md-6 mb-2 mb-md-0 d-flex justify-content-center">
-                <form id="search" class="input__wrapper d-flex justify-content-center" method="post" action="SignedProduct.php" style="width:100%">
-                    <input id="searchSanPham" name="searchFromAnotherPage" type="text" class="form-control me-2 search-input" placeholder="Tìm kiếm" style="width:90%" required="" />
-                    <button id="search-button" class="btn btn-primary" type="submit" style="width:10%">
-                        <i class="fa-solid fa-magnifying-glass"></i>
-                    </button>
-                </form>
-            </div> -->
-
-
-        <!-- Icons Section -->
-        <div class="col-12 col-md-4 d-flex justify-content-center align-items-center gap-4" style="height: fit-content;">
-            <!-- <div class="header-option" onclick="toCart()" style="height: fit-content;">
-                <i class="fa-solid fa-cart-shopping"></i>
-            </div> -->
-            <!-- <div class="header-option  header-option-login" onclick="toMyOrder()" style="height: fit-content;">
-                <i class="fa-solid fa-truck-fast"></i>
-            </div> -->
-            <div class="header-option  header-option-login" onclick="toProfile()" style="height: fit-content;">
+        <!-- Icon Buttons -->
+        <div class="col-12 col-md-8 d-flex justify-content-end align-items-center gap-3 flex-wrap" style="height: fit-content;">
+            <div class="header-option header-option-login" onclick="toDeviceBooking()" title="Đặt thiết bị">
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+            <div class="header-option header-option-login" onclick="toProfile()" title="Thông tin cá nhân">
                 <i class="fa-solid fa-user"></i>
             </div>
-            <div class="header-option  header-option-login" onclick="logout()" style="height: fit-content;">
+        
+            <div class="header-option header-option-login" onclick="toUserHistory()" title="Lịch sử người dùng">
+                <i class="fa-solid fa-clock-rotate-left"></i>
+            </div>
+            <div class="header-option header-option-login" onclick="logout()" title="Đăng xuất">
                 <i class="fa-solid fa-right-from-bracket"></i>
             </div>
-            <div id="Home-login" class="col-6 col-md-2 text-end text-center">
-                <button class="btn btn-light text-danger" style="color:rgb(146, 26, 26) !important;font-weight:bold;">Login</button>
+
+            <div id="Home-login" class="text-center">
+                <button class="btn btn-light text-danger" style="font-weight:bold;">Login</button>
             </div>
         </div>
-
     </div>
-    
 </header>
 
-<script src=" https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-
+<!-- SCRIPT -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
-    const urlParams1 = new URLSearchParams(window.location.search);
+    // const role = sessionStorage.getItem('role'); 
+    const role = "user";
 
-    // Lấy giá trị của searchFromAnotherPage và gán vào search
-    const searchFromAnotherPage1 = urlParams1.get('searchFromAnotherPage');
-    if (searchFromAnotherPage1) {
-        document.getElementById("searchSanPham").value = searchFromAnotherPage1;
-    }
-    // Kiểm tra xem 'role' có tồn tại trong Session Storage không
-    if (sessionStorage.getItem('role')) {
-        // Nếu role tồn tại, ẩn nút bằng cách thêm thuộc tính 'hidden'
-        document.getElementById("Home-login").style.display = 'none';
+    const loginBtn = document.getElementById("Home-login");
+    const loginOptions = document.querySelectorAll(".header-option-login");
 
+    // Ẩn hoặc hiển thị các nút dựa trên trạng thái đăng nhập
+    if (role) {
+        loginBtn.style.display = 'none';
     } else {
-        // Nếu tồn tại, ẩn các nút bằng cách thiết lập display: none
-        document.querySelectorAll('.header-option-login').forEach((element) => {
-            element.style.display = 'none';
-        });
+        loginOptions.forEach(el => el.style.display = 'none');
     }
 
-    // Lắng nghe sự kiện click vào id "Home-login"
-    document.getElementById("Home-login").addEventListener("click", function() {
+    // Click vào nút Login
+    loginBtn.addEventListener("click", () => {
         window.location.href = './Login/LoginUI.php';
     });
 
-    document.getElementById("Home-img").addEventListener("click", function() {
-        // Chuyển hướng về trang chủ khi click vào hình ảnh
+    // Click vào logo về trang chủ
+    document.getElementById("Home-img").addEventListener("click", () => {
         window.location.href = "./HomePage.php";
     });
 
-    // Sự kiện tìm kiếm search 
-    document.getElementById("search-button").addEventListener("click", (event) => {
-        event.preventDefault();
-        const form = document.getElementById("search");
-        const searchValue = document.getElementById("searchSanPham").value;
-        if (searchValue != "") {
-            form.action = `Product.php?searchFromAnotherPage=${searchValue}`;
-            form.submit();
-        } else {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Bạn cần phải nhập gì đó vào thanh tìm kiếm trước khi ấn nút tìm kiếm.',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
-
-    });
-
-    //Sự kiện giỏ hàng
-    function toCart() {
-        const form = document.getElementById("search");
-        if (form) {
-            const sessionStoragedata = JSON.parse(sessionStorage.getItem("id"));
-            const maTaiKhoan = sessionStoragedata;
-
-
-
-            // Thêm MaTaiKhoan vào action của form
-            form.action = "Cart.php?maTaiKhoan=" + maTaiKhoan;
-            // Gửi form đi
-            form.submit();
-        } else {
-            console.error("Form not found!");
-        }
-    }
-
-    //profile
     function toProfile() {
-        const form = document.getElementById("search");
-        if (form) {
-            const sessionStorageData = JSON.parse(sessionStorage.getItem("id"));
-            const maTaiKhoan = sessionStorageData;
+        redirectWithUserId("Profile.php");
+    }
 
-            // Thêm MaTaiKhoan vào action của form
-            form.action = "Profile.php?maTaiKhoan=" + maTaiKhoan;
-            // Gửi form đi
-            form.submit();
+    function toDeviceBooking() {
+        redirectWithUserId("DeviceBooking.php");
+    }
+
+    function toUserHistory() {
+        redirectWithUserId("UserHistory.php");
+    }
+
+    function redirectWithUserId(destination) {
+        const userId = JSON.parse(sessionStorage.getItem("id"));
+        if (userId) {
+            window.location.href = `${destination}?maTaiKhoan=${userId}`;
         } else {
-            console.error("Form not found!");
+            Swal.fire("Lỗi", "Không tìm thấy người dùng!", "error");
         }
     }
 
-    //Sự kiện đơn hàng cá nhân
-    function toMyOrder() {
-        const form = document.getElementById("search");
-        if (form) {
-            const sessionStorageData = JSON.parse(sessionStorage.getItem("id"));
-            const maTaiKhoan = sessionStorageData;
-
-
-            // Thêm MaTaiKhoan vào action của form
-            form.action = "MyOrder.php?maTaiKhoan=" + maTaiKhoan;
-
-            // Gửi form đi
-            form.submit();
-        } else {
-            console.error("Form not found!");
-        }
-    }
-
-    // Sự kiện đăng xuất
     function logout() {
         Swal.fire({
             title: 'Xác nhận đăng xuất',
@@ -261,16 +151,10 @@
             cancelButtonText: 'Hủy'
         }).then((result) => {
             if (result.isConfirmed) {
-
-                // Gọi API logout qua Ajax
                 sessionStorage.removeItem("id");
                 sessionStorage.removeItem("email");
                 sessionStorage.removeItem("role");
-
-                // Chuyển hướng về trang chủ khách
                 window.location.href = "./HomePage.php";
-
-
             }
         });
     }
