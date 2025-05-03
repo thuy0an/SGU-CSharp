@@ -1,4 +1,5 @@
 using System.Text;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Win32.SafeHandles;
 using MySql.Data.MySqlClient;
 using sgu_c_sharf_backend.ApiResponse;
@@ -20,7 +21,7 @@ namespace sgu_c_sharf_backend.Repositories
             var members = new List<ThanhVien>();
             int totalRecords = 0;
 
-            using var connection = new MySqlConnection(_connectionString);  
+            using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
             // Xây dựng câu truy vấn COUNT(*) để lấy tổng số bản ghi theo bộ lọc
@@ -106,7 +107,7 @@ namespace sgu_c_sharf_backend.Repositories
                     TrangThai = Enum.Parse<TrangThaiEnum>(reader.GetString("TrangThai")),
                     MatKhau = reader.GetString("MatKhau"),
                     ThoiGianDangKy = reader.GetDateTime("ThoiGianDangKy"),
-                    Quyen = Enum.Parse<QuyenEnum>( reader.GetString("Quyen") ),
+                    Quyen = Enum.Parse<QuyenEnum>(reader.GetString("Quyen")),
                 });
             }
 
@@ -144,7 +145,7 @@ namespace sgu_c_sharf_backend.Repositories
 
             return thanhVien;
         }
-        
+
         public ThanhVien? GetByEmail(string email)
         {
             ThanhVien? thanhVien = null;
@@ -176,7 +177,7 @@ namespace sgu_c_sharf_backend.Repositories
 
             return thanhVien;
         }
-        
+
         public ThanhVien? Create(ThanhVien thanhVien)
         {
             using var connection = new MySqlConnection(_connectionString);
@@ -223,7 +224,7 @@ namespace sgu_c_sharf_backend.Repositories
             command.Parameters.AddWithValue("@HoTen", thanhVien.HoTen);
             command.Parameters.AddWithValue("@NgaySinh", thanhVien.NgaySinh);
             command.Parameters.AddWithValue("@SoDienThoai", thanhVien.SoDienThoai);
-            
+
             // Truyền giá trị enum vào như chuỗi cho MySQL
             command.Parameters.AddWithValue("@TrangThai", thanhVien.TrangThai.ToString());
 
@@ -232,11 +233,12 @@ namespace sgu_c_sharf_backend.Repositories
 
             return rowsAffected > 0 ? thanhVien : null;
         }
-        public int CheckRoleAdmin(string password, string phoneOrEmail){
+        public int CheckRoleAdmin(string password, string phoneOrEmail)
+        {
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            string sql ="Select Quyen From thanhvien Where MatKhau=@MatKhau And (Email=@PassOrEmail OR SoDienThoai=@PassOrEmail)";
+            string sql = "Select Quyen From thanhvien Where MatKhau=@MatKhau And (Email=@PassOrEmail OR SoDienThoai=@PassOrEmail)";
             using var command = new MySqlCommand(sql, connection);
             command.Parameters.AddWithValue("@MatKhau", password);
             command.Parameters.AddWithValue("@PassOrEmail", phoneOrEmail);
@@ -244,9 +246,63 @@ namespace sgu_c_sharf_backend.Repositories
             if (res == null)
                 return 0;
             string quyen = res.ToString();
-            if( quyen.Equals("ADMIN", StringComparison.OrdinalIgnoreCase))
+            if (quyen.Equals("ADMIN", StringComparison.OrdinalIgnoreCase))
                 return 1;
             return 2;
+        }
+        public int Login(LoginRequest request)
+        {
+            int thanhVienId = -1;
+
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = @"
+                SELECT Id, MatKhau
+                FROM ThanhVien
+                WHERE Email = @Identifier OR SoDienThoai = @Identifier";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Identifier", request.Identifier);
+
+            using var reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                int id = reader.GetInt32("Id");
+                string hashedPasswordFromDb = reader.GetString("MatKhau");
+
+                Console.WriteLine($"ID: {id}");
+                Console.WriteLine($"HashedPassword: {hashedPasswordFromDb}");
+
+                // Khởi tạo password hasher
+                var passwordHasher = new PasswordHasher<object>();
+
+                // Tạo 1 đối tượng ThanhVien tạm (nếu cần cho generic)
+
+                // So sánh password
+                var result = passwordHasher.VerifyHashedPassword(new object(), hashedPasswordFromDb, request.MatKhau);
+
+                if (result == PasswordVerificationResult.Success || result == PasswordVerificationResult.SuccessRehashNeeded)
+                {
+                    thanhVienId = id;
+                }
+            }
+
+            return thanhVienId; // Trả -1 nếu không đúng
+        }
+
+        public bool IsEmailExists(string email)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = "SELECT 1 FROM ThanhVien WHERE Email = @Email";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Email", email);
+
+            using var reader = command.ExecuteReader();
+            return reader.Read();
         }
     }
 }

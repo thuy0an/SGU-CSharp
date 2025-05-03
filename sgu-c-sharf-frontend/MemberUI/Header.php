@@ -95,14 +95,13 @@
 <!-- SCRIPT -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 <script>
-    // const role = sessionStorage.getItem('role'); 
-    const role = "user";
+    const id = sessionStorage.getItem('id'); 
 
     const loginBtn = document.getElementById("Home-login");
     const loginOptions = document.querySelectorAll(".header-option-login");
 
     // Ẩn hoặc hiển thị các nút dựa trên trạng thái đăng nhập
-    if (role) {
+    if (id) {
         loginBtn.style.display = 'none';
     } else {
         loginOptions.forEach(el => el.style.display = 'none');
@@ -119,25 +118,25 @@
     });
 
     function toProfile() {
-        redirectWithUserId("Profile.php");
+        window.location.href = "Profile.php";
     }
 
     function toDeviceBooking() {
-        redirectWithUserId("DeviceBooking.php");
+        window.location.href ="DeviceBooking.php";
     }
 
     function toUserHistory() {
-        redirectWithUserId("UserHistory.php");
+        window.location.href ="UserHistory.php";
     }
 
-    function redirectWithUserId(destination) {
-        const userId = JSON.parse(sessionStorage.getItem("id"));
-        if (userId) {
-            window.location.href = `${destination}?maTaiKhoan=${userId}`;
-        } else {
-            Swal.fire("Lỗi", "Không tìm thấy người dùng!", "error");
-        }
-    }
+    // function redirectWithUserId(destination) {
+    //     const userId = JSON.parse(sessionStorage.getItem("id"));
+    //     if (userId) {
+    //         window.location.href = `${destination}?maTaiKhoan=${userId}`;
+    //     } else {
+    //         Swal.fire("Lỗi", "Không tìm thấy người dùng!", "error");
+    //     }
+    // }
 
     function logout() {
         Swal.fire({
@@ -152,8 +151,6 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 sessionStorage.removeItem("id");
-                sessionStorage.removeItem("email");
-                sessionStorage.removeItem("role");
                 window.location.href = "./HomePage.php";
             }
         });

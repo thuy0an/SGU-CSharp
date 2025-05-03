@@ -35,6 +35,21 @@ namespace sgu_c_sharf_backend.Controllers
             }
         }
 
+        [HttpGet("hinh-anh/{id}")]
+        [AllowAnonymous]
+        public IActionResult GetHinhAnhById(int id)
+        {
+            try
+            {
+                var thietBi = _thietBiService.GetHinhAnhById(id);
+                return Ok(ApiResponse<HinhAnhThietBi>.Ok(thietBi));
+            }
+            catch (Exception ex)
+            {
+                return NotFound(ApiResponse<HinhAnhThietBi>.Fail(ex.Message));
+            }
+        }
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult GetAll()
@@ -94,10 +109,6 @@ namespace sgu_c_sharf_backend.Controllers
                 return BadRequest(ApiResponse<object>.Fail(ex.Message));
             }
         }
-
-
-
-
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, [FromBody] ThietBiUpdateForm form)

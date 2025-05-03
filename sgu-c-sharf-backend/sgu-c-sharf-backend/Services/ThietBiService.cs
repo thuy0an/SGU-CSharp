@@ -65,5 +65,9 @@ namespace sgu_c_sharf_backend.Services
         public List<ThietBiListAvailabilityDTO> GetAllWithAvailability(){
             return _thietBiRepository.GetAllWithAvailability();
         }
+
+        public HinhAnhThietBi? GetHinhAnhById(int id){
+            return _thietBiRepository.GetHinhAnhById(id);
+        }
     }
 }

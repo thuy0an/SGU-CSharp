@@ -18,17 +18,20 @@
             <form>
                 <h1>Create Account</h1>
                 <input type="email" placeholder="Email" id="email" name="Email" />
+                <input type="text" placeholder="Họ tên" id="hoTen" name="Hoten" />
+                <input type="date" placeholder="Ngày sinh" id="ngaySinh" name="NgaySinh" />
+                <input type="tel" placeholder="Số điện thoại" id="soDienThoai" name="SoDienThoai" />
                 <input type="password" placeholder="Mật khẩu" id="matKhau" name="MatKhau" />
                 <input type="password" placeholder="Xác thực mật khẩu" id="xacNhanMatKhau" name="XacThucMatKhau" />
-                <button type="button" class="btn btn-danger" id="signUpButton">Đăng kí</button>
+                <button type="button" class="btn btn-danger" id="signUpButton">Đăng ký</button>
             </form>
         </div>
 
         <div class="form-container sign-in">
             <form>
                 <h1>Sign In</h1>
-                <input type="email" placeholder="Tên đăng nhập" id="tenDangNhapLogin" />
-                <input type="password" placeholder="Password" id="passwordLogin" />
+                <input type="email" placeholder="Email" id="tenDangNhapLogin" />
+                <input type="password" placeholder="Mật khẩu" id="passwordLogin" />
                 <button type="button" class="btn btn-danger" id="signInButton">Đăng nhập</button>
                 <button type="button" class="btn btn-link" id="forgotPasswordButton">Quên mật khẩu?</button>
 
@@ -45,7 +48,7 @@
                 <div class="toggle-panel toggle-right">
                     <h1>Xin chào, bạn là người mới ?</h1>
                     <p>Hãy đăng ký tài khoản tại đây để có thể trải nghiệm các tính năng mới.</p>
-                    <button type="button" class="btn btn-light" id="register">Đăng kí</button>
+                    <button type="button" class="btn btn-light" id="register">Đăng ký</button>
                 </div>
             </div>
         </div>
@@ -103,86 +106,148 @@
     const signUpButton = document.getElementById("signUpButton");
 
     signUpButton.addEventListener('click', async function check(event) {
-        event.preventDefault(); // Ngăn chặn hành động mặc định của form
+        event.preventDefault();
 
-        let matKhau = document.getElementById("matKhau");
-        let xacNhanMatKhau = document.getElementById("xacNhanMatKhau");
-        let email = document.getElementById("email");
+        var email = $('#email').val().trim();
+        var hoTen = $('#hoTen').val().trim();
+        var ngaySinh = $('#ngaySinh').val() + "T00:00:00";
+        var soDienThoai = $('#soDienThoai').val().trim();
+        var matKhau = $('#matKhau').val().trim();
+        var xacNhanMatKhau = $('#xacNhanMatKhau').val().trim();
 
-
-        if (!matKhau.value.trim()) {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Mật khẩu không được để trống',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            matKhau.focus();
-            event.preventDefault();
-            return;
-        }
-
-        if (!xacNhanMatKhau.value.trim()) {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Mật khẩu xác nhận không được để trống',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            xacNhanMatKhau.focus();
-            event.preventDefault();
-            return;
-        }
-
-        if (matKhau.value !== xacNhanMatKhau.value) {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Mật khẩu xác nhận và mật khẩu phải giống nhau',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            xacNhanMatKhau.focus();
-            event.preventDefault();
-            return;
-        }
-
-        if (!email.value.trim()) {
+        if (!email) {
             Swal.fire({
                 title: 'Lỗi!',
                 text: 'Email không được để trống',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            email.focus();
-            event.preventDefault();
+            $('#email').focus();
             return;
         }
 
-        // Kiểm tra định dạng Email
-        if (!isValidEmail(email.value.trim())) {
+        if (!isValidEmail(email)) {
             Swal.fire({
                 title: 'Lỗi!',
                 text: 'Email không hợp lệ',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            email.focus();
-            event.preventDefault();
+            $('#email').focus();
             return;
         }
 
+        if (!hoTen) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Họ tên không được để trống',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#hoTen').focus();
+            return;
+        }
+
+        if (!ngaySinh) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Ngày sinh không được để trống',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#ngaySinh').focus();
+            return;
+        }
+
+        // Chuyển thành Date
+        const birthDate = new Date(ngaySinh);
+        const today = new Date();
+
+        // Tính tuổi
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const m = today.getMonth() - birthDate.getMonth();
+
+        if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+            age--; // Nếu chưa đến sinh nhật trong năm hiện tại thì trừ 1
+        }
+
+        if (age < 18) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Bạn phải đủ 18 tuổi để đăng ký',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#ngaySinh').focus();
+            return;
+        }
+
+        if (!/^\d{10}$/.test(soDienThoai)) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Số điện thoại phải có 10 chữ số',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#soDienThoai').focus();
+            return;
+        }
+
+        if (!matKhau) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Mật khẩu không được để trống',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#matKhau').focus();
+            return;
+        }
+
+        if (matKhau.length < 8) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Mật khẩu phải dài từ 8 ký tự',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#matKhau').focus();
+            return;
+        }
+
+        if (!xacNhanMatKhau) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Mật khẩu xác nhận không được để trống',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#xacNhanMatKhau').focus();
+            return;
+        }
+
+        if (matKhau !== xacNhanMatKhau) {
+            Swal.fire({
+                title: 'Lỗi!',
+                text: 'Mật khẩu xác nhận và mật khẩu phải giống nhau',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            $('#xacNhanMatKhau').focus();
+            return;
+        }
 
         try {
-            const emailExists = await checkEmail(email.value); // đợi kết quả
-
-            if (emailExists.data.isExists === true) {
+            const isEmailExists = await checkEmail(email);
+            console.log(isEmailExists);
+            if (isEmailExists.data) {
                 Swal.fire({
                     title: 'Lỗi!',
                     text: 'Email tồn tại',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
-                email.focus();
+                $('#email').focus();
                 return;
             }
         } catch (error) {
@@ -192,182 +257,159 @@
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
+            console.log(error);
+            return;
         }
 
+        const data = {
+            Email: email,
+            HoTen: hoTen,
+            NgaySinh: ngaySinh,
+            SoDienThoai: soDienThoai,
+            MatKhau: matKhau
+        };
 
         $.ajax({
-            url: '../../../Controllers/AccountController.php',
+            url: 'http://localhost:5244/api/thanh-vien/register',
             type: 'POST',
-            dataType: 'json',
-
-            data: {
-                "email": email.value,
-                "password": matKhau.value,
-                "action": "registration"
-            },
+            contentType: 'application/json',
+            data: JSON.stringify(data),
             success: function(response) {
-                // Kiểm tra xem phản hồi có thành công hay không
-                Swal.fire({
-                    title: response.message,
-                    text: "Đăng ký thành công !",
-                    icon: 'success',
-                    confirmButtonText: 'OK'
-                });
-            },
-            error: function(xhr, status, error) {
+                if (response.status == 200) {
+                    Swal.fire({
+                        title: "Thành công",
+                        text: "Tạo tài khoản thành công",
+                        icon: "success"
+                    });
+                    container.classList.remove("active");
+                } else {
+                    Swal.fire({
+                        title: 'Lỗi!',
+                        text: 'Đã xảy ra lỗi khi tạo tài khoản!',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
 
+
+            },
+            error: function(xhr) {
                 Swal.fire({
                     title: 'Lỗi!',
-                    text: 'Đã xảy ra lỗi khi đăng kí tài khoản!',
+                    text: 'Đăng ký thất bại',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
+                console.log(xhr.responseJSON?.message);
             }
         });
-
-
     });
 
+
     function isValidEmail(email) {
-        // Thực hiện kiểm tra định dạng Email và trả về true hoặc false
-        // Bạn có thể sử dụng biểu thức chính quy hoặc các phương thức khác để kiểm tra định dạng Email
         return /[^\s@]+@[^\s@]+\.[^\s@]+/.test(email);
     }
 
     async function checkEmail(email) {
-        return new Promise((resolve, reject) => {
-            $.ajax({
-                url: '../../../Controllers/AccountController.php',
+        try {
+            const response = await $.ajax({
+                url: `http://localhost:5244/api/thanh-vien/check-email`,
                 type: 'GET',
                 dataType: 'json',
                 data: {
-                    email: email,
-                    action: "isThisEmailExists"
-                },
-                success: function(response) {
-                    console.log("Thành công : " + response)
-                    resolve(response); // Resolve the promise with the response
-                },
-                error: function(error) {
-                    console.log("Thất bại : " + error)
-
-                    reject(error); // Reject the promise if there's an error
+                    email: email
                 }
             });
-        });
+            return response;
+        } catch (error) {
+            console.error("Thất bại:", error);
+            return false;
+        }
     }
 </script>
 
 
 <script>
     const loginButton = document.getElementById("signInButton");
-    const tenDangNhap = document.getElementById("tenDangNhapLogin");
-    const matKhau = document.getElementById("passwordLogin");
-
-   
 
     loginButton.addEventListener("click", (event) => {
         event.preventDefault();
-        if (tenDangNhap.value.trim() === "") {
+
+        const tenDangNhap = document.getElementById("tenDangNhapLogin").value.trim();
+        const matKhau = document.getElementById("passwordLogin").value.trim();
+
+        // Kiểm tra tên đăng nhập
+        if (tenDangNhap === "") {
             Swal.fire({
                 title: 'Lỗi!',
                 text: 'Bạn không được để trống tên đăng nhập !!',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            tenDangNhap.focus();
-            return
+            document.getElementById("tenDangNhapLogin").focus();
+            return;
         }
-        if (matKhau.value.trim() === "") {
+
+        // Kiểm tra mật khẩu
+        if (matKhau === "") {
             Swal.fire({
                 title: 'Lỗi!',
                 text: 'Bạn không được để trống mật khẩu !!',
                 icon: 'error',
                 confirmButtonText: 'OK'
             });
-            matKhau.focus();
-            return
+            document.getElementById("passwordLogin").focus();
+            return;
         }
 
-        login(tenDangNhap.value, matKhau.value)
+        // Gọi hàm login với tên đăng nhập và mật khẩu đã nhập
+        login(tenDangNhap, matKhau);
     });
 
 
 
-    // Hàm xử lý kiểm tra tài khoản
     function login(email, password) {
+        const data = {
+            Identifier: email,
+            MatKhau: password
+        };
 
+        $.ajax({
+            url: 'http://localhost:5244/api/thanh-vien/login',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(data),
+            success: function(response) {
+                if (response.status == 200) {
+                    sessionStorage.setItem('id', response.data);
 
-        sessionStorage.setItem('id', 2);
-                            // sessionStorage.setItem('email', response.data.email);
-                            // sessionStorage.setItem('role', response.data.role);
+                    Swal.fire({
+                        title: 'Đăng nhập thành công!',
+                        text: 'Chào mừng bạn quay trở lại!',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        // Chuyển trang sau khi đăng nhập thành công (nếu muốn)
+                        window.location.href = '../HomePage.php'; // đổi URL theo ý bạn
+                    });
+                }
 
-        // $.ajax({
-        //     url: '../../../Controllers/AccountController.php',
-        //     type: 'POST',
-        //     dataType: 'json',
-        //     data: {
-        //         "email": email,
-        //         "password": password,
-        //         "action": "loginUser"
-        //     },
-        //     success: function(response) {
-        //         // Kiểm tra xem phản hồi có thành công hay không
-
-        //         if (response.status === 200) {
-        //             Swal.fire({
-        //                 title: 'Thành công!',
-        //                 text: response.message,
-        //                 icon: 'success',
-        //                 confirmButtonText: 'OK'
-        //             }).then((result) => {
-        //                 if (result) {
-        //                     const quyen = response.data.role;
-
-        //                     sessionStorage.setItem('id', response.data.id);
-        //                     sessionStorage.setItem('email', response.data.email);
-        //                     sessionStorage.setItem('role', response.data.role);
-
-        //                     switch (quyen) {
-        //                         case 'Admin':
-        //                             window.location.href = `../../AdminUI/QLTaiKhoan.php`;
-        //                             break;
-        //                         case 'Manager':
-        //                             window.location.href = `../../ManagerUI/QLLoaiSanPham/QLLoaiSanPham.php`;
-        //                             break;
-        //                         default:
-        //                             window.location.href = `../HomePage.php`;
-        //                             break;
-        //                     }
-        //                 }
-        //             });
-        //         } else {
-        //             console.error(response);
-        //             // Trường hợp đăng nhập thất bại
-        //             Swal.fire({
-        //                 title: 'Lỗi!',
-        //                 text: response.message,
-        //                 icon: 'error',
-        //                 confirmButtonText: 'OK'
-        //             });
-        //         }
-        //     },
-        //     error: function(xhr, status, error) {
-        //         console.error('Lỗi:', error);
-        //         Swal.fire({
-        //             title: 'Lỗi!',
-        //             text: 'Đã xảy ra lỗi khi kiểm tra tài khoản!',
-        //             icon: 'error',
-        //             confirmButtonText: 'OK'
-        //         });
-        //     }
-        // });
+            },
+            error: function(xhr) {
+                Swal.fire({
+                    title: 'Đăng nhập thất bại!',
+                    text: xhr.message ?? 'Email hoặc mật khẩu không đúng.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        });
     }
-    
+
     sendEmailButton.addEventListener("click", async (event) => {
         event.preventDefault(); // Ngăn chặn hành động mặc định
 
-        const email = document.getElementById("forgotEmail").value;
+        const email = document.getElementById("forgotEmail");
         if (isValidEmail(email)) {
             // Gửi yêu cầu đến server để reset mật khẩu
             $.ajax({

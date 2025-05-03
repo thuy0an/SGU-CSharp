@@ -335,6 +335,31 @@ namespace sgu_c_sharf_backend.Repositories
             return dauThietBis;
         }
 
+        public HinhAnhThietBi? GetHinhAnhById(int id)
+        {
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string sql = @"
+                    SELECT Id, AnhMinhHoa
+                    FROM ThietBi
+                    WHERE Id = @Id AND DaXoa = 0";
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@Id", id);
 
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new HinhAnhThietBi
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            AnhMinhHoa = reader["AnhMinhHoa"].ToString()
+                        };
+                    }
+                    return null;
+                }
+            }
+        }
     }
 }

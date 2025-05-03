@@ -19,8 +19,8 @@ namespace sgu_c_sharf_backend.Controllers
 
         [HttpGet]
         public ActionResult<ApiResponse<PagedResult<ThanhVienListItemResponseDto>>> GetAll(
-            [FromQuery] int pageNumber = 1, 
-            [FromQuery] int pageSize = 10, 
+            [FromQuery] int pageNumber = 1,
+            [FromQuery] int pageSize = 10,
             [FromQuery] string? search = null,
             [FromQuery] TrangThaiEnum? status = null,
             [FromQuery] string? sortBy = null,
@@ -43,19 +43,19 @@ namespace sgu_c_sharf_backend.Controllers
                 .ToList();
 
             PagedResult<ThanhVienListItemResponseDto> pagedDtoResult = new PagedResult<ThanhVienListItemResponseDto>(
-                dtoList, 
-                pagedResult.TotalElements, 
-                pageNumber, 
+                dtoList,
+                pagedResult.TotalElements,
+                pageNumber,
                 pageSize
             );
 
             return Ok(ApiResponse<PagedResult<ThanhVienListItemResponseDto>>.Ok(
-                pagedDtoResult, 
+                pagedDtoResult,
                 "Lấy danh sách thành viên thành công"
             ));
         }
 
-        
+
 
         [HttpGet("{id}")]
         public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> GetById(int id)
@@ -86,6 +86,19 @@ namespace sgu_c_sharf_backend.Controllers
         {
             int isAdmin = _service.CheckRoleAdmin(pass, phoneOrEmail);
             return Ok(ApiResponse<int>.Ok(isAdmin, "Kiểm tra quyền admin thành công."));
+        }
+
+        [HttpPost("login")]
+        public ActionResult<ApiResponse<int>> Login([FromBody] LoginRequest request)
+        {
+            int userId = _service.Login(request);
+
+            if (userId == -1)
+            {
+                return BadRequest(ApiResponse<int>.Fail("Đăng nhập thất bại, email hoặc mật khẩu không đúng."));
+            }
+
+            return Ok(ApiResponse<int>.Ok(userId, "Đăng nhập thành công."));
         }
 
         [HttpPost("register")]
@@ -128,10 +141,16 @@ namespace sgu_c_sharf_backend.Controllers
 
             return CreatedAtAction(nameof(GetById), new { id = response.Id }, ApiResponse<ThanhVienDetailResponseDto>.Ok(response, "Đăng ký thành công."));
         }
-        
-        
+
+        [HttpGet("check-email")]
+        public ActionResult<ApiResponse<bool>> CheckEmailExists([FromQuery] string email)
+        {
+            bool exists = _service.IsEmailExists(email);
+            return Ok(ApiResponse<bool>.Ok(exists, exists ? "Email đã tồn tại." : "Email chưa tồn tại."));
+        }
+
         [HttpPut("{id}")]
-        public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> UpdateThanhVien( int id, [FromBody] ThanhVienUpdateForm request)
+        public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> UpdateThanhVien(int id, [FromBody] ThanhVienUpdateForm request)
         {
             if (request == null)
             {
@@ -174,6 +193,6 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
 
-        
+
     }
 }

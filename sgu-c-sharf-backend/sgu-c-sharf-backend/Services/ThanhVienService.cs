@@ -44,5 +44,14 @@ namespace sgu_c_sharf_backend.Services
         public int CheckRoleAdmin(string pass, string phoneOrEmail){
             return _thanhVienRepository.CheckRoleAdmin(pass, phoneOrEmail);
         }
+
+        public int Login(LoginRequest request){
+            return _thanhVienRepository.Login(request);
+        }
+
+        public bool IsEmailExists(string email)
+        {
+            return _thanhVienRepository.IsEmailExists(email);
+        }
     }
 }

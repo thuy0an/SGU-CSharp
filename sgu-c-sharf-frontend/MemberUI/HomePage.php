@@ -95,7 +95,7 @@
                 <div class="p-4 border rounded shadow-sm h-100">
                     <i class="fas fa-chair fa-3x mb-3 text-primary"></i>
                     <h5 class="fw-bold">Đặt chỗ</h5>
-                    <p class="small">Đặt chỗ ngồi để học tập và làm việc trong môi trường yên tĩnh.</p>
+                    <p class="small">Đặt trước các thiết bị máy tính, tai nghe, thiết bị trình chiếu.</p>
                 </div>
             </a>
         </div>
@@ -105,7 +105,7 @@
             <a href="./BorrowDevices.php" class="text-decoration-none text-dark">
                 <div class="p-4 border rounded shadow-sm h-100">
                     <i class="fas fa-laptop fa-3x mb-3 text-success"></i>
-                    <h5 class="fw-bold">Mượn thiết bị</h5>
+                    <h5 class="fw-bold">Danh sách thiết bị</h5>
                     <p class="small">Máy tính, tai nghe, thiết bị trình chiếu sẵn sàng cho bạn mượn.</p>
                 </div>
             </a>
@@ -140,4 +140,7 @@
 </body>
 
 <script src="application-properties.js"></script>
+<script>
+    
+</script>
 </html>
