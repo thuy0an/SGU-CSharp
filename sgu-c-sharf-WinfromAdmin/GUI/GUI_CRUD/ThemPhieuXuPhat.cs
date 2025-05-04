@@ -123,6 +123,12 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         private void dataTimeViPham_ValueChanged(object sender, EventArgs e)
         {
             dateTimeViPham.Checked = true;
+
+            if (dateTimeViPham.Value > DateTime.Now)
+            {
+                MessageBox.Show("Ngày vi phạm không được vượt quá hôm nay.", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                dateTimeViPham.Value = DateTime.Now;
+            }
         }
 
         private void dataTimeXuPhat_ValueChanged(object sender, EventArgs e)

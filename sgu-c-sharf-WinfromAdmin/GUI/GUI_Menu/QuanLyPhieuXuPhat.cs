@@ -66,6 +66,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 _totalPages = (int)Math.Ceiling((double)response.TotalItems / _pageSize);
                 _phieuXuPhatList = response.Items;
 
+                _phieuXuPhatList = _phieuXuPhatList.OrderByDescending(x => x.NgayViPham).ToList();
                 DataGrid.Rows.Clear();
                 foreach (var item in _phieuXuPhatList)
                 {
@@ -153,14 +154,21 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 MessageBox.Show("Vui lòng chọn một dòng để xem!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
-        private void btnEdit_Click(object sender, EventArgs e)
+        private async void btnEdit_Click(object sender, EventArgs e)
         {
             if (DataGrid.SelectedRows.Count > 0)
             {
-                FormSuaPhieuXuphat form = new FormSuaPhieuXuphat();
-                if (form.ShowDialog() == DialogResult.OK)
+                int selectedRowIndex = DataGrid.SelectedRows[0].Index;
+
+                string? idPhieuStr = DataGrid.Rows[selectedRowIndex].Cells["Id"].Value.ToString();
+                
+                if (uint.TryParse(idPhieuStr, out uint Id))
                 {
-                    // cập nhật thông tin
+                    FormSuaPhieuXuphat form = new FormSuaPhieuXuphat(Id);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        await LoadData(1);
+                    }
                 }
             }
             else
@@ -170,9 +178,8 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         private async void btnThem_Click(object sender, EventArgs e)
         {
             FormThemPhieuXuphat form = new FormThemPhieuXuphat();
-            var result = form.ShowDialog();
 
-            if (result == DialogResult.OK)
+            if (form.ShowDialog() == DialogResult.OK)
             {
                 await LoadData(1);
             }
@@ -187,7 +194,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 {
                     int selectedRowIndex = DataGrid.SelectedRows[0].Index;
 
-                    string idPhieuStr = DataGrid.Rows[selectedRowIndex].Cells["Id"].Value.ToString();
+                    string? idPhieuStr = DataGrid.Rows[selectedRowIndex].Cells["Id"].Value.ToString();
                     if (uint.TryParse(idPhieuStr, out uint Id))
                     {
                         var isDeleted = await _phieuXuPhatService.DeleteAsync(Id);

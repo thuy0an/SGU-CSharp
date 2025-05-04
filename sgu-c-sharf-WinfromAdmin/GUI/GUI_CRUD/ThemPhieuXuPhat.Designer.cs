@@ -274,6 +274,7 @@
             dateTimeViPham.Name = "dateTimeViPham";
             dateTimeViPham.Size = new Size(250, 22);
             dateTimeViPham.TabIndex = 1;
+            dateTimeViPham.Value = new DateTime(2025, 5, 4, 0, 0, 0, 0);
             dateTimeViPham.ValueChanged += dataTimeViPham_ValueChanged;
             // 
             // label8

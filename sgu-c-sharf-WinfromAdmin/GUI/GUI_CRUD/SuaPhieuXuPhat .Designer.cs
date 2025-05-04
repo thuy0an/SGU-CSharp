@@ -36,11 +36,11 @@
             txtMoTa = new TextBox();
             label5 = new Label();
             panel2 = new Panel();
-            dataTimeXuPhat = new DateTimePicker();
+            txtHanXuPhat = new TextBox();
             label3 = new Label();
             btnSua = new Button();
             panel4 = new Panel();
-            cbbThanhVien = new ComboBox();
+            txtTenThanhVien = new TextBox();
             label6 = new Label();
             panel5 = new Panel();
             txtMaThanhVien = new TextBox();
@@ -134,6 +134,7 @@
             // txtMoTa
             // 
             txtMoTa.Dock = DockStyle.Fill;
+            txtMoTa.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMoTa.Location = new Point(0, 22);
             txtMoTa.Multiline = true;
             txtMoTa.Name = "txtMoTa";
@@ -154,7 +155,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(dataTimeXuPhat);
+            panel2.Controls.Add(txtHanXuPhat);
             panel2.Controls.Add(label3);
             panel2.Location = new Point(319, 210);
             panel2.Margin = new Padding(4, 3, 4, 3);
@@ -162,14 +163,16 @@
             panel2.Size = new Size(250, 73);
             panel2.TabIndex = 9;
             // 
-            // dataTimeXuPhat
+            // txtHanXuPhat
             // 
-            dataTimeXuPhat.Dock = DockStyle.Bottom;
-            dataTimeXuPhat.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataTimeXuPhat.Location = new Point(0, 51);
-            dataTimeXuPhat.Name = "dataTimeXuPhat";
-            dataTimeXuPhat.Size = new Size(250, 22);
-            dataTimeXuPhat.TabIndex = 1;
+            txtHanXuPhat.BackColor = SystemColors.Window;
+            txtHanXuPhat.Dock = DockStyle.Bottom;
+            txtHanXuPhat.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtHanXuPhat.Location = new Point(0, 44);
+            txtHanXuPhat.Margin = new Padding(4, 3, 4, 3);
+            txtHanXuPhat.Name = "txtHanXuPhat";
+            txtHanXuPhat.Size = new Size(250, 29);
+            txtHanXuPhat.TabIndex = 3;
             // 
             // label3
             // 
@@ -192,10 +195,11 @@
             btnSua.TabIndex = 11;
             btnSua.Text = "Sửa phiếu";
             btnSua.UseVisualStyleBackColor = true;
+            btnSua.Click += btnSua_Click;
             // 
             // panel4
             // 
-            panel4.Controls.Add(cbbThanhVien);
+            panel4.Controls.Add(txtTenThanhVien);
             panel4.Controls.Add(label6);
             panel4.Location = new Point(603, 84);
             panel4.Margin = new Padding(4, 3, 4, 3);
@@ -203,18 +207,18 @@
             panel4.Size = new Size(250, 73);
             panel4.TabIndex = 8;
             // 
-            // cbbThanhVien
+            // txtTenThanhVien
             // 
-            cbbThanhVien.Dock = DockStyle.Bottom;
-            cbbThanhVien.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbbThanhVien.Enabled = false;
-            cbbThanhVien.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbThanhVien.FormattingEnabled = true;
-            cbbThanhVien.Items.AddRange(new object[] { "tên người 1", "tên người 2", "tên người 3" });
-            cbbThanhVien.Location = new Point(0, 43);
-            cbbThanhVien.Name = "cbbThanhVien";
-            cbbThanhVien.Size = new Size(250, 30);
-            cbbThanhVien.TabIndex = 1;
+            txtTenThanhVien.BackColor = SystemColors.Window;
+            txtTenThanhVien.Dock = DockStyle.Bottom;
+            txtTenThanhVien.Enabled = false;
+            txtTenThanhVien.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTenThanhVien.Location = new Point(0, 44);
+            txtTenThanhVien.Margin = new Padding(4, 3, 4, 3);
+            txtTenThanhVien.Name = "txtTenThanhVien";
+            txtTenThanhVien.ReadOnly = true;
+            txtTenThanhVien.Size = new Size(250, 29);
+            txtTenThanhVien.TabIndex = 3;
             // 
             // label6
             // 
@@ -241,14 +245,13 @@
             // txtMaThanhVien
             // 
             txtMaThanhVien.Dock = DockStyle.Bottom;
-            txtMaThanhVien.Enabled = false;
             txtMaThanhVien.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMaThanhVien.Location = new Point(0, 44);
             txtMaThanhVien.Margin = new Padding(4, 3, 4, 3);
             txtMaThanhVien.Name = "txtMaThanhVien";
             txtMaThanhVien.Size = new Size(250, 29);
             txtMaThanhVien.TabIndex = 1;
-            txtMaThanhVien.Text = "abc";
+            txtMaThanhVien.TextChanged += txtMaThanhVien_TextChanged;
             // 
             // label7
             // 
@@ -280,6 +283,7 @@
             dataTimeViPham.Name = "dataTimeViPham";
             dataTimeViPham.Size = new Size(250, 22);
             dataTimeViPham.TabIndex = 1;
+            dataTimeViPham.ValueChanged += dataTimeViPham_ValueChanged;
             // 
             // label8
             // 
@@ -313,7 +317,6 @@
             txtMucPhat.Name = "txtMucPhat";
             txtMucPhat.Size = new Size(250, 29);
             txtMucPhat.TabIndex = 1;
-            txtMucPhat.Text = "100";
             // 
             // label4
             // 
@@ -348,7 +351,6 @@
             txtMaPhieu.Name = "txtMaPhieu";
             txtMaPhieu.Size = new Size(250, 29);
             txtMaPhieu.TabIndex = 1;
-            txtMaPhieu.Text = "01";
             // 
             // label2
             // 
@@ -430,8 +432,6 @@
         private Label label7;
         private Panel panel2;
         private Label label3;
-        private DateTimePicker dataTimeXuPhat;
-        private ComboBox cbbThanhVien;
         private DateTimePicker dataTimeViPham;
         private Panel panel6;
         private TextBox txtMoTa;
@@ -439,5 +439,7 @@
         private Panel panel8;
         private ComboBox cbbTrangThai;
         private Label label9;
+        private TextBox txtTenThanhVien;
+        private TextBox txtHanXuPhat;
     }
 }

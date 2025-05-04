@@ -84,20 +84,23 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 
             var response = await _httpClient.PostAsync(BASE_URL, content);
 
-            return response.IsSuccessStatusCode; // Kiểm tra xem yêu cầu có thành công không
+            return response.IsSuccessStatusCode;
         }
 
         // Cập nhật
         public async Task<bool> UpdateAsync(uint id, PhieuXuPhatUpdateDTO dto)
         {
-            var jsonContent = JsonSerializer.Serialize(dto); // Chuyển DTO thành JSON
-            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json"); // Định dạng content là application/json
+            var formData = new MultipartFormDataContent();
+            formData.Add(new StringContent(dto.MoTa ?? ""), "MoTa");
+            formData.Add(new StringContent(dto.ThoiHanXuPhat.HasValue ? dto.ThoiHanXuPhat.Value.ToString() : ""), "ThoiHanXuPhat");
+            formData.Add(new StringContent(dto.MucPhat.HasValue ? dto.MucPhat.Value.ToString() : ""), "MucPhat");
+            formData.Add(new StringContent(dto.TrangThai.HasValue ? dto.TrangThai.Value.ToString() : ""), "TrangThai");
+            formData.Add(new StringContent(dto.IdThanhVien.HasValue ? dto.IdThanhVien.Value.ToString() : ""), "IdThanhVien");
+            formData.Add(new StringContent(dto.NgayViPham.HasValue ? dto.NgayViPham.Value.ToString("yyyy-MM-ddTHH:mm:ss") : ""), "NgayViPham");
+            var response = await _httpClient.PutAsync($"{BASE_URL}/{id}", formData);
 
-            var response = await _httpClient.PutAsync($"{BASE_URL}/{id}", content); // Gửi yêu cầu PUT
-
-            return response.IsSuccessStatusCode; // Kiểm tra xem yêu cầu có thành công không
+            return response.IsSuccessStatusCode;
         }
-
         // Xoá
         public async Task<bool> DeleteAsync(uint id)
         {

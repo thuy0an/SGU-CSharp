@@ -230,6 +230,7 @@ namespace sgu_c_sharf_backend.Repositories
                     }
 
                     string sql = $"UPDATE PhieuXuPhat SET {string.Join(", ", setClauses)} WHERE Id = @Id;";
+                    Console.WriteLine(sql);
                     int rowsAffected = connection.Execute(sql, parameters);
                     return rowsAffected > 0;
                 }
