@@ -304,5 +304,49 @@ namespace sgu_c_sharf_backend.Repositories
             using var reader = command.ExecuteReader();
             return reader.Read();
         }
+
+        public bool ChangePassword(ChangePassword request)
+        {
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            // 1. Lấy hashed password hiện tại từ DB
+            string query = @"
+                SELECT Id, MatKhau
+                FROM ThanhVien
+                WHERE Email = @Identifier OR SoDienThoai = @Identifier";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Identifier", request.Identifier);
+
+            using var reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                int id = reader.GetInt32("Id");
+                string hashedPasswordFromDb = reader.GetString("MatKhau");
+
+                var passwordHasher = new PasswordHasher<object>();
+                var verifyResult = passwordHasher.VerifyHashedPassword(new object(), hashedPasswordFromDb, request.MatKhauCu);
+
+                if (verifyResult == PasswordVerificationResult.Success || verifyResult == PasswordVerificationResult.SuccessRehashNeeded)
+                {
+                    // 2. Nếu mật khẩu cũ đúng -> hash mật khẩu mới
+                    string hashedNewPassword = passwordHasher.HashPassword(new object(), request.MatKhauMoi);
+
+                    // 3. Update mật khẩu mới vào DB
+                    reader.Close(); // đóng reader trước khi dùng connection
+
+                    string updateQuery = "UPDATE ThanhVien SET MatKhau = @MatKhauMoi WHERE Id = @Id";
+                    using var updateCommand = new MySqlCommand(updateQuery, connection);
+                    updateCommand.Parameters.AddWithValue("@MatKhauMoi", hashedNewPassword);
+                    updateCommand.Parameters.AddWithValue("@Id", id);
+
+                    int rowsAffected = updateCommand.ExecuteNonQuery();
+                    return rowsAffected > 0;
+                }
+            }
+
+            return false; // Đổi mật khẩu thất bại
+        }
     }
 }

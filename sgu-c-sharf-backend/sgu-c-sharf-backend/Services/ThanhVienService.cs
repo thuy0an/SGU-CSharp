@@ -34,18 +34,20 @@ namespace sgu_c_sharf_backend.Services
             // Gọi Repository để thêm mới thành viên
             return _thanhVienRepository.Create(thanhVien);
         }
-        
+
         public ThanhVien? CapNhatThanhVien(ThanhVien thanhVien)
         {
             // Gọi Repository để thêm mới thành viên
             return _thanhVienRepository.Update(thanhVien);
         }
 
-        public int CheckRoleAdmin(string pass, string phoneOrEmail){
+        public int CheckRoleAdmin(string pass, string phoneOrEmail)
+        {
             return _thanhVienRepository.CheckRoleAdmin(pass, phoneOrEmail);
         }
 
-        public int Login(LoginRequest request){
+        public int Login(LoginRequest request)
+        {
             return _thanhVienRepository.Login(request);
         }
 
@@ -53,5 +55,11 @@ namespace sgu_c_sharf_backend.Services
         {
             return _thanhVienRepository.IsEmailExists(email);
         }
+
+        public bool ChangePassword(ChangePassword request)
+        {
+            return _thanhVienRepository.ChangePassword(request);
+        }
+
     }
 }

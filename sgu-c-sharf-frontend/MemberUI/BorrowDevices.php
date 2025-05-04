@@ -18,4 +18,7 @@
 
     <?php require_once "./Footer.php" ?>
 </body>
+<script>
+    
+</script>
 </html>
