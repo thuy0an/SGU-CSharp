@@ -29,6 +29,8 @@ builder.Services.AddScoped<DauThietBiService>();
 builder.Services.AddScoped<CheckInRepository>();
 builder.Services.AddScoped<CheckInService>();
 
+builder.Services.AddScoped<PhieuXuPhatRepository>();
+builder.Services.AddScoped<PhieuMuonService>();
 // Đăng ký MySqlConnection vào DI Container
 builder.Services.AddTransient<MySqlConnection>(_ =>
     new MySqlConnection(builder.Configuration.GetConnectionString("DefaultConnection"))
