@@ -32,8 +32,8 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         }
 
         // Lấy danh sách có phân trang
-        public async Task<PagedResult<PhieuXuPhatDetailDTO>> GetAllPagingAsync(int page = 1, int limit = 10,
-            TrangThaiPhieuXuPhatEnum? trangThai = null, DateTime? fromDate = null, DateTime? toDate = null, string? keyword = null)
+        public async Task<PhieuXuPhatPagingResponse> GetAllPagingAsync(int page = 1, int limit = 10,
+    TrangThaiPhieuXuPhatEnum? trangThai = null, DateTime? fromDate = null, DateTime? toDate = null, string? keyword = null)
         {
             var query = $"?page={page}&limit={limit}";
             if (trangThai.HasValue) query += $"&trangThai={trangThai.Value}";
@@ -45,11 +45,12 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             if (response.IsSuccessStatusCode)
             {
                 var json = await response.Content.ReadAsStringAsync();
-                var resultObj = JsonSerializer.Deserialize<PagedResult<PhieuXuPhatDetailDTO>>(json,
+                var apiResponse = JsonSerializer.Deserialize<ApiResponse<PhieuXuPhatPagingResponse>>(json,
                     new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
-                return resultObj ?? new PagedResult<PhieuXuPhatDetailDTO>();
+
+                return apiResponse?.Data ?? new PhieuXuPhatPagingResponse();
             }
-            return new PagedResult<PhieuXuPhatDetailDTO>();
+            return new PhieuXuPhatPagingResponse();
         }
 
         // Lấy theo ID
@@ -70,28 +71,31 @@ namespace sgu_c_sharf_WinfromAdmin.Services
         public async Task<bool> AddAsync(PhieuXuPhatCreateDTO dto)
         {
             var content = new MultipartFormDataContent();
-            // Add các field của dto vào content (giả sử dto là các property primitive)
-            content.Add(new StringContent(dto.TienPhat.ToString()), "TienPhat");
-            content.Add(new StringContent(dto.LyDo ?? ""), "LyDo");
-            content.Add(new StringContent(dto.NgayLap?.ToString("yyyy-MM-dd") ?? ""), "NgayLap");
             content.Add(new StringContent(dto.IdThanhVien.ToString()), "IdThanhVien");
+            content.Add(new StringContent(dto.MoTa), "MoTa");
+            content.Add(new StringContent(dto.NgayViPham.ToString("yyyy-MM-dd")), "NgayViPham");
+            content.Add(new StringContent(dto.TrangThai.ToString()), "TrangThai");
+
+            if (dto.ThoiHanXuPhat.HasValue)
+                content.Add(new StringContent(dto.ThoiHanXuPhat.Value.ToString()), "ThoiHanXuPhat");
+
+            if (dto.MucPhat.HasValue)
+                content.Add(new StringContent(dto.MucPhat.Value.ToString()), "MucPhat");
 
             var response = await _httpClient.PostAsync(BASE_URL, content);
-            return response.IsSuccessStatusCode;
+
+            return response.IsSuccessStatusCode; // Kiểm tra xem yêu cầu có thành công không
         }
 
         // Cập nhật
         public async Task<bool> UpdateAsync(uint id, PhieuXuPhatUpdateDTO dto)
         {
-            var content = new MultipartFormDataContent();
-            content.Add(new StringContent(dto.TienPhat.ToString()), "TienPhat");
-            content.Add(new StringContent(dto.LyDo ?? ""), "LyDo");
-            content.Add(new StringContent(dto.NgayCapNhat?.ToString("yyyy-MM-dd") ?? ""), "NgayCapNhat");
-            if (dto.IdThanhVien.HasValue)
-                content.Add(new StringContent(dto.IdThanhVien.Value.ToString()), "IdThanhVien");
+            var jsonContent = JsonSerializer.Serialize(dto); // Chuyển DTO thành JSON
+            var content = new StringContent(jsonContent, Encoding.UTF8, "application/json"); // Định dạng content là application/json
 
-            var response = await _httpClient.PutAsync($"{BASE_URL}/{id}", content);
-            return response.IsSuccessStatusCode;
+            var response = await _httpClient.PutAsync($"{BASE_URL}/{id}", content); // Gửi yêu cầu PUT
+
+            return response.IsSuccessStatusCode; // Kiểm tra xem yêu cầu có thành công không
         }
 
         // Xoá

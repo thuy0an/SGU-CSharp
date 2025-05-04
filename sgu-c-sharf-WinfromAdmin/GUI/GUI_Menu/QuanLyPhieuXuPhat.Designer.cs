@@ -32,15 +32,25 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            Column2 = new DataGridViewTextBoxColumn();
-            Column3 = new DataGridViewTextBoxColumn();
-            Column4 = new DataGridViewTextBoxColumn();
-            Column5 = new DataGridViewTextBoxColumn();
+            Id = new DataGridViewTextBoxColumn();
+            IdThanhVien = new DataGridViewTextBoxColumn();
+            TenThanhVien = new DataGridViewTextBoxColumn();
+            TrangThai = new DataGridViewTextBoxColumn();
+            NgayViPham = new DataGridViewTextBoxColumn();
+            ThoiGianXuPhat = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
-            panel5 = new Panel();
-            label5 = new Label();
-            btnPDF = new PictureBox();
+            toDate = new DateTimePicker();
+            label8 = new Label();
+            fromDate = new DateTimePicker();
+            label7 = new Label();
+            label6 = new Label();
+            comboBoxTrangThai = new ComboBox();
+            panel6 = new Panel();
+            lblCurrentPage = new Label();
+            btnLast = new Button();
+            btnNext = new Button();
+            btnPrevious = new Button();
+            btnFirst = new Button();
             btnReset = new Button();
             panel4 = new Panel();
             label4 = new Label();
@@ -58,8 +68,7 @@
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
-            panel5.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)btnPDF).BeginInit();
+            panel6.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)btnXoa).BeginInit();
             panel3.SuspendLayout();
@@ -98,7 +107,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             DataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             DataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            DataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4, Column5 });
+            DataGrid.Columns.AddRange(new DataGridViewColumn[] { Id, IdThanhVien, TenThanhVien, TrangThai, NgayViPham, ThoiGianXuPhat });
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -108,52 +117,66 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
             DataGrid.DefaultCellStyle = dataGridViewCellStyle2;
             DataGrid.Dock = DockStyle.Fill;
-            DataGrid.Location = new Point(0, 138);
+            DataGrid.Location = new Point(0, 274);
             DataGrid.Margin = new Padding(4, 3, 4, 3);
             DataGrid.Name = "DataGrid";
             DataGrid.RowHeadersVisible = false;
             DataGrid.RowTemplate.Height = 30;
             DataGrid.RowTemplate.ReadOnly = true;
             DataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            DataGrid.Size = new Size(1479, 923);
+            DataGrid.Size = new Size(1479, 787);
             DataGrid.TabIndex = 1;
+            DataGrid.CellContentClick += DataGrid_CellContentClick;
             // 
-            // Column1
+            // Id
             // 
-            Column1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column1.HeaderText = "Mã phiếu";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
+            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Id.HeaderText = "Mã phiếu";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
             // 
-            // Column2
+            // IdThanhVien
             // 
-            Column2.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column2.HeaderText = "Mã thành viên";
-            Column2.Name = "Column2";
-            Column2.ReadOnly = true;
+            IdThanhVien.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            IdThanhVien.HeaderText = "Mã thành viên";
+            IdThanhVien.Name = "IdThanhVien";
+            IdThanhVien.ReadOnly = true;
             // 
-            // Column3
+            // TenThanhVien
             // 
-            Column3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column3.HeaderText = "Trạng thái";
-            Column3.Name = "Column3";
+            TenThanhVien.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            TenThanhVien.HeaderText = "Tên thành viên";
+            TenThanhVien.Name = "TenThanhVien";
+            TenThanhVien.ReadOnly = true;
             // 
-            // Column4
+            // TrangThai
             // 
-            Column4.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column4.HeaderText = "Ngày vi phạm";
-            Column4.Name = "Column4";
+            TrangThai.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            TrangThai.HeaderText = "Trạng thái";
+            TrangThai.Name = "TrangThai";
             // 
-            // Column5
+            // NgayViPham
             // 
-            Column5.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Column5.HeaderText = "Thời gian xử phạt";
-            Column5.Name = "Column5";
+            NgayViPham.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            NgayViPham.HeaderText = "Ngày vi phạm";
+            NgayViPham.Name = "NgayViPham";
+            // 
+            // ThoiGianXuPhat
+            // 
+            ThoiGianXuPhat.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ThoiGianXuPhat.HeaderText = "Thời gian xử phạt";
+            ThoiGianXuPhat.Name = "ThoiGianXuPhat";
             // 
             // pnlNavigate
             // 
             pnlNavigate.BackColor = Color.White;
-            pnlNavigate.Controls.Add(panel5);
+            pnlNavigate.Controls.Add(toDate);
+            pnlNavigate.Controls.Add(label8);
+            pnlNavigate.Controls.Add(fromDate);
+            pnlNavigate.Controls.Add(label7);
+            pnlNavigate.Controls.Add(label6);
+            pnlNavigate.Controls.Add(comboBoxTrangThai);
+            pnlNavigate.Controls.Add(panel6);
             pnlNavigate.Controls.Add(btnReset);
             pnlNavigate.Controls.Add(panel4);
             pnlNavigate.Controls.Add(panel3);
@@ -164,43 +187,135 @@
             pnlNavigate.Location = new Point(0, 0);
             pnlNavigate.Margin = new Padding(4, 3, 4, 3);
             pnlNavigate.Name = "pnlNavigate";
-            pnlNavigate.Size = new Size(1479, 138);
+            pnlNavigate.Size = new Size(1479, 274);
             pnlNavigate.TabIndex = 0;
             // 
-            // panel5
+            // toDate
             // 
-            panel5.Controls.Add(label5);
-            panel5.Controls.Add(btnPDF);
-            panel5.Location = new Point(1359, 12);
-            panel5.Margin = new Padding(4, 3, 4, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(117, 115);
-            panel5.TabIndex = 4;
+            toDate.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            toDate.Location = new Point(794, 142);
+            toDate.Name = "toDate";
+            toDate.Size = new Size(262, 26);
+            toDate.TabIndex = 18;
+            toDate.ValueChanged += toDate_ValueChanged;
             // 
-            // label5
+            // label8
             // 
-            label5.Dock = DockStyle.Bottom;
-            label5.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label5.Location = new Point(0, 84);
-            label5.Margin = new Padding(4, 0, 4, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(117, 31);
-            label5.TabIndex = 1;
-            label5.Text = "Xuất file";
-            label5.TextAlign = ContentAlignment.MiddleCenter;
+            label8.AutoSize = true;
+            label8.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label8.Location = new Point(714, 148);
+            label8.Name = "label8";
+            label8.Size = new Size(74, 18);
+            label8.TabIndex = 17;
+            label8.Text = "Den ngay";
             // 
-            // btnPDF
+            // fromDate
             // 
-            btnPDF.Cursor = Cursors.Hand;
-            btnPDF.Dock = DockStyle.Top;
-            btnPDF.Image = Properties.Resources.pdf;
-            btnPDF.Location = new Point(0, 0);
-            btnPDF.Margin = new Padding(4, 3, 4, 3);
-            btnPDF.Name = "btnPDF";
-            btnPDF.Size = new Size(117, 81);
-            btnPDF.SizeMode = PictureBoxSizeMode.Zoom;
-            btnPDF.TabIndex = 0;
-            btnPDF.TabStop = false;
+            fromDate.CalendarFont = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            fromDate.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            fromDate.Location = new Point(453, 142);
+            fromDate.Name = "fromDate";
+            fromDate.Size = new Size(255, 26);
+            fromDate.TabIndex = 16;
+            fromDate.ValueChanged += fromDate_ValueChanged;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(345, 145);
+            label7.Name = "label7";
+            label7.Size = new Size(102, 18);
+            label7.TabIndex = 15;
+            label7.Text = "Ngay vi pham";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(12, 150);
+            label6.Name = "label6";
+            label6.Size = new Size(76, 18);
+            label6.TabIndex = 14;
+            label6.Text = "Trang thai";
+            // 
+            // comboBoxTrangThai
+            // 
+            comboBoxTrangThai.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxTrangThai.FormattingEnabled = true;
+            comboBoxTrangThai.Location = new Point(98, 142);
+            comboBoxTrangThai.Name = "comboBoxTrangThai";
+            comboBoxTrangThai.Size = new Size(200, 26);
+            comboBoxTrangThai.TabIndex = 13;
+            comboBoxTrangThai.SelectedIndexChanged += comboBoxTrangThai_SelectedIndexChanged;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(lblCurrentPage);
+            panel6.Controls.Add(btnLast);
+            panel6.Controls.Add(btnNext);
+            panel6.Controls.Add(btnPrevious);
+            panel6.Controls.Add(btnFirst);
+            panel6.Location = new Point(14, 214);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(413, 37);
+            panel6.TabIndex = 12;
+            panel6.Paint += panel6_Paint;
+            // 
+            // lblCurrentPage
+            // 
+            lblCurrentPage.AutoSize = true;
+            lblCurrentPage.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblCurrentPage.Location = new Point(204, 12);
+            lblCurrentPage.Name = "lblCurrentPage";
+            lblCurrentPage.Size = new Size(0, 18);
+            lblCurrentPage.TabIndex = 4;
+            // 
+            // btnLast
+            // 
+            btnLast.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnLast.Location = new Point(335, 10);
+            btnLast.Name = "btnLast";
+            btnLast.Size = new Size(75, 23);
+            btnLast.TabIndex = 3;
+            btnLast.Text = "Last";
+            btnLast.UseVisualStyleBackColor = true;
+            btnLast.Click += btnLast_Click;
+            // 
+            // btnNext
+            // 
+            btnNext.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnNext.ImageAlign = ContentAlignment.MiddleRight;
+            btnNext.Location = new Point(254, 10);
+            btnNext.Name = "btnNext";
+            btnNext.Size = new Size(75, 23);
+            btnNext.TabIndex = 2;
+            btnNext.Text = "Next";
+            btnNext.UseVisualStyleBackColor = true;
+            btnNext.Click += btnNext_Click;
+            // 
+            // btnPrevious
+            // 
+            btnPrevious.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnPrevious.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPrevious.Location = new Point(84, 10);
+            btnPrevious.Name = "btnPrevious";
+            btnPrevious.Size = new Size(75, 23);
+            btnPrevious.TabIndex = 1;
+            btnPrevious.Text = "Previous";
+            btnPrevious.UseVisualStyleBackColor = true;
+            btnPrevious.Click += btnPrevious_Click;
+            // 
+            // btnFirst
+            // 
+            btnFirst.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnFirst.Location = new Point(3, 10);
+            btnFirst.Name = "btnFirst";
+            btnFirst.Size = new Size(75, 23);
+            btnFirst.TabIndex = 0;
+            btnFirst.Text = "First";
+            btnFirst.UseVisualStyleBackColor = true;
+            btnFirst.Click += btnFirst_Click;
             // 
             // btnReset
             // 
@@ -221,7 +336,7 @@
             // 
             panel4.Controls.Add(label4);
             panel4.Controls.Add(btnXoa);
-            panel4.Location = new Point(1228, 12);
+            panel4.Location = new Point(1349, 12);
             panel4.Margin = new Padding(4, 3, 4, 3);
             panel4.Name = "panel4";
             panel4.Size = new Size(117, 115);
@@ -257,7 +372,7 @@
             // 
             panel3.Controls.Add(label3);
             panel3.Controls.Add(btnThem);
-            panel3.Location = new Point(835, 12);
+            panel3.Location = new Point(974, 12);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(117, 115);
@@ -293,7 +408,7 @@
             // 
             panel2.Controls.Add(label2);
             panel2.Controls.Add(btnXem);
-            panel2.Location = new Point(1097, 12);
+            panel2.Location = new Point(1224, 12);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(117, 115);
@@ -329,7 +444,7 @@
             // 
             panel1.Controls.Add(label1);
             panel1.Controls.Add(btnEdit);
-            panel1.Location = new Point(966, 12);
+            panel1.Location = new Point(1099, 12);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(117, 115);
@@ -370,6 +485,7 @@
             txtSearch.Size = new Size(349, 26);
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
+            txtSearch.TextChanged += txtSearch_TextChanged;
             // 
             // QuanLyPhieuXuPhat
             // 
@@ -380,12 +496,13 @@
             Margin = new Padding(4, 3, 4, 3);
             Name = "QuanLyPhieuXuPhat";
             Text = "QuanLyPhieuXuPhat";
+            Load += QuanLyPhieuXuPhat_Load;
             pnlContent.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)DataGrid).EndInit();
             pnlNavigate.ResumeLayout(false);
             pnlNavigate.PerformLayout();
-            panel5.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)btnPDF).EndInit();
+            panel6.ResumeLayout(false);
+            panel6.PerformLayout();
             panel4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)btnXoa).EndInit();
             panel3.ResumeLayout(false);
@@ -416,13 +533,23 @@
         private Label label4;
         private PictureBox btnXoa;
         private Button btnReset;
-        private Panel panel5;
-        private Label label5;
-        private PictureBox btnPDF;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
-        private DataGridViewTextBoxColumn Column5;
+        private Panel panel6;
+        private Label lblCurrentPage;
+        private Button btnLast;
+        private Button btnNext;
+        private Button btnPrevious;
+        private Button btnFirst;
+        private ComboBox comboBoxTrangThai;
+        private Label label6;
+        private Label label7;
+        private DateTimePicker fromDate;
+        private Label label8;
+        private DateTimePicker toDate;
+        private DataGridViewTextBoxColumn Id;
+        private DataGridViewTextBoxColumn IdThanhVien;
+        private DataGridViewTextBoxColumn TenThanhVien;
+        private DataGridViewTextBoxColumn TrangThai;
+        private DataGridViewTextBoxColumn NgayViPham;
+        private DataGridViewTextBoxColumn ThoiGianXuPhat;
     }
 }

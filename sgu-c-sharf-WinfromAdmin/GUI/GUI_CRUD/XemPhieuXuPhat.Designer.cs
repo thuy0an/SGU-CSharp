@@ -30,22 +30,22 @@
         {
             pnlContent = new Panel();
             panel8 = new Panel();
-            cbbTrangThai = new ComboBox();
+            txtTrangThai = new TextBox();
             label9 = new Label();
             panel6 = new Panel();
             txtMoTa = new TextBox();
             label5 = new Label();
             panel2 = new Panel();
-            dataTimeXuPhat = new DateTimePicker();
+            txtHanXuPhat = new TextBox();
             label3 = new Label();
             panel4 = new Panel();
-            cbbThanhVien = new ComboBox();
+            txtTenThanhVien = new TextBox();
             label6 = new Label();
             panel5 = new Panel();
             txtMaThanhVien = new TextBox();
             label7 = new Label();
             panel7 = new Panel();
-            dataTimeViPham = new DateTimePicker();
+            txtNgayViPham = new TextBox();
             label8 = new Label();
             panel3 = new Panel();
             txtMucPhat = new TextBox();
@@ -87,7 +87,7 @@
             // 
             // panel8
             // 
-            panel8.Controls.Add(cbbTrangThai);
+            panel8.Controls.Add(txtTrangThai);
             panel8.Controls.Add(label9);
             panel8.Location = new Point(603, 210);
             panel8.Margin = new Padding(4, 3, 4, 3);
@@ -95,18 +95,18 @@
             panel8.Size = new Size(250, 73);
             panel8.TabIndex = 9;
             // 
-            // cbbTrangThai
+            // txtTrangThai
             // 
-            cbbTrangThai.Dock = DockStyle.Bottom;
-            cbbTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbbTrangThai.Enabled = false;
-            cbbTrangThai.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbTrangThai.FormattingEnabled = true;
-            cbbTrangThai.Items.AddRange(new object[] { "Đã xử lý", "Chưa xử lý" });
-            cbbTrangThai.Location = new Point(0, 43);
-            cbbTrangThai.Name = "cbbTrangThai";
-            cbbTrangThai.Size = new Size(250, 30);
-            cbbTrangThai.TabIndex = 1;
+            txtTrangThai.BackColor = SystemColors.Window;
+            txtTrangThai.Dock = DockStyle.Bottom;
+            txtTrangThai.Enabled = false;
+            txtTrangThai.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTrangThai.Location = new Point(0, 44);
+            txtTrangThai.Margin = new Padding(4, 3, 4, 3);
+            txtTrangThai.Name = "txtTrangThai";
+            txtTrangThai.ReadOnly = true;
+            txtTrangThai.Size = new Size(250, 29);
+            txtTrangThai.TabIndex = 2;
             // 
             // label9
             // 
@@ -132,11 +132,14 @@
             // 
             // txtMoTa
             // 
+            txtMoTa.BackColor = SystemColors.Window;
             txtMoTa.Dock = DockStyle.Fill;
             txtMoTa.Enabled = false;
+            txtMoTa.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMoTa.Location = new Point(0, 22);
             txtMoTa.Multiline = true;
             txtMoTa.Name = "txtMoTa";
+            txtMoTa.ReadOnly = true;
             txtMoTa.Size = new Size(534, 278);
             txtMoTa.TabIndex = 1;
             // 
@@ -154,7 +157,7 @@
             // 
             // panel2
             // 
-            panel2.Controls.Add(dataTimeXuPhat);
+            panel2.Controls.Add(txtHanXuPhat);
             panel2.Controls.Add(label3);
             panel2.Location = new Point(319, 210);
             panel2.Margin = new Padding(4, 3, 4, 3);
@@ -162,15 +165,18 @@
             panel2.Size = new Size(250, 73);
             panel2.TabIndex = 9;
             // 
-            // dataTimeXuPhat
+            // txtHanXuPhat
             // 
-            dataTimeXuPhat.Dock = DockStyle.Bottom;
-            dataTimeXuPhat.Enabled = false;
-            dataTimeXuPhat.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataTimeXuPhat.Location = new Point(0, 51);
-            dataTimeXuPhat.Name = "dataTimeXuPhat";
-            dataTimeXuPhat.Size = new Size(250, 22);
-            dataTimeXuPhat.TabIndex = 1;
+            txtHanXuPhat.BackColor = SystemColors.Window;
+            txtHanXuPhat.Dock = DockStyle.Bottom;
+            txtHanXuPhat.Enabled = false;
+            txtHanXuPhat.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtHanXuPhat.Location = new Point(0, 44);
+            txtHanXuPhat.Margin = new Padding(4, 3, 4, 3);
+            txtHanXuPhat.Name = "txtHanXuPhat";
+            txtHanXuPhat.ReadOnly = true;
+            txtHanXuPhat.Size = new Size(250, 29);
+            txtHanXuPhat.TabIndex = 2;
             // 
             // label3
             // 
@@ -186,7 +192,7 @@
             // 
             // panel4
             // 
-            panel4.Controls.Add(cbbThanhVien);
+            panel4.Controls.Add(txtTenThanhVien);
             panel4.Controls.Add(label6);
             panel4.Location = new Point(603, 84);
             panel4.Margin = new Padding(4, 3, 4, 3);
@@ -194,18 +200,18 @@
             panel4.Size = new Size(250, 73);
             panel4.TabIndex = 8;
             // 
-            // cbbThanhVien
+            // txtTenThanhVien
             // 
-            cbbThanhVien.Dock = DockStyle.Bottom;
-            cbbThanhVien.DropDownStyle = ComboBoxStyle.DropDownList;
-            cbbThanhVien.Enabled = false;
-            cbbThanhVien.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            cbbThanhVien.FormattingEnabled = true;
-            cbbThanhVien.Items.AddRange(new object[] { "tên người 1", "tên người 2", "tên người 3" });
-            cbbThanhVien.Location = new Point(0, 43);
-            cbbThanhVien.Name = "cbbThanhVien";
-            cbbThanhVien.Size = new Size(250, 30);
-            cbbThanhVien.TabIndex = 1;
+            txtTenThanhVien.BackColor = SystemColors.Window;
+            txtTenThanhVien.Dock = DockStyle.Bottom;
+            txtTenThanhVien.Enabled = false;
+            txtTenThanhVien.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtTenThanhVien.Location = new Point(0, 44);
+            txtTenThanhVien.Margin = new Padding(4, 3, 4, 3);
+            txtTenThanhVien.Name = "txtTenThanhVien";
+            txtTenThanhVien.ReadOnly = true;
+            txtTenThanhVien.Size = new Size(250, 29);
+            txtTenThanhVien.TabIndex = 2;
             // 
             // label6
             // 
@@ -231,15 +237,16 @@
             // 
             // txtMaThanhVien
             // 
+            txtMaThanhVien.BackColor = SystemColors.Window;
             txtMaThanhVien.Dock = DockStyle.Bottom;
             txtMaThanhVien.Enabled = false;
             txtMaThanhVien.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMaThanhVien.Location = new Point(0, 44);
             txtMaThanhVien.Margin = new Padding(4, 3, 4, 3);
             txtMaThanhVien.Name = "txtMaThanhVien";
+            txtMaThanhVien.ReadOnly = true;
             txtMaThanhVien.Size = new Size(250, 29);
             txtMaThanhVien.TabIndex = 1;
-            txtMaThanhVien.Text = "abc";
             // 
             // label7
             // 
@@ -255,7 +262,7 @@
             // 
             // panel7
             // 
-            panel7.Controls.Add(dataTimeViPham);
+            panel7.Controls.Add(txtNgayViPham);
             panel7.Controls.Add(label8);
             panel7.Location = new Point(35, 210);
             panel7.Margin = new Padding(4, 3, 4, 3);
@@ -263,15 +270,18 @@
             panel7.Size = new Size(250, 73);
             panel7.TabIndex = 6;
             // 
-            // dataTimeViPham
+            // txtNgayViPham
             // 
-            dataTimeViPham.Dock = DockStyle.Bottom;
-            dataTimeViPham.Enabled = false;
-            dataTimeViPham.Font = new Font("Arial", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataTimeViPham.Location = new Point(0, 51);
-            dataTimeViPham.Name = "dataTimeViPham";
-            dataTimeViPham.Size = new Size(250, 22);
-            dataTimeViPham.TabIndex = 1;
+            txtNgayViPham.BackColor = SystemColors.Window;
+            txtNgayViPham.Dock = DockStyle.Bottom;
+            txtNgayViPham.Enabled = false;
+            txtNgayViPham.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNgayViPham.Location = new Point(0, 44);
+            txtNgayViPham.Margin = new Padding(4, 3, 4, 3);
+            txtNgayViPham.Name = "txtNgayViPham";
+            txtNgayViPham.ReadOnly = true;
+            txtNgayViPham.Size = new Size(250, 29);
+            txtNgayViPham.TabIndex = 2;
             // 
             // label8
             // 
@@ -298,15 +308,16 @@
             // 
             // txtMucPhat
             // 
+            txtMucPhat.BackColor = SystemColors.Window;
             txtMucPhat.Dock = DockStyle.Bottom;
             txtMucPhat.Enabled = false;
             txtMucPhat.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMucPhat.Location = new Point(0, 44);
             txtMucPhat.Margin = new Padding(4, 3, 4, 3);
             txtMucPhat.Name = "txtMucPhat";
+            txtMucPhat.ReadOnly = true;
             txtMucPhat.Size = new Size(250, 29);
             txtMucPhat.TabIndex = 1;
-            txtMucPhat.Text = "100";
             // 
             // label4
             // 
@@ -333,15 +344,17 @@
             // 
             // txtMaPhieu
             // 
+            txtMaPhieu.BackColor = SystemColors.Window;
             txtMaPhieu.Dock = DockStyle.Bottom;
             txtMaPhieu.Enabled = false;
             txtMaPhieu.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMaPhieu.Location = new Point(0, 44);
             txtMaPhieu.Margin = new Padding(4, 3, 4, 3);
             txtMaPhieu.Name = "txtMaPhieu";
+            txtMaPhieu.ReadOnly = true;
+            txtMaPhieu.ScrollBars = ScrollBars.Horizontal;
             txtMaPhieu.Size = new Size(250, 29);
             txtMaPhieu.TabIndex = 1;
-            txtMaPhieu.Text = "01";
             // 
             // label2
             // 
@@ -422,14 +435,14 @@
         private Label label7;
         private Panel panel2;
         private Label label3;
-        private DateTimePicker dataTimeXuPhat;
-        private ComboBox cbbThanhVien;
-        private DateTimePicker dataTimeViPham;
         private Panel panel6;
         private TextBox txtMoTa;
         private Label label5;
         private Panel panel8;
-        private ComboBox cbbTrangThai;
         private Label label9;
+        private TextBox txtTrangThai;
+        private TextBox txtHanXuPhat;
+        private TextBox txtTenThanhVien;
+        private TextBox txtNgayViPham;
     }
 }
