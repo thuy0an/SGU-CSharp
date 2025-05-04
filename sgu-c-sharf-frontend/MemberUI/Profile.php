@@ -109,39 +109,39 @@
                 return;
             }
 
-            $.ajax({
-                url: '../../Controllers/UserInformationController.php',
-                method: "GET",
-                dataType: "json",
-                data: {
-                    Id: userData
-                },
-                success: function(response) {
-                    // Kiểm tra nếu phản hồi chứa dữ liệu
-                    if (response && response.data) {
-                        var userInfo = response.data; // Lấy thông tin người dùng đầu tiên từ mảng dữ liệu
+            // $.ajax({
+            //     url: '../../Controllers/UserInformationController.php',
+            //     method: "GET",
+            //     dataType: "json",
+            //     data: {
+            //         Id: userData
+            //     },
+            //     success: function(response) {
+            //         // Kiểm tra nếu phản hồi chứa dữ liệu
+            //         if (response && response.data) {
+            //             var userInfo = response.data; // Lấy thông tin người dùng đầu tiên từ mảng dữ liệu
                         
-                        // Cập nhật các phần tử HTML với dữ liệu từ API
-                        document.getElementById("fullname").value = userInfo.Fullname || '';
-                        document.getElementById("phone").value = userInfo.PhoneNumber || '';
-                        document.getElementById("birthday").value = userInfo.Birthday || '';
-                        document.getElementById("inputEmail4").value = userInfo.Email || '';
-                        document.getElementById("address").value = userInfo.Address || '';
+            //             // Cập nhật các phần tử HTML với dữ liệu từ API
+            //             document.getElementById("fullname").value = userInfo.Fullname || '';
+            //             document.getElementById("phone").value = userInfo.PhoneNumber || '';
+            //             document.getElementById("birthday").value = userInfo.Birthday || '';
+            //             document.getElementById("inputEmail4").value = userInfo.Email || '';
+            //             document.getElementById("address").value = userInfo.Address || '';
 
-                        // Cập nhật giới tính
-                        if (userInfo.Gender === 'Male') {
-                            document.getElementById("male").checked = true;
-                        } else if (userInfo.Gender === 'Female') {
-                            document.getElementById("female").checked = true;
-                        }
-                    } else {
-                        console.error("No user data found in response");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error:", error);
-                }
-            });
+            //             // Cập nhật giới tính
+            //             if (userInfo.Gender === 'Male') {
+            //                 document.getElementById("male").checked = true;
+            //             } else if (userInfo.Gender === 'Female') {
+            //                 document.getElementById("female").checked = true;
+            //             }
+            //         } else {
+            //             console.error("No user data found in response");
+            //         }
+            //     },
+            //     error: function(xhr, status, error) {
+            //         console.error("Error:", error);
+            //     }
+            // });
         }
 
         window.onload = loadUserInfoFromsessionStorage;
@@ -275,13 +275,13 @@
             }
 
             const data = {
-                accountId: accountId,
-                oldPassword: oldPassword,
-                newPassword: newPassword
+                identifier: 2,
+                matKhauCu: oldPassword,
+                matKhauMoi: newPassword
             };
 
             $.ajax({
-                url: "../../Controllers/UserInformationController.php?action=changePassword",
+                url: "http://localhost:5244/api/thanh-vien/change-password",
                 method: "POST",
                 contentType: "application/json",
                 data: JSON.stringify(data),

@@ -136,7 +136,7 @@ VALUES (
         'hung@gmail.com',
         '0987654321',
         'HOATDONG',
-        '123456',
+        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
         NOW(),
         "ADMIN"
     ),
@@ -146,7 +146,7 @@ VALUES (
         'phuc@gmail.com',
         '0978123456',
         'HOATDONG',
-        '123456',
+        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
         NOW(),
         "USER"
     ),
@@ -156,7 +156,7 @@ VALUES (
         'khanh@gmail.com',
         '0978567890',
         'HOATDONG',
-        '123456',
+        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
         NOW(),
         "USER"
     ),
@@ -166,7 +166,7 @@ VALUES (
         'dai@gmail.com',
         '0978124444',
         'DINHCHI',
-        '123456',
+        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
         NOW(),
         "USER"
     ),
@@ -176,7 +176,7 @@ VALUES (
         'an@gmail.com',
         '0967987654',
         'CAM',
-        '123456',
+        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
         NOW(),
         "USER"
     );
