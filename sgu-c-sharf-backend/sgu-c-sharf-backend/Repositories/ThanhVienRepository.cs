@@ -314,7 +314,7 @@ namespace sgu_c_sharf_backend.Repositories
             string query = @"
                 SELECT Id, MatKhau
                 FROM ThanhVien
-                WHERE Email = @Identifier OR SoDienThoai = @Identifier";
+                WHERE Id = @Identifier";
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@Identifier", request.Identifier);
@@ -322,7 +322,6 @@ namespace sgu_c_sharf_backend.Repositories
             using var reader = command.ExecuteReader();
             if (reader.Read())
             {
-                int id = reader.GetInt32("Id");
                 string hashedPasswordFromDb = reader.GetString("MatKhau");
 
                 var passwordHasher = new PasswordHasher<object>();
@@ -339,7 +338,7 @@ namespace sgu_c_sharf_backend.Repositories
                     string updateQuery = "UPDATE ThanhVien SET MatKhau = @MatKhauMoi WHERE Id = @Id";
                     using var updateCommand = new MySqlCommand(updateQuery, connection);
                     updateCommand.Parameters.AddWithValue("@MatKhauMoi", hashedNewPassword);
-                    updateCommand.Parameters.AddWithValue("@Id", id);
+                    updateCommand.Parameters.AddWithValue("@Id", request.Identifier);
 
                     int rowsAffected = updateCommand.ExecuteNonQuery();
                     return rowsAffected > 0;
