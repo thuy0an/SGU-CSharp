@@ -73,7 +73,7 @@
     <div class="row align-items-center justify-content-center">
         <!-- Logo -->
         <div class="col-12 col-md-2 text-center mb-2 mb-md-0">
-            <img id="Home-img" src="./img/logoWine.jpg" alt="Logo" class="img-fluid mx-auto" />
+            <img id="Home-img" src="https://cdn-icons-png.flaticon.com/512/8832/8832880.png" alt="Logo" class="img-fluid mx-auto" />
         </div>
 
         <!-- Icon Buttons -->
