@@ -5,6 +5,11 @@
     align-items: center;
 }
 
+.border-danger {
+    border: 2px solid red !important;
+}
+
+
 .information-child {
     margin: 5px;
     width: 200px;
