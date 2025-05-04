@@ -84,7 +84,7 @@ function formatCurrency(number) {
   // Sample: 2024-07-14 09:30:00 -> 09:30:00 14/07/2024
   function convertDateTimeFormat(dateString) {
     // Split date and time
-    const [datePart, timePart] = dateString.split(" ");
+    const [datePart, timePart] = dateString.split("T");
   
     // Split the date part into year, month, day
     const [year, month, day] = datePart.split("-");
