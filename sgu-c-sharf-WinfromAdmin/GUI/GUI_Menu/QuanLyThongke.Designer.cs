@@ -62,10 +62,10 @@
             label1 = new Label();
             cbbThietBi = new ComboBox();
             tabTKXuPhat = new TabPage();
-            comboBox1 = new ComboBox();
+            cbbXuPhat = new ComboBox();
             label2 = new Label();
             lblTongTien = new Label();
-            dataGridView1 = new DataGridView();
+            dataGridXP = new DataGridView();
             dataGridViewTextBoxColumn5 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn6 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn7 = new DataGridViewTextBoxColumn();
@@ -79,7 +79,7 @@
             tabTKThietBi.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGridTB).BeginInit();
             tabTKXuPhat.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridXP).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -422,10 +422,10 @@
             // tabTKXuPhat
             // 
             tabTKXuPhat.BackColor = Color.White;
-            tabTKXuPhat.Controls.Add(comboBox1);
+            tabTKXuPhat.Controls.Add(cbbXuPhat);
             tabTKXuPhat.Controls.Add(label2);
             tabTKXuPhat.Controls.Add(lblTongTien);
-            tabTKXuPhat.Controls.Add(dataGridView1);
+            tabTKXuPhat.Controls.Add(dataGridXP);
             tabTKXuPhat.Location = new Point(4, 31);
             tabTKXuPhat.Name = "tabTKXuPhat";
             tabTKXuPhat.Padding = new Padding(3);
@@ -433,15 +433,16 @@
             tabTKXuPhat.TabIndex = 2;
             tabTKXuPhat.Text = "Xử lý vi phạm";
             // 
-            // comboBox1
+            // cbbXuPhat
             // 
-            comboBox1.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBox1.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBox1.FormattingEnabled = true;
-            comboBox1.Location = new Point(338, 86);
-            comboBox1.Name = "comboBox1";
-            comboBox1.Size = new Size(334, 26);
-            comboBox1.TabIndex = 27;
+            cbbXuPhat.DropDownStyle = ComboBoxStyle.DropDownList;
+            cbbXuPhat.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            cbbXuPhat.FormattingEnabled = true;
+            cbbXuPhat.Location = new Point(338, 86);
+            cbbXuPhat.Name = "cbbXuPhat";
+            cbbXuPhat.Size = new Size(334, 26);
+            cbbXuPhat.TabIndex = 27;
+            cbbXuPhat.SelectedIndexChanged += cbbXuPhat_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -465,14 +466,14 @@
             lblTongTien.TabIndex = 23;
             lblTongTien.Text = "Tổng số tiền đã được bồi thường:";
             // 
-            // dataGridView1
+            // dataGridXP
             // 
-            dataGridView1.AllowUserToAddRows = false;
-            dataGridView1.AllowUserToDeleteRows = false;
-            dataGridView1.AllowUserToOrderColumns = true;
-            dataGridView1.AllowUserToResizeColumns = false;
-            dataGridView1.AllowUserToResizeRows = false;
-            dataGridView1.BackgroundColor = Color.White;
+            dataGridXP.AllowUserToAddRows = false;
+            dataGridXP.AllowUserToDeleteRows = false;
+            dataGridXP.AllowUserToOrderColumns = true;
+            dataGridXP.AllowUserToResizeColumns = false;
+            dataGridXP.AllowUserToResizeRows = false;
+            dataGridXP.BackgroundColor = Color.White;
             dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = Color.Gray;
             dataGridViewCellStyle5.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -480,9 +481,9 @@
             dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle5.WrapMode = DataGridViewTriState.True;
-            dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, Column4, Column6, Column7 });
+            dataGridXP.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridXP.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridXP.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn5, dataGridViewTextBoxColumn6, dataGridViewTextBoxColumn7, dataGridViewTextBoxColumn8, Column4, Column6, Column7 });
             dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle6.BackColor = SystemColors.Window;
             dataGridViewCellStyle6.Font = new Font("Microsoft Sans Serif", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
@@ -490,17 +491,17 @@
             dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridView1.DefaultCellStyle = dataGridViewCellStyle6;
-            dataGridView1.Dock = DockStyle.Bottom;
-            dataGridView1.Location = new Point(3, 298);
-            dataGridView1.Margin = new Padding(4, 3, 4, 3);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.RowHeadersVisible = false;
-            dataGridView1.RowTemplate.Height = 30;
-            dataGridView1.RowTemplate.ReadOnly = true;
-            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGridView1.Size = new Size(1465, 725);
-            dataGridView1.TabIndex = 22;
+            dataGridXP.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridXP.Dock = DockStyle.Bottom;
+            dataGridXP.Location = new Point(3, 298);
+            dataGridXP.Margin = new Padding(4, 3, 4, 3);
+            dataGridXP.Name = "dataGridXP";
+            dataGridXP.RowHeadersVisible = false;
+            dataGridXP.RowTemplate.Height = 30;
+            dataGridXP.RowTemplate.ReadOnly = true;
+            dataGridXP.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dataGridXP.Size = new Size(1465, 725);
+            dataGridXP.TabIndex = 22;
             // 
             // dataGridViewTextBoxColumn5
             // 
@@ -579,7 +580,7 @@
             ((System.ComponentModel.ISupportInitialize)DataGridTB).EndInit();
             tabTKXuPhat.ResumeLayout(false);
             tabTKXuPhat.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridXP).EndInit();
             ResumeLayout(false);
         }
 
@@ -613,10 +614,10 @@
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn4;
-        private DataGridView dataGridView1;
+        private DataGridView dataGridXP;
         private Label lblTongTien;
         private Label label2;
-        private ComboBox comboBox1;
+        private ComboBox cbbXuPhat;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn5;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn6;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn7;
