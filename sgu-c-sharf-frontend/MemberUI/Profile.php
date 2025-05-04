@@ -99,120 +99,120 @@
     <script>
         var email = '';
 
-        function loadUserInfoFromsessionStorage() {
-            // Lấy dữ liệu từ sessionStorage
-            var userData = sessionStorage.getItem("id");
+        // function loadUserInfoFromsessionStorage() {
+        //     // Lấy dữ liệu từ sessionStorage
+        //     var userData = sessionStorage.getItem("id");
 
-            // Kiểm tra xem userData có tồn tại không
-            if (!userData) {
-                console.error("No user data found in sessionStorage");
-                return;
-            }
+        //     // Kiểm tra xem userData có tồn tại không
+        //     if (!userData) {
+        //         console.error("No user data found in sessionStorage");
+        //         return;
+        //     }
 
-            // $.ajax({
-            //     url: '../../Controllers/UserInformationController.php',
-            //     method: "GET",
-            //     dataType: "json",
-            //     data: {
-            //         Id: userData
-            //     },
-            //     success: function(response) {
-            //         // Kiểm tra nếu phản hồi chứa dữ liệu
-            //         if (response && response.data) {
-            //             var userInfo = response.data; // Lấy thông tin người dùng đầu tiên từ mảng dữ liệu
+        //     // $.ajax({
+        //     //     url: '../../Controllers/UserInformationController.php',
+        //     //     method: "GET",
+        //     //     dataType: "json",
+        //     //     data: {
+        //     //         Id: userData
+        //     //     },
+        //     //     success: function(response) {
+        //     //         // Kiểm tra nếu phản hồi chứa dữ liệu
+        //     //         if (response && response.data) {
+        //     //             var userInfo = response.data; // Lấy thông tin người dùng đầu tiên từ mảng dữ liệu
                         
-            //             // Cập nhật các phần tử HTML với dữ liệu từ API
-            //             document.getElementById("fullname").value = userInfo.Fullname || '';
-            //             document.getElementById("phone").value = userInfo.PhoneNumber || '';
-            //             document.getElementById("birthday").value = userInfo.Birthday || '';
-            //             document.getElementById("inputEmail4").value = userInfo.Email || '';
-            //             document.getElementById("address").value = userInfo.Address || '';
+        //     //             // Cập nhật các phần tử HTML với dữ liệu từ API
+        //     //             document.getElementById("fullname").value = userInfo.Fullname || '';
+        //     //             document.getElementById("phone").value = userInfo.PhoneNumber || '';
+        //     //             document.getElementById("birthday").value = userInfo.Birthday || '';
+        //     //             document.getElementById("inputEmail4").value = userInfo.Email || '';
+        //     //             document.getElementById("address").value = userInfo.Address || '';
 
-            //             // Cập nhật giới tính
-            //             if (userInfo.Gender === 'Male') {
-            //                 document.getElementById("male").checked = true;
-            //             } else if (userInfo.Gender === 'Female') {
-            //                 document.getElementById("female").checked = true;
-            //             }
-            //         } else {
-            //             console.error("No user data found in response");
-            //         }
-            //     },
-            //     error: function(xhr, status, error) {
-            //         console.error("Error:", error);
-            //     }
-            // });
-        }
+        //     //             // Cập nhật giới tính
+        //     //             if (userInfo.Gender === 'Male') {
+        //     //                 document.getElementById("male").checked = true;
+        //     //             } else if (userInfo.Gender === 'Female') {
+        //     //                 document.getElementById("female").checked = true;
+        //     //             }
+        //     //         } else {
+        //     //             console.error("No user data found in response");
+        //     //         }
+        //     //     },
+        //     //     error: function(xhr, status, error) {
+        //     //         console.error("Error:", error);
+        //     //     }
+        //     // });
+        // }
 
-        window.onload = loadUserInfoFromsessionStorage;
+        // window.onload = loadUserInfoFromsessionStorage;
 
-        function validateForm() {
-            // Lấy các giá trị từ form
-            var form = document.forms["profileForm"];
-            var fullname = form['hoten'].value.trim();
-            var phone = form['sodienthoai'].value.trim();
-            var birthday = form['ngaysinh'].value.trim();
-            var gender = form['gioitinh'].value;
-            var address = form['diachi'].value.trim();
+        // function validateForm() {
+        //     // Lấy các giá trị từ form
+        //     var form = document.forms["profileForm"];
+        //     var fullname = form['hoten'].value.trim();
+        //     var phone = form['sodienthoai'].value.trim();
+        //     var birthday = form['ngaysinh'].value.trim();
+        //     var gender = form['gioitinh'].value;
+        //     var address = form['diachi'].value.trim();
 
-            // Kiểm tra các trường bắt buộc
-            if (!fullname || !phone || !birthday || !address) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Vui lòng điền đầy đủ thông tin!'
-                });
-                return false; // Ngăn chặn form gửi theo cách truyền thống
-            }
+        //     // Kiểm tra các trường bắt buộc
+        //     if (!fullname || !phone || !birthday || !address) {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Lỗi',
+        //             text: 'Vui lòng điền đầy đủ thông tin!'
+        //         });
+        //         return false; // Ngăn chặn form gửi theo cách truyền thống
+        //     }
 
-            // Lấy accountId từ URL
-            var accountId = new URLSearchParams(window.location.search).get('maTaiKhoan');
-            if (!accountId) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Không tìm thấy mã tài khoản!'
-                });
-                return false;
-            }
+        //     // Lấy accountId từ URL
+        //     var accountId = new URLSearchParams(window.location.search).get('maTaiKhoan');
+        //     if (!accountId) {
+        //         Swal.fire({
+        //             icon: 'error',
+        //             title: 'Lỗi',
+        //             text: 'Không tìm thấy mã tài khoản!'
+        //         });
+        //         return false;
+        //     }
 
-            // Chuẩn bị dữ liệu gửi đi
-            var formData = {
-                accountId: accountId,
-                fullname: fullname,
-                phone: phone,
-                birthday: birthday,
-                gender: gender,
-                address: address
-            };
+        //     // Chuẩn bị dữ liệu gửi đi
+        //     var formData = {
+        //         accountId: accountId,
+        //         fullname: fullname,
+        //         phone: phone,
+        //         birthday: birthday,
+        //         gender: gender,
+        //         address: address
+        //     };
 
-            $.ajax({
-                url: "../../Controllers/UserInformationController.php",
-                method: "PATCH",
-                data: JSON.stringify(formData), // Dữ liệu ở dạng JSON
-                contentType: "application/json",
-                success: function(response) {
-                    Swal.fire({
-                        icon: 'success',
-                        title: 'Thành công',
-                        text: 'Cập nhật thông tin thành công!'
-                    }).then(() => {
-                        location.reload(); // Reload lại trang sau khi cập nhật thành công
-                    });
+        //     $.ajax({
+        //         url: "../../Controllers/UserInformationController.php",
+        //         method: "PATCH",
+        //         data: JSON.stringify(formData), // Dữ liệu ở dạng JSON
+        //         contentType: "application/json",
+        //         success: function(response) {
+        //             Swal.fire({
+        //                 icon: 'success',
+        //                 title: 'Thành công',
+        //                 text: 'Cập nhật thông tin thành công!'
+        //             }).then(() => {
+        //                 location.reload(); // Reload lại trang sau khi cập nhật thành công
+        //             });
 
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Có lỗi xảy ra khi gửi yêu cầu!'
-                    });
-                }
-            });
+        //         },
+        //         error: function(error) {
+        //             console.error('Error:', error);
+        //             Swal.fire({
+        //                 icon: 'error',
+        //                 title: 'Lỗi',
+        //                 text: 'Có lỗi xảy ra khi gửi yêu cầu!'
+        //             });
+        //         }
+        //     });
 
-            return false; // Ngăn chặn form gửi theo cách truyền thống
-        }
+        //     return false; // Ngăn chặn form gửi theo cách truyền thống
+        // }
 
 
         function changePassword() {
@@ -223,7 +223,7 @@
             const oldPassword = oldPasswordInput.value.trim();
             const newPassword = newPasswordInput.value.trim();
             const confirmNewPassword = confirmNewPasswordInput.value.trim();
-            const accountId = new URLSearchParams(window.location.search).get('maTaiKhoan');
+      
 
             // Reset lại viền lỗi nếu có trước đó
             [oldPasswordInput, newPasswordInput, confirmNewPasswordInput].forEach(input => {
@@ -265,17 +265,9 @@
                 return;
             }
 
-            if (!accountId) {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi',
-                    text: 'Không tìm thấy mã tài khoản!'
-                });
-                return;
-            }
-
+    
             const data = {
-                identifier: 2,
+                identifier: id,
                 matKhauCu: oldPassword,
                 matKhauMoi: newPassword
             };
@@ -300,7 +292,7 @@
                     Swal.fire({
                         icon: 'error',
                         title: 'Lỗi',
-                        text: xhr.responseText || 'Đổi mật khẩu thất bại!'
+                        text: xhr.responseJSON.message || 'Đổi mật khẩu thất bại!'
                     });
                 }
             });
