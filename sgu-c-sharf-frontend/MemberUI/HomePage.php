@@ -139,7 +139,7 @@
     <?php require_once "./Footer.php"; ?>
 </body>
 
-<script src="application-properties.js"></script>
+<!-- <script src="application-properties.js"></script> -->
 <script>
     
 </script>

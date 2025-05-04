@@ -19,6 +19,61 @@
     <?php require_once "./Footer.php" ?>
 </body>
 <script>
-    
+    async function loadDanhSachThietBi() {
+        $.ajax({
+            url: "http://localhost:5000/api/thietbi/kha-dung", // URL của API
+            type: "GET", // Phương thức GET
+            success: function(response) {
+                if (response.success) {
+                    var thietBiHtml = ''; // Biến để lưu HTML
+                    $.each(response.data, function(index, thietBi) {
+                        // Tạo HTML cho mỗi thiết bị
+                        thietBiHtml += `
+                        <div class="thietBi">
+                            <h3>${thietBi.tenThietBi}</h3>
+                            <p>Loại: ${thietBi.tenLoaiThietBi}</p>
+                            <p>Số lượng khả dụng: ${thietBi.soLuongKhaDung}</p>
+                        </div>
+                    `;
+                    });
+                    // Hiển thị danh sách thiết bị
+                    $('#thietBiList').html(thietBiHtml);
+                } else {
+                    // Nếu có lỗi, hiển thị thông báo
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                // Nếu có lỗi khi gọi API
+                alert("Có lỗi khi tải dữ liệu: " + error);
+            }
+        });
+    }
+
+    async function loadAnhThietBi() {
+        $.ajax({
+            url: "http://localhost:5000/api/thietbi/hinh-anh/" + thietBiId, // URL của API
+            type: "GET", // Phương thức GET
+            success: function(response) {
+                if (response.success) {
+                    // Gán hình ảnh vào thẻ img
+                    $('#thietBiImage').attr('src', response.data.anhMinhHoa);
+                } else {
+                    alert(response.message);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Có lỗi khi tải hình ảnh: " + error);
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        // Gọi API để lấy danh sách thiết bị
+
+
+
+    });
 </script>
+
 </html>
