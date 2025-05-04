@@ -245,6 +245,7 @@
             // txtMaThanhVien
             // 
             txtMaThanhVien.Dock = DockStyle.Bottom;
+            txtMaThanhVien.Enabled = false;
             txtMaThanhVien.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtMaThanhVien.Location = new Point(0, 44);
             txtMaThanhVien.Margin = new Padding(4, 3, 4, 3);

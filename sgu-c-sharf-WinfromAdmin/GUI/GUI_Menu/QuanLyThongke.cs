@@ -20,6 +20,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         // thống kê thành viên
         private ThanhVienService thanhVienService = new ThanhVienService();
         private CheckInService checkInService = new CheckInService();
+
         private List<ThanhVien> listTV;
         private List<CheckIn> listCheckIn;
         private int count = 0;
@@ -29,6 +30,13 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
         private List<ThietBi> listTB;
         private List<DauThietBi> listDTB;
         private int countSum = 0, countKD = 0, countSD = 0;
+
+        // thống kê xử phạt
+        private PhieuXuPhatService phieuXuPhatService = new PhieuXuPhatService();
+        private List<PhieuXuPhatDetailDTO> listPXP;
+        private int tienBoiThuong = 0;
+
+
 
         public QuanLyThongKe()
         {
@@ -87,8 +95,18 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             cbbThietBi.SelectedIndex = 0;
             LoadTableForTB(listDTB);
         }
-        private void LoadDataPM()
+        private async void LoadDataPM()
         {
+            listPXP = await phieuXuPhatService.GetAllNoPagingAsync();
+            listTV = await thanhVienService.GetAll();
+            cbbXuPhat.Items.Clear();
+            cbbXuPhat.Items.Add("Tất cả");
+
+            // Thêm các giá trị enum vào ComboBox
+            foreach (var status in Enum.GetNames(typeof(TrangThaiPhieuXuPhatEnum)))
+                cbbXuPhat.Items.Add(status);
+            cbbXuPhat.SelectedIndex = 0;
+            LoadTableForXP(listPXP);
         }
 
         private void QuanLyThongKe_Load(object sender, EventArgs e)
@@ -107,6 +125,23 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             }
             count = listCheck.Select(c => c.IdThanhVien).Distinct().Count();
             lblCount.Text = $"Tổng số thành viên đã đến quán: {count}";
+
+        }
+
+        private void LoadTableForXP(List<PhieuXuPhatDetailDTO> listpxp)
+        {
+
+            tienBoiThuong = 0;
+            int stt = 1;
+            dataGridXP.Rows.Clear();
+            foreach (var cur in listpxp)
+            {
+                ThanhVien tv = listTV.FirstOrDefault(tv => tv.Id == cur.IdThanhVien);
+                dataGridXP.Rows.Add(stt++, cur.Id, tv.HoTen, cur.MoTa, cur.NgayViPham, cur.MucPhat, cur.TrangThai);
+                if (cur.TrangThai == TrangThaiPhieuXuPhatEnum.DAXULY)
+                    tienBoiThuong += (int)cur.MucPhat;
+            }
+            lblTongTien.Text = $"Tổng số tiền đã được bồi thường: {tienBoiThuong}";
 
         }
 
@@ -183,6 +218,28 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             {
                 List<DauThietBi> lists = listDTB.Where(cur => listTB.FirstOrDefault(tb => tb.TenThietBi == nameTB).Id == cur.IdThietBi).ToList();
                 LoadTableForTB(lists);
+            }
+        }
+
+        private async void cbbXuPhat_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            string trangthaiXP = cbbXuPhat.SelectedItem.ToString();
+            if (trangthaiXP == "Tất cả")
+            {
+                listPXP = await phieuXuPhatService.GetAllNoPagingAsync();
+                LoadTableForXP(listPXP);
+            }
+            else
+            {
+                Dictionary<string, TrangThaiPhieuXuPhatEnum> map = new Dictionary<string, TrangThaiPhieuXuPhatEnum>()
+                {
+                    { "DAXOA", TrangThaiPhieuXuPhatEnum.DAXOA },
+                    { "CHUAXULY", TrangThaiPhieuXuPhatEnum.CHUAXULY },
+                    { "DAXULY", TrangThaiPhieuXuPhatEnum.DAXULY }
+                };
+                TrangThaiPhieuXuPhatEnum enumTrangThai = map[trangthaiXP];
+                List<PhieuXuPhatDetailDTO> lists = listPXP.Where(xp => xp.TrangThai == enumTrangThai).ToList();
+                LoadTableForXP(lists);
             }
         }
     }
