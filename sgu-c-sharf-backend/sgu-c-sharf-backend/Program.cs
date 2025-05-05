@@ -1,10 +1,15 @@
+using System.Text.Json.Serialization;
 using Microsoft.AspNetCore.Identity;
 using MySql.Data.MySqlClient;
 using sgu_c_sharf_backend.Repositories;
 using sgu_c_sharf_backend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+    });
+
 builder.Services.AddScoped<ThanhVienRepository>();
 builder.Services.AddScoped<ThanhVienService>();
 builder.Services.AddScoped<LoaiThietBiRepository>();

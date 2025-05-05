@@ -57,7 +57,7 @@
                     <li><i class="fas fa-check-circle text-success"></i> Mượn thiết bị dễ dàng và nhanh chóng</li>
                     <li><i class="fas fa-check-circle text-success"></i> Nhận thông báo về các sự kiện và ưu đãi đặc biệt</li>
                 </ul>
-                <a href="./Login.php" class="btn btn-light mt-3 w-50">Đăng ký / Đăng nhập</a>
+                <a href="./Login/LoginUI.php" class="btn btn-light mt-3 w-50">Đăng ký / Đăng nhập</a>
             </div>
 
             <!-- Đặt mượn thiết bị -->

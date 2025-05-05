@@ -116,6 +116,46 @@ namespace sgu_c_sharf_backend.Repositories
             return thietBis;
         }
 
+        public ThietBiListAvailabilityDTO GetByIdWithAvailability(int id)
+        {
+            ThietBiListAvailabilityDTO thietBi = null;
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string sql = @"
+                        SELECT 
+                            tb.Id, 
+                            tb.TenThietBi, 
+                            ltb.TenLoaiThietBi, 
+                            COALESCE(COUNT(CASE WHEN dtb.TrangThai = 'KHADUNG' THEN 1 END), 0) AS SoLuongKhaDung
+                        FROM ThietBi tb
+                        INNER JOIN LoaiThietBi ltb ON tb.IdLoaiThietBi = ltb.Id AND ltb.DaXoa = 0
+                        LEFT JOIN DauThietBi dtb ON dtb.IdThietBi = tb.Id
+                        WHERE tb.DaXoa = 0 AND tb.Id = @id
+                        GROUP BY tb.Id, tb.TenThietBi, ltb.TenLoaiThietBi";
+
+                MySqlCommand command = new MySqlCommand(sql, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        thietBi = new ThietBiListAvailabilityDTO
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            TenThietBi = reader["TenThietBi"].ToString(),
+                            TenLoaiThietBi = reader["TenLoaiThietBi"].ToString(),
+                            SoLuongKhaDung = Convert.ToInt32(reader["SoLuongKhaDung"])
+                        };
+                    }
+                }
+            }
+
+            return thietBi;
+        }
+
         public void Add(ThietBiCreateForm thietBiCreateForm)
         {
             using (MySqlConnection connection = new MySqlConnection(_connectionString))
