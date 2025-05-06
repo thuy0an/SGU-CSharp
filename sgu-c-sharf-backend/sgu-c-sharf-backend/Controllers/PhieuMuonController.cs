@@ -38,7 +38,6 @@ namespace sgu_c_sharf_backend.Controllers
         [HttpGet("{id}")]
         public ActionResult<ApiResponse<PhieuMuonDetailDTO>> GetById(int id)
         {
-            Console.Write("Vào đựoc");
 
             var res = _phieuMuonService.GetById(id);
             if (res == null)
@@ -53,7 +52,6 @@ namespace sgu_c_sharf_backend.Controllers
         public ActionResult<ApiResponse<List<PhieuMuonDetailDTO>>> GetByIdByAccountId(int id){
             
 
-            Console.Write("Vào đực");
             var res = _phieuMuonService.GetAllByAccountId(id);
             if (res == null)
             {

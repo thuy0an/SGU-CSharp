@@ -240,10 +240,11 @@
 
     function convertTrangThai(code) {
         switch (code) {
-            case 1: return "Hủy";
-            case 2: return "Đang chờ duyệt";
-            case 3: return "Đang mượn";
-            case 4: return "Đã hoàn tất";
+            case 0: return "Đang chờ duyệt";
+            case 1: return "Đang chờ lấy thiết bị";
+            case 2: return "Đang mượn";
+            case 3: return "Đã hoàn tất";
+            case 4: return "Hủy";
             default: return "Không xác định";
         }
     }
@@ -279,8 +280,13 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `http://localhost:5244/api/phieu-muon/${id}/trang-thai`,
-                    method: 'PUT',
+                    url: `http://localhost:5244/api/trang-thai-phieu-muon`,
+                    method: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify({
+                        IdPhieuMuon: id,
+                        TrangThai: 4
+                    }),
                     success: function(response) {
                         if (response.status === 200) {
                             Swal.fire('Thành công', 'Phiếu mượn đã được hủy.', 'success');
