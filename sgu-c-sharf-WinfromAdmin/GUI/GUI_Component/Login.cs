@@ -1,4 +1,5 @@
-﻿using sgu_c_sharf_WinfromAdmin.Services;
+﻿using sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD;
+using sgu_c_sharf_WinfromAdmin.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -63,6 +64,12 @@ namespace sgu_c_sharf_WinfromAdmin.GUI
         private void Login_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void btnCheck_Click(object sender, EventArgs e)
+        {
+            ThemCheckIn form = new ThemCheckIn();
+            form.ShowDialog();
         }
     }
 }

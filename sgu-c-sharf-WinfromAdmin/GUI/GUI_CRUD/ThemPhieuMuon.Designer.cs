@@ -30,6 +30,7 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             btnXoaDauThietBi = new Button();
             btnThem = new Button();
@@ -122,6 +123,8 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGrid.RowHeadersVisible = false;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGrid.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGrid.Size = new Size(620, 300);
             dataGrid.TabIndex = 8;

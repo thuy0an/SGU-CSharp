@@ -38,6 +38,7 @@
             btnLogin = new Button();
             pictureBox1 = new PictureBox();
             chkMK = new CheckBox();
+            btnCheck = new Button();
             panel1.SuspendLayout();
             panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
@@ -127,10 +128,10 @@
             btnLogin.BackColor = Color.FromArgb(0, 123, 181);
             btnLogin.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogin.ForeColor = Color.White;
-            btnLogin.Location = new Point(218, 447);
+            btnLogin.Location = new Point(177, 441);
             btnLogin.Margin = new Padding(4, 3, 4, 3);
             btnLogin.Name = "btnLogin";
-            btnLogin.Size = new Size(140, 46);
+            btnLogin.Size = new Size(177, 46);
             btnLogin.TabIndex = 3;
             btnLogin.Text = "Login";
             btnLogin.UseVisualStyleBackColor = false;
@@ -158,6 +159,20 @@
             chkMK.TabIndex = 5;
             chkMK.UseVisualStyleBackColor = true;
             // 
+            // btnCheck
+            // 
+            btnCheck.BackColor = Color.FromArgb(0, 123, 181);
+            btnCheck.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnCheck.ForeColor = Color.White;
+            btnCheck.Location = new Point(177, 518);
+            btnCheck.Margin = new Padding(4, 3, 4, 3);
+            btnCheck.Name = "btnCheck";
+            btnCheck.Size = new Size(177, 46);
+            btnCheck.TabIndex = 6;
+            btnCheck.Text = "Check In";
+            btnCheck.UseVisualStyleBackColor = false;
+            btnCheck.Click += btnCheck_Click;
+            // 
             // Login
             // 
             AcceptButton = btnLogin;
@@ -165,6 +180,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(1148, 647);
+            Controls.Add(btnCheck);
             Controls.Add(chkMK);
             Controls.Add(pictureBox1);
             Controls.Add(btnLogin);
@@ -199,5 +215,6 @@
         private System.Windows.Forms.Button btnLogin;
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.CheckBox chkMK;
+        private Button btnCheck;
     }
 }

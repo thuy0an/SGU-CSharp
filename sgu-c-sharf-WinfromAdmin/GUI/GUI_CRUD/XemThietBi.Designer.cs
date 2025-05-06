@@ -30,6 +30,7 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             label3 = new Label();
             panel7 = new Panel();
@@ -90,17 +91,14 @@
             panel7.Size = new Size(500, 73);
             panel7.TabIndex = 6;
             // 
-            // cbbLoaiThietBi
+            // txtTenLoaiThietBi
             // 
             txtTenLoaiThietBi.Dock = DockStyle.Bottom;
-            // txtTenLoaiThietBi.DropDownStyle = ComboBoxStyle.DropDownList;
             txtTenLoaiThietBi.Enabled = false;
             txtTenLoaiThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            // txtTenLoaiThietBi.FormattingEnabled = true;
-            // txtTenLoaiThietBi.Items.AddRange(new object[] { "Loại A", "Loại B", "Loại C", "Loại D" });
-            txtTenLoaiThietBi.Location = new Point(0, 43);
+            txtTenLoaiThietBi.Location = new Point(0, 44);
             txtTenLoaiThietBi.Name = "txtTenLoaiThietBi";
-            txtTenLoaiThietBi.Size = new Size(500, 30);
+            txtTenLoaiThietBi.Size = new Size(500, 29);
             txtTenLoaiThietBi.TabIndex = 1;
             // 
             // label8
@@ -141,6 +139,8 @@
             dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
             dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGrid.RowHeadersVisible = false;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGrid.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGrid.Size = new Size(740, 300);
             dataGrid.TabIndex = 8;
