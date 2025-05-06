@@ -13,6 +13,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../HelperUI/formatOutput.js"></script>
     <title>Chi tiết phiếu mượn</title>
+    <style>
+        .home-button {
+            margin-top: 10px;
+            font-size: 16px;
+            padding: 8px 26px;
+            transition: background-color 0.3s;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
@@ -84,6 +96,11 @@
                             <p class='hotline'>
                                 * Để được hỗ trợ trực tiếp và nhanh nhất, vui lòng liên hệ quản lý thiết bị qua số điện thoại: 0123 456 789
                             </p>
+                            <div style="text-align: left; margin-left: 87%; margin-top: 50px;">
+                                <button class="btn btn-primary home-button" onclick="window.location.href='MyOrder.php'">
+                                    Quay Lại
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -118,11 +135,11 @@
                 case 0:
                     return "ChoDuyet"; // Đang chờ duyệt
                 case 1:
-                    return "DaDuyet"; // Đang chờ lấy thiết bị (coi như Đã duyệt)
+                    return "DaDuyet"; // Đang chờ lấy thiết bị
                 case 2:
                     return "DangMuon"; // Đang mượn
                 case 3:
-                    return "DaTra"; // Đã hoàn tất (coi như Đã trả)
+                    return "DaTra"; // Đã hoàn tất
                 case 4:
                     return "Huy"; // Hủy
                 default:
@@ -132,6 +149,9 @@
 
         // Hàm cập nhật màu sắc và thời gian cho trạng thái
         function setColorAndTime(trangThaiValue, thoiGianValue) {
+            console.log("setColorAndTime called with:", trangThaiValue);
+            // let trangThaiValue = "DaTra"
+
             const $line1 = $('#line1');
             const $line2 = $('#line2');
             const $line3 = $('#line3');
@@ -155,6 +175,31 @@
             const $circleContainer4 = $('#circle-container4');
             const $circleContainer5 = $('#circle-container5');
 
+            // Reset tất cả các màu về trạng thái mặc định trước khi áp dụng màu mới
+            $icon1.css("color", "gray");
+            $icon2.css("color", "gray");
+            $icon3.css("color", "gray");
+            $icon4.css("color", "gray");
+            $icon5.css("color", "gray");
+
+            $line1.css("color", "gray");
+            $line2.css("color", "gray");
+            $line3.css("color", "gray");
+            $line4.css("color", "gray");
+
+            $circleContainer1.css("border-color", "gray");
+            $circleContainer2.css("border-color", "gray");
+            $circleContainer3.css("border-color", "gray");
+            $circleContainer4.css("border-color", "gray");
+            $circleContainer5.css("border-color", "gray");
+
+            $thoiGian1.html("");
+            $thoiGian2.html("");
+            $thoiGian3.html("");
+            $thoiGian4.html("");
+            $thoiGian5.html("");
+
+            // Áp dụng màu sắc dựa trên trạng thái hiện tại
             switch (trangThaiValue) {
                 case 'ChoDuyet':
                     $icon1.css("color", "green");
@@ -162,45 +207,77 @@
                     $thoiGian1.html(formatDateTime(thoiGianValue));
                     break;
                 case 'DaDuyet':
+                    $icon1.css("color", "green");
+                    $circleContainer1.css("border-color", "green");
+                    $thoiGian1.html(formatDateTime(thoiGianValue));
+
                     $icon2.css("color", "green");
                     $line1.css("color", "green");
                     $circleContainer2.css("border-color", "green");
                     $thoiGian2.html(formatDateTime(thoiGianValue));
                     break;
                 case 'DangMuon':
+                    $icon1.css("color", "green");
+                    $circleContainer1.css("border-color", "green");
+                    $thoiGian1.html(formatDateTime(thoiGianValue));
+
+                    $icon2.css("color", "green");
+                    $line1.css("color", "green");
+                    $circleContainer2.css("border-color", "green");
+                    $thoiGian2.html(formatDateTime(thoiGianValue));
+
                     $icon3.css("color", "green");
                     $line2.css("color", "green");
                     $circleContainer3.css("border-color", "green");
                     $thoiGian3.html(formatDateTime(thoiGianValue));
                     break;
                 case 'DaTra':
+                    $icon1.css("color", "green");
+                    $circleContainer1.css("border-color", "green");
+                    // $thoiGian1.html(formatDateTime(thoiGianValue));
+
+                    $icon2.css("color", "green");
+                    $line1.css("color", "green");
+                    $circleContainer2.css("border-color", "green");
+                    // $thoiGian2.html(formatDateTime(thoiGianValue));
+
+                    $icon3.css("color", "green");
+                    $line2.css("color", "green");
+                    $circleContainer3.css("border-color", "green");
+                    // $thoiGian3.html(formatDateTime(thoiGianValue));
+
                     $icon4.css("color", "green");
                     $line3.css("color", "green");
                     $circleContainer4.css("border-color", "green");
-                    $thoiGian4.html(formatDateTime(thoiGianValue));
+                    // $thoiGian4.html(formatDateTime(thoiGianValue));
                     break;
                 case 'Huy':
                     $icon1.css("color", "rgb(146, 26, 26)");
                     $circleContainer1.css("border-color", "rgb(146, 26, 26)");
+                    $thoiGian1.html(formatDateTime(thoiGianValue));
+
                     $icon2.css("color", "rgb(146, 26, 26)");
                     $line1.css("color", "rgb(146, 26, 26)");
                     $circleContainer2.css("border-color", "rgb(146, 26, 26)");
+
                     $icon3.css("color", "rgb(146, 26, 26)");
                     $line2.css("color", "rgb(146, 26, 26)");
                     $circleContainer3.css("border-color", "rgb(146, 26, 26)");
+
                     $icon4.css("color", "rgb(146, 26, 26)");
                     $line3.css("color", "rgb(146, 26, 26)");
                     $circleContainer4.css("border-color", "rgb(146, 26, 26)");
+
                     $icon5.css("color", "rgb(146, 26, 26)");
                     $line4.css("color", "rgb(146, 26, 26)");
                     $circleContainer5.css("border-color", "rgb(146, 26, 26)");
                     $thoiGian5.html(formatDateTime(thoiGianValue));
                     break;
                 default:
+                    console.log("Unknown status:", trangThaiValue);
                     break;
             }
         }
-
         // Dữ liệu tĩnh cho các phần không có trong API
         const staticData = {
             ghiChu: "Mượn thiết bị cho dự án thực tập",
@@ -216,19 +293,6 @@
                     deviceName: "Loa Bluetooth",
                     quantity: 2,
                     image: "loa_bluetooth.jpg"
-                }
-            ],
-            trangThaiPhieuMuon: [{
-                    status: "ChoDuyet",
-                    updateTime: "2025-05-06T09:00:00"
-                },
-                {
-                    status: "DaDuyet",
-                    updateTime: "2025-05-06T10:00:00"
-                },
-                {
-                    status: "DangMuon",
-                    updateTime: "2025-05-06T11:00:00"
                 }
             ]
         };
@@ -251,9 +315,8 @@
                 success: function(response) {
                     Swal.close();
                     if (response && response.status === 200) {
-                        const phieuMuonData = response.data; // Lấy phiếu mượn đầu tiên
+                        const phieuMuonData = response.data;
 
-                        // Kết hợp dữ liệu từ API và dữ liệu tĩnh
                         const phieuMuon = {
                             id: phieuMuonData.id,
                             thoiGianTao: phieuMuonData.ngayTao,
@@ -261,11 +324,9 @@
                             trangThai: convertTrangThai(phieuMuonData.trangThai),
                             ghiChu: staticData.ghiChu,
                             thoiGianTraDuKien: staticData.thoiGianTraDuKien,
-                            chiTietThietBi: staticData.chiTietThietBi,
-                            trangThaiPhieuMuon: staticData.trangThaiPhieuMuon
+                            chiTietThietBi: staticData.chiTietThietBi
                         };
-                        console.log("aaaa", phieuMuon);
-
+                        console.log(phieuMuon);
                         let deviceListHtml = '';
                         let html = '';
 
@@ -279,9 +340,6 @@
                                             <div class='inforCart'>
                                                 <div class='nameAndPrice'>
                                                     <a href='#' class='nameCart'>${device.deviceName}</a>
-                                                </div>
-                                                <div class='quantity'>
-                                                    <div class='txtQuantity'>${device.quantity}</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -306,10 +364,8 @@
                         $('#device-list').html(deviceListHtml);
                         $('.wrap').html(html);
 
-                        // Hiển thị trạng thái phiếu mượn
-                        phieuMuon.trangThaiPhieuMuon.forEach(function(trangThai) {
-                            setColorAndTime(trangThai.status, trangThai.updateTime);
-                        });
+                        // Hiển thị trạng thái hiện tại
+                        setColorAndTime(phieuMuon.trangThai, phieuMuon.thoiGianTao);
                     } else {
                         Swal.fire('Lỗi', 'Không tìm thấy phiếu mượn.', 'error');
                     }
@@ -324,7 +380,7 @@
 
         $(document).ready(function() {
             const urlParams = new URLSearchParams(window.location.search);
-            const maPhieuMuon = urlParams.get('id'); // Lấy id từ tham số URL (thay vì maDonHang)
+            const maPhieuMuon = urlParams.get('id');
 
             if (maPhieuMuon) {
                 loadPhieuMuonData(maPhieuMuon);
