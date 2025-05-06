@@ -38,12 +38,26 @@ namespace sgu_c_sharf_backend.Controllers
         [HttpGet("{id}")]
         public ActionResult<ApiResponse<PhieuMuonDetailDTO>> GetById(int id)
         {
+
             var res = _phieuMuonService.GetById(id);
             if (res == null)
             {
                 return NotFound(ApiResponse<PhieuMuonDetailDTO>.Fail("Không tìm thấy phiếu mượn"));
             }
             return Ok(ApiResponse<PhieuMuonDetailDTO>.Ok(res, "Thành công"));
+        }
+        
+        // Lấy chi tiết phiếu mượn theo ID
+        [HttpGet("thanh-vien/{id}")]
+        public ActionResult<ApiResponse<List<PhieuMuonDetailDTO>>> GetByIdByAccountId(int id){
+            
+
+            var res = _phieuMuonService.GetAllByAccountId(id);
+            if (res == null)
+            {
+                return NotFound(ApiResponse<List<PhieuMuonDetailDTO>>.Fail("Không tìm thấy phiếu mượn"));
+            }
+            return Ok(ApiResponse<List<PhieuMuonDetailDTO>>.Ok(res, "Thành công"));
         }
 
         // Thêm mới phiếu mượn 

@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `ThietBi` (
 DROP TABLE IF EXISTS `DauThietBi`;
 CREATE TABLE IF NOT EXISTS `DauThietBi` (
     `Id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-    `TrangThai` ENUM("KHADUNG", "DATTRUOC", "DANGMUON", "THATLAC", "BAOTRI", "THANHLY", "DATHATLAC") NOT NULL,
+    `TrangThai` ENUM("KHADUNG", "DATTRUOC", "DANGMUON", "THATLAC", "BAOTRI") NOT NULL,
     `ThoiGianMua` DATETIME NOT NULL,
     `IdThietBi` INT UNSIGNED NOT NULL,
     FOREIGN KEY (`IdThietBi`) REFERENCES `ThietBi`(`Id`)
@@ -82,7 +82,7 @@ CREATE TABLE IF NOT EXISTS `ChiTietPhieuMuon` (
     `IdDauThietBi` INT UNSIGNED NOT NULL,
     `ThoiGianMuon` DATETIME NOT NULL,
     `ThoiGianTra` DATETIME,
-    `TrangThai` ENUM("DANGMUON", "DATRATHIETBI", "DATHATLAC") NOT NULL,
+    `TrangThai` ENUM("CHODUYET", "DANGMUON", "DATRATHIETBI", "DATHATLAC") NOT NULL,
     PRIMARY KEY (`IdPhieuMuon`, `IdDauThietBi`),
     FOREIGN KEY (`IdPhieuMuon`) REFERENCES `PhieuMuon`(`Id`),
     FOREIGN KEY (`IdDauThietBi`) REFERENCES `DauThietBi`(`Id`)
@@ -93,7 +93,7 @@ DROP TABLE IF EXISTS `TrangThaiPhieuMuon`;
 CREATE TABLE IF NOT EXISTS `TrangThaiPhieuMuon` (
     `Id` INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     `IdPhieuMuon` INT UNSIGNED NOT NULL,
-    `TrangThai` ENUM("HUY", "DATCHO", "DANGSUDUNG", "DATRATHIETBI") NOT NULL,
+    `TrangThai` ENUM("CHODUYET", "DATCHO", "DANGSUDUNG", "DATRATHIETBI", "HUY") NOT NULL,
     `ThoiGianCapNhat` DATETIME NOT NULL DEFAULT NOW(),
     FOREIGN KEY (`IdPhieuMuon`) REFERENCES `PhieuMuon`(`Id`)
 );
@@ -111,69 +111,6 @@ CREATE TABLE IF NOT EXISTS `PhieuXuPhat` (
     FOREIGN KEY (`IdThanhVien`) REFERENCES `ThanhVien`(`Id`)
 );
 
-<<<<<<< HEAD
--- Thêm dữ liệu vào bảng ThanhVien
-INSERT INTO ThanhVien (
-        HoTen,
-        NgaySinh,
-        Email,
-        SoDienThoai,
-        TrangThai,
-        MatKhau,
-        ThoiGianDangKy,
-        Quyen
-    )
-VALUES (
-        'Ngô Tuấn Hưng',
-        '2004-11-11',
-        'hung@gmail.com',
-        '0987654321',
-        'HOATDONG',
-        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
-        NOW(),
-        "ADMIN"
-    ),
-    (
-        'Nguyễn Minh Phúc',
-        '2004-11-01',
-        'phuc@gmail.com',
-        '0978123456',
-        'HOATDONG',
-        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
-        NOW(),
-        "USER"
-    ),
-    (
-        'Trần Văn Khánh',
-        '2004-12-05',
-        'khanh@gmail.com',
-        '0978567890',
-        'HOATDONG',
-        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
-        NOW(),
-        "USER"
-    ),
-    (
-        'Đỗ Anh Đài',
-        '2004-10-21',
-        'dai@gmail.com',
-        '0978124444',
-        'DINHCHI',
-        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
-        NOW(),
-        "USER"
-    ),
-       (
-           'Test',
-           '2004-08-18',
-           'nguyenphucminh880@gmail.com',
-           '0967987654',
-           'HOATDONG',
-           'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
-           NOW(),
-           "USER"
-       );
-=======
 -- Insert: ThanhVien
 INSERT INTO `ThanhVien` (`HoTen`, `NgaySinh`, `Email`, `SoDienThoai`, `TrangThai`, `MatKhau`, `ThoiGianDangKy`, `Quyen`)
 VALUES 
@@ -182,7 +119,6 @@ VALUES
     ("Trần Văn Khánh", "2004-12-05", "khanh@gmail.com", "0978567890", "HOATDONG", "AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==", NOW(), "USER"),
     ("Đỗ Anh Đài", "2004-10-21", "dai@gmail.com", "0978124444", "DINHCHI", "AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==", NOW(), "USER"),
     ("Diệp Thụy An", "2004-08-18", "an@gmail.com", "0967987654", "CAM", "AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==", NOW(), "USER");
->>>>>>> 7bd9867c26fb4c7ba9f7c359cdd372c5eca76c92
 
 -- Insert: CheckIn
 INSERT INTO `CheckIn` (`ThoiGianCheckIn`, `IdThanhVien`)

@@ -26,10 +26,10 @@
                     </select>
                 </div>
                 <div class="p-2">
-                    <input type="text" class="form-control" placeholder="Tên thiết bị" name="" id="txtSearch">
+                    <input type="text" class="form-control" placeholder="Tên thiết bị" name="" id="txtTenSanPham">
                 </div>
                 <div class="p-2">
-                    <button type="button" class="btn btn-danger" id="reset">Đặt lại</button>
+                    <button type="button" class="btn btn-danger" id="btnReset">Đặt lại</button>
                 </div>
             </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h1 class="modal-title fs-5" id="staticBackdropLabel">Them thiet bi</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" name="btn-close"></button>
                 </div>
                 <div class="modal-body">
                     <div class="card">
@@ -68,7 +68,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" name="btn-close">Đóng</button>
                     <button type="button" class="btn btn-danger" id="btnThem" data-id="">Thêm</button>
                 </div>
             </div>
@@ -187,7 +187,7 @@
                             <li class="list-group-item">Số lượng khả dụng: ${thietBi.soLuongKhaDung}</li>
                         </ul>
                         <div class="card-body">
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="${thietBi.id}">Thêm</button>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="${thietBi.id}" name="btnBackdrop">Thêm</button>
                         </div>
                     </div>
                 </div>
@@ -217,8 +217,8 @@
     document.addEventListener("DOMContentLoaded", function() {
         readyLoad();
         var selectLoai = document.getElementById("selectLoai");
-        var txtSearch = document.getElementById("txtSearch");
-        var btnReset = document.getElementById("reset");
+        var txtTenSanPham = document.getElementById("txtTenSanPham");
+        var btnReset = document.getElementById("btnReset");
         var btnMinus = document.getElementById("btnMinus");
         var btnPlus = document.getElementById("btnPlus");
         var txtSoLuong = document.getElementById("txtSoLuong");
@@ -226,13 +226,13 @@
 
 
         selectLoai.addEventListener("change", function() {
-            var searchValue = txtSearch.value;
+            var searchValue = txtTenSanPham.value;
             var selectedValue = selectLoai.value;
             displayDanhSachThietBi(selectedValue, searchValue);
         });
 
-        txtSearch.addEventListener("input", function() {
-            var searchValue = txtSearch.value;
+        txtTenSanPham.addEventListener("input", function() {
+            var searchValue = txtTenSanPham.value;
             var selectedValue = selectLoai.value;
             displayDanhSachThietBi(selectedValue, searchValue);
         });

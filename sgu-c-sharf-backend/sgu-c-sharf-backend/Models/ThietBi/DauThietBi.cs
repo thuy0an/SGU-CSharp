@@ -28,8 +28,6 @@ namespace sgu_c_sharf_backend.Models.ThietBi
         DATTRUOC,
         DANGMUON,
         THATLAC,
-        BAOTRI,
-        THANHLY,
-        DATHATLAC
+        BAOTRI
     }
 }

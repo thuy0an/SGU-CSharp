@@ -149,6 +149,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 
                 bool isTrangThaiAdded = await trangThaiService.Add(trangThaiDTO);
 
+                if (!isTrangThaiAdded)
+                {
+                    MessageBox.Show("Không thể thêm trạng thái phiếu mượn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
                 ChiTietPhieuMuonService chiTietService = new ChiTietPhieuMuonService();
 
                 List<ChiTietPhieuMuonCreateDTO> chiTietList = new List<ChiTietPhieuMuonCreateDTO>();
@@ -166,6 +171,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                 }
                 bool isChiTietAdded = await chiTietService.Add(chiTietList);
 
+                // Cập nhật trạng thái đầu thiết bị
                 DauThietBiService dauThietBiService = new DauThietBiService();
                 bool isDauThietBiUpdated = await dauThietBiService.UpdateDanhSachDauThietBi(dauThietBis);
 

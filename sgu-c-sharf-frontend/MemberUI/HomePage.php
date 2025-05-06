@@ -91,7 +91,7 @@
     <div class="row text-center">
         <!-- Đặt chỗ -->
         <div class="col-12 col-md-3 mb-4">
-            <a href="./ReservationForm.php" class="text-decoration-none text-dark">
+            <a href="./DeviceBooking.php" class="text-decoration-none text-dark">
                 <div class="p-4 border rounded shadow-sm h-100">
                     <i class="fas fa-chair fa-3x mb-3 text-primary"></i>
                     <h5 class="fw-bold">Đặt chỗ</h5>

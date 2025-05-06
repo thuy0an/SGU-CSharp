@@ -31,6 +31,7 @@
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             panel7 = new Panel();
             cbbTrangThai = new ComboBox();
@@ -86,7 +87,7 @@
             pnlContent.Name = "pnlContent";
             pnlContent.Size = new Size(740, 746);
             pnlContent.TabIndex = 0;
-            pnlContent.Paint += this.pnlContent_Paint;
+            pnlContent.Paint += pnlContent_Paint;
             // 
             // panel7
             // 
@@ -158,6 +159,8 @@
             dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
             dataGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGrid.RowHeadersVisible = false;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGrid.RowsDefaultCellStyle = dataGridViewCellStyle4;
             dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGrid.Size = new Size(740, 239);
             dataGrid.TabIndex = 8;
@@ -183,7 +186,7 @@
             panel6.Name = "panel6";
             panel6.Size = new Size(295, 73);
             panel6.TabIndex = 6;
-            panel6.Paint += this.panel6_Paint;
+            panel6.Paint += panel6_Paint;
             // 
             // txtEmail
             // 
@@ -218,7 +221,7 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(295, 73);
             panel5.TabIndex = 5;
-            panel5.Paint += this.panel5_Paint;
+            panel5.Paint += panel5_Paint;
             // 
             // txtNgaySinh
             // 
@@ -253,7 +256,7 @@
             panel4.Name = "panel4";
             panel4.Size = new Size(295, 73);
             panel4.TabIndex = 4;
-            panel4.Paint += this.panel4_Paint;
+            panel4.Paint += panel4_Paint;
             // 
             // txtThoiGianDangKy
             // 
@@ -288,7 +291,7 @@
             panel3.Name = "panel3";
             panel3.Size = new Size(295, 73);
             panel3.TabIndex = 3;
-            panel3.Paint += this.panel3_Paint;
+            panel3.Paint += panel3_Paint;
             // 
             // txtTenNguoiDung
             // 
@@ -323,7 +326,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(295, 73);
             panel2.TabIndex = 2;
-            panel2.Paint += this.panel2_Paint;
+            panel2.Paint += panel2_Paint;
             // 
             // txtSoDienThoai
             // 
@@ -358,7 +361,7 @@
             panel1.Name = "panel1";
             panel1.Size = new Size(295, 73);
             panel1.TabIndex = 1;
-            panel1.Paint += this.panel1_Paint;
+            panel1.Paint += panel1_Paint;
             // 
             // txtMaThanhVien
             // 
@@ -383,7 +386,7 @@
             label2.Size = new Size(124, 22);
             label2.TabIndex = 0;
             label2.Text = "Mã thành viên";
-            label2.Click += this.label2_Click;
+            label2.Click += label2_Click;
             // 
             // label1
             // 
@@ -410,7 +413,7 @@
             Name = "FormXemThanhVien";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "XemThanhVien";
-            Load += this.FormSuaThanhVien_Load;
+            Load += FormSuaThanhVien_Load;
             pnlContent.ResumeLayout(false);
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
