@@ -121,9 +121,9 @@
     <content style="display: flex;">
         <section class="user-history-nav" style="width: 20vw; padding: 20px;">
             <ul class="nav-tabs">
-                <li><a href="LichSuMuon.php" class="active">Lịch sử phiếu mượn</a></li>
-                <li><a href="LichSuXuPhat.php">Lịch sử xử phạt</a></li>
-                <li><a href="LichSuCheckIn.php">Lịch sử check in</a></li>
+                <li><a href="MyOrder.php" class="active">Lịch sử phiếu mượn</a></li>
+                <li><a href="MyXuPhat.php">Lịch sử xử phạt</a></li>
+                <li><a href="MyCheckIn.php">Lịch sử check in</a></li>
             </ul>
         </section>
 
@@ -137,7 +137,7 @@
 
                 <!-- Phần hiển thị Đơn mượn -->
             <div class="orderManagement_order_history">
-                <p id="emptyCartMessage" class="empty_cart" style="text-align: center;">Bạn chưa có đơn hàng nào!</p>
+                <p id="emptyCartMessage" class="empty_cart" style="text-align: center;">Bạn chưa có phiếu mượn nào!</p>
                 <table class="order-table" id="orderHistoryTable">
                     <thead>
                         <tr>
