@@ -190,7 +190,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                         Id = ct.IdDauThietBi,
                         TrangThai = ct.TrangThai switch
                         {
-                            TrangThaiChiTietPhieuMuonEnum.CHODUYET => TrangThaiDauThietBi.KHADUNG,
+                            TrangThaiChiTietPhieuMuonEnum.CHODUYET => TrangThaiDauThietBi.DATTRUOC,
                             TrangThaiChiTietPhieuMuonEnum.DANGMUON => TrangThaiDauThietBi.DANGMUON,
                             TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI => TrangThaiDauThietBi.KHADUNG,
                             TrangThaiChiTietPhieuMuonEnum.DATHATLAC => TrangThaiDauThietBi.THATLAC,
