@@ -4,26 +4,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./Profile.css">
-    <title>Thông tin cá nhân</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-    <link rel="stylesheet" href="./HomePage.css" />
-    <!-- <link rel="stylesheet" href="./login.css" /> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../utils/formatOutput.js"></script>
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-        integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMlI4F/x3Rgx31ZobM4uZ5dI6cuJg6RZ/aXjmD"
-        crossorigin="anonymous">
-</head>
-<?php require_once "./Header.php" ?>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lịch sử vi phạm</title>
+
+    <!-- External CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMlI4F/x3Rgx31ZobM4uZ5dI6cuJg6RZ/aXjmD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="./HomePage.css">
+    <link rel="stylesheet" href="./Profile.css">
+    <link rel="stylesheet" href="./login.css">
+
+    <!-- External JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="../utils/formatOutput.js"></script>
+
+    <!-- Inline CSS -->
     <style>
         * {
             box-sizing: border-box;
@@ -34,16 +31,71 @@
 
         body {
             background-color: #f4f4f9;
-            padding: 20px;
             line-height: 1.6;
         }
 
-        /* Container */
+        /* Main layout with sidebar and content */
+        .main-container {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+        }
+
+        .user-history-nav {
+            margin: 30px 0;
+            padding: 20px;
+            background-color: #fff3e0;
+            /* vàng nhạt */
+            border-right: 3px solid #7b181a;
+            /* đỏ viền */
+            min-height: 100%;
+        }
+
+        .nav-tabs {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .nav-tabs li a {
+            text-decoration: none;
+            padding: 12px 20px;
+            display: block;
+            color: #7b181a;
+            background-color: #fff3e0;
+            border-left: 5px solid transparent;
+            font-weight: 600;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-tabs li a:hover {
+            background-color: #ffe0b2;
+            color: #b71c1c;
+            border-left: 5px solid #f57c00;
+            /* cam đậm khi hover */
+        }
+
+        .nav-tabs li a.active {
+            background-color: #7b181a;
+            color: white !important;
+            border-left: 5px solid #fbc02d;
+            /* vàng nổi bật */
+        }
+
+        /* Main content area */
+        .content-area {
+            flex: 1;
+            max-width: 80vw;
+        }
+
         .space-y-6 {
             margin-bottom: 24px;
         }
 
-        /* Flex layout for header */
         .flex {
             display: flex;
         }
@@ -56,7 +108,6 @@
             align-items: center;
         }
 
-        /* Typography */
         .text-2xl {
             font-size: 1.5rem;
         }
@@ -73,7 +124,6 @@
             color: #6b7280;
         }
 
-        /* Button */
         .button {
             display: inline-flex;
             align-items: center;
@@ -97,7 +147,6 @@
             height: 16px;
         }
 
-        /* Card */
         .card {
             background-color: white;
             border-radius: 8px;
@@ -124,7 +173,6 @@
             padding: 16px;
         }
 
-        /* Table */
         .table {
             width: 100%;
             border-collapse: collapse;
@@ -158,7 +206,6 @@
             font-weight: 500;
         }
 
-        /* Badge */
         .badge {
             display: inline-flex;
             align-items: center;
@@ -188,7 +235,6 @@
             color: #374151;
         }
 
-        /* Pagination */
         .pagination {
             display: flex;
             justify-content: center;
@@ -244,7 +290,6 @@
             opacity: 0.5;
         }
 
-        /* Stats Grid */
         .grid {
             display: grid;
             gap: 16px;
@@ -277,6 +322,18 @@
         }
 
         @media (max-width: 768px) {
+            .main-container {
+                flex-direction: column;
+            }
+
+            .user-history-nav {
+                width: 100%;
+            }
+
+            .content-area {
+                max-width: 100%;
+            }
+
             .md-grid-cols-3 {
                 grid-template-columns: 1fr;
             }
@@ -285,98 +342,106 @@
 </head>
 
 <body>
-    <div class="space-y-6">
-        <!-- Header -->
-        <div class="flex justify-between items-center">
-            <div>
-                <h1 class="text-2xl font-bold tracking-tight">Lịch sử vi phạm</h1>
-                <p class="text-muted-foreground">Xem thông tin các vi phạm và phiếu xử phạt của bạn</p>
-            </div>
-            <div>
-                <button class="button" onclick="alert('Chức năng xuất báo cáo chưa được triển khai!')">
-                    <svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z" />
-                        <path d="M13 2v7h7" />
-                    </svg>
-                    Xuất báo cáo
-                </button>
-            </div>
-        </div>
+    <?php require_once "./Header.php"; ?>
 
-        <!-- Violations Table -->
-        <div class="card">
-            <div class="card-header">
-                <h2 class="card-title">Danh sách vi phạm</h2>
-                <p class="card-description">Tổng cộng: <span id="total-violations">0</span> vi phạm</p>
-            </div>
-            <div class="card-content">
-                <table class="table">
-                    <thead class="table-header">
-                        <tr class="table-row">
-                            <th class="table-head">ID</th>
-                            <th class="table-head">Thiết bị</th>
-                            <th class="table-head">Ngày vi phạm</th>
-                            <th class="table-head">Loại vi phạm</th>
-                            <th class="table-head">Mô tả</th>
-                            <th class="table-head">Mức phạt</th>
-                            <th class="table-head">Trạng thái</th>
-                        </tr>
-                    </thead>
-                    <tbody id="violations-table-body">
-                        <!-- Table rows will be populated by JavaScript -->
-                    </tbody>
-                </table>
+    <div class="main-container">
+        <!-- Sidebar Navigation -->
+        <section class="user-history-nav" style="width: 20vw; padding: 20px;">
+            <ul class="nav-tabs">
+                <li><a href="MyOrder.php">Lịch sử phiếu mượn</a></li>
+                <li><a href="MyXuPhat.php" class="active">Lịch sử xử phạt</a></li>
+                <li><a href="MyCheckIn.php">Lịch sử check in</a></li>
+            </ul>
+        </section>
 
-                <!-- Pagination -->
-                <div class="pagination" id="pagination">
-                    <div class="pagination-content" id="pagination-content">
-                        <!-- Pagination links will be populated by JavaScript -->
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stats Card -->
-        <div class="card">
-            <div class="card-header">
-                <div class="flex items-center justify-between">
+        <!-- Main Content -->
+        <div class="content-area">
+            <div class="space-y-6">
+                <!-- Header -->
+                <div class="flex justify-between items-center">
                     <div>
-                        <h2 class="card-title">Thống kê vi phạm</h2>
-                        <p class="card-description">Tổng kết các vi phạm theo thời gian</p>
+                        <h1 class="text-2xl font-bold tracking-tight">Lịch sử vi phạm</h1>
+                        <p class="text-muted-foreground">Xem thông tin các vi phạm và phiếu xử phạt của bạn</p>
                     </div>
-                    <span class="badge badge-outline">
-                        <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M12 22s-8-4-8-10V5l8-3 8 3v7c0 6-8 10-8 10z" />
-                        </svg>
-                        Cập nhật lúc: <span id="update-time"></span>
-                    </span>
                 </div>
-            </div>
-            <div class="card-content">
-                <div class="grid grid-cols-1 md-grid-cols-3">
-                    <div class="stat-box">
-                        <div class="stat-value" id="pending-violations">0</div>
-                        <div class="stat-label">Vi phạm chưa xử lý</div>
+
+                <!-- Violations Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Danh sách vi phạm</h2>
+                        <p class="card-description">Tổng cộng: <span id="total-violations">0</span> vi phạm</p>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="paid-violations">0</div>
-                        <div class="stat-label">Vi phạm đã xử lý</div>
+                    <div class="card-content">
+                        <table class="table">
+                            <thead class="table-header">
+                                <tr class="table-row">
+                                    <th class="table-head">ID</th>
+                                    <th class="table-head">Thiết bị</th>
+                                    <th class="table-head">Ngày vi phạm</th>
+                                    <th class="table-head">Thời gian xử phạt (ngày)</th>
+                                    <th class="table-head">Mô tả</th>
+                                    <th class="table-head">Mức phạt</th>
+                                    <th class="table-head">Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="violations-table-body">
+                                <!-- Table rows will be populated by JavaScript -->
+                            </tbody>
+                        </table>
+
+                        <!-- Pagination -->
+                        <div class="pagination" id="pagination">
+                            <div class="pagination-content" id="pagination-content">
+                                <!-- Pagination links will be populated by JavaScript -->
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-box">
-                        <div class="stat-value" id="late-violations">0</div>
-                        <div class="stat-label">Vi phạm trễ hạn</div>
+                </div>
+
+                <!-- Stats Card -->
+                <div class="card">
+                    <div class="card-header">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h2 class="card-title">Thống kê vi phạm</h2>
+                                <p class="card-description">Tổng kết các vi phạm theo thời gian</p>
+                            </div>
+                            <span class="badge badge-outline">
+                                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 22s-8-4-8-10V5l8-3 8 3v7c0 6-8 10-8 10z" />
+                                </svg>
+                                Cập nhật lúc: <span id="update-time"></span>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card-content">
+                        <div class="grid grid-cols-1 md-grid-cols-3">
+                            <div class="stat-box">
+                                <div class="stat-value" id="pending-violations">0</div>
+                                <div class="stat-label">Vi phạm chưa xử lý</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value" id="paid-violations">0</div>
+                                <div class="stat-label">Vi phạm đã xử lý</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-value" id="waived-violations">0</div>
+                                <div class="stat-label">Vi phạm đã xóa</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <?php require_once "./Footer.php"; ?>
+
     <script>
         const violations = [{
                 id: "V001",
                 equipmentName: "Máy chiếu",
                 date: "2023-10-01T14:30:00",
-                violationType: "late",
                 description: "Trễ hạn trả 3 ngày",
                 penalty: "500,000 VNĐ",
                 status: "pending"
@@ -385,7 +450,6 @@
                 id: "V002",
                 equipmentName: "Laptop",
                 date: "2023-09-15T09:00:00",
-                violationType: "damaged",
                 description: "Màn hình bị nứt",
                 penalty: "2,000,000 VNĐ",
                 status: "paid"
@@ -394,7 +458,6 @@
                 id: "V003",
                 equipmentName: "Máy in",
                 date: "2023-08-20T16:00:00",
-                violationType: "lost",
                 description: "Không tìm thấy thiết bị",
                 penalty: "5,000,000 VNĐ",
                 status: "waived"
@@ -403,7 +466,6 @@
                 id: "V004",
                 equipmentName: "Bàn phím",
                 date: "2023-07-10T11:00:00",
-                violationType: "late",
                 description: "Trễ hạn trả 1 ngày",
                 penalty: "100,000 VNĐ",
                 status: "pending"
@@ -412,7 +474,6 @@
                 id: "V005",
                 equipmentName: "Chuột",
                 date: "2023-06-05T13:30:00",
-                violationType: "misuse",
                 description: "Sử dụng sai mục đích",
                 penalty: "200,000 VNĐ",
                 status: "paid"
@@ -421,7 +482,6 @@
                 id: "V006",
                 equipmentName: "Micro",
                 date: "2023-05-01T15:00:00",
-                violationType: "late",
                 description: "Trễ hạn trả 2 ngày",
                 penalty: "300,000 VNĐ",
                 status: "pending"
@@ -441,27 +501,18 @@
                 class: "badge-secondary"
             },
         };
-        const violationTypeMap = {
-            late: {
-                text: "Trễ hạn",
-                class: "badge-outline"
-            },
-            damaged: {
-                text: "Hư hỏng",
-                class: "badge-destructive"
-            },
-            lost: {
-                text: "Mất thiết bị",
-                class: "badge-destructive"
-            },
-            misuse: {
-                text: "Sử dụng sai",
-                class: "badge-secondary"
-            },
-        };
         const itemsPerPage = 5;
         let currentPage = 1;
         const totalPages = Math.ceil(violations.length / itemsPerPage);
+
+        // Calculate days between violation date and today (May 06, 2025)
+        function calculateDaysSince(dateString) {
+            const violationDate = new Date(dateString);
+            const today = new Date("2025-05-06");
+            const diffTime = Math.abs(today - violationDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
 
         function formatDate(dateString) {
             const date = new Date(dateString);
@@ -481,17 +532,14 @@
             const tbody = document.getElementById("violations-table-body");
             tbody.innerHTML = "";
             currentViolations.forEach(violation => {
+                const daysSince = calculateDaysSince(violation.date);
                 const row = document.createElement("tr");
                 row.className = "table-row";
                 row.innerHTML = `
                     <td class="table-cell font-medium">${violation.id}</td>
                     <td class="table-cell">${violation.equipmentName}</td>
                     <td class="table-cell">${formatDate(violation.date)}</td>
-                    <td class="table-cell">
-                        <span class="badge ${violationTypeMap[violation.violationType].class}">
-                            ${violationTypeMap[violation.violationType].text}
-                        </span>
-                    </td>
+                    <td class="table-cell">${daysSince}</td>
                     <td class="table-cell">${violation.description}</td>
                     <td class="table-cell">${violation.penalty}</td>
                     <td class="table-cell">
@@ -546,13 +594,13 @@
             document.getElementById("total-violations").textContent = violations.length;
             document.getElementById("pending-violations").textContent = violations.filter(v => v.status === "pending").length;
             document.getElementById("paid-violations").textContent = violations.filter(v => v.status === "paid").length;
-            document.getElementById("late-violations").textContent = violations.filter(v => v.violationType === "late").length;
+            document.getElementById("waived-violations").textContent = violations.filter(v => v.status === "waived").length;
             document.getElementById("update-time").textContent = new Date().toLocaleTimeString('vi-VN');
         }
+
         renderViolations(currentPage);
         renderStats();
     </script>
 </body>
 
 </html>
-<?php require_once "./Footer.php" ?>
