@@ -46,6 +46,29 @@
         loadDatCho();
     });
 
+    const TrangThaiPhieuMuonEnum = {
+        CHODUYET: 0,
+        DATCHO: 1,
+        DANGSUDUNG: 2,
+        DATRATHIETBI: 3,
+        HUY: 4
+    };
+
+    const TrangThaiChiTietPhieuMuonEnum = {
+        CHODUYET: 0,
+        DANGMUON: 1,
+        DATRATHIETBI: 2,
+        DATHATLAC: 3
+    };
+
+    const TrangThaiDauThietBiEnum = {
+        KHADUNG: 0,
+        DATTRUOC: 1,
+        DANGMUON: 2,
+        THATLAC: 3,
+        BAOTRI: 4
+    };
+
     function loadDatCho() {
         const datCho = JSON.parse(localStorage.getItem("datCho")) || [];
         const datChoList = document.getElementById("datChoList");
@@ -240,9 +263,6 @@
 
         //Đặt chỗ
         document.getElementById("btnTaoPhieu").addEventListener("click", async function() {
-            let ngayMuon = $('#txtNgayMuon').val();
-            let ngayMuonISO = new Date(ngayMuon).toISOString();
-            console.log(ngayMuonISO);
             const IdThanhVien = sessionStorage.getItem("id");
             if (!IdThanhVien) {
                 Swal.fire({
@@ -301,7 +321,18 @@
             try {
                 // Tạo phiếu mượn
                 let ngayMuon = $('#txtNgayMuon').val();
-                let ngayMuonISO = new Date(ngayMuon).toISOString();
+                let ngayMuonISO = null;
+
+                if (ngayMuon) {
+                    ngayMuonISO = new Date(ngayMuon).toISOString();
+                    console.log("ngayMuonISO:", ngayMuonISO);
+                } else {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'Chưa chọn ngày mượn',
+                        text: 'Vui lòng chọn ngày mượn trước khi tiếp tục!'
+                    });
+                }
 
                 let createPhieuMuonResponse = await $.ajax({
                     url: "http://localhost:5244/api/phieu-muon",
@@ -323,7 +354,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({
                         IdPhieuMuon: IdPhieuMuon,
-                        TrangThai: "CHODUYET",
+                        TrangThai: TrangThaiPhieuMuonEnum.CHODUYET,
                         ThoiGianCapNhat: ngayMuonISO
                     })
                 });
@@ -352,7 +383,7 @@
                     IdPhieuMuon: IdPhieuMuon,
                     IdDauThietBi: dtb.id,
                     ThoiGianMuon: ngayMuonISO,
-                    TrangThai: "CHODUYET"
+                    TrangThai: TrangThaiChiTietPhieuMuonEnum.CHODUYET
                 }));
 
                 console.log(chiTietPhieuMuonList);
@@ -371,7 +402,7 @@
 
                 // Cập nhật trạng thái đầu thiết bị
                 allDauThietBi.forEach(device => {
-                    device.trangThai = "DATTRUOC";
+                    device.trangThai = TrangThaiDauThietBiEnum.DATTRUOC;
                 });
 
                 let resUpdate = await $.ajax({
