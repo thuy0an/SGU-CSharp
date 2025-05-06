@@ -21,7 +21,7 @@ namespace sgu_c_sharf_backend.Repositories
             List<CheckIn> listCheck = new List<CheckIn>();
             using (MySqlConnection connection = new MySqlConnection(_connectionString)){
                connection.Open();
-                string sql = "Select Id, ThoiGianCheckIn, IdThanhVien From checkin WHERE IdThanhVien = @IdThanhVien";
+                string sql = "Select Id, ThoiGianCheckIn, IdThanhVien From CheckIn WHERE IdThanhVien = @IdThanhVien ORDER BY ThoiGianCheckIn DESC";
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 command.Parameters.AddWithValue("@IdThanhVien", id);
                 using (MySqlDataReader reader = command.ExecuteReader()){
@@ -41,7 +41,7 @@ namespace sgu_c_sharf_backend.Repositories
             List<CheckIn> listCheck = new List<CheckIn>();
             using (MySqlConnection connection = new MySqlConnection(_connectionString)){
                connection.Open();
-                string sql = "Select Id, ThoiGianCheckIn, IdThanhVien From checkin";
+                string sql = "Select Id, ThoiGianCheckIn, IdThanhVien From CheckIn";
                 MySqlCommand command = new MySqlCommand(sql, connection);
                 using (MySqlDataReader reader = command.ExecuteReader()){
                     while( reader.Read()){
@@ -60,9 +60,8 @@ namespace sgu_c_sharf_backend.Repositories
         public bool Create(CheckIn checkIn){
             using (MySqlConnection connection = new MySqlConnection(_connectionString)){
                 connection.Open();
-                string sql= "Insert into CheckIn (ThoiGianCheckIn, IdThanhVien) values (@ThoiGianCheckIn, @IdThanhVien)";
+                string sql= "Insert into CheckIn (ThoiGianCheckIn, IdThanhVien) values (NOW(), @IdThanhVien)";
                 MySqlCommand command = new MySqlCommand(sql, connection);
-                command.Parameters.AddWithValue("@ThoiGianCheckIn", checkIn.ThoiGianCheckIn);
                 command.Parameters.AddWithValue("@IdThanhVien", checkIn.IdThanhVien);
                 return command.ExecuteNonQuery() > 0;
             }
