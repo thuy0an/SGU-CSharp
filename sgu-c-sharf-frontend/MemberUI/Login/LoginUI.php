@@ -54,24 +54,7 @@
         </div>
     </div>
 
-    <!-- Modal Quên Mật Khẩu -->
-    <div class="modal fade" id="forgotPasswordModal" tabindex="-1" aria-labelledby="forgotPasswordModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="forgotPasswordModalLabel">Quên Mật Khẩu</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <input type="email" placeholder="Nhập email của bạn" id="forgotEmail" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                    <button type="button" class="btn btn-primary" id="sendEmailButton">Gửi</button>
-                </div>
-            </div>
-        </div>
-    </div>
+
 </body>
 
 
@@ -99,7 +82,7 @@
     });
     forgotPasswordBtn.addEventListener("click", (event) => {
         event.preventDefault(); // Ngăn chặn sự chuyển đổi
-        $('#forgotPasswordModal').modal('show');
+        window.location.href = "./ResetPasswordUI.php";
     });
 
 
@@ -405,47 +388,6 @@
             }
         });
     }
-
-    sendEmailButton.addEventListener("click", async (event) => {
-        event.preventDefault(); // Ngăn chặn hành động mặc định
-
-        const email = document.getElementById("forgotEmail");
-        if (isValidEmail(email)) {
-            // Gửi yêu cầu đến server để reset mật khẩu
-            $.ajax({
-                url: '../../../Controllers/AccountController.php',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    email: email,
-                    action: 'resetPassword'
-                },
-                success: function(response) {
-                    Swal.fire({
-                        title: response.message,
-                        icon: response.status === 200 ? 'success' : 'error',
-                        confirmButtonText: 'OK'
-                    });
-                    $('#forgotPasswordModal').modal('hide');
-                },
-                error: function() {
-                    Swal.fire({
-                        title: 'Lỗi!',
-                        text: 'Đã xảy ra lỗi khi gửi yêu cầu!',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            });
-        } else {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Email không hợp lệ!',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-        }
-    });
 </script>
 
 

@@ -170,16 +170,16 @@ VALUES (
         NOW(),
         "USER"
     ),
-    (
-        'Diệp Thụy An',
-        '2004-08-18',
-        'an@gmail.com',
-        '0967987654',
-        'CAM',
-        'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
-        NOW(),
-        "USER"
-    );
+       (
+           'Test',
+           '2004-08-18',
+           'nguyenphucminh880@gmail.com',
+           '0967987654',
+           'HOATDONG',
+           'AQAAAAIAAYagAAAAEDSlGSabwVBLvb7tRgS9SULXUGDS9VN3Nlw7l5kcN61KOsJdsLs6aPz+wCN0lBFDHA==',
+           NOW(),
+           "USER"
+       );
 
 -- Thêm dữ liệu vào bảng CheckIn
 INSERT INTO CheckIn (ThoiGianCheckIn, IdThanhVien)

@@ -1,5 +1,7 @@
 using System.Text;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Win32.SafeHandles;
 using MySql.Data.MySqlClient;
 using sgu_c_sharf_backend.ApiResponse;
@@ -10,12 +12,13 @@ namespace sgu_c_sharf_backend.Repositories
     public class ThanhVienRepository
     {
         private readonly string _connectionString;
+        private readonly ILogger<ThanhVienRepository> _logger; // Inject ILogger
 
-        public ThanhVienRepository(IConfiguration configuration)
+        public ThanhVienRepository(IConfiguration configuration, ILogger<ThanhVienRepository> logger)
         {
             _connectionString = configuration.GetConnectionString("DefaultConnection");
+            _logger = logger;
         }
-
         public PagedResult<ThanhVien> GetAll(int pageNumber, int pageSize, string? search, TrangThaiEnum? status, string? sortBy, string? sortDirection)
         {
             var members = new List<ThanhVien>();
@@ -114,6 +117,36 @@ namespace sgu_c_sharf_backend.Repositories
             return new PagedResult<ThanhVien>(members, totalRecords, pageNumber, pageSize);
         }
 
+        public ThanhVien? FindUserByEmail(string email)
+        {
+            ThanhVien? thanhVien = null;
+
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+            string query = "SELECT Id, HoTen, NgaySinh, Email, SoDienThoai, TrangThai, MatKhau, ThoiGianDangKy, Quyen FROM ThanhVien WHERE Email = @Email";
+
+            using var command = new MySqlCommand(query, connection);
+            command.Parameters.AddWithValue("@Email", email);
+
+            using var reader = command.ExecuteReader();
+            if (reader.Read())
+            {
+                thanhVien = new ThanhVien
+                {
+                    Id = reader.GetInt32("Id"),
+                    HoTen = reader.GetString("HoTen"),
+                    NgaySinh = reader.GetDateTime("NgaySinh"),
+                    Email = reader.GetString("Email"),
+                    SoDienThoai = reader.GetString("SoDienThoai"),
+                    TrangThai = Enum.Parse<TrangThaiEnum>(reader.GetString("TrangThai")),
+                    MatKhau = reader.GetString("MatKhau"),
+                    ThoiGianDangKy = reader.GetDateTime("ThoiGianDangKy"),
+                    Quyen = Enum.Parse<QuyenEnum>(reader.GetString("Quyen")),
+                };
+            }
+
+            return thanhVien;
+        }
         public ThanhVien? GetById(int id)
         {
             ThanhVien? thanhVien = null;
@@ -347,5 +380,47 @@ namespace sgu_c_sharf_backend.Repositories
 
             return false; // Đổi mật khẩu thất bại
         }
+
+        public bool ForgotPassword(ForgotPassword request)
+        {
+            _logger.LogInformation($"ForgotPassword request received for Identifier: {request.Identifier}");
+
+            using var connection = new MySqlConnection(_connectionString);
+            try
+            {
+                connection.Open();
+                _logger.LogInformation("Database connection opened successfully.");
+
+                var passwordHasher = new PasswordHasher<object>();
+                string hashedNewPassword = passwordHasher.HashPassword(new object(), request.MatKhauMoi);
+                _logger.LogDebug($"Hashed new password for Identifier: {request.Identifier}");
+
+                string updateQuery = "UPDATE ThanhVien SET MatKhau = @MatKhauMoi WHERE Id = @Identifier";
+                using var updateCommand = new MySqlCommand(updateQuery, connection);
+                updateCommand.Parameters.AddWithValue("@MatKhauMoi", hashedNewPassword);
+                updateCommand.Parameters.AddWithValue("@Identifier", request.Identifier);
+                _logger.LogDebug($"Executing SQL: {updateQuery} with Identifier: {request.Identifier}");
+
+                int rowsAffected = updateCommand.ExecuteNonQuery();
+                _logger.LogInformation($"Rows affected for Identifier: {request.Identifier}: {rowsAffected}");
+
+                return rowsAffected > 0;
+            }
+            catch (MySqlException ex)
+            {
+                string errorMessage = $"Database error occurred while updating password for Identifier: {request.Identifier}";
+                _logger.LogError(ex, errorMessage);
+                return false;
+            }
+            finally
+            {
+                if (connection.State == System.Data.ConnectionState.Open)
+                {
+                    connection.Close();
+                    _logger.LogInformation("Database connection closed.");
+                }
+            }
+        }
+
     }
 }

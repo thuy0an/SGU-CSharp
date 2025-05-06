@@ -55,11 +55,17 @@ namespace sgu_c_sharf_backend.Services
         {
             return _thanhVienRepository.IsEmailExists(email);
         }
-
+        public ThanhVien? FindUserByEmail(string email)
+        {
+            return _thanhVienRepository.FindUserByEmail(email);
+        }
         public bool ChangePassword(ChangePassword request)
         {
             return _thanhVienRepository.ChangePassword(request);
         }
-
+        public bool ForgotPassword(ForgotPassword request)
+        {
+            return _thanhVienRepository.ForgotPassword(request);
+        }
     }
 }

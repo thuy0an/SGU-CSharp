@@ -5,3 +5,9 @@ public class ChangePassword
     public string MatKhauMoi { get; set; }
     public string MatKhauCu { get; set; }
 }
+
+public class ForgotPassword
+{
+    public int Identifier { get; set; }
+    public string MatKhauMoi { get; set; }
+}

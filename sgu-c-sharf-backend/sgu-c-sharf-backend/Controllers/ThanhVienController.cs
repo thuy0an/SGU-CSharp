@@ -102,10 +102,10 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
         [HttpPost("change-password")]
-        public ActionResult<ApiResponse<bool>> ChangePassword([FromBody] ChangePassword request)
+        public ActionResult<ApiResponse<bool>> ChangePassword([FromForm] ChangePassword request)
         {
             bool success = _service.ChangePassword(request);
-            if (request.MatKhauMoi.Equals(request.MatKhauCu)) 
+            if (request.MatKhauMoi.Equals(request.MatKhauCu))
             {
                 return BadRequest(ApiResponse<bool>.Fail("Đổi mật khẩu thất bại. Mật khẩu mới không thay đổi so với mật khẩu cũ."));
             }
@@ -117,7 +117,19 @@ namespace sgu_c_sharf_backend.Controllers
 
             return Ok(ApiResponse<bool>.Ok(success, "Đổi mật khẩu thành công."));
         }
+        [HttpPost("forgot-password")]
+        public ActionResult<ApiResponse<bool>> ForgotPassword([FromForm] ForgotPassword request)
+        {
+            bool success = _service.ForgotPassword(request);
+            
 
+            if (!success)
+            {
+                return BadRequest(ApiResponse<bool>.Fail("Đổi mật khẩu thất bại. Mật khẩu cũ không chính xác hoặc tài khoản không tồn tại."));
+            }
+
+            return Ok(ApiResponse<bool>.Ok(success, "Đổi mật khẩu thành công."));
+        }
         [HttpPost("register")]
         public ActionResult<ApiResponse<ThanhVienDetailResponseDto>> AddThanhVien([FromBody] ThanhVienCreateForm request)
         {
