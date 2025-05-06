@@ -154,28 +154,6 @@
             age--; // Nếu chưa đến sinh nhật trong năm hiện tại thì trừ 1
         }
 
-        if (age < 18) {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Bạn phải đủ 18 tuổi để đăng ký',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            $('#ngaySinh').focus();
-            return;
-        }
-
-        if (!/^\d{10}$/.test(soDienThoai)) {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Số điện thoại phải có 10 chữ số',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            $('#soDienThoai').focus();
-            return;
-        }
-
         if (!matKhau) {
             Swal.fire({
                 title: 'Lỗi!',
@@ -187,16 +165,16 @@
             return;
         }
 
-        if (matKhau.length < 8) {
-            Swal.fire({
-                title: 'Lỗi!',
-                text: 'Mật khẩu phải dài từ 8 ký tự',
-                icon: 'error',
-                confirmButtonText: 'OK'
-            });
-            $('#matKhau').focus();
-            return;
-        }
+        // if (matKhau.length < 8) {
+        //     Swal.fire({
+        //         title: 'Lỗi!',
+        //         text: 'Mật khẩu phải dài từ 8 ký tự',
+        //         icon: 'error',
+        //         confirmButtonText: 'OK'
+        //     });
+        //     $('#matKhau').focus();
+        //     return;
+        // }
 
         if (!xacNhanMatKhau) {
             Swal.fire({
