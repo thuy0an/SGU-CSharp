@@ -63,4 +63,29 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         DATRATHIETBI,
         HUY
     }
+    public class PhieuMuonChiTietDTO
+{
+    public int PhieuMuonId { get; set; }
+    public DateTime NgayTaoPhieuMuon { get; set; }
+    
+    public int ThanhVienId { get; set; }
+    public string TenThanhVien { get; set; }
+    public string Email { get; set; }
+    public string SoDienThoai { get; set; }
+    
+    public int? TrangThaiPhieuMuonId { get; set; }
+    public string TrangThaiPhieuMuon { get; set; }
+    public DateTime? ThoiGianCapNhatTrangThai { get; set; }
+    
+    public int? IdDauThietBi { get; set; }
+    public DateTime? ThoiGianMuon { get; set; }
+    public DateTime? ThoiGianTra { get; set; }
+    public string TrangThaiChiTietPhieuMuon { get; set; }
+    
+    public string TrangThaiDauThietBi { get; set; }
+    public DateTime? ThoiGianMua { get; set; }
+    
+    public string TenThietBi { get; set; }
+    public string AnhMinhHoa { get; set; }
+}
 }
