@@ -289,7 +289,7 @@
         }).then((result) => {
             if (result.isConfirmed) {
                 $.ajax({
-                    url: `http://localhost:5244/api/trang-thai-phieu-muon`,
+                    url: `http://localhost:5244/api/trang-thai-phieu-muon/update-trang-thai`,
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify({

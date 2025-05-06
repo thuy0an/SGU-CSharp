@@ -282,5 +282,45 @@ namespace sgu_c_sharf_backend.Repositories
                 return false;
             }
         }
+
+        public List<DauThietBiListDTO> GetByListId(List<int> ids)
+        {
+            List<DauThietBiListDTO> list = new List<DauThietBiListDTO>();
+
+            if (ids == null || !ids.Any())
+            {
+                return list; // Nếu không có Ids thì trả về list rỗng
+            }
+
+            using (MySqlConnection connection = new MySqlConnection(_connectionString))
+            {
+                connection.Open();
+                string sql = @"
+                    SELECT *
+                    FROM DauThietBi dt
+                    WHERE dt.Id IN (@Ids)"; 
+
+                MySqlCommand command = new MySqlCommand(sql, connection);
+
+                string idsParam = string.Join(",", ids);
+                command.Parameters.AddWithValue("@Ids", idsParam);
+
+                using (MySqlDataReader reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        list.Add(new DauThietBiListDTO
+                        {
+                            Id = Convert.ToInt32(reader["Id"]),
+                            TrangThai = (TrangThaiDauThietBiEnum)Enum.Parse(typeof(TrangThaiDauThietBiEnum), reader["TrangThai"].ToString()),
+                            ThoiGianMua = Convert.ToDateTime(reader["ThoiGianMua"]),
+                            IdThietBi = Convert.ToInt32(reader["IdThietBi"])
+                        });
+                    }
+                }
+            }
+
+            return list;
+        }
     }
 }
