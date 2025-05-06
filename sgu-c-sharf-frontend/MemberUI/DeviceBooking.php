@@ -23,25 +23,19 @@
 <body>
     <?php require_once "./Header.php" ?>
     <div class="container mt-4">
-        <h2>Danh sách muốn đặt chỗ</h2>
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>STT</th>
-                    <th>Ảnh</th>
-                    <th>Tên thiết bị</th>
-                    <th>Số lượng</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody id="datChoList">
-                <!-- Dữ liệu sẽ được load ở đây -->
-            </tbody>
-        </table>
-        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-            <button id="btnTaoPhieu" class="btn btn-danger">Đặt chỗ</button>
+        <div class="row">
+            <div class="col-md-8">
+                <div id="datChoList" class="d-flex flex-column gap-3">
+                    <!-- Các card sẽ được thêm vào đây -->
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div>
+                    <input type="date" class="form-control mb-2" id="txtNgayMuon">
+                    <button id="btnTaoPhieu" class="btn btn-danger w-100">Đặt chỗ</button>
+                </div>
+            </div>
         </div>
-
     </div>
     <?php require_once "./Footer.php" ?>
 </body>
@@ -61,20 +55,28 @@
             let html = "";
             datCho.forEach((item, index) => {
                 html += `
-                    <tr>
-                        <td>${index + 1}</td>
-                        <td class="anh-thiet-bi" data-id="${item.id}">Đang tải ảnh...</td>
-                        <td data-id="${item.id}" class="ten-thiet-bi">Đang tải...</td>
-                        <td>
-                            <div class="input-group input-group-sm">
-                                <button type="button" class="btn btn-outline-secondary btnMinus" data-id="${item.id}"><i class="bi bi-dash-lg"></i></button>
-                                <input type="text" class="form-control txtSoLuong" value="${item.soLuong}" data-id="${item.id}" style="width: 60px; text-align: center;">
-                                <button type="button" class="btn btn-outline-secondary btnPlus" data-id="${item.id}"><i class="bi bi-plus-lg"></i></button>
+                    <div class="card">
+                        <div class="row g-0">
+                            <div class="col-auto">
+                                <img src="" class="img-fluid rounded-start anh-thiet-bi" data-id="${item.id}" alt="Ảnh thiết bị" style="width: 120px; height: 120px; object-fit: cover;">
                             </div>
-                        </td>
-                        <td><button class="btn btn-danger btn-sm btnXoa" data-id="${item.id}">Xóa</button></td>
-                    </tr>
-                `;
+                            <div class="col">
+                                <div class="card-body d-flex flex-column">
+                                    <h5 class="card-title ten-thiet-bi" data-id="${item.id}">Đang tải...</h5>
+                                    <div class="input-group input-group-sm mb-2">
+                                        <button type="button" class="btn btn-outline-secondary btnMinus" data-id="${item.id}">
+                                            <i class="bi bi-dash-lg"></i>
+                                        </button>
+                                        <input type="text" class="form-control text-center txtSoLuong" value="${item.soLuong}" data-id="${item.id}" style="max-width: 60px;">
+                                        <button type="button" class="btn btn-outline-secondary btnPlus" data-id="${item.id}">
+                                            <i class="bi bi-plus-lg"></i>
+                                        </button>
+                                    </div>
+                                    <button class="btn btn-danger btn-sm btnXoa mt-auto align-self-start" data-id="${item.id}">Xóa</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>`;
             });
             datChoList.innerHTML = html;
 
@@ -108,7 +110,7 @@
                     success: function(data) {
                         if (data.status === 200) {
                             const imgSrc = `../img/${data.data.anhMinhHoa}`;
-                            cell.innerHTML = `<img src="${imgSrc}" alt="Ảnh" style="width: 80px;">`;
+                            cell.src = imgSrc;
                         } else {
                             cell.textContent = "Không có ảnh";
                         }
@@ -206,11 +208,7 @@
                                 let datCho = JSON.parse(localStorage.getItem("datCho")) || [];
                                 datCho = datCho.filter(item => item.id != id);
                                 localStorage.setItem("datCho", JSON.stringify(datCho));
-
-                                const row = input.closest("tr");
-                                row.parentNode.removeChild(row);
-
-                                Swal.fire("Đã xóa thiết bị khỏi danh sách!", "", "success");
+                                location.reload();
                             }
                         });
                     }
@@ -221,15 +219,29 @@
             document.querySelectorAll(".btnXoa").forEach(btn => {
                 btn.addEventListener("click", function() {
                     const id = this.getAttribute("data-id");
-                    const updated = datCho.filter(item => item.id != id);
-                    localStorage.setItem("datCho", JSON.stringify(updated));
-                    location.reload();
+                    Swal.fire({
+                        title: "Bạn có muốn xóa thiết bị này không?",
+                        icon: "question",
+                        showCancelButton: true,
+                        confirmButtonText: "Có, xóa",
+                        cancelButtonText: "Không"
+                    }).then((result) => {
+                        if (result.isConfirmed) {
+                            let datCho = JSON.parse(localStorage.getItem("datCho")) || [];
+                            datCho = datCho.filter(item => item.id != id);
+                            localStorage.setItem("datCho", JSON.stringify(datCho));
+                            location.reload();
+                        }
+                    });
                 });
             });
         }
 
         //Đặt chỗ
         document.getElementById("btnTaoPhieu").addEventListener("click", async function() {
+            let ngayMuon = $('#txtNgayMuon').val();
+            let ngayMuonISO = new Date(ngayMuon).toISOString();
+            console.log(ngayMuonISO);
             const IdThanhVien = sessionStorage.getItem("id");
             if (!IdThanhVien) {
                 Swal.fire({
@@ -287,13 +299,16 @@
 
             try {
                 // Tạo phiếu mượn
+                let ngayMuon = $('#txtNgayMuon').val();
+                let ngayMuonISO = new Date(ngayMuon).toISOString();
+
                 let createPhieuMuonResponse = await $.ajax({
                     url: "http://localhost:5244/api/phieu-muon",
                     method: "POST",
                     contentType: "application/json",
                     data: JSON.stringify({
                         IdThanhVien: IdThanhVien,
-                        NgayTao: new Date().toISOString()
+                        NgayTao: new Date(ngayMuon).toISOString()
                     })
                 });
 
@@ -308,7 +323,7 @@
                     data: JSON.stringify({
                         IdPhieuMuon: IdPhieuMuon,
                         TrangThai: "CHODUYET",
-                        ThoiGianCapNhat: new Date().toISOString()
+                        ThoiGianCapNhat: ngayMuonISO
                     })
                 });
 
@@ -335,8 +350,8 @@
                 let chiTietPhieuMuonList = allDauThietBi.map(dtb => ({
                     IdPhieuMuon: IdPhieuMuon,
                     IdDauThietBi: dtb.id,
-                    ThoiGianMuon: new Date().toISOString(),
-                    TrangThai: "DANGMUON"
+                    ThoiGianMuon: ngayMuonISO,
+                    TrangThai: "CHODUYET"
                 }));
 
                 console.log(chiTietPhieuMuonList);
