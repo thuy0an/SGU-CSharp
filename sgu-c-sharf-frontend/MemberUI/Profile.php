@@ -4,13 +4,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="Profile.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./Profile.css">
     <title>Thông tin cá nhân</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link rel="stylesheet" href="./HomePage.css" />
+    <!-- <link rel="stylesheet" href="./login.css" /> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="../HelperUI/formatOutput.js"></script>
+    <script src="../utils/formatOutput.js"></script>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+        integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMlI4F/x3Rgx31ZobM4uZ5dI6cuJg6RZ/aXjmD"
+        crossorigin="anonymous">
 </head>
 <body>
     <?php require_once "./Header.php" ?>
@@ -25,49 +31,54 @@
                 <form name="profileForm" action="Profile.php" method="POST" onsubmit="return validateForm()">
                     <div class="bg-secondary-soft px-4 py-5 rounded">
                         <div class="row g-3" style="text-align:left;">
+                            <!-- Hidden ID -->
+                            <input type="hidden" name="id" id="userId">
+
                             <div class="col-md-6">
                                 <label class="form-label">Họ tên *</label>
-                                <input type="text" class="form-control" name="hoten" id="fullname">
+                                <input type="text" class="form-control" name="hoten" id="fullname" required>
                             </div>
+
                             <div class="col-md-6">
                                 <label class="form-label">Số điện thoại *</label>
-                                <input type="text" class="form-control" name="sodienthoai" id="phone">
+                                <input type="text" class="form-control" name="sodienthoai" id="phone" required>
                             </div>
-                            <div class="col-md-6">
-                                <label for="gioitinh">Giới tính</label>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gioitinh" id="male" value="Male">
-                                    <label class="form-check-label" for="male">Nam</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="gioitinh" id="female" value="Female">
-                                    <label class="form-check-label" for="female">Nữ</label>
-                                </div>
-                            </div>
+
+
                             <div class="col-md-6">
                                 <label for="birthday">Ngày sinh</label>
                                 <input type="date" class="form-control" id="birthday" name="ngaysinh">
                             </div>
+
                             <div class="col-md-6">
-                                <label for="inputEmail4" class="form-label">Email *</label>
-                                <input type="email" class="form-control" id="inputEmail4" name="email" readonly>
+                                <label class="form-label">Email *</label>
+                                <input type="email" class="form-control readonly-highlight" id="inputEmail4" name="email" readonly>
                             </div>
+
                             <div class="col-md-6">
-                                <label class="form-label">Địa chỉ *</label>
-                                <input type="text" class="form-control" name="diachi" id="address">
+                                <label class="form-label">Thời gian đăng ký</label>
+                                <input type="text" class="form-control readonly-highlight" id="thoiGianDangKy" name="thoiGianDangKy" readonly>
                             </div>
-                            <button class="btn btn-primary" type="submit" style="background-color: rgb(146, 26, 26);">Thay đổi thông tin</button>
+
+
+                            <div class="col-12 mt-3">
+                                <button class="btn btn-primary" type="submit" style="background-color: rgb(146, 26, 26);">Thay đổi thông tin</button>
+                            </div>
                         </div>
                     </div>
                 </form>
             </div>
 
 
+
             <div class="col-xxl-8 mb-5 mb-xxl-0">
 
                 <hr class="my-4">
 
-                <h5 style="color: #7b181a; font-weight: bold;">Đổi mật khẩu</h5>
+                <div class="my-2 d-flex justify-content-center">
+                    <h3 style="z-index: 1; font-size: 32px; color: #7b181a; position: relative; background-color: white; padding: 0 20px; margin: 30px 0; font-family: Roboto; font-weight: bold !important;">Đổi mật khẩu</h3>
+                    <hr>
+                </div>                
                 <div class="row g-3">
                     <div class="col-md-6">
                         <label class="form-label">Mật khẩu cũ *</label>
@@ -82,7 +93,7 @@
                         <input type="password" class="form-control" id="confirmNewPassword">
                     </div>
                     <div class="col-md-12">
-                        <button class="btn btn-warning mt-2" type="button" onclick="changePassword()">Đổi mật khẩu</button>
+                        <button class="btn btn-primary mt-2" style="background-color: rgb(146, 26, 26);" type="button" onclick="changePassword()">Đổi mật khẩu</button>
                     </div>
                 </div>
             </div>
@@ -97,122 +108,95 @@
     <?php require_once "./Footer.php" ?>
 
     <script>
-        var email = '';
 
-        // function loadUserInfoFromsessionStorage() {
-        //     // Lấy dữ liệu từ sessionStorage
-        //     var userData = sessionStorage.getItem("id");
+        document.addEventListener("DOMContentLoaded", function() {
 
-        //     // Kiểm tra xem userData có tồn tại không
-        //     if (!userData) {
-        //         console.error("No user data found in sessionStorage");
-        //         return;
-        //     }
+            loadUserInfoFromSessionStorage()
 
-        //     // $.ajax({
-        //     //     url: '../../Controllers/UserInformationController.php',
-        //     //     method: "GET",
-        //     //     dataType: "json",
-        //     //     data: {
-        //     //         Id: userData
-        //     //     },
-        //     //     success: function(response) {
-        //     //         // Kiểm tra nếu phản hồi chứa dữ liệu
-        //     //         if (response && response.data) {
-        //     //             var userInfo = response.data; // Lấy thông tin người dùng đầu tiên từ mảng dữ liệu
-                        
-        //     //             // Cập nhật các phần tử HTML với dữ liệu từ API
-        //     //             document.getElementById("fullname").value = userInfo.Fullname || '';
-        //     //             document.getElementById("phone").value = userInfo.PhoneNumber || '';
-        //     //             document.getElementById("birthday").value = userInfo.Birthday || '';
-        //     //             document.getElementById("inputEmail4").value = userInfo.Email || '';
-        //     //             document.getElementById("address").value = userInfo.Address || '';
+            const form = document.getElementById("profileForm");
+            if (form) {
+                form.addEventListener("submit", function(event) {
+                    event.preventDefault(); // Ngăn hành vi gửi form mặc định
+                    validateForm();
+                });
+            }
+        });
 
-        //     //             // Cập nhật giới tính
-        //     //             if (userInfo.Gender === 'Male') {
-        //     //                 document.getElementById("male").checked = true;
-        //     //             } else if (userInfo.Gender === 'Female') {
-        //     //                 document.getElementById("female").checked = true;
-        //     //             }
-        //     //         } else {
-        //     //             console.error("No user data found in response");
-        //     //         }
-        //     //     },
-        //     //     error: function(xhr, status, error) {
-        //     //         console.error("Error:", error);
-        //     //     }
-        //     // });
-        // }
 
-        // window.onload = loadUserInfoFromsessionStorage;
+        function loadUserInfoFromSessionStorage() {
+            $.ajax({
+                url: `http://localhost:5244/api/thanh-vien/${id}`,
+                method: "GET",
+                dataType: "json",
+                success: function(response) {
+                    if (response && response.data) {
+                        const user = response.data;
 
-        // function validateForm() {
-        //     // Lấy các giá trị từ form
-        //     var form = document.forms["profileForm"];
-        //     var fullname = form['hoten'].value.trim();
-        //     var phone = form['sodienthoai'].value.trim();
-        //     var birthday = form['ngaysinh'].value.trim();
-        //     var gender = form['gioitinh'].value;
-        //     var address = form['diachi'].value.trim();
+                        document.getElementById("fullname").value = user.hoTen || '';
+                        document.getElementById("phone").value = user.soDienThoai || '';
+                        document.getElementById("birthday").value = user.ngaySinh ? user.ngaySinh.split('T')[0] : '';
+                        document.getElementById("inputEmail4").value = user.email || '';
+                        document.getElementById("thoiGianDangKy").value = convertDateTimeFormat(user.thoiGianDangKy)
 
-        //     // Kiểm tra các trường bắt buộc
-        //     if (!fullname || !phone || !birthday || !address) {
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: 'Lỗi',
-        //             text: 'Vui lòng điền đầy đủ thông tin!'
-        //         });
-        //         return false; // Ngăn chặn form gửi theo cách truyền thống
-        //     }
+                    } else {
+                        console.error("Không có dữ liệu người dùng trong phản hồi");
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error("Lỗi khi gọi API:", error);
+                }
+            });
+        }
 
-        //     // Lấy accountId từ URL
-        //     var accountId = new URLSearchParams(window.location.search).get('maTaiKhoan');
-        //     if (!accountId) {
-        //         Swal.fire({
-        //             icon: 'error',
-        //             title: 'Lỗi',
-        //             text: 'Không tìm thấy mã tài khoản!'
-        //         });
-        //         return false;
-        //     }
 
-        //     // Chuẩn bị dữ liệu gửi đi
-        //     var formData = {
-        //         accountId: accountId,
-        //         fullname: fullname,
-        //         phone: phone,
-        //         birthday: birthday,
-        //         gender: gender,
-        //         address: address
-        //     };
+        function validateForm() {
+            const form = document.forms["profileForm"];
+            const fullname = form['hoten'].value.trim();
+            const phone = form['sodienthoai'].value.trim();
+            const birthday = form['ngaysinh'].value.trim();
 
-        //     $.ajax({
-        //         url: "../../Controllers/UserInformationController.php",
-        //         method: "PATCH",
-        //         data: JSON.stringify(formData), // Dữ liệu ở dạng JSON
-        //         contentType: "application/json",
-        //         success: function(response) {
-        //             Swal.fire({
-        //                 icon: 'success',
-        //                 title: 'Thành công',
-        //                 text: 'Cập nhật thông tin thành công!'
-        //             }).then(() => {
-        //                 location.reload(); // Reload lại trang sau khi cập nhật thành công
-        //             });
+            if (!fullname || !phone || !birthday) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Vui lòng điền đầy đủ thông tin!'
+                });
+                return false;
+            }
 
-        //         },
-        //         error: function(error) {
-        //             console.error('Error:', error);
-        //             Swal.fire({
-        //                 icon: 'error',
-        //                 title: 'Lỗi',
-        //                 text: 'Có lỗi xảy ra khi gửi yêu cầu!'
-        //             });
-        //         }
-        //     });
 
-        //     return false; // Ngăn chặn form gửi theo cách truyền thống
-        // }
+            const updateData = {
+                HoTen: fullname,
+                SoDienThoai: phone,
+                NgaySinh: birthday,
+            };
+
+            $.ajax({
+                url: `http://localhost:5244/api/thanh-vien/${id}`,
+                method: "PUT", // Hoặc PATCH tùy theo backend
+                data: JSON.stringify(updateData),
+                contentType: "application/json",
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Thành công',
+                        text: 'Cập nhật thông tin thành công!'
+                    }).then(() => {
+                        location.reload();
+                    });
+                },
+                error: function(error) {
+                    console.error('Lỗi cập nhật:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Có lỗi xảy ra khi cập nhật thông tin!'
+                    });
+                }
+            });
+
+            return false;
+        }
 
 
         function changePassword() {

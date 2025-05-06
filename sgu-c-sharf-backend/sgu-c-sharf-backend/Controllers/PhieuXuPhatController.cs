@@ -160,16 +160,6 @@ namespace sgu_c_sharf_backend.Controllers
                     return BadRequest(new { Message = "Dữ liệu không hợp lệ" });
                 }
 
-
-// Kiểm tra IdThanhVien nếu được gửi
-
-                if (phieuXuPhat.IdThanhVien.HasValue && phieuXuPhat.IdThanhVien.Value != id)
-
-                {
-                    return BadRequest(new { Message = "ID thành viên không khớp với ID trong URL" });
-                }
-
-
                 var result = _phieuXuPhatService.Update(id, phieuXuPhat);
 
                 if (!result)

@@ -127,6 +127,7 @@ namespace sgu_c_sharf_backend.Repositories
                     command.Parameters.AddWithValue("@TrangThai", entity.TrangThai.ToString());
 
                     command.ExecuteNonQuery();
+                    Console.WriteLine("a");
                 }
 
                 transaction.Commit();

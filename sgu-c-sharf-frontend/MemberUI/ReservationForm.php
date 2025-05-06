@@ -9,303 +9,389 @@
 
     <title>Phiếu đặt chỗ</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../HelperUI/formatOutput.js"></script>
+    <script src="../utils/formatOutput.js"></script>
     <style>
-        .container2 {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-        }
-
-        .formdatcho {
-            width: 40%;
-            border: 1px solid black;
-            border-radius: 15px;
-            padding: 50px;
-            top: 0;
-            margin: 10px;
-        }
-
-        .form-group {
-            margin: 15px 5px;
-        }
-
-        #formdatcho2 {
-            display: none;
+        .input-group {
+            width: 50%;
         }
     </style>
 </head>
 
-<body onload="loadLoaiThietBi()">
+<body>
     <?php require_once "./Header.php" ?>
-
-    <div class="container2">
-
-        <form id="formdatcho1" class="formdatcho">
-            <div style="text-align: center;">
-                <h3>Phiếu đặt chỗ</h3>
-            </div>
-            <div class="form-group">
-                <label for="ngaydatcho">Ngày đặt chỗ:</label>
-                <input type="datetime-local" class="form-control" id="ngaydatcho">
-            </div>
-            <button type="button" class="btn btn-primary" id="next">Tiếp tục</button>
-        </form>
-        <form id="formdatcho2" class="formdatcho">
-            <div style="text-align: center;">
-                <h3>Danh sách thiết bị</h3>
-            </div>
-            <div class="form-group">
-                <label for="loaithietbi">Chọn loại thiết bị:</label>
-                <select class="form-control" id="loaithietbi" onchange="loadDsThietBi()">
-                    <option>Default select</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <table class="table table-striped" id="danhsachthietbi">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Thiết bị</th>
-                            <th scope="col" style="width: 100px;">Số lượng</th>
-                            <th scope="col" style="width: 100px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="bddsthietbi">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td></td>
-                            <td>
-                                <button type="button" class="btn btn-primary" id="datcho" onclick="them(this)">Thêm</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-
-                <div style="text-align: center;">
-                    <h3>Danh sách đặt chỗ</h3>
-                </div>
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Thiết bị</th>
-                            <th scope="col" style="width: 100px;">Số lượng</th>
-                            <th scope="col" style="width: 100px;"></th>
-                        </tr>
-                    </thead>
-                    <tbody id="danhsachdatcho">
-                        <tr>
-                            <th scope="row">1</th>
-                            <td></td>
-                            <td>
-                                <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)" style="width: 80px;">
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-primary" id="datcho" onclick="xoa()">Xóa</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-
-            </div>
-            <button type="button" class="btn btn-primary" id="previous">Quay lại</button>
-            <button type="button" class="btn btn-primary" id="datcho">Đặt chỗ</button>
-        </form>
+    <div class="container mt-4">
+        <h2>Danh sách muốn đặt chỗ</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Ảnh</th>
+                    <th>Tên thiết bị</th>
+                    <th>Số lượng</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="datChoList">
+                <!-- Dữ liệu sẽ được load ở đây -->
+            </tbody>
+        </table>
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+            <button id="btnTaoPhieu" class="btn btn-danger">Đặt chỗ</button>
+        </div>
 
     </div>
-
     <?php require_once "./Footer.php" ?>
 </body>
 
-
 <script>
-    document.getElementById("next").addEventListener("click", function() {
-        document.getElementById("formdatcho1").style.display = "none";
-        document.getElementById("formdatcho2").style.display = "block";
-        console.log("next");
+    document.addEventListener("DOMContentLoaded", function() {
+        loadDatCho();
     });
 
-    document.getElementById("previous").addEventListener("click", function() {
-        document.getElementById("formdatcho1").style.display = "block";
-        document.getElementById("formdatcho2").style.display = "none";
-        console.log("previous");
-    });
+    function loadDatCho() {
+        const datCho = JSON.parse(localStorage.getItem("datCho")) || [];
+        const datChoList = document.getElementById("datChoList");
 
-    function loadLoaiThietBi() {
-        const API_LOAI_TB = "http://localhost:5244/api/loai-thiet-bi/no-paging"; // Đổi URL nếu khác
+        if (datCho.length === 0) {
+            datChoList.innerHTML = `<tr><td colspan="4" class="text-center">Không có thiết bị nào trong danh sách đặt chỗ.</td></tr>`;
+        } else {
+            let html = "";
+            datCho.forEach((item, index) => {
+                html += `
+                    <tr>
+                        <td>${index + 1}</td>
+                        <td class="anh-thiet-bi" data-id="${item.id}">Đang tải ảnh...</td>
+                        <td data-id="${item.id}" class="ten-thiet-bi">Đang tải...</td>
+                        <td>
+                            <div class="input-group input-group-sm">
+                                <button type="button" class="btn btn-outline-secondary btnMinus" data-id="${item.id}"><i class="bi bi-dash-lg"></i></button>
+                                <input type="text" class="form-control txtSoLuong" value="${item.soLuong}" data-id="${item.id}" style="width: 60px; text-align: center;">
+                                <button type="button" class="btn btn-outline-secondary btnPlus" data-id="${item.id}"><i class="bi bi-plus-lg"></i></button>
+                            </div>
+                        </td>
+                        <td><button class="btn btn-danger btn-sm btnXoa" data-id="${item.id}">Xóa</button></td>
+                    </tr>
+                `;
+            });
+            datChoList.innerHTML = html;
 
-        fetch(API_LOAI_TB)
-            .then(res => res.json())
-            .then(data => {
-                const select = document.getElementById("loaithietbi");
-                select.innerHTML = ""; // Xoá mặc định
-
-                // Thêm option mặc định
-                const defaultOption = document.createElement("option");
-                defaultOption.value = "";
-                defaultOption.text = "-- Chọn loại thiết bị --";
-                select.appendChild(defaultOption);
-
-                // Thêm từng loại thiết bị
-                data.data.forEach(loai => {
-                    const option = document.createElement("option");
-                    option.value = loai.id;
-                    option.text = loai.tenLoaiThietBi;
-                    select.appendChild(option);
+            // tên thiết bị
+            document.querySelectorAll(".ten-thiet-bi").forEach(cell => {
+                const id = cell.getAttribute("data-id");
+                $.ajax({
+                    url: `http://localhost:5244/api/ThietBi/${id}`,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 200) {
+                            cell.textContent = data.data.tenThietBi;
+                        } else {
+                            cell.textContent = "Không tìm thấy";
+                        }
+                    },
+                    error: function() {
+                        cell.textContent = "Lỗi tải tên thiết bị";
+                    }
                 });
-            })
-            .catch(err => {
-                console.error("Lỗi khi tải loại thiết bị:", err);
             });
 
-    }
-
-    function loadDsThietBi() {
-        const loaiId = document.getElementById("loaiThietBiSelect").value;
-        if (!loaiId) {
-            document.getElementById("bddsthietbi").innerHTML = "<tr><td colspan='4'>Vui lòng chọn loại thiết bị</td></tr>";
-            return;
-        }
-
-        const API_THIETBI = `http://localhost:5244/api/thietbi/loai/${loaiId}`;
-
-        fetch(API_THIETBI)
-            .then(res => res.json())
-            .then(data => {
-                const tbody = document.getElementById("bddsthietbi");
-                tbody.innerHTML = "";
-
-                if (data.length === 0) {
-                    tbody.innerHTML = "<tr><td colspan='4'>Không có thiết bị nào</td></tr>";
-                    return;
-                }
-
-                data.forEach((tb, index) => {
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-          <th scope="row">${index + 1}</th>
-          <td>${tb.ten}</td>
-          <td>${tb.soLuong}</td>
-          <td>
-            <button type="button" class="btn btn-primary" onclick="them(this)" data-id="${tb.id}" data-ten="${tb.ten}">
-              Thêm
-            </button>
-          </td>
-        `;
-                    tbody.appendChild(row);
+            //load Anh
+            document.querySelectorAll(".anh-thiet-bi").forEach(cell => {
+                const id = cell.getAttribute("data-id");
+                $.ajax({
+                    url: `http://localhost:5244/api/ThietBi/hinh-anh/${id}`,
+                    method: 'GET',
+                    dataType: 'json',
+                    success: function(data) {
+                        if (data.status === 200) {
+                            const imgSrc = `../img/${data.data.anhMinhHoa}`;
+                            cell.innerHTML = `<img src="${imgSrc}" alt="Ảnh" style="width: 80px;">`;
+                        } else {
+                            cell.textContent = "Không có ảnh";
+                        }
+                    },
+                    error: function() {
+                        cell.textContent = "Lỗi ảnh";
+                    }
                 });
-            })
-            .catch(err => {
-                console.error("Lỗi khi tải danh sách thiết bị:", err);
             });
-    }
 
+            //Thêm số lượng
+            document.querySelectorAll(".btnPlus").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const id = this.getAttribute("data-id");
+                    const input = document.querySelector(`.txtSoLuong[data-id='${id}']`);
+                    let currentValue = parseInt(input.value) || 1;
 
-    let danhSachDaChon = [];
+                    $.ajax({
+                        url: `http://localhost:5244/api/ThietBi/kha-dung/${id}`,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.status === 200) {
+                                const maxSoLuong = data.data.soLuongKhaDung;
+                                if (currentValue < maxSoLuong) {
+                                    input.value = currentValue + 1;
+                                    capNhatLocalStorage(id, input.value);
+                                } else {
+                                    Swal.fire("Không thể vượt quá số lượng khả dụng!", "", "warning");
+                                }
+                            } else {
+                                Swal.fire("Không lấy được số lượng khả dụng!", "", "error");
+                            }
+                        },
+                        error: function() {
+                            Swal.fire("Lỗi kết nối đến server!", "", "error");
+                        }
+                    });
+                });
+            });
 
-    function them(btn) {
-        const id = btn.getAttribute("data-id");
-        const ten = btn.getAttribute("data-ten");
-        const soLuong = btn.closest("tr").children[2].innerText;
+            //Thay đổi số lượng
+            document.querySelectorAll(".txtSoLuong").forEach(input => {
+                input.addEventListener("input", function() {
+                    const id = this.getAttribute("data-id");
+                    let value = parseInt(this.value) || 1;
 
-        // Kiểm tra trùng
-        if (danhSachDaChon.find(tb => tb.id === id)) {
-            alert("Thiết bị đã được chọn!");
-            return;
+                    $.ajax({
+                        url: `http://localhost:5244/api/ThietBi/kha-dung/${id}`,
+                        method: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.status === 200) {
+                                const maxSoLuong = data.data.soLuongKhaDung;
+                                if (value < 1) {
+                                    value = 1;
+                                    Swal.fire("Số lượng tối thiểu là 1!", "", "warning");
+                                }
+                                if (value > maxSoLuong) {
+                                    value = maxSoLuong;
+                                    Swal.fire("Số lượng không thể lớn hơn khả dụng!", "", "warning");
+                                }
+                                input.value = value;
+                                capNhatLocalStorage(id, value);
+                            } else {
+                                Swal.fire("Không lấy được số lượng khả dụng!", "", "error");
+                            }
+                        },
+                        error: function() {
+                            Swal.fire("Lỗi kết nối đến server!", "", "error");
+                        }
+                    });
+                });
+            });
+
+            //Giảm số lượng
+            document.querySelectorAll(".btnMinus").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const id = this.getAttribute("data-id");
+                    const input = document.querySelector(`.txtSoLuong[data-id='${id}']`);
+                    let currentValue = parseInt(input.value) || 1;
+
+                    if (currentValue > 1) {
+                        input.value = currentValue - 1;
+                        capNhatLocalStorage(id, input.value);
+                    } else {
+                        Swal.fire({
+                            title: "Số lượng đang là 1. Bạn có muốn xóa thiết bị này không?",
+                            icon: "question",
+                            showCancelButton: true,
+                            confirmButtonText: "Có, xóa",
+                            cancelButtonText: "Không"
+                        }).then((result) => {
+                            if (result.isConfirmed) {
+                                let datCho = JSON.parse(localStorage.getItem("datCho")) || [];
+                                datCho = datCho.filter(item => item.id != id);
+                                localStorage.setItem("datCho", JSON.stringify(datCho));
+
+                                const row = input.closest("tr");
+                                row.parentNode.removeChild(row);
+
+                                Swal.fire("Đã xóa thiết bị khỏi danh sách!", "", "success");
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Xử lý nút Xóa
+            document.querySelectorAll(".btnXoa").forEach(btn => {
+                btn.addEventListener("click", function() {
+                    const id = this.getAttribute("data-id");
+                    const updated = datCho.filter(item => item.id != id);
+                    localStorage.setItem("datCho", JSON.stringify(updated));
+                    location.reload();
+                });
+            });
         }
 
-        danhSachDaChon.push({
-            id,
-            ten
-        });
-
-        const tbody = document.getElementById("danhsachdatcho");
-        const index = danhSachDaChon.length;
-
-        const row = document.createElement("tr");
-        row.setAttribute("data-id", id); // dùng để xóa sau này
-
-        row.innerHTML = `
-        <th scope="row" class="index">${index}</th>
-        <td>${ten}</td>
-        <td>
-            <input type="number" class="form-control" min="1" max="${soLuong}" style="width: 80px;" value="1">
-        </td>
-        <td>
-            <button type="button" class="btn btn-danger" onclick="xoa(this)">Xóa</button>
-        </td>
-    `;
-
-        tbody.appendChild(row);
-    }
-
-    function xoa(button) {
-        var row = button.closest('tr');
-
-        var id = row.querySelector('.index').textContent;
-
-        const index = danhSachDaChon.findIndex(item => item.id === id);
-
-        if (index !== -1) {
-            danhSachDaChon.splice(index, 1);
-        }
-
-        row.remove();
-
-    }
-
-    function datCho() {
-        const danhSach = [];
-        const rows = document.querySelectorAll("#danhsachdatcho tr");
-
-        if (rows.length === 0) {
-            alert("Chưa chọn thiết bị nào!");
-            return;
-        }
-
-        rows.forEach(row => {
-            const id = row.getAttribute("data-id");
-            const input = row.querySelector("input");
-            const soLuong = parseInt(input.value);
-
-            if (isNaN(soLuong) || soLuong <= 0) {
-                alert("Số lượng không hợp lệ!");
+        //Đặt chỗ
+        document.getElementById("btnTaoPhieu").addEventListener("click", async function() {
+            const IdThanhVien = sessionStorage.getItem("id");
+            if (!IdThanhVien) {
+                Swal.fire({
+                    title: "Bạn chưa đăng nhập!",
+                    text: "Vui lòng đăng nhập để tiếp tục.",
+                    icon: "warning",
+                    confirmButtonText: "OK"
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        window.location.href = "./Login/LoginUI.php";
+                    }
+                });
+                return;
+            }
+            if (datCho.length === 0) {
+                Swal.fire("Không có thiết bị nào để tạo phiếu!", "", "warning");
                 return;
             }
 
-            danhSach.push({
-                thietBiId: id,
-                soLuong: soLuong
-            });
-        });
+            let devicesToBorrow = [];
+            let isValid = true;
 
-        // Gửi dữ liệu lên API
-        fetch("http://localhost:5244/api/datcho", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(danhSach)
-            })
-            .then(res => {
-                if (!res.ok) throw new Error("Lỗi đặt chỗ");
-                return res.json();
-            })
-            .then(data => {
-                alert("✅ Đặt chỗ thành công!");
-                // Reset nếu cần
-                document.getElementById("danhsachdatcho").innerHTML = "";
-                danhSachDaChon = [];
-            })
-            .catch(err => {
-                console.error(err);
-                alert("❌ Lỗi khi đặt chỗ!");
-            });
+            for (let item of datCho) {
+                try {
+                    let response = await $.ajax({
+                        url: `http://localhost:5244/api/ThietBi/kha-dung/${item.id}`,
+                        method: "GET"
+                    });
+
+                    if (response.status == 200) {
+                        const availableQuantity = response.data.soLuongKhaDung;
+                        if (item.soLuong > availableQuantity) {
+                            isValid = false;
+                            Swal.fire(`Số lượng thiết bị ${item.tenThietBi} không đủ khả dụng!`, "", "warning");
+                            break;
+                        } else {
+                            devicesToBorrow.push({
+                                idThietBi: item.id,
+                                soLuong: item.soLuong
+                            });
+                        }
+                    } else {
+                        isValid = false;
+                        Swal.fire("Không lấy được số lượng khả dụng!", "", "error");
+                        break;
+                    }
+                } catch (error) {
+                    isValid = false;
+                    Swal.fire("Lỗi kết nối đến server!", "", "error");
+                    break;
+                }
+            }
+
+            if (!isValid) return;
+
+            try {
+                // Tạo phiếu mượn
+                let createPhieuMuonResponse = await $.ajax({
+                    url: "http://localhost:5244/api/phieu-muon",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        IdThanhVien: IdThanhVien,
+                        NgayTao: new Date().toISOString()
+                    })
+                });
+
+                const IdPhieuMuon = createPhieuMuonResponse.data;
+                console.log("IdPhieuMuon:", IdPhieuMuon);
+
+                // Tạo trạng thái phiếu mượn
+                let createTrangThaiResponse = await $.ajax({
+                    url: "http://localhost:5244/api/trang-thai-phieu-muon",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        IdPhieuMuon: IdPhieuMuon,
+                        TrangThai: "DATCHO",
+                        ThoiGianCapNhat: new Date().toISOString()
+                    })
+                });
+
+                // Lấy danh sách đầu thiết bị
+                let dauThietBiPromises = devicesToBorrow.map(device =>
+                    $.ajax({
+                        url: `http://localhost:5244/api/DauThietBi/${device.idThietBi}/${device.soLuong}`,
+                        method: "GET"
+                    })
+                    .then(res => {
+                        if (res.status === 200) { // Nếu backend có trả res.status
+                            return res.data;
+                        } else {
+                            throw new Error(res.message || "Lỗi lấy đầu thiết bị");
+                        }
+                    })
+                );
+
+                let allDataArrays = await Promise.all(dauThietBiPromises);
+                let allDauThietBi = allDataArrays.flat();
+
+                console.log(allDauThietBi);
+
+                let chiTietPhieuMuonList = allDauThietBi.map(dtb => ({
+                    IdPhieuMuon: IdPhieuMuon,
+                    IdDauThietBi: dtb.id,
+                    ThoiGianMuon: new Date().toISOString(),
+                    TrangThai: "DANGMUON"
+                }));
+
+                console.log(chiTietPhieuMuonList);
+
+                // Tạo chi tiết phiếu mượn
+                let resChiTiet = await $.ajax({
+                    url: "http://localhost:5244/api/chi-tiet-phieu-muon",
+                    method: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify(chiTietPhieuMuonList)
+                });
+
+                if (resChiTiet.status !== 200) {
+                    throw new Error(resChiTiet.message || "Tạo chi tiết phiếu mượn thất bại!");
+                }
+
+                // Cập nhật trạng thái đầu thiết bị
+                allDauThietBi.forEach(device => {
+                    device.trangThai = "DATTRUOC";
+                });
+
+                let resUpdate = await $.ajax({
+                    url: `http://localhost:5244/api/DauThietBi/update-danhsach`,
+                    method: "PUT",
+                    contentType: "application/json",
+                    data: JSON.stringify(allDauThietBi)
+                });
+
+                if (resUpdate.status !== 200) {
+                    console.error(`Cập nhật trạng thái đầu thiết bị thất bại: ${resUpdate.message}`);
+                    throw new Error(resUpdate.message || "Cập nhật trạng thái đầu thiết bị thất bại!");
+                }
+
+                console.log("Cập nhật trạng thái đầu thiết bị thành công.");
+
+                // Chỉ hiện thông báo thành công khi tất cả bước đều thành công
+                Swal.fire("Tạo phiếu thành công!", "", "success").then(() => {
+                    localStorage.removeItem("datCho");
+                    location.reload();
+                });
+
+            } catch (error) {
+                console.error("Lỗi tổng:", error);
+                Swal.fire("Lỗi khi tạo phiếu mượn!", error.message || "Unknown error", "error");
+            }
+        });
+    }
+
+    function capNhatLocalStorage(id, soLuong) {
+        const datCho = JSON.parse(localStorage.getItem("datCho")) || [];
+        const index = datCho.findIndex(item => item.id == id);
+        if (index !== -1) {
+            datCho[index].soLuong = parseInt(soLuong);
+            localStorage.setItem("datCho", JSON.stringify(datCho));
+        }
     }
 </script>
 
