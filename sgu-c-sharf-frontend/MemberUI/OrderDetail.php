@@ -13,6 +13,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../HelperUI/formatOutput.js"></script>
     <title>Chi tiết phiếu mượn</title>
+    <style>
+        .home-button {
+            margin-top: 10px;
+            font-size: 16px;
+            padding: 8px 26px;
+            transition: background-color 0.3s;
+        }
+
+        .home-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 
 <body>
@@ -24,6 +36,7 @@
                 <div class="bar"></div>
                 <h2 class="center-text-share">Chi tiết phiếu mượn</h2>
             </div>
+
         </div>
     </section>
 
@@ -84,6 +97,11 @@
                             <p class='hotline'>
                                 * Để được hỗ trợ trực tiếp và nhanh nhất, vui lòng liên hệ quản lý thiết bị qua số điện thoại: 0123 456 789
                             </p>
+                            <div style="text-align: left; margin-left: 80%; margin-top: 50px;">
+                                <button class="btn btn-primary home-button" onclick="window.location.href='MyOrder.php'">
+                                    Quay Lại
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -279,9 +297,6 @@
                                             <div class='inforCart'>
                                                 <div class='nameAndPrice'>
                                                     <a href='#' class='nameCart'>${device.deviceName}</a>
-                                                </div>
-                                                <div class='quantity'>
-                                                    <div class='txtQuantity'>${device.quantity}</div>
                                                 </div>
                                             </div>
                                         </div>
