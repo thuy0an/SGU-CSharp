@@ -106,6 +106,7 @@ namespace sgu_c_sharf_WinfromAdmin.Models
     }
     public enum TrangThaiChiTietPhieuMuonEnum
     {
+        CHODUYET,
         DANGMUON,
         DATRATHIETBI,
         DATHATLAC

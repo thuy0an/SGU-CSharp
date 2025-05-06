@@ -182,10 +182,15 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                             IdPhieuMuon = _idPhieuMuon,
                             IdDauThietBi = ct.IdDauThietBi,
                             TrangThai = ((trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI 
-                            || trangThaiMoi == TrangThaiPhieuMuonEnum.HUY
-                            || trangThaiMoi == TrangThaiPhieuMuonEnum.CHODUYET) 
+                            || trangThaiMoi == TrangThaiPhieuMuonEnum.HUY) 
                             && ct.TrangThai == TrangThaiChiTietPhieuMuonEnum.DANGMUON)
-                            ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI : ct.TrangThai,
+                            ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI 
+                            : (
+                                ((trangThaiMoi == TrangThaiPhieuMuonEnum.DATCHO
+                                || trangThaiMoi == TrangThaiPhieuMuonEnum.DANGSUDUNG)
+                                && ct.TrangThai != TrangThaiChiTietPhieuMuonEnum.DATHATLAC)
+                                ? TrangThaiChiTietPhieuMuonEnum.DANGMUON : ct.TrangThai 
+                            ),
                             ThoiGianTra = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI) ? DateTime.Now : ct.ThoiGianTra
                         }).ToList();
 
@@ -194,6 +199,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                             Id = ct.IdDauThietBi,
                             TrangThai = ct.TrangThai switch
                             {
+                                TrangThaiChiTietPhieuMuonEnum.CHODUYET => TrangThaiDauThietBi.KHADUNG,
                                 TrangThaiChiTietPhieuMuonEnum.DANGMUON => TrangThaiDauThietBi.DANGMUON,
                                 TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI => TrangThaiDauThietBi.KHADUNG,
                                 TrangThaiChiTietPhieuMuonEnum.DATHATLAC => TrangThaiDauThietBi.THATLAC,
