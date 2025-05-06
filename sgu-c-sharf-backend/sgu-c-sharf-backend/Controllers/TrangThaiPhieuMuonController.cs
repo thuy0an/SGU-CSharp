@@ -45,6 +45,7 @@ namespace sgu_c_sharf_backend.Controllers
         [HttpPost]
         public ActionResult<ApiResponse<bool>> Add([FromBody] TrangThaiPhieuMuonCreateDTO entity)
         {
+            
             if (entity == null)
             {
                 return BadRequest(ApiResponse<bool>.Fail("Dữ liệu không hợp lệ"));

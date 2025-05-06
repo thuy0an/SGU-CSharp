@@ -34,7 +34,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             toDate.Checked = false;
             await LoadData(1, limit);
             LoadTrangThaiComboBox();
-            
+
         }
 
         private async void runLoad()
@@ -151,11 +151,20 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             if (DataGrid.SelectedRows.Count > 0)
             {
                 int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Column1"].Value);
-                FormSuaPhieuMuon form = new FormSuaPhieuMuon(idPhieuMuon);
-                if (form.ShowDialog() == DialogResult.OK)
+                TrangThaiPhieuMuonEnum TrangThai = (TrangThaiPhieuMuonEnum)DataGrid.SelectedRows[0].Cells["Column5"].Value;
+                if (TrangThai != TrangThaiPhieuMuonEnum.DATRATHIETBI && TrangThai != TrangThaiPhieuMuonEnum.HUY)
                 {
-                    LoadData(currentPage, limit);
+                    FormSuaPhieuMuon form = new FormSuaPhieuMuon(idPhieuMuon);
+                    if (form.ShowDialog() == DialogResult.OK)
+                    {
+                        LoadData(currentPage, limit);
+                    }
                 }
+                else
+                {
+                    MessageBox.Show($"Trạng thái {TrangThai} không thể chỉnh sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+
             }
             else
                 MessageBox.Show("Vui lòng chọn một dòng để chỉnh sửa!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);

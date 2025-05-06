@@ -127,7 +127,7 @@ namespace sgu_c_sharf_backend.Repositories
                     command.Parameters.AddWithValue("@TrangThai", entity.TrangThai.ToString());
 
                     command.ExecuteNonQuery();
-                    Console.WriteLine("a");
+                    // Console.WriteLine("a");
                 }
 
                 transaction.Commit();
@@ -145,17 +145,13 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            if (IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon))
-            {
-                return false;
-            }
-
             using var transaction = connection.BeginTransaction();
 
             try
             {
                 foreach (var entity in entities)
                 {
+                    // Console.WriteLine("Chi tiet phieu muon " + entity.TrangThai);
                     string query = @"UPDATE ChiTietPhieuMuon 
                              SET ThoiGianTra = @ThoiGianTra, 
                                  TrangThai = @TrangThai 
@@ -180,8 +176,10 @@ namespace sgu_c_sharf_backend.Repositories
             }
         }
 
-        private bool IsPhieuMuonEditable(MySqlConnection connection, int idPhieuMuon)
+        private bool IsPhieuMuonEditable(int idPhieuMuon)
         {
+            using var connection = new MySqlConnection(_connectionString);
+
             string query = @"
                 SELECT TrangThai 
                 FROM TrangThaiPhieuMuon 
@@ -195,8 +193,8 @@ namespace sgu_c_sharf_backend.Repositories
             var result = cmd.ExecuteScalar();
             if (result == null) return false;
             var trangThaiStr = result.ToString();
-            Console.WriteLine(trangThaiStr);
             return trangThaiStr == TrangThaiPhieuMuonEnum.HUY.ToString() ||
+                   trangThaiStr == TrangThaiPhieuMuonEnum.CHODUYET.ToString() ||
                    trangThaiStr == TrangThaiPhieuMuonEnum.DATCHO.ToString();
         }
 
@@ -205,7 +203,7 @@ namespace sgu_c_sharf_backend.Repositories
             using var connection = new MySqlConnection(_connectionString);
             connection.Open();
 
-            if (!IsPhieuMuonEditable(connection, entities[0].IdPhieuMuon))
+            if (!IsPhieuMuonEditable(entities[0].IdPhieuMuon))
             {
                 return false;
             }
