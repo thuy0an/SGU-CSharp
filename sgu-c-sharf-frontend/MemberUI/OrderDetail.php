@@ -149,9 +149,6 @@
 
         // Hàm cập nhật màu sắc và thời gian cho trạng thái
         function setColorAndTime(trangThaiValue, thoiGianValue) {
-            console.log("setColorAndTime called with:", trangThaiValue);
-            // let trangThaiValue = "DaTra"
-
             const $line1 = $('#line1');
             const $line2 = $('#line2');
             const $line3 = $('#line3');
@@ -234,22 +231,22 @@
                 case 'DaTra':
                     $icon1.css("color", "green");
                     $circleContainer1.css("border-color", "green");
-                    // $thoiGian1.html(formatDateTime(thoiGianValue));
+                    $thoiGian1.html(formatDateTime(thoiGianValue));
 
                     $icon2.css("color", "green");
                     $line1.css("color", "green");
                     $circleContainer2.css("border-color", "green");
-                    // $thoiGian2.html(formatDateTime(thoiGianValue));
+                    $thoiGian2.html(formatDateTime(thoiGianValue));
 
                     $icon3.css("color", "green");
                     $line2.css("color", "green");
                     $circleContainer3.css("border-color", "green");
-                    // $thoiGian3.html(formatDateTime(thoiGianValue));
+                    $thoiGian3.html(formatDateTime(thoiGianValue));
 
                     $icon4.css("color", "green");
                     $line3.css("color", "green");
                     $circleContainer4.css("border-color", "green");
-                    // $thoiGian4.html(formatDateTime(thoiGianValue));
+                    $thoiGian4.html(formatDateTime(thoiGianValue));
                     break;
                 case 'Huy':
                     $icon1.css("color", "rgb(146, 26, 26)");
@@ -274,28 +271,27 @@
                     $thoiGian5.html(formatDateTime(thoiGianValue));
                     break;
                 default:
-                    console.log("Unknown status:", trangThaiValue);
                     break;
             }
         }
-        // Dữ liệu tĩnh cho các phần không có trong API
-        const staticData = {
-            ghiChu: "Mượn thiết bị cho dự án thực tập",
-            thoiGianTraDuKien: "2025-05-10T17:00:00",
-            chiTietThietBi: [{
-                    deviceId: "TB001",
-                    deviceName: "Máy chiếu",
-                    quantity: 1,
-                    image: "may_chieu.jpg"
-                },
-                {
-                    deviceId: "TB002",
-                    deviceName: "Loa Bluetooth",
-                    quantity: 2,
-                    image: "loa_bluetooth.jpg"
-                }
-            ]
-        };
+
+        // Hàm lấy thông tin thiết bị từ idDauThietBi
+        function getDeviceInfo(idDauThietBi) {
+            return $.ajax({
+                url: `http://localhost:5244/api/DauThietBi/${idDauThietBi}`,
+                method: 'GET',
+                dataType: 'json'
+            });
+        }
+
+        // Hàm lấy hình ảnh từ idThietBi
+        function getDeviceImage(idThietBi) {
+            return $.ajax({
+                url: `http://localhost:5244/api/ThietBi/hinh-anh/${idThietBi}`,
+                method: 'GET',
+                dataType: 'json'
+            });
+        }
 
         // Hàm hiển thị dữ liệu phiếu mượn
         function loadPhieuMuonData(maPhieuMuon) {
@@ -316,64 +312,90 @@
                     Swal.close();
                     if (response && response.status === 200) {
                         const phieuMuonData = response.data;
-
                         const phieuMuon = {
                             id: phieuMuonData.id,
                             thoiGianTao: phieuMuonData.ngayTao,
                             nguoiMuon: phieuMuonData.tenThanhVien,
                             trangThai: convertTrangThai(phieuMuonData.trangThai),
-                            ghiChu: staticData.ghiChu,
-                            thoiGianTraDuKien: staticData.thoiGianTraDuKien,
-                            chiTietThietBi: staticData.chiTietThietBi
+                            ghiChu: phieuMuonData.ghiChu || "Mượn thiết bị cho dự án thực tập",
+                            thoiGianTraDuKien: phieuMuonData.thoiGianTra || "2025-05-10T17:00:00"
                         };
-                        console.log(phieuMuon);
-                        let deviceListHtml = '';
-                        let html = '';
 
-                        // Xử lý danh sách thiết bị mượn
-                        phieuMuon.chiTietThietBi.forEach(function(device) {
-                            deviceListHtml += `
-                                <div class='radio__wrapper'>
-                                    <div>
-                                        <div class='cartItem' id='${device.deviceId}'>
-                                            <a href='#' class='img'><img class='img' src='https://res.cloudinary.com/djhoea2bo/image/upload/v1711511636/${device.image}' /></a>
-                                            <div class='inforCart'>
-                                                <div class='nameAndPrice'>
-                                                    <a href='#' class='nameCart'>${device.deviceName}</a>
+                        // Lấy danh sách idDauThietBi từ API phiếu mượn
+                        const idDauThietBis = phieuMuonData.data.map(item => item.idDauThietBi);
+
+                        // Tích lũy dữ liệu thiết bị
+                        let devices = [];
+                        let promises = [];
+
+                        idDauThietBis.forEach(idDauThietBi => {
+                            const promise = getDeviceInfo(idDauThietBi).then(deviceInfo => {
+                                const idThietBi = deviceInfo.data.idThietBi;
+                                const tenThietBi = deviceInfo.data.tenThietBi;
+
+                                return getDeviceImage(idThietBi).then(imageResponse => {
+                                    const hinhAnh = imageResponse.data.anhMinhHoa || `dell-xps.jpg`; // Giá trị mặc định nếu không có hình
+                                    devices.push({
+                                        maDauThietBi: idDauThietBi,
+                                        tenThietBi: tenThietBi,
+                                        hinhAnh: hinhAnh
+                                    });
+                                });
+                            });
+                            promises.push(promise);
+                        });
+
+                        // Chờ tất cả các cuộc gọi API hoàn thành
+                        Promise.all(promises).then(() => {
+                            let deviceListHtml = '';
+                            devices.forEach(device => {
+                                deviceListHtml += `
+                                    <div class='radio__wrapper'>
+                                        <div>
+                                            <div class='cartItem' id='device-${device.maDauThietBi}'>
+                                                <a href='#' class='img'><img class='img' src='https://res.cloudinary.com/djhoea2bo/image/upload/v1711511636/${device.hinhAnh}' /></a>
+                                                <div class='inforCart'>
+                                                    <div class='nameAndPrice'>
+                                                        <a href='#' class='nameCart'>${device.tenThietBi}</a>
+                                                        <p class='price'>Mã đầu thiết bị: ${device.maDauThietBi}</p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                `;
+                            });
+
+                            let html = `
+                                <div class="container mt-4">
+                                    <div class="info__wrapper order_info2">
+                                        <p><span class="span1">Mã phiếu mượn:</span><span class="span2" id="id">${phieuMuon.id}</span></p>
+                                        <p><span class="span1">Thời gian tạo:</span><span class="span2" id="thoiGianTao">${formatDateTime(phieuMuon.thoiGianTao)}</span></p>
+                                        <p><span class="span1">Người mượn:</span><span class="span2" id="nguoiMuon">${phieuMuon.nguoiMuon}</span></p>
+                                        <p><span class="span1">Thời gian trả dự kiến:</span><span class="span2" id="thoiGianTraDuKien">${formatDateTime(phieuMuon.thoiGianTraDuKien)}</span></p>
+                                    </div>
                                 </div>
                             `;
+
+                            // Chèn nội dung vào HTML
+                            $('#device-list').html(deviceListHtml);
+                            $('.wrap').html(html);
+
+                            // Hiển thị trạng thái hiện tại
+                            setColorAndTime(phieuMuon.trangThai, phieuMuon.thoiGianTao);
+                        }).catch(error => {
+                            console.error("Error fetching device data:", error);
+                            Swal.fire('Lỗi', 'Không thể tải thông tin thiết bị.', 'error');
                         });
-
-                        // Thông tin phiếu mượn
-                        html = `
-                            <div class="container mt-4">
-                                <div class="info__wrapper order_info2">
-                                    <p><span class="span1">Mã phiếu mượn:</span><span class="span2" id="id">${phieuMuon.id}</span></p>
-                                    <p><span class="span1">Thời gian tạo:</span><span class="span2" id="thoiGianTao">${formatDateTime(phieuMuon.thoiGianTao)}</span></p>
-                                    <p><span class="span1">Người mượn:</span><span class="span2" id="nguoiMuon">${phieuMuon.nguoiMuon}</span></p>
-                                    <p><span class="span1">Thời gian trả dự kiến:</span><span class="span2" id="thoiGianTraDuKien">${formatDateTime(phieuMuon.thoiGianTraDuKien)}</span></p>
-                                </div>
-                            </div>
-                        `;
-
-                        // Chèn nội dung vào HTML
-                        $('#device-list').html(deviceListHtml);
-                        $('.wrap').html(html);
-
-                        // Hiển thị trạng thái hiện tại
-                        setColorAndTime(phieuMuon.trangThai, phieuMuon.thoiGianTao);
                     } else {
                         Swal.fire('Lỗi', 'Không tìm thấy phiếu mượn.', 'error');
                     }
                 },
-                error: function() {
+                error: function(xhr, status, error) {
                     Swal.close();
                     Swal.fire('Lỗi', 'Không thể tải dữ liệu từ server.', 'error');
                     $('#device-list').html("<h1> Lỗi khi tải dữ liệu từ server </h1>");
+                    console.error("AJAX error:", status, error);
                 }
             });
         }
