@@ -286,13 +286,15 @@
                     deviceId: "TB001",
                     deviceName: "Máy chiếu",
                     quantity: 1,
-                    image: "may_chieu.jpg"
+                    image: "sony_projector.jpg",
+                    maDauthietbi: "1"
                 },
                 {
                     deviceId: "TB002",
                     deviceName: "Loa Bluetooth",
                     quantity: 2,
-                    image: "loa_bluetooth.jpg"
+                    image: "jbl_speaker.jpg",
+                    maDauthietbi: "2"
                 }
             ]
         };
@@ -323,7 +325,7 @@
                             nguoiMuon: phieuMuonData.tenThanhVien,
                             trangThai: convertTrangThai(phieuMuonData.trangThai),
                             ghiChu: staticData.ghiChu,
-                            thoiGianTraDuKien: staticData.thoiGianTraDuKien,
+                            // thoiGianTraDuKien: staticData.thoiGianTraDuKien,
                             chiTietThietBi: staticData.chiTietThietBi
                         };
                         console.log(phieuMuon);
@@ -336,10 +338,11 @@
                                 <div class='radio__wrapper'>
                                     <div>
                                         <div class='cartItem' id='${device.deviceId}'>
-                                            <a href='#' class='img'><img class='img' src='https://res.cloudinary.com/djhoea2bo/image/upload/v1711511636/${device.image}' /></a>
+                                            <a href='#' class='img'><img class='img' src='../img/${device.image}' /></a>
                                             <div class='inforCart'>
                                                 <div class='nameAndPrice'>
                                                     <a href='#' class='nameCart'>${device.deviceName}</a>
+                                                    <p class='price'>Mã đầu thiết bị: ${device.maDauthietbi}</p>
                                                 </div>
                                             </div>
                                         </div>
@@ -355,7 +358,6 @@
                                     <p><span class="span1">Mã phiếu mượn:</span><span class="span2" id="id">${phieuMuon.id}</span></p>
                                     <p><span class="span1">Thời gian tạo:</span><span class="span2" id="thoiGianTao">${formatDateTime(phieuMuon.thoiGianTao)}</span></p>
                                     <p><span class="span1">Người mượn:</span><span class="span2" id="nguoiMuon">${phieuMuon.nguoiMuon}</span></p>
-                                    <p><span class="span1">Thời gian trả dự kiến:</span><span class="span2" id="thoiGianTraDuKien">${formatDateTime(phieuMuon.thoiGianTraDuKien)}</span></p>
                                 </div>
                             </div>
                         `;
