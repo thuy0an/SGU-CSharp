@@ -61,7 +61,58 @@ namespace sgu_c_sharf_backend.Repositories
             return null;
         }
 
-        public List<PhieuMuonDetailDTO> GetAll()
+        public List<PhieuMuonDetailDTO> GetAllByAccountId(int accountId)
+        {
+            var list = new List<PhieuMuonDetailDTO>();
+
+            using var connection = new MySqlConnection(_connectionString);
+            connection.Open();
+
+            string query = @"
+                        SELECT 
+                            p.Id AS Id,
+                            p.IdThanhVien AS IdThanhVien,
+                            tv.HoTen AS TenThanhVien,
+                            p.NgayTao AS NgayTao, 
+                            t.TrangThai AS TrangThai
+                        FROM PhieuMuon p
+                        LEFT JOIN (
+                            SELECT IdPhieuMuon, TrangThai
+                            FROM TrangThaiPhieuMuon t1
+                            WHERE ThoiGianCapNhat = (
+                                SELECT MAX(ThoiGianCapNhat)
+                                FROM TrangThaiPhieuMuon t2
+                                WHERE t2.IdPhieuMuon = t1.IdPhieuMuon
+                            )
+                        ) t ON p.Id = t.IdPhieuMuon
+                        LEFT JOIN ThanhVien tv ON tv.Id = p.IdThanhVien
+                        WHERE p.`IdThanhVien` =  @IdThanhVien;";
+
+            using var command = new MySqlCommand(query, connection);
+            
+            command.Parameters.AddWithValue("@IdThanhVien", accountId);
+            using var reader = command.ExecuteReader();
+
+            while (reader.Read())
+            {
+                list.Add(new PhieuMuonDetailDTO
+                {
+                    Id = reader.GetInt32("Id"),
+                    IdThanhVien = reader.GetInt32("IdThanhVien"),
+                    TenThanhVien = reader.GetString("TenThanhVien"),
+                    NgayTao = reader.GetDateTime("NgayTao"),
+                    TrangThai = reader.IsDBNull(reader.GetOrdinal("TrangThai"))
+                                ? TrangThaiPhieuMuonEnum.HUY
+                                : Enum.TryParse<TrangThaiPhieuMuonEnum>(reader.GetString("TrangThai"), true, out var result)
+                                    ? result
+                                    : TrangThaiPhieuMuonEnum.HUY
+                });
+            }
+
+            return list;
+        }
+        
+                public List<PhieuMuonDetailDTO> GetAll()
         {
             var list = new List<PhieuMuonDetailDTO>();
 
@@ -108,6 +159,7 @@ namespace sgu_c_sharf_backend.Repositories
 
             return list;
         }
+
 
         private int GetTotalCount(DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai, string? keyword)
         {

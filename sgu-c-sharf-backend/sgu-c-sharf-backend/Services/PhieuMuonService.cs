@@ -22,6 +22,11 @@ public class PhieuMuonService
     {
         return _phieuMuonRepository.GetAll();
     }
+    
+    public List<PhieuMuonDetailDTO> GetAllByAccountId(int accountId)
+    {
+        return _phieuMuonRepository.GetAllByAccountId(accountId);
+    }
     public PhieuMuonPagingResponse GetAllPaging(int page, int limit, DateTime? fromDate, DateTime? toDate, TrangThaiPhieuMuonEnum? trangThai, string? keyword = null)
     {
         return _phieuMuonRepository.GetAllPaging(page, limit, fromDate, toDate, trangThai, keyword);
