@@ -12,6 +12,7 @@ using sgu_c_sharf_WinfromAdmin.Services;
 using sgu_c_sharf_WinfromAdmin.Models;
 using Google.Protobuf.Collections;
 using System.Xml.Linq;
+using Microsoft.Office.Interop.Excel;
 
 namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
 {
@@ -167,6 +168,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             cbbThanhVien.SelectedIndex = 0;
             fromDate.Value = DateTime.Now;
             toDate.Value = DateTime.Now;
+            txtSearch1.Text = "";
             LoadDataTV();
         }
 
@@ -241,6 +243,69 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
                 List<PhieuXuPhatDetailDTO> lists = listPXP.Where(xp => xp.TrangThai == enumTrangThai).ToList();
                 LoadTableForXP(lists);
             }
+        }
+
+        private void txtSearch1_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = txtSearch1.Text.ToLower();
+            List<CheckIn> filterList = new List<CheckIn>();
+            foreach (var cur in listTV)
+            {
+                if (cur.Id.ToString().Contains(searchText) || cur.HoTen.ToLower().Contains(searchText))
+                {
+                    var tv = listCheckIn
+                        .Where(check => check.IdThanhVien == cur.Id)
+                        .ToList();
+
+                    filterList.AddRange(tv); // Thêm danh sách các CheckIn phù hợp
+                }
+            }
+
+            LoadTableForTV(filterList);
+        }
+
+        private void btnReset2_Click(object sender, EventArgs e)
+        {
+            cbbThietBi.SelectedIndex = 0;
+            LoadTableForTB(listDTB);
+            txtSearch2.Text = "";
+        }
+
+        private void txtSearch2_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = txtSearch2.Text.ToLower();
+            List<DauThietBi> filterList = new List<DauThietBi>();
+            foreach (var tb in listTB)
+            {
+                if (tb.TenThietBi.ToLower().Contains(searchText))
+                {
+                    var listDau = listDTB
+                        .Where(dtb => dtb.IdThietBi == tb.Id)
+                        .ToList();
+
+                    filterList.AddRange(listDau);
+                }
+            }
+            LoadTableForTB(filterList);
+        }
+
+        private void btnReset3_Click(object sender, EventArgs e)
+        {
+            cbbXuPhat.SelectedIndex = 0;
+            LoadTableForXP(listPXP);
+            txtSearch3.Text = "";
+        }
+
+        private void txtSearch3_TextChanged(object sender, EventArgs e)
+        {
+            string searchText = txtSearch3.Text.ToLower();
+            List<PhieuXuPhatDetailDTO> filterList = listPXP.Where(xp =>{
+                    ThanhVien tv = listTV.FirstOrDefault(t => t.Id == xp.IdThanhVien);
+                    return tv != null && tv.HoTen.ToLower().Contains(searchText);
+                })
+                .ToList();
+
+            LoadTableForXP(filterList);
         }
     }
 }

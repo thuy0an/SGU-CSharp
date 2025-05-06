@@ -77,6 +77,7 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
 
     public enum TrangThaiChiTietPhieuMuonEnum
     {
+        CHODUYET,
         DANGMUON,  
         DATRATHIETBI,  
         DATHATLAC  

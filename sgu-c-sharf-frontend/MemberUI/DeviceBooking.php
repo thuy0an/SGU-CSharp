@@ -307,7 +307,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({
                         IdPhieuMuon: IdPhieuMuon,
-                        TrangThai: "DATCHO",
+                        TrangThai: "CHODUYET",
                         ThoiGianCapNhat: new Date().toISOString()
                     })
                 });

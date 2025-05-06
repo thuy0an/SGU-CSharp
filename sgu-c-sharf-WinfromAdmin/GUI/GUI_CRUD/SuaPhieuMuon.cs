@@ -169,54 +169,53 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                 TrangThaiPhieuMuonEnum trangThaiMoi = (TrangThaiPhieuMuonEnum)cbbTrangThai.SelectedItem;
                 if (trangThaiMoi != _phieuMuonDetailDTO.TrangThai)
                 {
+                    var chiTietUpdates = _chiTietPhieuMuons.Select(ct => new ChiTietPhieuMuonUpdateDTO
+                    {
+                        IdPhieuMuon = _idPhieuMuon,
+                        IdDauThietBi = ct.IdDauThietBi,
+                        TrangThai = (ct.TrangThai == TrangThaiChiTietPhieuMuonEnum.DATHATLAC)
+                                    ? ct.TrangThai
+                                    : (trangThaiMoi == TrangThaiPhieuMuonEnum.HUY || trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI)
+                                        ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI
+                                        : (trangThaiMoi == TrangThaiPhieuMuonEnum.DATCHO || trangThaiMoi == TrangThaiPhieuMuonEnum.DANGSUDUNG)
+                                            ? TrangThaiChiTietPhieuMuonEnum.DANGMUON
+                                            : (trangThaiMoi == TrangThaiPhieuMuonEnum.CHODUYET)
+                                                ? (TrangThaiChiTietPhieuMuonEnum.CHODUYET)
+                                                : ct.TrangThai,
+                        ThoiGianTra = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI) ? DateTime.Now : ct.ThoiGianTra
+                    }).ToList();
+
+                    var dauThietBiUpdates = chiTietUpdates.Select(ct => new DauThietBi
+                    {
+                        Id = ct.IdDauThietBi,
+                        TrangThai = ct.TrangThai switch
+                        {
+                            TrangThaiChiTietPhieuMuonEnum.CHODUYET => TrangThaiDauThietBi.KHADUNG,
+                            TrangThaiChiTietPhieuMuonEnum.DANGMUON => TrangThaiDauThietBi.DANGMUON,
+                            TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI => TrangThaiDauThietBi.KHADUNG,
+                            TrangThaiChiTietPhieuMuonEnum.DATHATLAC => TrangThaiDauThietBi.THATLAC,
+                            _ => TrangThaiDauThietBi.KHADUNG
+                        }
+                    }).ToList();
+
+
+                    // Gọi update
+                    bool isUpdatedChiTiet = await _chiTietPhieuMuonService.Update(chiTietUpdates);
+                    bool isUpdatedDauThietBi = await _dauThietBiService.UpdateDanhSachDauThietBi(dauThietBiUpdates);
                     bool isAddedTrangThai = await _trangThaiPhieuMuonService.Add(new TrangThaiPhieuMuonCreateDTO
                     {
                         IdPhieuMuon = _idPhieuMuon,
                         TrangThai = trangThaiMoi,
                         ThoiGianCapNhat = DateTime.Now
                     });
-                    if (isAddedTrangThai)
+
+                    if (isUpdatedChiTiet && isUpdatedDauThietBi && isAddedTrangThai)
                     {
-                        var chiTietUpdates = _chiTietPhieuMuons.Select(ct => new ChiTietPhieuMuonUpdateDTO
-                        {
-                            IdPhieuMuon = _idPhieuMuon,
-                            IdDauThietBi = ct.IdDauThietBi,
-                            TrangThai = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI)
-                            ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI 
-                            : (trangThaiMoi == TrangThaiPhieuMuonEnum.HUY)
-                            ? TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI
-                            : ct.TrangThai,
-                            ThoiGianTra = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI) ? DateTime.Now : ct.ThoiGianTra
-                        }).ToList();
-
-                        var dauThietBiUpdates = chiTietUpdates.Select(ct => new DauThietBi
-                        {
-                            Id = ct.IdDauThietBi,
-                            TrangThai = ct.TrangThai switch
-                            {
-                                TrangThaiChiTietPhieuMuonEnum.DANGMUON => TrangThaiDauThietBi.DANGMUON,
-                                TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI => TrangThaiDauThietBi.KHADUNG,
-                                TrangThaiChiTietPhieuMuonEnum.DATHATLAC => TrangThaiDauThietBi.THATLAC,
-                                _ => TrangThaiDauThietBi.KHADUNG
-                            }
-                        }).ToList();
-
-                        // Gọi update
-                        bool isUpdatedChiTiet = await _chiTietPhieuMuonService.Update(chiTietUpdates);
-                        bool isUpdatedDauThietBi = await _dauThietBiService.UpdateDanhSachDauThietBi(dauThietBiUpdates);
-
-                        if (isUpdatedChiTiet && isUpdatedDauThietBi)
-                        {
-                            MessageBox.Show("Cập nhật thành công!");
-                        }
-                        else
-                        {
-                            MessageBox.Show("Có lỗi khi cập nhật chi tiết hoặc đầu thiết bị.");
-                        }
+                        MessageBox.Show("Cập nhật thành công!");
                     }
                     else
                     {
-                        MessageBox.Show("Không thể cập nhật chi tiết phiếu mượn.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Có lỗi khi cập nhật.");
                     }
                 }
                 else
