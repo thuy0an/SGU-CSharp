@@ -317,22 +317,24 @@
             }
 
             if (!isValid) return;
+            let ngayMuon = $('#txtNgayMuon').val();
+            let ngayMuonISO = null;
 
+            if (!ngayMuon) {
+                Swal.fire({
+                    icon: 'warning',
+                    title: 'Chưa chọn ngày mượn',
+                    text: 'Vui lòng chọn ngày mượn trước khi tiếp tục!'
+                });
+                return;
+
+            } else {
+                ngayMuonISO = new Date(ngayMuon).toISOString();
+                console.log("ngayMuonISO:", ngayMuonISO);
+            }
             try {
                 // Tạo phiếu mượn
-                let ngayMuon = $('#txtNgayMuon').val();
-                let ngayMuonISO = null;
 
-                if (ngayMuon) {
-                    ngayMuonISO = new Date(ngayMuon).toISOString();
-                    console.log("ngayMuonISO:", ngayMuonISO);
-                } else {
-                    Swal.fire({
-                        icon: 'warning',
-                        title: 'Chưa chọn ngày mượn',
-                        text: 'Vui lòng chọn ngày mượn trước khi tiếp tục!'
-                    });
-                }
 
                 let createPhieuMuonResponse = await $.ajax({
                     url: "http://localhost:5244/api/phieu-muon",
@@ -340,7 +342,7 @@
                     contentType: "application/json",
                     data: JSON.stringify({
                         IdThanhVien: IdThanhVien,
-                        NgayTao: new Date(ngayMuon).toISOString()
+                        NgayTao: new Date().toISOString()
                     })
                 });
 
@@ -355,7 +357,7 @@
                     data: JSON.stringify({
                         IdPhieuMuon: IdPhieuMuon,
                         TrangThai: TrangThaiPhieuMuonEnum.CHODUYET,
-                        ThoiGianCapNhat: ngayMuonISO
+                        ThoiGianCapNhat: new Date().toISOString()
                     })
                 });
 
