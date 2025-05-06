@@ -163,7 +163,7 @@ namespace sgu_c_sharf_backend.Services
         private async Task SendEmailAsync(string toEmail, string token, string loaiOTP)
         {
             var message = new MimeMessage();
-            message.From.Add(new MailboxAddress("Your App", _emailSettings.FromEmail));
+            message.From.Add(new MailboxAddress("Thư quán của nhóm 8", _emailSettings.FromEmail));
             message.To.Add(new MailboxAddress("", toEmail));
             message.Subject = $"Your OTP for {loaiOTP}";
 

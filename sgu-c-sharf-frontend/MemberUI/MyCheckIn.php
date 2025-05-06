@@ -47,12 +47,9 @@
 
     .nav-tabs li a.active {
         background-color: #7b181a;
-        color: white;
+        color: white !important;
         border-left: 5px solid #fbc02d; /* vàng nổi bật */
     }
-
-
-
 
 
     .order-table {

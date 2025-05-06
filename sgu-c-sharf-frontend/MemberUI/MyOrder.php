@@ -50,7 +50,7 @@
 
     .nav-tabs li a.active {
         background-color: #7b181a;
-        color: white;
+        color: white !important;
         border-left: 5px solid #fbc02d;
         /* vàng nổi bật */
     }
@@ -221,7 +221,7 @@
                 <button class="detail-button" onclick="xemChiTiet(${phieu.id})">Xem chi tiết</button>
             `;
 
-            if (phieu.trangThai === 1 || phieu.trangThai === 3) {
+            if (phieu.trangThai === 0 || phieu.trangThai === 1) {
                 actionButtons += `
                     <button class="cancel-button" onclick="huyPhieu(${phieu.id})">Hủy</button>
                 `;
