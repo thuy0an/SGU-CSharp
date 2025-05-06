@@ -13,8 +13,10 @@
         margin: 30px 0;
         margin-top: 100px;
         padding: 20px;
-        background-color: #fff3e0; /* vàng nhạt */
-        border-right: 3px solid #7b181a; /* đỏ viền */
+        background-color: #fff3e0;
+        /* vàng nhạt */
+        border-right: 3px solid #7b181a;
+        /* đỏ viền */
         min-height: 100%;
     }
 
@@ -42,13 +44,15 @@
     .nav-tabs li a:hover {
         background-color: #ffe0b2;
         color: #b71c1c;
-        border-left: 5px solid #f57c00; /* cam đậm khi hover */
+        border-left: 5px solid #f57c00;
+        /* cam đậm khi hover */
     }
 
     .nav-tabs li a.active {
         background-color: #7b181a;
         color: white;
-        border-left: 5px solid #fbc02d; /* vàng nổi bật */
+        border-left: 5px solid #fbc02d;
+        /* vàng nổi bật */
     }
 
 
@@ -61,7 +65,8 @@
         margin-top: 20px;
     }
 
-    .order-table th, .order-table td {
+    .order-table th,
+    .order-table td {
         border: 1px solid #ddd;
         padding: 10px;
         text-align: center;
@@ -110,8 +115,6 @@
     .cancel-button:hover {
         background-color: #c62828;
     }
-
-
 </style>
 
 
@@ -121,9 +124,9 @@
     <content style="display: flex;">
         <section class="user-history-nav" style="width: 20vw; padding: 20px;">
             <ul class="nav-tabs">
-                <li><a href="LichSuMuon.php" class="active">Lịch sử phiếu mượn</a></li>
-                <li><a href="LichSuXuPhat.php">Lịch sử xử phạt</a></li>
-                <li><a href="LichSuCheckIn.php">Lịch sử check in</a></li>
+                <li><a href="MyOrder.php" class="active">Lịch sử phiếu mượn</a></li>
+                <li><a href="MyXuPhat.php">Lịch sử xử phạt</a></li>
+                <li><a href="MyCheckIn.php">Lịch sử check in</a></li>
             </ul>
         </section>
 
@@ -135,9 +138,9 @@
                 </div>
             </div>
 
-                <!-- Phần hiển thị Đơn mượn -->
+            <!-- Phần hiển thị Đơn mượn -->
             <div class="orderManagement_order_history">
-                <p id="emptyCartMessage" class="empty_cart" style="text-align: center;">Bạn chưa có đơn hàng nào!</p>
+                <p id="emptyCartMessage" class="empty_cart" style="text-align: center;">Bạn chưa có đơn phiếu mượn nào!</p>
                 <table class="order-table" id="orderHistoryTable">
                     <thead>
                         <tr>
@@ -155,7 +158,7 @@
             </div>
         </section>
     </content>
-  
+
 
 
 </body>
@@ -240,12 +243,18 @@
 
     function convertTrangThai(code) {
         switch (code) {
-            case 0: return "Đang chờ duyệt";
-            case 1: return "Đang chờ lấy thiết bị";
-            case 2: return "Đang mượn";
-            case 3: return "Đã hoàn tất";
-            case 4: return "Hủy";
-            default: return "Không xác định";
+            case 0:
+                return "Đang chờ duyệt";
+            case 1:
+                return "Đang chờ lấy thiết bị";
+            case 2:
+                return "Đang mượn";
+            case 3:
+                return "Đã hoàn tất";
+            case 4:
+                return "Hủy";
+            default:
+                return "Không xác định";
         }
     }
 
@@ -303,8 +312,6 @@
             }
         });
     }
-
-
 </script>
 
 </html>
