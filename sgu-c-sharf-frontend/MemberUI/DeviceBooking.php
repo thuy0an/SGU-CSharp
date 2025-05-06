@@ -31,6 +31,7 @@
             </div>
             <div class="col-md-4">
                 <div>
+                    <label for="txtNgayMuon">Ngày mượn</label>
                     <input type="date" class="form-control mb-2" id="txtNgayMuon">
                     <button id="btnTaoPhieu" class="btn btn-danger w-100">Đặt chỗ</button>
                 </div>
