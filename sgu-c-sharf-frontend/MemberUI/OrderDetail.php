@@ -11,7 +11,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="../HelperUI/formatOutput.js"></script>
+    <!-- <script src="../HelperUI/formatOutput.js"></script> -->
     <title>Chi tiết phiếu mượn</title>
     <style>
         .home-button {
@@ -405,6 +405,7 @@
             const maPhieuMuon = urlParams.get('id');
 
             if (maPhieuMuon) {
+                console.log(maPhieuMuon);
                 loadPhieuMuonData(maPhieuMuon);
             } else {
                 Swal.fire('Lỗi', 'Không tìm thấy mã phiếu mượn trong URL.', 'error');
