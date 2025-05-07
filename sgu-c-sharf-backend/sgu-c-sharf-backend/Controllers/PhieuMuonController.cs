@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using sgu_c_sharf_backend.Models.PhieuMuon;
 using sgu_c_sharf_backend.Services;
 using sgu_c_sharf_backend.ApiResponse;
+using sgu_c_sharf_backend.Models.ThietBi;
 
 namespace sgu_c_sharf_backend.Controllers
 {
@@ -12,10 +13,20 @@ namespace sgu_c_sharf_backend.Controllers
     public class PhieuMuonController : ControllerBase
     {
         private readonly PhieuMuonService _phieuMuonService;
+        public readonly ChiTietPhieuMuonService _chiTietPhieuMuonService;
+        public readonly DauThietBiService _dauThietBiService;
+        public readonly ThietBiService _thietBiService;
 
-        public PhieuMuonController(PhieuMuonService phieuMuonService)
+
+        public PhieuMuonController(PhieuMuonService phieuMuonService,
+        ChiTietPhieuMuonService chiTietPhieuMuonService,
+        DauThietBiService dauThietBiService,
+        ThietBiService thietBiService)
         {
             _phieuMuonService = phieuMuonService;
+            _chiTietPhieuMuonService = chiTietPhieuMuonService;
+            _dauThietBiService = dauThietBiService;
+            _thietBiService = thietBiService;
         }
 
         // Lấy danh sách phiếu mượn không có phân trang
@@ -94,21 +105,55 @@ namespace sgu_c_sharf_backend.Controllers
         [HttpGet("chi-tiet/{idPhieuMuon}")]
         public IActionResult GetChiTietById(int idPhieuMuon)
         {
-            try
+            // 1. Lấy chi tiết phiếu mượn
+            var phieuMuonDetail = _phieuMuonService.GetById(idPhieuMuon);
+            if (phieuMuonDetail == null)
             {
-                var result = _phieuMuonService.GetChiTietById(idPhieuMuon);
-                if (result == null || !result.Any())
-                {
-                    return NotFound(ApiResponse<List<PhieuMuonChiTietDTO>>.Fail($"Không tìm thấy phiếu mượn ID {idPhieuMuon}"));
-                }
+                return NotFound(ApiResponse<PhieuMuonChiTietDTO>.Fail($"Không tìm thấy phiếu mượn với id {idPhieuMuon}"));
+            }
 
-                return Ok(ApiResponse<List<PhieuMuonChiTietDTO>>.Ok(result, "Lấy chi tiết phiếu mượn thành công"));
-            }
-            catch (Exception ex)
+            // 2. Lấy danh sách chi tiết phiếu mượn
+            var chiTietPhieuMuonList = _chiTietPhieuMuonService.GetAllByPhieuMuonId(idPhieuMuon);
+
+            // 3. Lấy danh sách id đầu thiết bị
+            var idDauThietBiList = chiTietPhieuMuonList.Select(x => x.IdDauThietBi).ToList();
+
+            // 4. Lấy danh sách đầu thiết bị
+            var dauThietBiList = _dauThietBiService.GetByListId(idDauThietBiList);
+
+            // 5. Tạo danh sách chi tiết đầu thiết bị
+            var dauThietBiDetailList = new List<DauThietBiDetail>();
+            foreach (var dauThietBi in dauThietBiList)
             {
-                Console.WriteLine($"Exception: {ex.Message}\nStackTrace: {ex.StackTrace}");
-                return StatusCode(500, ApiResponse<string>.Fail($"Lỗi hệ thống: {ex.Message}"));
+                // Lấy thiết bị chi tiết
+                var thietBiDetail = _thietBiService.GetById(dauThietBi.IdThietBi);
+
+                // Lấy hình ảnh thiết bị
+                var hinhAnh = _thietBiService.GetHinhAnhById(dauThietBi.IdThietBi);
+
+                var dauThietBiDetail = new DauThietBiDetail
+                {
+                    Id = dauThietBi.Id,
+                    TrangThai = dauThietBi.TrangThai,
+                    ThoiGianMua = dauThietBi.ThoiGianMua,
+                    IdThietBi = dauThietBi.IdThietBi,
+                    TenThietBi = thietBiDetail?.TenThietBi ?? "",
+                    TenLoaiThietBi = thietBiDetail?.TenLoaiThietBi ?? "",
+                    img = hinhAnh.AnhMinhHoa ?? ""
+                };
+
+                dauThietBiDetailList.Add(dauThietBiDetail);
             }
+
+            var result = new PhieuMuonChiTietDTO
+            {
+                PhieuMuonDetailDTO = phieuMuonDetail,
+                ChiTietPhieuMuonDetailDTOs = chiTietPhieuMuonList,
+                DauThietBiDetails = dauThietBiDetailList
+            };
+
+            // 7. Trả kết quả
+            return Ok(ApiResponse<PhieuMuonChiTietDTO>.Ok(result, "Thành công"));
         }
     }
 }

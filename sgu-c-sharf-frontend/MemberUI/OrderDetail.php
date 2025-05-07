@@ -198,12 +198,12 @@
 
             // Áp dụng màu sắc dựa trên trạng thái hiện tại
             switch (trangThaiValue) {
-                case 'ChoDuyet':
+                case 0:
                     $icon1.css("color", "green");
                     $circleContainer1.css("border-color", "green");
                     $thoiGian1.html(formatDateTime(thoiGianValue));
                     break;
-                case 'DaDuyet':
+                case 1:
                     $icon1.css("color", "green");
                     $circleContainer1.css("border-color", "green");
                     $thoiGian1.html(formatDateTime(thoiGianValue));
@@ -213,7 +213,7 @@
                     $circleContainer2.css("border-color", "green");
                     $thoiGian2.html(formatDateTime(thoiGianValue));
                     break;
-                case 'DangMuon':
+                case 2:
                     $icon1.css("color", "green");
                     $circleContainer1.css("border-color", "green");
                     $thoiGian1.html(formatDateTime(thoiGianValue));
@@ -228,7 +228,7 @@
                     $circleContainer3.css("border-color", "green");
                     $thoiGian3.html(formatDateTime(thoiGianValue));
                     break;
-                case 'DaTra':
+                case 3:
                     $icon1.css("color", "green");
                     $circleContainer1.css("border-color", "green");
                     $thoiGian1.html(formatDateTime(thoiGianValue));
@@ -248,7 +248,7 @@
                     $circleContainer4.css("border-color", "green");
                     $thoiGian4.html(formatDateTime(thoiGianValue));
                     break;
-                case 'Huy':
+                case 4:
                     $icon1.css("color", "rgb(146, 26, 26)");
                     $circleContainer1.css("border-color", "rgb(146, 26, 26)");
                     $thoiGian1.html(formatDateTime(thoiGianValue));
@@ -305,13 +305,13 @@
             });
 
             $.ajax({
-                url: `http://localhost:5244/api/phieu-muon/${maPhieuMuon}`,
+                url: `http://localhost:5244/api/phieu-muon/chi-tiet/${maPhieuMuon}`,
                 method: 'GET',
                 dataType: 'json',
                 success: function(response) {
                     Swal.close();
                     if (response && response.status === 200) {
-                        const phieuMuonData = response.data;
+                        const phieuMuonData = response.data.phieuMuonDetailDTO;
                         const phieuMuon = {
                             id: phieuMuonData.id,
                             thoiGianTao: phieuMuonData.ngayTao,
@@ -322,7 +322,7 @@
                         };
 
                         // Lấy danh sách idDauThietBi từ API phiếu mượn
-                        const idDauThietBis = phieuMuonData.data.map(item => item.idDauThietBi);
+                        const idDauThietBis = response.data.chiTietPhieuMuonDetailDTOs.map(item => item.idDauThietBi);
 
                         // Tích lũy dữ liệu thiết bị
                         let devices = [];
@@ -353,7 +353,7 @@
                                     <div class='radio__wrapper'>
                                         <div>
                                             <div class='cartItem' id='device-${device.maDauThietBi}'>
-                                                <a href='#' class='img'><img class='img' src='https://res.cloudinary.com/djhoea2bo/image/upload/v1711511636/${device.hinhAnh}' /></a>
+                                                <a href='#' class='img'><img class='img' src='../img/${device.hinhAnh}' /></a>
                                                 <div class='inforCart'>
                                                     <div class='nameAndPrice'>
                                                         <a href='#' class='nameCart'>${device.tenThietBi}</a>
@@ -381,8 +381,10 @@
                             $('#device-list').html(deviceListHtml);
                             $('.wrap').html(html);
 
-                            // Hiển thị trạng thái hiện tại
-                            setColorAndTime(phieuMuon.trangThai, phieuMuon.thoiGianTao);
+
+                            fetchTrangThaiPhieuMuon(phieuMuon.id);
+
+                     
                         }).catch(error => {
                             console.error("Error fetching device data:", error);
                             Swal.fire('Lỗi', 'Không thể tải thông tin thiết bị.', 'error');
@@ -405,12 +407,30 @@
             const maPhieuMuon = urlParams.get('id');
 
             if (maPhieuMuon) {
-                console.log(maPhieuMuon);
                 loadPhieuMuonData(maPhieuMuon);
             } else {
                 Swal.fire('Lỗi', 'Không tìm thấy mã phiếu mượn trong URL.', 'error');
             }
         });
+
+        function fetchTrangThaiPhieuMuon(id) {
+            $.ajax({
+                url: `http://localhost:5244/api/trang-thai-phieu-muon/phieu-muon/${id}`,
+                method: 'GET',
+                success: function (response) {
+                if (response.status === 200 && Array.isArray(response.data)) {
+                    response.data.forEach(function (item) {
+                        setColorAndTime(item.trangThai, item.thoiGianCapNhat);
+                    });
+                } else {
+                    console.error("Dữ liệu không đúng định dạng:", response);
+                }
+                },
+                error: function (xhr, status, error) {
+                console.error("Lỗi khi gọi API:", error);
+                }
+            });
+            }
     </script>
 </body>
 
