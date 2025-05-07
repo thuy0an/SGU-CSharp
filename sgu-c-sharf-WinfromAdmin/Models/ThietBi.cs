@@ -7,6 +7,8 @@ namespace sgu_c_sharf_WinfromAdmin.Models
         public string TenLoaiThietBi { get; set; }
         public int IdLoaiThietBi { get; set; }
         public ThietbiEnum ThietbiEnum { get; set; }
+
+        public string AnhMinhHoa { get; set; }
     }
 
     public enum ThietbiEnum

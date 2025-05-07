@@ -252,5 +252,34 @@ namespace sgu_c_sharf_WinfromAdmin.Services
 				return new List<DauThietBi>();
 			}
 		}
-    }
+
+        public async Task<string> GetHinhAnhById(int id)
+        {
+            string requestUrl = $"{BASE_URL}/hinh-anh/{id}";
+            try
+            {
+                HttpResponseMessage res = await _httpClient.GetAsync(requestUrl);
+                if (res.IsSuccessStatusCode)
+                {
+                    string json = await res.Content.ReadAsStringAsync();
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<HinhAnhThietBi>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    return apiResponse?.Data?.AnhMinhHoa; // Trả về tên file ảnh
+                }
+                else
+                {
+                    Console.WriteLine($"Lỗi khi tải tên file ảnh: {res.StatusCode} - {res.ReasonPhrase}");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Lỗi: {ex.Message}");
+            }
+
+            return "";
+        }
+	}
 }

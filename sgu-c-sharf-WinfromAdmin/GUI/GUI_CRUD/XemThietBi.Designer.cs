@@ -32,6 +32,7 @@
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlContent = new Panel();
+            picMinhHoa = new PictureBox();
             label3 = new Label();
             panel7 = new Panel();
             txtTenLoaiThietBi = new TextBox();
@@ -48,6 +49,7 @@
             label2 = new Label();
             label1 = new Label();
             pnlContent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)picMinhHoa).BeginInit();
             panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).BeginInit();
             panel3.SuspendLayout();
@@ -57,6 +59,7 @@
             // pnlContent
             // 
             pnlContent.BackColor = Color.White;
+            pnlContent.Controls.Add(picMinhHoa);
             pnlContent.Controls.Add(label3);
             pnlContent.Controls.Add(panel7);
             pnlContent.Controls.Add(dataGrid);
@@ -71,11 +74,19 @@
             pnlContent.TabIndex = 0;
             pnlContent.Paint += pnlContent_Paint;
             // 
+            // picMinhHoa
+            // 
+            picMinhHoa.Location = new Point(12, 55);
+            picMinhHoa.Name = "picMinhHoa";
+            picMinhHoa.Size = new Size(275, 251);
+            picMinhHoa.TabIndex = 11;
+            picMinhHoa.TabStop = false;
+            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label3.Location = new Point(121, 326);
+            label3.Location = new Point(255, 326);
             label3.Name = "label3";
             label3.Size = new Size(230, 22);
             label3.TabIndex = 10;
@@ -85,10 +96,10 @@
             // 
             panel7.Controls.Add(txtTenLoaiThietBi);
             panel7.Controls.Add(label8);
-            panel7.Location = new Point(120, 224);
+            panel7.Location = new Point(356, 233);
             panel7.Margin = new Padding(4, 3, 4, 3);
             panel7.Name = "panel7";
-            panel7.Size = new Size(500, 73);
+            panel7.Size = new Size(371, 73);
             panel7.TabIndex = 6;
             // 
             // txtTenLoaiThietBi
@@ -98,7 +109,7 @@
             txtTenLoaiThietBi.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             txtTenLoaiThietBi.Location = new Point(0, 44);
             txtTenLoaiThietBi.Name = "txtTenLoaiThietBi";
-            txtTenLoaiThietBi.Size = new Size(500, 29);
+            txtTenLoaiThietBi.Size = new Size(371, 29);
             txtTenLoaiThietBi.TabIndex = 1;
             // 
             // label8
@@ -166,10 +177,10 @@
             // 
             panel3.Controls.Add(txtTenThietBi);
             panel3.Controls.Add(label4);
-            panel3.Location = new Point(120, 135);
+            panel3.Location = new Point(356, 144);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
-            panel3.Size = new Size(500, 73);
+            panel3.Size = new Size(371, 73);
             panel3.TabIndex = 3;
             panel3.Paint += panel3_Paint;
             // 
@@ -181,7 +192,7 @@
             txtTenThietBi.Location = new Point(0, 44);
             txtTenThietBi.Margin = new Padding(4, 3, 4, 3);
             txtTenThietBi.Name = "txtTenThietBi";
-            txtTenThietBi.Size = new Size(500, 29);
+            txtTenThietBi.Size = new Size(371, 29);
             txtTenThietBi.TabIndex = 1;
             // 
             // label4
@@ -200,10 +211,10 @@
             // 
             panel1.Controls.Add(txtMaThietBi);
             panel1.Controls.Add(label2);
-            panel1.Location = new Point(120, 46);
+            panel1.Location = new Point(356, 55);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
-            panel1.Size = new Size(500, 73);
+            panel1.Size = new Size(371, 73);
             panel1.TabIndex = 1;
             panel1.Paint += panel1_Paint;
             // 
@@ -215,7 +226,7 @@
             txtMaThietBi.Location = new Point(0, 44);
             txtMaThietBi.Margin = new Padding(4, 3, 4, 3);
             txtMaThietBi.Name = "txtMaThietBi";
-            txtMaThietBi.Size = new Size(500, 29);
+            txtMaThietBi.Size = new Size(371, 29);
             txtMaThietBi.TabIndex = 1;
             // 
             // label2
@@ -259,6 +270,7 @@
             Load += FormSuaThanhVien_Load;
             pnlContent.ResumeLayout(false);
             pnlContent.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)picMinhHoa).EndInit();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGrid).EndInit();
@@ -287,5 +299,6 @@
         private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn Column2;
         private DataGridViewTextBoxColumn Column3;
+        private PictureBox picMinhHoa;
     }
 }

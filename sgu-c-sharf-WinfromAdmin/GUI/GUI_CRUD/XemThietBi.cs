@@ -33,13 +33,39 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             HienThiDauThietBi();
         }
 
-        private void HienThiThongTin()
+        private async void HienThiThongTin()
         {
             if (thietBi != null)
             {
                 txtMaThietBi.Text = thietBi.Id.ToString();
                 txtTenThietBi.Text = thietBi.TenThietBi;
                 txtTenLoaiThietBi.Text = thietBi.TenLoaiThietBi;
+
+                // Lấy tên ảnh
+                string tenFileAnh = await thietBiService.GetHinhAnhById(thietBi.Id);
+
+                // Đường dẫn tương đối đến thư mục ảnh
+                string duongDanThuMucAnh = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "..", "..", "..", "..", "sgu-c-sharf-frontend", "img");
+                string duongDanAnhDayDu = Path.Combine(duongDanThuMucAnh, tenFileAnh);
+
+                duongDanAnhDayDu = Path.GetFullPath(duongDanAnhDayDu);
+
+                if (!File.Exists(duongDanAnhDayDu))
+                {
+                    MessageBox.Show($"Không tìm thấy ảnh tại: {duongDanAnhDayDu}");
+                    picMinhHoa.Image = null;
+                    return;
+                }
+                try
+                {
+                    picMinhHoa.Image = Image.FromFile(duongDanAnhDayDu);
+                    picMinhHoa.SizeMode = PictureBoxSizeMode.Zoom;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Lỗi khi tải ảnh: {ex.Message}");
+                    picMinhHoa.Image = null;
+                }
             }
         }
 
