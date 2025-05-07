@@ -70,12 +70,14 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             _thietBis = await _thietBiService.GetAllWithAvailability();
         }
 
-        private void loadDataGrid()
+        private async Task loadDataGrid()
         {
             dataGrid.Rows.Clear();
             foreach (var item in _chiTietPhieuMuons)
             {
+                var dauThietBi = await _dauThietBiService.GetDauThietBiById(item.IdDauThietBi);
                 dataGrid.Rows.Add(
+                    dauThietBi.TenThietBi,
                     item.IdDauThietBi,
                     item.TrangThai.ToString(),
                     item.ThoiGianMuon?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
