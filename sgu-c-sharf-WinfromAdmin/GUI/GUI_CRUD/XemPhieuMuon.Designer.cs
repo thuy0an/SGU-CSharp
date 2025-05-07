@@ -213,30 +213,40 @@
             // 
             // Column5
             // 
+            Column5.FillWeight = 449.2386F;
             Column5.HeaderText = "Tên thiết bị";
+            Column5.MinimumWidth = 200;
             Column5.Name = "Column5";
             Column5.ReadOnly = true;
             // 
             // Column1
             // 
+            Column1.FillWeight = 12.6903543F;
             Column1.HeaderText = "Mã đầu thiết bị";
+            Column1.MinimumWidth = 150;
             Column1.Name = "Column1";
             Column1.ReadOnly = true;
             // 
             // Column2
             // 
+            Column2.FillWeight = 12.6903543F;
             Column2.HeaderText = "Trạng thái";
+            Column2.MinimumWidth = 150;
             Column2.Name = "Column2";
             Column2.ReadOnly = true;
             // 
             // Column3
             // 
+            Column3.FillWeight = 12.6903543F;
             Column3.HeaderText = "Ngày mượn";
+            Column3.MinimumWidth = 150;
             Column3.Name = "Column3";
             // 
             // Column4
             // 
+            Column4.FillWeight = 12.6903543F;
             Column4.HeaderText = "Ngày trả";
+            Column4.MinimumWidth = 150;
             Column4.Name = "Column4";
             // 
             // panel3

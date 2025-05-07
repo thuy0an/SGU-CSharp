@@ -46,11 +46,6 @@
             btnSua = new Button();
             btnThemDauThietBi = new Button();
             dataGrid = new DataGridView();
-            Column1 = new DataGridViewTextBoxColumn();
-            IdDauThietBi = new DataGridViewTextBoxColumn();
-            TrangThai = new DataGridViewTextBoxColumn();
-            ThoiGianMuon = new DataGridViewTextBoxColumn();
-            ThoiGianTra = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             txtTenNguoiDung = new TextBox();
             label4 = new Label();
@@ -58,6 +53,11 @@
             txtMaThanhVien = new TextBox();
             label2 = new Label();
             label1 = new Label();
+            Column1 = new DataGridViewTextBoxColumn();
+            IdDauThietBi = new DataGridViewTextBoxColumn();
+            TrangThai = new DataGridViewTextBoxColumn();
+            ThoiGianMuon = new DataGridViewTextBoxColumn();
+            ThoiGianTra = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
@@ -155,7 +155,7 @@
             // btnSuaDauThietBi
             // 
             btnSuaDauThietBi.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnSuaDauThietBi.Location = new Point(692, 352);
+            btnSuaDauThietBi.Location = new Point(752, 358);
             btnSuaDauThietBi.Name = "btnSuaDauThietBi";
             btnSuaDauThietBi.Size = new Size(100, 50);
             btnSuaDauThietBi.TabIndex = 14;
@@ -200,7 +200,7 @@
             // btnXoaDauThietBi
             // 
             btnXoaDauThietBi.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnXoaDauThietBi.Location = new Point(692, 432);
+            btnXoaDauThietBi.Location = new Point(752, 434);
             btnXoaDauThietBi.Name = "btnXoaDauThietBi";
             btnXoaDauThietBi.Size = new Size(100, 50);
             btnXoaDauThietBi.TabIndex = 13;
@@ -222,7 +222,7 @@
             // btnThemDauThietBi
             // 
             btnThemDauThietBi.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnThemDauThietBi.Location = new Point(692, 272);
+            btnThemDauThietBi.Location = new Point(752, 272);
             btnThemDauThietBi.Name = "btnThemDauThietBi";
             btnThemDauThietBi.Size = new Size(100, 50);
             btnThemDauThietBi.TabIndex = 9;
@@ -259,39 +259,9 @@
             dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGrid.RowsDefaultCellStyle = dataGridViewCellStyle3;
             dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dataGrid.Size = new Size(594, 300);
+            dataGrid.Size = new Size(714, 300);
             dataGrid.TabIndex = 8;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Tên thiết bị";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // IdDauThietBi
-            // 
-            IdDauThietBi.HeaderText = "Mã đầu thiết bị";
-            IdDauThietBi.Name = "IdDauThietBi";
-            IdDauThietBi.ReadOnly = true;
-            // 
-            // TrangThai
-            // 
-            TrangThai.HeaderText = "Trạng thái";
-            TrangThai.Name = "TrangThai";
-            TrangThai.ReadOnly = true;
-            // 
-            // ThoiGianMuon
-            // 
-            ThoiGianMuon.HeaderText = "Ngày mượn";
-            ThoiGianMuon.Name = "ThoiGianMuon";
-            ThoiGianMuon.ReadOnly = true;
-            // 
-            // ThoiGianTra
-            // 
-            ThoiGianTra.HeaderText = "Ngày trả";
-            ThoiGianTra.Name = "ThoiGianTra";
-            ThoiGianTra.ReadOnly = true;
             // 
             // panel3
             // 
@@ -372,6 +342,46 @@
             label1.TabIndex = 0;
             label1.Text = "Sửa phiếu mượn";
             label1.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // Column1
+            // 
+            Column1.FillWeight = 339.0945F;
+            Column1.HeaderText = "Tên thiết bị";
+            Column1.MinimumWidth = 250;
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            // 
+            // IdDauThietBi
+            // 
+            IdDauThietBi.FillWeight = 81.21827F;
+            IdDauThietBi.HeaderText = "Mã đầu thiết bị";
+            IdDauThietBi.MinimumWidth = 100;
+            IdDauThietBi.Name = "IdDauThietBi";
+            IdDauThietBi.ReadOnly = true;
+            // 
+            // TrangThai
+            // 
+            TrangThai.FillWeight = 26.5624027F;
+            TrangThai.HeaderText = "Trạng thái";
+            TrangThai.MinimumWidth = 100;
+            TrangThai.Name = "TrangThai";
+            TrangThai.ReadOnly = true;
+            // 
+            // ThoiGianMuon
+            // 
+            ThoiGianMuon.FillWeight = 26.5624027F;
+            ThoiGianMuon.HeaderText = "Ngày mượn";
+            ThoiGianMuon.MinimumWidth = 150;
+            ThoiGianMuon.Name = "ThoiGianMuon";
+            ThoiGianMuon.ReadOnly = true;
+            // 
+            // ThoiGianTra
+            // 
+            ThoiGianTra.FillWeight = 26.5624027F;
+            ThoiGianTra.HeaderText = "Ngày trả";
+            ThoiGianTra.MinimumWidth = 150;
+            ThoiGianTra.Name = "ThoiGianTra";
+            ThoiGianTra.ReadOnly = true;
             // 
             // FormSuaPhieuMuon
             // 
