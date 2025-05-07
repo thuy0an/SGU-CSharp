@@ -34,20 +34,15 @@
             line-height: 1.6;
         }
 
-        /* Main layout with sidebar and content */
         .main-container {
             display: flex;
-            padding: 20px;
             gap: 20px;
         }
 
         .user-history-nav {
-            margin: 30px 0;
             padding: 20px;
             background-color: #fff3e0;
-            /* vàng nhạt */
             border-right: 3px solid #7b181a;
-            /* đỏ viền */
             min-height: 100%;
         }
 
@@ -76,17 +71,14 @@
             background-color: #ffe0b2;
             color: #b71c1c;
             border-left: 5px solid #f57c00;
-            /* cam đậm khi hover */
         }
 
         .nav-tabs li a.active {
             background-color: #7b181a;
             color: white !important;
             border-left: 5px solid #fbc02d;
-            /* vàng nổi bật */
         }
 
-        /* Main content area */
         .content-area {
             flex: 1;
             max-width: 80vw;
@@ -235,61 +227,6 @@
             color: #374151;
         }
 
-        .pagination {
-            display: flex;
-            justify-content: center;
-            margin-top: 16px;
-        }
-
-        .pagination-content {
-            display: flex;
-            gap: 8px;
-        }
-
-        .pagination-item {
-            display: inline-block;
-        }
-
-        .pagination-link {
-            padding: 4px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            color: #374151;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .pagination-link:hover {
-            background-color: #f3f4f6;
-        }
-
-        .pagination-link.active {
-            background-color: #2563eb;
-            color: white;
-            border-color: #2563eb;
-        }
-
-        .pagination-previous,
-        .pagination-next {
-            padding: 4px 12px;
-            border: 1px solid #d1d5db;
-            border-radius: 4px;
-            color: #374151;
-            text-decoration: none;
-            font-size: 14px;
-        }
-
-        .pagination-previous:hover,
-        .pagination-next:hover {
-            background-color: #f3f4f6;
-        }
-
-        .pagination-previous.disabled,
-        .pagination-next.disabled {
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
         .grid {
             display: grid;
             gap: 16px;
@@ -358,10 +295,10 @@
         <div class="content-area">
             <div class="space-y-6">
                 <!-- Header -->
-                <div class="flex justify-between items-center">
-                    <div>
-                        <h1 class="text-2xl font-bold tracking-tight">Lịch sử vi phạm</h1>
-                        <p class="text-muted-foreground">Xem thông tin các vi phạm và phiếu xử phạt của bạn</p>
+                <div class="center-text" style="margin-top: 20px;">
+                    <div class="title_section">
+                        <div class="bar"></div>
+                        <h2 class="center-text-share">Lịch sử vi phạm</h2>
                     </div>
                 </div>
 
@@ -376,9 +313,8 @@
                             <thead class="table-header">
                                 <tr class="table-row">
                                     <th class="table-head">ID</th>
-                                    <th class="table-head">Thiết bị</th>
                                     <th class="table-head">Ngày vi phạm</th>
-                                    <th class="table-head">Thời gian xử phạt (ngày)</th>
+                                    <th class="table-head">Số ngày xử phạt</th>
                                     <th class="table-head">Mô tả</th>
                                     <th class="table-head">Mức phạt</th>
                                     <th class="table-head">Trạng thái</th>
@@ -388,13 +324,6 @@
                                 <!-- Table rows will be populated by JavaScript -->
                             </tbody>
                         </table>
-
-                        <!-- Pagination -->
-                        <div class="pagination" id="pagination">
-                            <div class="pagination-content" id="pagination-content">
-                                <!-- Pagination links will be populated by JavaScript -->
-                            </div>
-                        </div>
                     </div>
                 </div>
 
@@ -438,55 +367,7 @@
     <?php require_once "./Footer.php"; ?>
 
     <script>
-        const violations = [{
-                id: "V001",
-                equipmentName: "Máy chiếu",
-                date: "2023-10-01T14:30:00",
-                description: "Trễ hạn trả 3 ngày",
-                penalty: "500,000 VNĐ",
-                status: "pending"
-            },
-            {
-                id: "V002",
-                equipmentName: "Laptop",
-                date: "2023-09-15T09:00:00",
-                description: "Màn hình bị nứt",
-                penalty: "2,000,000 VNĐ",
-                status: "paid"
-            },
-            {
-                id: "V003",
-                equipmentName: "Máy in",
-                date: "2023-08-20T16:00:00",
-                description: "Không tìm thấy thiết bị",
-                penalty: "5,000,000 VNĐ",
-                status: "waived"
-            },
-            {
-                id: "V004",
-                equipmentName: "Bàn phím",
-                date: "2023-07-10T11:00:00",
-                description: "Trễ hạn trả 1 ngày",
-                penalty: "100,000 VNĐ",
-                status: "pending"
-            },
-            {
-                id: "V005",
-                equipmentName: "Chuột",
-                date: "2023-06-05T13:30:00",
-                description: "Sử dụng sai mục đích",
-                penalty: "200,000 VNĐ",
-                status: "paid"
-            },
-            {
-                id: "V006",
-                equipmentName: "Micro",
-                date: "2023-05-01T15:00:00",
-                description: "Trễ hạn trả 2 ngày",
-                penalty: "300,000 VNĐ",
-                status: "pending"
-            },
-        ];
+        let violations = []; // Array to store API data
         const statusMap = {
             pending: {
                 text: "Chưa xử lý",
@@ -499,21 +380,33 @@
             waived: {
                 text: "Đã xóa",
                 class: "badge-secondary"
-            },
+            }
         };
-        const itemsPerPage = 5;
-        let currentPage = 1;
-        const totalPages = Math.ceil(violations.length / itemsPerPage);
 
-        // Calculate days between violation date and today (May 06, 2025)
+        // Map numeric status to string
+        function mapStatus(status) {
+            switch (status) {
+                case 0:
+                    return "pending";
+                case 1:
+                    return "waived";
+                case 2:
+                    return "paid";
+                default:
+                    return "pending";
+            }
+        }
+
+        // Calculate days between violation date and today (May 07, 2025)
         function calculateDaysSince(dateString) {
             const violationDate = new Date(dateString);
-            const today = new Date("2025-05-06");
+            const today = new Date("2025-05-07");
             const diffTime = Math.abs(today - violationDate);
             const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
             return diffDays;
         }
 
+        // Format date to Vietnamese format
         function formatDate(dateString) {
             const date = new Date(dateString);
             return new Intl.DateTimeFormat('vi-VN', {
@@ -525,19 +418,23 @@
             }).format(date);
         }
 
-        function renderViolations(page) {
-            const start = (page - 1) * itemsPerPage;
-            const end = page * itemsPerPage;
-            const currentViolations = violations.slice(start, end);
+        // Format penalty to Vietnamese currency
+        function formatPenalty(amount) {
+            return new Intl.NumberFormat('vi-VN', {
+                style: 'currency',
+                currency: 'VND'
+            }).format(amount);
+        }
+
+        function renderViolations() {
             const tbody = document.getElementById("violations-table-body");
             tbody.innerHTML = "";
-            currentViolations.forEach(violation => {
+            violations.forEach(violation => {
                 const daysSince = calculateDaysSince(violation.date);
                 const row = document.createElement("tr");
                 row.className = "table-row";
                 row.innerHTML = `
                     <td class="table-cell font-medium">${violation.id}</td>
-                    <td class="table-cell">${violation.equipmentName}</td>
                     <td class="table-cell">${formatDate(violation.date)}</td>
                     <td class="table-cell">${daysSince}</td>
                     <td class="table-cell">${violation.description}</td>
@@ -550,44 +447,6 @@
                 `;
                 tbody.appendChild(row);
             });
-
-            renderPagination(page);
-        }
-
-        function renderPagination(page) {
-            const paginationContent = document.getElementById("pagination-content");
-            paginationContent.innerHTML = "";
-            const prevLink = document.createElement("a");
-            prevLink.className = `pagination-previous ${page === 1 ? "disabled" : ""}`;
-            prevLink.textContent = "Trước";
-            prevLink.onclick = () => {
-                if (page > 1) {
-                    currentPage--;
-                    renderViolations(currentPage);
-                }
-            };
-            paginationContent.appendChild(prevLink);
-            for (let i = 1; i <= totalPages; i++) {
-                const pageLink = document.createElement("a");
-                pageLink.className = `pagination-link ${i === page ? "active" : ""}`;
-                pageLink.textContent = i;
-                pageLink.onclick = () => {
-                    currentPage = i;
-                    renderViolations(currentPage);
-                };
-                paginationContent.appendChild(pageLink);
-            }
-
-            const nextLink = document.createElement("a");
-            nextLink.className = `pagination-next ${page === totalPages ? "disabled" : ""}`;
-            nextLink.textContent = "Sau";
-            nextLink.onclick = () => {
-                if (page < totalPages) {
-                    currentPage++;
-                    renderViolations(currentPage);
-                }
-            };
-            paginationContent.appendChild(nextLink);
         }
 
         function renderStats() {
@@ -598,8 +457,60 @@
             document.getElementById("update-time").textContent = new Date().toLocaleTimeString('vi-VN');
         }
 
-        renderViolations(currentPage);
-        renderStats();
+        // Fetch data from API
+        function fetchViolations() {
+            const userId = sessionStorage.getItem('id');
+            if (!userId) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: 'Không tìm thấy ID người dùng. Vui lòng đăng nhập lại.',
+                });
+                return;
+            }
+
+            $.ajax({
+                url: `http://localhost:5244/api/phieu-xu-phat/user/${userId}`,
+                method: 'GET',
+                dataType: 'json',
+                success: function(response) {
+                    if (response.status !== 200 || !response.data) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Lỗi',
+                            text: response.message || 'Không tìm thấy dữ liệu vi phạm.',
+                        });
+                        return;
+                    }
+
+                    // Map API response to violations array
+                    const data = response.data;
+                    violations = [{
+                        id: data.id.toString(),
+                        date: data.ngayViPham,
+                        description: data.moTa,
+                        penalty: formatPenalty(data.mucPhat),
+                        status: mapStatus(data.trangThai)
+                    }];
+
+                    // Render table and stats
+                    renderViolations();
+                    renderStats();
+                },
+                error: function(xhr, status, error) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Không thể lấy dữ liệu vi phạm: ' + (xhr.responseJSON?.message || error),
+                    });
+                }
+            });
+        }
+
+        // Call fetchViolations on page load
+        $(document).ready(function() {
+            fetchViolations();
+        });
     </script>
 </body>
 

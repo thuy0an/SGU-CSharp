@@ -84,6 +84,31 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
 
+        [HttpGet("user/{id}")]
+        public ActionResult<PhieuXuPhatDetailDTO> GetByIdUser(uint id)
+
+        {
+            try
+
+            {
+                var result = _phieuXuPhatService.GetByIdUser(id);
+
+                if (result == null)
+
+                {
+                    return NotFound(new { Message = "Không tìm thấy phiếu xử phạt" });
+                }
+
+                return Ok(ApiResponse<PhieuXuPhatDetailDTO>.Ok(result));
+            }
+
+            catch (Exception ex)
+
+            {
+                return BadRequest(new { Message = ex.Message });
+            }
+        }
+
         [HttpGet("{id}")]
         public ActionResult<PhieuXuPhatDetailDTO> GetById(uint id)
 
@@ -108,7 +133,6 @@ namespace sgu_c_sharf_backend.Controllers
                 return BadRequest(new { Message = ex.Message });
             }
         }
-
 
         [HttpPost]
         public ActionResult<uint> Add([FromForm] PhieuXuPhatCreateDTO pxp)
