@@ -24,6 +24,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             _idPhieuMuon = IdPhieuMuon;
             _phieuMuonService = new PhieuMuonService();
             _chiTietPhieuMuonService = new ChiTietPhieuMuonService();
+            _dauThietBiService = new DauThietBiService();
         }
         private async void FormXemPhieuMuon_Load(object sender, EventArgs e)
         {

@@ -46,6 +46,11 @@
             btnSua = new Button();
             btnThemDauThietBi = new Button();
             dataGrid = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
+            IdDauThietBi = new DataGridViewTextBoxColumn();
+            TrangThai = new DataGridViewTextBoxColumn();
+            ThoiGianMuon = new DataGridViewTextBoxColumn();
+            ThoiGianTra = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             txtTenNguoiDung = new TextBox();
             label4 = new Label();
@@ -53,11 +58,6 @@
             txtMaThanhVien = new TextBox();
             label2 = new Label();
             label1 = new Label();
-            Column1 = new DataGridViewTextBoxColumn();
-            IdDauThietBi = new DataGridViewTextBoxColumn();
-            TrangThai = new DataGridViewTextBoxColumn();
-            ThoiGianMuon = new DataGridViewTextBoxColumn();
-            ThoiGianTra = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
@@ -263,6 +263,36 @@
             dataGrid.TabIndex = 8;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
             // 
+            // Column1
+            // 
+            Column1.HeaderText = "Tên thiết bị";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            // 
+            // IdDauThietBi
+            // 
+            IdDauThietBi.HeaderText = "Mã đầu thiết bị";
+            IdDauThietBi.Name = "IdDauThietBi";
+            IdDauThietBi.ReadOnly = true;
+            // 
+            // TrangThai
+            // 
+            TrangThai.HeaderText = "Trạng thái";
+            TrangThai.Name = "TrangThai";
+            TrangThai.ReadOnly = true;
+            // 
+            // ThoiGianMuon
+            // 
+            ThoiGianMuon.HeaderText = "Ngày mượn";
+            ThoiGianMuon.Name = "ThoiGianMuon";
+            ThoiGianMuon.ReadOnly = true;
+            // 
+            // ThoiGianTra
+            // 
+            ThoiGianTra.HeaderText = "Ngày trả";
+            ThoiGianTra.Name = "ThoiGianTra";
+            ThoiGianTra.ReadOnly = true;
+            // 
             // panel3
             // 
             panel3.Controls.Add(txtTenNguoiDung);
@@ -342,36 +372,6 @@
             label1.TabIndex = 0;
             label1.Text = "Sửa phiếu mượn";
             label1.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // Column1
-            // 
-            Column1.HeaderText = "Tên thiết bị";
-            Column1.Name = "Column1";
-            Column1.ReadOnly = true;
-            // 
-            // IdDauThietBi
-            // 
-            IdDauThietBi.HeaderText = "Mã đầu thiết bị";
-            IdDauThietBi.Name = "IdDauThietBi";
-            IdDauThietBi.ReadOnly = true;
-            // 
-            // TrangThai
-            // 
-            TrangThai.HeaderText = "Trạng thái";
-            TrangThai.Name = "TrangThai";
-            TrangThai.ReadOnly = true;
-            // 
-            // ThoiGianMuon
-            // 
-            ThoiGianMuon.HeaderText = "Ngày mượn";
-            ThoiGianMuon.Name = "ThoiGianMuon";
-            ThoiGianMuon.ReadOnly = true;
-            // 
-            // ThoiGianTra
-            // 
-            ThoiGianTra.HeaderText = "Ngày trả";
-            ThoiGianTra.Name = "ThoiGianTra";
-            ThoiGianTra.ReadOnly = true;
             // 
             // FormSuaPhieuMuon
             // 

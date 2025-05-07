@@ -77,7 +77,7 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             }
         }
 
-        public async Task<DauThietBiDetailResponseDto?> GetDauThietBiById(int id)
+        public async Task<DauThietBiDetailResponseDto> GetDauThietBiById(int id)
         {
             string requestUrl = $"{BASE_URL}/{id}";
 
@@ -93,15 +93,15 @@ namespace sgu_c_sharf_WinfromAdmin.Services
                         PropertyNameCaseInsensitive = true
                     });
 
-                    return apiResponse?.Data;
+                    return apiResponse.Data;
                 }
 
-                return null;
+                return new DauThietBiDetailResponseDto();
             }
             catch (Exception ex)
             {
                 Console.WriteLine($"Error: {ex.Message}");
-                return null;
+                return new DauThietBiDetailResponseDto();
             }
         }
     }
