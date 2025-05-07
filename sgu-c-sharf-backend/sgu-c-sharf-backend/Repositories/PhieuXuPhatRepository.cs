@@ -11,8 +11,8 @@ namespace sgu_c_sharf_backend.Repositories
 
         public PhieuXuPhatRepository(IConfiguration configuration)
         {
-            _connectionString = configuration.GetConnectionString("DefaultConnection") 
-                ?? throw new ArgumentException("Connection string 'DefaultConnection' not found.");
+            _connectionString = configuration.GetConnectionString("DefaultConnection")
+                                ?? throw new ArgumentException("Connection string 'DefaultConnection' not found.");
         }
 
         public List<PhieuXuPhatDetailDTO> GetAll()
@@ -38,7 +38,8 @@ namespace sgu_c_sharf_backend.Repositories
             }
         }
 
-        public PhieuXuPhatPagingResponse GetAllPaging(int page, int limit, TrangThaiPhieuXuPhatEnum? trangThai, DateTime? fromDate, DateTime? toDate, string? keyword)
+        public PhieuXuPhatPagingResponse GetAllPaging(int page, int limit, TrangThaiPhieuXuPhatEnum? trangThai,
+            DateTime? fromDate, DateTime? toDate, string? keyword)
         {
             if (page < 1 || limit < 1)
             {
@@ -131,6 +132,68 @@ namespace sgu_c_sharf_backend.Repositories
             }
         }
 
+        public PhieuXuPhatDetailDTO? GetByIdUser(uint id)
+        {
+            using (var connection = new MySqlConnection(_connectionString))
+            {
+                try
+                {
+                    // Validate input
+                    if (id == 0)
+                    {
+                        Console.WriteLine($"Invalid ID provided: {id}");
+                        return null;
+                    }
+
+                    Console.WriteLine($"Opening connection with connection string: {_connectionString}");
+                    connection.Open();
+                    Console.WriteLine("Connection opened successfully.");
+
+                    string sql = @"
+                SELECT pxp.Id, pxp.TrangThai, pxp.NgayViPham, pxp.MoTa,
+                       pxp.ThoiHanXuPhat, pxp.MucPhat, pxp.IdThanhVien,
+                       tv.HoTen AS TenThanhVien
+                FROM PhieuXuPhat pxp
+                INNER JOIN ThanhVien tv ON pxp.IdThanhVien = tv.Id
+                WHERE pxp.IdThanhVien = @Id AND pxp.TrangThai != 'DAXOA';";
+
+                    Console.WriteLine($"Executing SQL query: {sql} with parameter Id={id}");
+                    var result = connection.QueryFirstOrDefault<PhieuXuPhatDetailDTO>(sql, new { Id = id });
+
+                    if (result == null)
+                    {
+                        Console.WriteLine($"No record found for ID: {id}");
+                    }
+                    else
+                    {
+                        Console.WriteLine(
+                            $"Retrieved record: Id={result.Id}, TrangThai={result.TrangThai}, NgayViPham={result.NgayViPham}");
+                    }
+
+                    return result;
+                }
+                catch (MySqlException ex)
+                {
+                    Console.WriteLine($"MySQL Error: {ex.Message}, Number: {ex.Number}, StackTrace: {ex.StackTrace}");
+                    throw new Exception("Database error occurred while retrieving violation ticket", ex);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"General Error: {ex.Message}, StackTrace: {ex.StackTrace}");
+                    throw new Exception("Error retrieving violation ticket by ID", ex);
+                }
+                finally
+                {
+                    if (connection.State != System.Data.ConnectionState.Closed)
+                    {
+                        Console.WriteLine("Closing connection...");
+                        connection.Close();
+                        Console.WriteLine("Connection closed.");
+                    }
+                }
+            }
+        }
+
         public uint Add(PhieuXuPhatCreateDTO phieuXuPhatCreateDTO)
         {
             using (var connection = new MySqlConnection(_connectionString))
@@ -190,16 +253,19 @@ namespace sgu_c_sharf_backend.Repositories
                         setClauses.Add("TrangThai = @TrangThai");
                         parameters.Add("@TrangThai", phieuXuPhatUpdateDTO.TrangThai.Value.ToString());
                     }
+
                     if (phieuXuPhatUpdateDTO.NgayViPham.HasValue)
                     {
                         setClauses.Add("NgayViPham = @NgayViPham");
                         parameters.Add("@NgayViPham", phieuXuPhatUpdateDTO.NgayViPham.Value);
                     }
+
                     if (!string.IsNullOrEmpty(phieuXuPhatUpdateDTO.MoTa))
                     {
                         setClauses.Add("MoTa = @MoTa");
                         parameters.Add("@MoTa", phieuXuPhatUpdateDTO.MoTa);
                     }
+
                     if (phieuXuPhatUpdateDTO.ThoiHanXuPhat.HasValue)
                     {
                         setClauses.Add("ThoiHanXuPhat = @ThoiHanXuPhat");
@@ -209,6 +275,7 @@ namespace sgu_c_sharf_backend.Repositories
                     {
                         setClauses.Add("ThoiHanXuPhat = NULL");
                     }
+
                     if (phieuXuPhatUpdateDTO.MucPhat.HasValue)
                     {
                         setClauses.Add("MucPhat = @MucPhat");
@@ -218,6 +285,7 @@ namespace sgu_c_sharf_backend.Repositories
                     {
                         setClauses.Add("MucPhat = NULL");
                     }
+
                     if (phieuXuPhatUpdateDTO.IdThanhVien.HasValue)
                     {
                         setClauses.Add("IdThanhVien = @IdThanhVien");
