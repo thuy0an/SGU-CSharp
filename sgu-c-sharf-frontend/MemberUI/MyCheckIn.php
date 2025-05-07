@@ -118,9 +118,9 @@
     <content style="display: flex;">
         <section class="user-history-nav" style="width: 20vw; padding: 20px;">
             <ul class="nav-tabs">
-                <li><a href="MyOrder.php" class="active">Lịch sử phiếu mượn</a></li>
+                <li><a href="MyOrder.php" >Lịch sử phiếu mượn</a></li>
                 <li><a href="MyXuPhat.php">Lịch sử xử phạt</a></li>
-                <li><a href="MyCheckIn.php">Lịch sử check in</a></li>
+                <li><a href="MyCheckIn.php" class="active">Lịch sử check in</a></li>
             </ul>
         </section>
 
