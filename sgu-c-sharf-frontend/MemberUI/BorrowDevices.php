@@ -56,7 +56,7 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item" id="loaiThietBi"></li>
-                            <li class="list-group-item" id="soLuongKhaDung"></li>
+                            <li class="list-group-item" id="soLuongKhaDung" data-soluong=""></li>
                             <li class="list-group-item">
                                 <div class="input-group" style="width: 50%;">
                                     <button class="btn btn-outline-secondary" type="button" id="btnMinus"><i class="bi bi-dash-lg"></i></button>
@@ -92,6 +92,7 @@
         staticBackdrop.querySelector('#tenThietBi').textContent = `${thietBi.tenThietBi}`;
         staticBackdrop.querySelector('#loaiThietBi').textContent = `Loại thiết bị: ${thietBi.tenLoaiThietBi}`;
         staticBackdrop.querySelector('#soLuongKhaDung').textContent = `Số lượng khả dụng: ${thietBi.soLuongKhaDung}`;
+        staticBackdrop.querySelector('#soLuongKhaDung').setAttribute('data-soluong', thietBi.soLuongKhaDung)
         staticBackdrop.querySelector('#imgSrc').src = `../img/${anh.anhMinhHoa}`;
         staticBackdrop.querySelector('#txtSoLuong').value = '1';
         staticBackdrop.querySelector('#btnThem').setAttribute('data-id', id);
@@ -184,7 +185,7 @@
                         </div>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item">Loại thiết bị: ${thietBi.tenLoaiThietBi}</li>
-                            <li class="list-group-item">Số lượng khả dụng: ${thietBi.soLuongKhaDung}</li>
+                            <li class="list-group-item"">Số lượng khả dụng: ${thietBi.soLuongKhaDung}</li>
                         </ul>
                         <div class="card-body">
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#staticBackdrop" data-id="${thietBi.id}" name="btnBackdrop">Thêm</button>
@@ -243,7 +244,7 @@
 
         btnMinus.addEventListener("click", function() {
             var soLuongInput = document.getElementById("txtSoLuong");
-            var currentValue = parseInt(soLuongInput.value) || 0;
+            var currentValue = parseInt(soLuongInput.value) || 1;
             if (currentValue > 1) {
                 soLuongInput.value = currentValue - 1;
             } else {
@@ -257,8 +258,8 @@
 
         btnPlus.addEventListener("click", function() {
             var soLuongInput = document.getElementById("txtSoLuong");
-            var maxSoLuong = parseInt(document.getElementById("soLuongKhaDung").textContent) || 0;
-            var currentValue = parseInt(soLuongInput.value) || 0;
+            var maxSoLuong = parseInt(document.getElementById("soLuongKhaDung").getAttribute('data-soluong')) || 0;
+            var currentValue = parseInt(soLuongInput.value) || 1;
 
             if (currentValue < maxSoLuong) {
                 soLuongInput.value = currentValue + 1;
@@ -273,8 +274,8 @@
 
         txtSoLuong.addEventListener("input", function() {
             var soLuongInput = document.getElementById("txtSoLuong");
-            var maxSoLuong = parseInt(document.getElementById("soLuongKhaDung").textContent) || 0;
-            var currentValue = parseInt(soLuongInput.value) || 0;
+            var maxSoLuong = parseInt(document.getElementById("soLuongKhaDung").getAttribute('data-soluong')) || 0;
+            var currentValue = parseInt(soLuongInput.value) || 1;
 
             if (currentValue < 1) {
                 soLuongInput.value = 1;
@@ -297,7 +298,6 @@
             const idThietBi = this.getAttribute("data-id");
             const maxSoLuong = this.getAttribute("data-max");
             const soLuongMuon = parseInt(document.getElementById("txtSoLuong").value);
-
             let datCho = JSON.parse(localStorage.getItem("datCho")) || [];
 
             const index = datCho.findIndex(item => item.id == idThietBi);
