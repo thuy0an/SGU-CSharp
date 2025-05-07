@@ -86,7 +86,8 @@ namespace sgu_c_sharf_backend.Repositories
                             )
                         ) t ON p.Id = t.IdPhieuMuon
                         LEFT JOIN ThanhVien tv ON tv.Id = p.IdThanhVien
-                        WHERE p.`IdThanhVien` =  @IdThanhVien;";
+                        WHERE p.`IdThanhVien` =  @IdThanhVien
+                        ORDER BY p.Id DESC;";
 
             using var command = new MySqlCommand(query, connection);
 
