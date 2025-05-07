@@ -353,7 +353,7 @@
                                     <div class='radio__wrapper'>
                                         <div>
                                             <div class='cartItem' id='device-${device.maDauThietBi}'>
-                                                <a href='#' class='img'><img class='img' src='https://res.cloudinary.com/djhoea2bo/image/upload/v1711511636/${device.hinhAnh}' /></a>
+                                                <a href='#' class='img'><img class='img' src='../img/${device.hinhAnh}' /></a>
                                                 <div class='inforCart'>
                                                     <div class='nameAndPrice'>
                                                         <a href='#' class='nameCart'>${device.tenThietBi}</a>
