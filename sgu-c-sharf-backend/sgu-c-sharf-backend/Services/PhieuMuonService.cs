@@ -42,8 +42,4 @@ public class PhieuMuonService
         return _phieuMuonRepository.Update(phieuMuon);
     }
 
-    public List<PhieuMuonChiTietDTO> GetChiTietById(int idPhieuMuon)
-    {
-        return _phieuMuonRepository.GetPhieuMuonChiTietById(idPhieuMuon);
-    }
 }

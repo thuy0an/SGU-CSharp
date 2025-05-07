@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using sgu_c_sharf_backend.Models.ThietBi;
 
 namespace sgu_c_sharf_backend.Models.PhieuMuon
 {
@@ -18,16 +19,16 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         [Required]
         public DateTime NgayTao { get; set; } = DateTime.Now;
 
-        public TrangThaiPhieuMuonEnum TrangThai { get; set; } 
+        public TrangThaiPhieuMuonEnum TrangThai { get; set; }
     }
     public class PhieuMuonUpdateDTO
     {
         [Required]
-        public int Id { get; set; }  
-        
+        public int Id { get; set; }
+
         [Required]
-        public int IdThanhVien { get; set; } 
-        
+        public int IdThanhVien { get; set; }
+
     }
 
     public class PhieuMuonDetailDTO
@@ -37,7 +38,7 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         public string TenThanhVien { get; set; } = string.Empty;
         public TrangThaiPhieuMuonEnum TrangThai { get; set; }
         public DateTime NgayTao { get; set; }
-        
+
 
     }
 
@@ -64,28 +65,10 @@ namespace sgu_c_sharf_backend.Models.PhieuMuon
         HUY
     }
     public class PhieuMuonChiTietDTO
-{
-    public int PhieuMuonId { get; set; }
-    public DateTime NgayTaoPhieuMuon { get; set; }
-    
-    public int ThanhVienId { get; set; }
-    public string TenThanhVien { get; set; }
-    public string Email { get; set; }
-    public string SoDienThoai { get; set; }
-    
-    public int? TrangThaiPhieuMuonId { get; set; }
-    public string TrangThaiPhieuMuon { get; set; }
-    public DateTime? ThoiGianCapNhatTrangThai { get; set; }
-    
-    public int? IdDauThietBi { get; set; }
-    public DateTime? ThoiGianMuon { get; set; }
-    public DateTime? ThoiGianTra { get; set; }
-    public string TrangThaiChiTietPhieuMuon { get; set; }
-    
-    public string TrangThaiDauThietBi { get; set; }
-    public DateTime? ThoiGianMua { get; set; }
-    
-    public string TenThietBi { get; set; }
-    public string AnhMinhHoa { get; set; }
-}
+    {
+        public PhieuMuonDetailDTO PhieuMuonDetailDTO { get; set; }
+        public List<ChiTietPhieuMuonDetailDTO> ChiTietPhieuMuonDetailDTOs { get; set; }
+        public List<DauThietBiDetail> DauThietBiDetails { get; set; }
+
+    }
 }
