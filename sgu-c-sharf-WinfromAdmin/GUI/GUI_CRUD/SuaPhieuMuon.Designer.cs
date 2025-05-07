@@ -46,10 +46,6 @@
             btnSua = new Button();
             btnThemDauThietBi = new Button();
             dataGrid = new DataGridView();
-            IdDauThietBi = new DataGridViewTextBoxColumn();
-            TrangThai = new DataGridViewTextBoxColumn();
-            ThoiGianMuon = new DataGridViewTextBoxColumn();
-            ThoiGianTra = new DataGridViewTextBoxColumn();
             panel3 = new Panel();
             txtTenNguoiDung = new TextBox();
             label4 = new Label();
@@ -57,6 +53,11 @@
             txtMaThanhVien = new TextBox();
             label2 = new Label();
             label1 = new Label();
+            Column1 = new DataGridViewTextBoxColumn();
+            IdDauThietBi = new DataGridViewTextBoxColumn();
+            TrangThai = new DataGridViewTextBoxColumn();
+            ThoiGianMuon = new DataGridViewTextBoxColumn();
+            ThoiGianTra = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             panel5.SuspendLayout();
             panel4.SuspendLayout();
@@ -242,7 +243,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { IdDauThietBi, TrangThai, ThoiGianMuon, ThoiGianTra });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, IdDauThietBi, TrangThai, ThoiGianMuon, ThoiGianTra });
             dataGrid.ImeMode = ImeMode.NoControl;
             dataGrid.Location = new Point(32, 272);
             dataGrid.Name = "dataGrid";
@@ -261,30 +262,6 @@
             dataGrid.Size = new Size(594, 300);
             dataGrid.TabIndex = 8;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
-            // 
-            // IdDauThietBi
-            // 
-            IdDauThietBi.HeaderText = "Mã đầu thiết bị";
-            IdDauThietBi.Name = "IdDauThietBi";
-            IdDauThietBi.ReadOnly = true;
-            // 
-            // TrangThai
-            // 
-            TrangThai.HeaderText = "Trạng thái";
-            TrangThai.Name = "TrangThai";
-            TrangThai.ReadOnly = true;
-            // 
-            // ThoiGianMuon
-            // 
-            ThoiGianMuon.HeaderText = "Ngày mượn";
-            ThoiGianMuon.Name = "ThoiGianMuon";
-            ThoiGianMuon.ReadOnly = true;
-            // 
-            // ThoiGianTra
-            // 
-            ThoiGianTra.HeaderText = "Ngày trả";
-            ThoiGianTra.Name = "ThoiGianTra";
-            ThoiGianTra.ReadOnly = true;
             // 
             // panel3
             // 
@@ -366,6 +343,36 @@
             label1.Text = "Sửa phiếu mượn";
             label1.TextAlign = ContentAlignment.MiddleCenter;
             // 
+            // Column1
+            // 
+            Column1.HeaderText = "Tên thiết bị";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
+            // 
+            // IdDauThietBi
+            // 
+            IdDauThietBi.HeaderText = "Mã đầu thiết bị";
+            IdDauThietBi.Name = "IdDauThietBi";
+            IdDauThietBi.ReadOnly = true;
+            // 
+            // TrangThai
+            // 
+            TrangThai.HeaderText = "Trạng thái";
+            TrangThai.Name = "TrangThai";
+            TrangThai.ReadOnly = true;
+            // 
+            // ThoiGianMuon
+            // 
+            ThoiGianMuon.HeaderText = "Ngày mượn";
+            ThoiGianMuon.Name = "ThoiGianMuon";
+            ThoiGianMuon.ReadOnly = true;
+            // 
+            // ThoiGianTra
+            // 
+            ThoiGianTra.HeaderText = "Ngày trả";
+            ThoiGianTra.Name = "ThoiGianTra";
+            ThoiGianTra.ReadOnly = true;
+            // 
             // FormSuaPhieuMuon
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -418,6 +425,7 @@
         private TextBox txtTenNguoiDung;
         private ComboBox cbbTrangThai;
         private TextBox txtNgayTao;
+        private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn IdDauThietBi;
         private DataGridViewTextBoxColumn TrangThai;
         private DataGridViewTextBoxColumn ThoiGianMuon;
