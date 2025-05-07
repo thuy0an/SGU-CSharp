@@ -183,7 +183,6 @@
             txtTenThietBi.Name = "txtTenThietBi";
             txtTenThietBi.Size = new Size(500, 29);
             txtTenThietBi.TabIndex = 1;
-            txtTenThietBi.Text = "abc";
             // 
             // label4
             // 
@@ -218,7 +217,6 @@
             txtMaThietBi.Name = "txtMaThietBi";
             txtMaThietBi.Size = new Size(500, 29);
             txtMaThietBi.TabIndex = 1;
-            txtMaThietBi.Text = "abc";
             // 
             // label2
             // 

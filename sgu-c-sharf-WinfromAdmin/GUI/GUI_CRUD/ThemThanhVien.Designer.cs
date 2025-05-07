@@ -90,7 +90,6 @@
             txtMatKhau.Name = "txtMatKhau";
             txtMatKhau.Size = new Size(295, 29);
             txtMatKhau.TabIndex = 1;
-            txtMatKhau.Text = "abc";
             // 
             // label2
             // 
@@ -137,7 +136,6 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(295, 29);
             txtEmail.TabIndex = 1;
-            txtEmail.Text = "abc";
             // 
             // label7
             // 
@@ -200,7 +198,6 @@
             txtTenNguoiDung.Name = "txtTenNguoiDung";
             txtTenNguoiDung.Size = new Size(295, 29);
             txtTenNguoiDung.TabIndex = 1;
-            txtTenNguoiDung.Text = "abc";
             // 
             // label4
             // 
@@ -233,7 +230,6 @@
             txtSoDienThoai.Name = "txtSoDienThoai";
             txtSoDienThoai.Size = new Size(295, 29);
             txtSoDienThoai.TabIndex = 1;
-            txtSoDienThoai.Text = "abc";
             txtSoDienThoai.KeyPress += txtSoDienThoai_KeyPress;
             // 
             // label3

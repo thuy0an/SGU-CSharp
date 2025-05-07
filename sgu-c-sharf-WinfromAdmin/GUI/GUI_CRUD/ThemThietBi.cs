@@ -13,6 +13,9 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         private readonly QuanLyThietBi _parentForm;
         private readonly LoaiThietBiService _loaiThietBiService;
 
+        private string tenAnh = "";
+        private string hinhAnhPath = "";
+
         public FormThemThietBi(QuanLyThietBi parentForm)
         {
             InitializeComponent();
@@ -22,15 +25,16 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             LoadLoaiThietBi();
         }
 
-    private async void LoadLoaiThietBi()
-    {
-        var loaiThietBiList = await _loaiThietBiService.GetAll();
-        if (loaiThietBiList != null && loaiThietBiList.Count > 0){
-            cbbLoaiThietBi.DataSource = loaiThietBiList;
-            cbbLoaiThietBi.DisplayMember = "TenLoaiThietBi";
-            cbbLoaiThietBi.ValueMember = "Id";
+        private async void LoadLoaiThietBi()
+        {
+            var loaiThietBiList = await _loaiThietBiService.GetAll();
+            if (loaiThietBiList != null && loaiThietBiList.Count > 0)
+            {
+                cbbLoaiThietBi.DataSource = loaiThietBiList;
+                cbbLoaiThietBi.DisplayMember = "TenLoaiThietBi";
+                cbbLoaiThietBi.ValueMember = "Id";
+            }
         }
-    }
 
 
 
@@ -56,12 +60,28 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                 return;
             }
 
+            // Copy ảnh vào thư mục đích (chỉ khi thêm)
+            try
+            {
+                string targetFolder = @"C:\YayCode\CodeWithCSharp\ProjectCsharp\sgu-c-sharf-frontend\img";
+                string targetPath = Path.Combine(targetFolder, tenAnh);
+
+                File.Copy(hinhAnhPath, targetPath, true);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi sao chép ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
             // Tạo đối tượng ThietBiCreateDTO
             var thietBiCreate = new ThietBiCreateDTO
             {
                 TenThietBi = txtTenThietBi.Text.Trim(),
                 IdLoaiThietBi = (int)cbbLoaiThietBi.SelectedValue,
-                SoLuongDauThietBi = soLuongDauThietBi
+                SoLuongDauThietBi = soLuongDauThietBi,
+                AnhMinhHoa = tenAnh
+
             };
 
             // Gọi API để thêm thiết bị
@@ -71,7 +91,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                 if (result.Success)
                 {
                     MessageBox.Show("Thêm thiết bị thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    _parentForm.RefreshDataGridView(); 
+                    _parentForm.RefreshDataGridView();
                     DialogResult = DialogResult.OK;
                     Close();
                 }
@@ -83,6 +103,28 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             catch (Exception ex)
             {
                 MessageBox.Show($"Lỗi hệ thống: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Title = "Chọn ảnh thiết bị";
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif";
+
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                hinhAnhPath = openFileDialog.FileName;
+                tenAnh = Path.GetFileName(hinhAnhPath);
+                try
+                {
+                    hinhAnh.Image = Image.FromFile(hinhAnhPath);
+                    hinhAnh.SizeMode = PictureBoxSizeMode.StretchImage;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Không thể hiển thị ảnh: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }

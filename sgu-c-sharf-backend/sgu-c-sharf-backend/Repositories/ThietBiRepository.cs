@@ -183,10 +183,11 @@ namespace sgu_c_sharf_backend.Repositories
                         throw new Exception("Tên thiết bị đã tồn tại.");
 
                     // Thêm thiết bị
-                    string insertThietBiSql = "INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi, DaXoa) VALUES (@TenThietBi, @IdLoaiThietBi, 0); SELECT LAST_INSERT_ID();";
+                    string insertThietBiSql = "INSERT INTO ThietBi (TenThietBi, IdLoaiThietBi, DaXoa, AnhMinhHoa) VALUES (@TenThietBi, @IdLoaiThietBi, 0, @AnhMinhHoa); SELECT LAST_INSERT_ID();";
                     MySqlCommand insertThietBiCommand = new MySqlCommand(insertThietBiSql, connection, transaction);
                     insertThietBiCommand.Parameters.AddWithValue("@TenThietBi", thietBiCreateForm.TenThietBi);
                     insertThietBiCommand.Parameters.AddWithValue("@IdLoaiThietBi", thietBiCreateForm.IdLoaiThietBi);
+                    insertThietBiCommand.Parameters.AddWithValue("@AnhMinhHoa",thietBiCreateForm.AnhMinhHoa);
                     int thietBiId = Convert.ToInt32(insertThietBiCommand.ExecuteScalar());
 
                     // Thêm các đầu thiết bị

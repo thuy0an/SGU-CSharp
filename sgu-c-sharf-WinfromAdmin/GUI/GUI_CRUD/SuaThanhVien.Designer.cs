@@ -149,7 +149,6 @@
             txtEmail.Name = "txtEmail";
             txtEmail.Size = new Size(295, 29);
             txtEmail.TabIndex = 1;
-            txtEmail.Text = "abc";
             // 
             // label7
             // 
@@ -183,7 +182,6 @@
             txtNgaySinh.Name = "txtNgaySinh";
             txtNgaySinh.Size = new Size(295, 29);
             txtNgaySinh.TabIndex = 1;
-            txtNgaySinh.Text = "abc";
             // 
             // label6
             // 
@@ -217,7 +215,6 @@
             txtThoiGianDangKy.Name = "txtThoiGianDangKy";
             txtThoiGianDangKy.Size = new Size(295, 29);
             txtThoiGianDangKy.TabIndex = 1;
-            txtThoiGianDangKy.Text = "abc";
             // 
             // label5
             // 
@@ -251,7 +248,6 @@
             txtTenNguoiDung.Name = "txtTenNguoiDung";
             txtTenNguoiDung.Size = new Size(295, 29);
             txtTenNguoiDung.TabIndex = 1;
-            txtTenNguoiDung.Text = "abc";
             // 
             // label4
             // 
@@ -285,7 +281,6 @@
             txtSoDienThoai.Name = "txtSoDienThoai";
             txtSoDienThoai.Size = new Size(295, 29);
             txtSoDienThoai.TabIndex = 1;
-            txtSoDienThoai.Text = "abc";
             // 
             // label3
             // 
@@ -319,7 +314,6 @@
             txtMaThanhVien.Name = "txtMaThanhVien";
             txtMaThanhVien.Size = new Size(295, 29);
             txtMaThanhVien.TabIndex = 1;
-            txtMaThanhVien.Text = "abc";
             // 
             // label2
             // 

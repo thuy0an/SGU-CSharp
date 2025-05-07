@@ -339,7 +339,6 @@
             txtMaThanhVien.Name = "txtMaThanhVien";
             txtMaThanhVien.Size = new Size(220, 29);
             txtMaThanhVien.TabIndex = 1;
-            txtMaThanhVien.Text = "abc";
             // 
             // label2
             // 

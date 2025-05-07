@@ -13,5 +13,7 @@ namespace sgu_c_sharf_WinfromAdmin.Models
         [Required]
         [Range(1, 100, ErrorMessage = "Số lượng đầu thiết bị phải từ 1 đến 100.")]
         public int SoLuongDauThietBi { get; set; }
+
+        public string AnhMinhHoa { get; set; } = "";
     }
 }
