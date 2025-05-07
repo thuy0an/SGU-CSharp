@@ -57,7 +57,7 @@
                     <li><i class="fas fa-check-circle text-success"></i> Mượn thiết bị dễ dàng và nhanh chóng</li>
                     <li><i class="fas fa-check-circle text-success"></i> Nhận thông báo về các sự kiện và ưu đãi đặc biệt</li>
                 </ul>
-                <a href="./Login/LoginUI.php" class="btn btn-light mt-3 w-50">Đăng ký / Đăng nhập</a>
+                <a id="btnDangKyDangNhap" class="btn btn-light mt-3 w-50">Đăng ký / Đăng nhập</a>
             </div>
 
             <!-- Đặt mượn thiết bị -->
@@ -113,7 +113,7 @@
 
         <!-- Lịch sử -->
         <div class="col-12 col-md-3 mb-4">
-            <a href="./History.php" class="text-decoration-none text-dark">
+            <a href="./MyOrder.php" class="text-decoration-none text-dark">
                 <div class="p-4 border rounded shadow-sm h-100">
                     <i class="fas fa-history fa-3x mb-3 text-warning"></i>
                     <h5 class="fw-bold">Lịch sử</h5>
@@ -124,7 +124,7 @@
 
         <!-- Xử phạt -->
         <div class="col-12 col-md-3 mb-4">
-            <a href="./Sanction.php" class="text-decoration-none text-dark">
+            <a href="./MyXuPhat.php" class="text-decoration-none text-dark">
                 <div class="p-4 border rounded shadow-sm h-100">
                     <i class="fas fa-gavel fa-3x mb-3 text-danger"></i>
                     <h5 class="fw-bold">Xử phạt</h5>
@@ -141,6 +141,20 @@
 
 <!-- <script src="application-properties.js"></script> -->
 <script>
-    
+    document.getElementById('btnDangKyDangNhap').addEventListener('click', function (e) {
+    e.preventDefault(); // chặn chuyển trang mặc định
+
+    let token = sessionStorage.getItem('id');
+
+    if (token) {
+        Swal.fire({
+            icon: 'info',
+            title: 'Bạn đã đăng nhập!',
+            text: 'Không cần đăng nhập lại.'
+        });
+    } else {
+        window.location.href = './Login/LoginUI.php';
+    }
+});
 </script>
 </html>

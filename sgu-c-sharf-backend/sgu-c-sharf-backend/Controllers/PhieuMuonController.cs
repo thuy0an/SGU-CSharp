@@ -46,11 +46,12 @@ namespace sgu_c_sharf_backend.Controllers
             }
             return Ok(ApiResponse<PhieuMuonDetailDTO>.Ok(res, "Thành công"));
         }
-        
+
         // Lấy chi tiết phiếu mượn theo ID
         [HttpGet("thanh-vien/{id}")]
-        public ActionResult<ApiResponse<List<PhieuMuonDetailDTO>>> GetByIdByAccountId(int id){
-            
+        public ActionResult<ApiResponse<List<PhieuMuonDetailDTO>>> GetByIdByAccountId(int id)
+        {
+
 
             var res = _phieuMuonService.GetAllByAccountId(id);
             if (res == null)
@@ -88,6 +89,26 @@ namespace sgu_c_sharf_backend.Controllers
 
             var res = _phieuMuonService.Update(phieuMuon);
             return Ok(ApiResponse<bool>.Ok(res, "Cập nhật phiếu mượn thành công"));
+        }
+
+        [HttpGet("chi-tiet/{idPhieuMuon}")]
+        public IActionResult GetChiTietById(int idPhieuMuon)
+        {
+            try
+            {
+                var result = _phieuMuonService.GetChiTietById(idPhieuMuon);
+                if (result == null || !result.Any())
+                {
+                    return NotFound(ApiResponse<List<PhieuMuonChiTietDTO>>.Fail($"Không tìm thấy phiếu mượn ID {idPhieuMuon}"));
+                }
+
+                return Ok(ApiResponse<List<PhieuMuonChiTietDTO>>.Ok(result, "Lấy chi tiết phiếu mượn thành công"));
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Exception: {ex.Message}\nStackTrace: {ex.StackTrace}");
+                return StatusCode(500, ApiResponse<string>.Fail($"Lỗi hệ thống: {ex.Message}"));
+            }
         }
     }
 }
