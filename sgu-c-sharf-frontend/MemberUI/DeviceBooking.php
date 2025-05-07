@@ -329,9 +329,26 @@
                 return;
 
             } else {
-                ngayMuonISO = new Date(ngayMuon).toISOString();
+                let ngayMuonDate = new Date(ngayMuon);
+                let today = new Date();
+
+                // Xóa giờ phút giây để so sánh chính xác theo ngày
+                ngayMuonDate.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
+
+                if (ngayMuonDate < today) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ngày mượn không hợp lệ',
+                        text: 'Ngày mượn không được ở quá khứ!'
+                    });
+                    return;
+                }
+
+                ngayMuonISO = ngayMuonDate.toISOString();
                 console.log("ngayMuonISO:", ngayMuonISO);
             }
+            
             try {
                 // Tạo phiếu mượn
 
