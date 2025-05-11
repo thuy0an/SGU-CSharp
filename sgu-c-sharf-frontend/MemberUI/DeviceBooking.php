@@ -74,7 +74,13 @@
         const datChoList = document.getElementById("datChoList");
 
         if (datCho.length === 0) {
-            datChoList.innerHTML = `<tr><td colspan="4" class="text-center">Không có thiết bị nào trong danh sách đặt chỗ.</td></tr>`;
+            datChoList.innerHTML = `<tr>
+                                        <td colspan="4" class="text-center">
+                                            Không có thiết bị nào trong danh sách đặt chỗ.
+                                            <br>
+                                            <a href="borrowdevices.php" class="btn btn-danger mt-2">Đặt thiết bị ngay</a>
+                                        </td>
+                                    </tr>`;
         } else {
             let html = "";
             datCho.forEach((item, index) => {

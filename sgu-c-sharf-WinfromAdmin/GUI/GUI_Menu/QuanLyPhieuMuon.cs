@@ -140,7 +140,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_Menu
             {
                 int idPhieuMuon = Convert.ToInt32(DataGrid.SelectedRows[0].Cells["Column1"].Value);
                 FormXemPhieuMuon form = new FormXemPhieuMuon(idPhieuMuon);
-                form.ShowDialog();
+                    form.ShowDialog();
             }
             else
                 MessageBox.Show("Vui lòng chọn một dòng để xem!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
