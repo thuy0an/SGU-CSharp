@@ -178,7 +178,14 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             DateTime ngayViPham;
             if (dateTimeViPham.Checked)
             {
-                ngayViPham = dateTimeViPham.Value;
+                if (dateTimeViPham.Value > DateTime.Now)
+                {
+                    ngayViPham = DateTime.Now;
+                    dateTimeViPham.Value = DateTime.Now;
+                }
+                else { 
+                    ngayViPham = dateTimeViPham.Value; 
+                }
             }
             else
             {

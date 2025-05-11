@@ -283,6 +283,47 @@
                 });
                 return;
             }
+
+            try {
+                let response = await $.ajax({
+                    url: `http://localhost:5244/api/phieu-xu-phat/user/${IdThanhVien}`,
+                    method: "GET",
+                });
+                console.log(response);
+                if (response && response.status == 200 && response.data) {
+                    const ngayViPhamStr = response.data.ngayViPham;
+                    const thoiHanXuPhat = response.data.thoiHanXuPhat;
+
+                    // Chuyển chuỗi ngày thành đối tượng Date
+                    const ngayViPham = new Date(ngayViPhamStr);
+                    console.log("Ngày vi phạm:", ngayViPham);
+                    console.log("Thời hạn xử phạt:", thoiHanXuPhat);
+
+                    // Kiểm tra tính hợp lệ
+                    if (isNaN(ngayViPham.getTime()) || thoiHanXuPhat == null) {
+                        Swal.fire("Dữ liệu không hợp lệ!", "", "warning");
+                        return;
+                    }
+
+                    // Tính ngày hết vi phạm
+                    const ngayHetViPham = new Date(ngayViPham);
+                    ngayHetViPham.setDate(ngayHetViPham.getDate() + thoiHanXuPhat);
+
+                    const ngayHienTai = new Date();
+                    if (ngayHienTai <= ngayHetViPham) {
+                        Swal.fire({
+                            title: "Chưa hết xử phạt!",
+                            text: "Bạn vẫn còn trong thời gian xử phạt, vui lòng quay lại sau!",
+                            icon: "warning",
+                        });
+                        return;
+                    }
+                }
+            } catch (e) {
+                Swal.fire("Không thể kiểm tra ngày vi phạm!", "", "error");
+                return;
+            }
+
             if (datCho.length === 0) {
                 Swal.fire("Không có thiết bị nào để tạo phiếu!", "", "warning");
                 return;
@@ -354,7 +395,7 @@
                 ngayMuonISO = ngayMuonDate.toISOString();
                 console.log("ngayMuonISO:", ngayMuonISO);
             }
-            
+
             try {
                 // Tạo phiếu mượn
 

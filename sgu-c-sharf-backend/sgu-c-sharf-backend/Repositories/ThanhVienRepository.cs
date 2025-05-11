@@ -293,7 +293,7 @@ namespace sgu_c_sharf_backend.Repositories
             string query = @"
                 SELECT Id, MatKhau
                 FROM ThanhVien
-                WHERE Email = @Identifier OR SoDienThoai = @Identifier";
+                WHERE Email = @Identifier OR Id = @Identifier";
 
             using var command = new MySqlCommand(query, connection);
             command.Parameters.AddWithValue("@Identifier", request.Identifier);

@@ -155,7 +155,8 @@ namespace sgu_c_sharf_backend.Repositories
                        tv.HoTen AS TenThanhVien
                 FROM PhieuXuPhat pxp
                 INNER JOIN ThanhVien tv ON pxp.IdThanhVien = tv.Id
-                WHERE pxp.IdThanhVien = @Id AND pxp.TrangThai != 'DAXOA';";
+                WHERE pxp.IdThanhVien = @Id AND pxp.TrangThai != 'DAXOA'
+                ORDER BY pxp.Id DESC;";
 
                     Console.WriteLine($"Executing SQL query: {sql} with parameter Id={id}");
                     var result = connection.QueryFirstOrDefault<PhieuXuPhatDetailDTO>(sql, new { Id = id });

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using sgu_c_sharf_backend.Models.PhieuXuPhat;
 using sgu_c_sharf_backend.Services;
 using sgu_c_sharf_backend.ApiResponse;
+using Org.BouncyCastle.Asn1.Cmp;
 
 
 namespace sgu_c_sharf_backend.Controllers
@@ -96,7 +97,7 @@ namespace sgu_c_sharf_backend.Controllers
                 if (result == null)
 
                 {
-                    return NotFound(new { Message = "Không tìm thấy phiếu xử phạt" });
+                    return NotFound(ApiResponse<PhieuXuPhatDetailDTO>.Fail("Không tìm thấy phiếu xử phạt"));
                 }
 
                 return Ok(ApiResponse<PhieuXuPhatDetailDTO>.Ok(result));
@@ -105,7 +106,7 @@ namespace sgu_c_sharf_backend.Controllers
             catch (Exception ex)
 
             {
-                return BadRequest(new { Message = ex.Message });
+                return BadRequest(ApiResponse<PhieuXuPhatDetailDTO>.Fail(ex.Message));
             }
         }
 
