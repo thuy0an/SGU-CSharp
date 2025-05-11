@@ -284,43 +284,8 @@
                 return;
             }
 
-            try {
-                let response = await $.ajax({
-                    url: `http://localhost:5244/api/phieu-xu-phat/user/${IdThanhVien}`,
-                    method: "GET",
-                });
-                console.log(response);
-                if (response && response.status == 200 && response.data) {
-                    const ngayViPhamStr = response.data.ngayViPham;
-                    const thoiHanXuPhat = response.data.thoiHanXuPhat;
-
-                    // Chuyển chuỗi ngày thành đối tượng Date
-                    const ngayViPham = new Date(ngayViPhamStr);
-                    console.log("Ngày vi phạm:", ngayViPham);
-                    console.log("Thời hạn xử phạt:", thoiHanXuPhat);
-
-                    // Kiểm tra tính hợp lệ
-                    if (isNaN(ngayViPham.getTime()) || thoiHanXuPhat == null) {
-                        Swal.fire("Dữ liệu không hợp lệ!", "", "warning");
-                        return;
-                    }
-
-                    // Tính ngày hết vi phạm
-                    const ngayHetViPham = new Date(ngayViPham);
-                    ngayHetViPham.setDate(ngayHetViPham.getDate() + thoiHanXuPhat);
-
-                    const ngayHienTai = new Date();
-                    if (ngayHienTai <= ngayHetViPham) {
-                        Swal.fire({
-                            title: "Chưa hết xử phạt!",
-                            text: "Bạn vẫn còn trong thời gian xử phạt, vui lòng quay lại sau!",
-                            icon: "warning",
-                        });
-                        return;
-                    }
-                }
-            } catch (e) {
-                Swal.fire("Không thể kiểm tra ngày vi phạm!", "", "error");
+            let choPhep = await kiemTraXuPhat(IdThanhVien);
+            if (!choPhep) {
                 return;
             }
 
@@ -496,6 +461,52 @@
                 Swal.fire("Lỗi khi tạo phiếu mượn!", error.message || "Unknown error", "error");
             }
         });
+    }
+
+    async function kiemTraXuPhat(IdThanhVien) {
+        try {
+            let response = await $.ajax({
+                url: `http://localhost:5244/api/phieu-xu-phat/user/${IdThanhVien}`,
+                method: "GET",
+            });
+
+            if (response.status == 200 && response.data) {
+                const ngayViPhamStr = response.data.ngayViPham;
+                const thoiHanXuPhat = response.data.thoiHanXuPhat;
+
+                const ngayViPham = new Date(ngayViPhamStr);
+                if (isNaN(ngayViPham.getTime()) || thoiHanXuPhat == null) {
+                    Swal.fire("Dữ liệu không hợp lệ!", "", "warning");
+                    return false;
+                }
+
+                const ngayHetViPham = new Date(ngayViPham);
+                ngayHetViPham.setDate(ngayHetViPham.getDate() + thoiHanXuPhat);
+
+                const ngayHienTai = new Date();
+                if (ngayHienTai <= ngayHetViPham) {
+                    Swal.fire({
+                        title: "Chưa hết xử phạt!",
+                        text: "Bạn vẫn còn trong thời gian xử phạt, vui lòng quay lại sau!",
+                        icon: "warning",
+                    });
+                    return false;
+                }
+            }
+        } catch (e) {
+            if (
+                e.responseJSON &&
+                e.responseJSON.status === 400
+            ) {
+                return true;
+            }
+            console.error("Lỗi khi kiểm tra xử phạt:", e);
+            Swal.fire("Không thể kiểm tra ngày vi phạm!", "", "error");
+            return false;
+        }
+
+        // Nếu mọi thứ ổn → tiếp tục xử lý
+        return true;
     }
 
     function capNhatLocalStorage(id, soLuong) {
