@@ -387,11 +387,11 @@
         function mapStatus(status) {
             switch (status) {
                 case 0:
-                    return "pending";
-                case 1:
                     return "waived";
-                case 2:
+                case 1:
                     return "paid";
+                case 2:
+                    return "pending";
                 default:
                     return "pending";
             }
