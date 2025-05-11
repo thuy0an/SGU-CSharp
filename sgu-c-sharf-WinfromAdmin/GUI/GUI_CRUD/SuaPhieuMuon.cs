@@ -171,6 +171,24 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                 TrangThaiPhieuMuonEnum trangThaiMoi = (TrangThaiPhieuMuonEnum)cbbTrangThai.SelectedItem;
                 if (trangThaiMoi != _phieuMuonDetailDTO.TrangThai)
                 {
+                    if (_phieuMuonDetailDTO.TrangThai == TrangThaiPhieuMuonEnum.CHODUYET
+                        && (trangThaiMoi == TrangThaiPhieuMuonEnum.DATCHO
+                            || trangThaiMoi == TrangThaiPhieuMuonEnum.DANGSUDUNG))
+                    {
+                        foreach (var item in _chiTietPhieuMuons)
+                        {
+                            var dauTietBiDetail = await _dauThietBiService.GetDauThietBiById(item.IdDauThietBi);
+                            if (dauTietBiDetail != null)
+                            {
+                                if (dauTietBiDetail.TrangThai != TrangThaiDauThietBi.KHADUNG)
+                                {
+                                    MessageBox.Show($"Thiết bị {dauTietBiDetail.TenThietBi} không còn khả dụng.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+                        }
+                        
+                    }
                     var chiTietUpdates = _chiTietPhieuMuons.Select(ct => new ChiTietPhieuMuonUpdateDTO
                     {
                         IdPhieuMuon = _idPhieuMuon,
