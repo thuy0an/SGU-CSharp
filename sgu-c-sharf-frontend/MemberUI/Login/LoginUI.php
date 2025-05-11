@@ -358,9 +358,11 @@
 
             },
             error: function(xhr) {
+                console.log(xhr);
+                let errorMessage = xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText;
                 Swal.fire({
                     title: 'Đăng nhập thất bại!',
-                    text: xhr.message ?? 'Email hoặc mật khẩu không đúng.',
+                    text: errorMessage,
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });

@@ -498,11 +498,11 @@
                     renderStats();
                 },
                 error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Không thể lấy dữ liệu vi phạm: ' + (xhr.responseJSON?.message || error),
-                    });
+                    // Swal.fire({
+                    //     icon: 'error',
+                    //     title: 'Lỗi',
+                    //     text: 'Không thể lấy dữ liệu vi phạm: ' + (xhr.responseJSON?.message || error),
+                    // });
                 }
             });
         }
