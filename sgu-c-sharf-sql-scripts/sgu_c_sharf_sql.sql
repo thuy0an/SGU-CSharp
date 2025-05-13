@@ -154,7 +154,13 @@ VALUES
     ("Laptop", 0),
     ("Máy chiếu", 0),
     ("Micro", 0),
-    ("Camera", 0);
+    ("Camera", 0),
+	("Máy in", 0),
+    ("Màn hình", 0),
+    ("Loa", 0),
+    ("Bảng vẽ", 0),
+    ("Chuột máy tính", 0),
+    ("Bàn phím", 0);
 
 -- Thêm dữ liệu vào bảng ThietBi
 INSERT INTO `ThietBi` (`TenThietBi`, `IdLoaiThietBi`, `DaXoa`, `AnhMinhHoa`)
@@ -162,7 +168,13 @@ VALUES
     ("Laptop Dell XPS 13", 1, 0, "dell_xps_13.jpg"),
     ("Máy chiếu Epson", 2, 0, "epson_projector.jpg"),
     ("Micro không dây Sony", 3, 0, "sony_micro.jpg"),
-    ("Camera Canon EOS", 4, 0, "canon_eos.jpg");
+    ("Camera Canon EOS", 4, 0, "canon_eos.jpg"),
+	("Máy in HP", 5, 0, "sony_micro.jpg"),
+    ("Màn hình LG", 6,0 , "sony_micro.jpg"),
+    ("Loa JBL", 7, 0, "sony_micro.jpg"),
+    ("Bảng vẽ Wacom", 8, 0, "sony_micro.jpg"),
+    ("Chuột Logitech", 9, 0, "sony_micro.jpg"),
+    ("Bàn phím Razer", 10, 0, "sony_micro.jpg");
 
 -- Thêm dữ liệu vào bảng DauThietBi
 INSERT INTO `DauThietBi` (`TrangThai`, `ThoiGianMua`, `IdThietBi`)

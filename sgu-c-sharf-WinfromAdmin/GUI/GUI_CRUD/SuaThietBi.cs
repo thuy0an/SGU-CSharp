@@ -43,7 +43,7 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
 
         }
 
-        private void btnCapNhat_Click(object sender, EventArgs e)
+        private async void btnCapNhat_Click(object sender, EventArgs e)
         {
             if (txtTenThietBi.Text == curTB.TenThietBi && txtDauThietBi.Text.Trim() == "")
             {
@@ -56,9 +56,13 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                 txtTenThietBi.Focus();
                 return;
             }
-            if (string.IsNullOrWhiteSpace(txtDauThietBi.Text) || !int.TryParse(txtDauThietBi.Text, out int soLuongDauThietBi) || soLuongDauThietBi < 1 || soLuongDauThietBi > 100)
+
+            // Kiểm tra trùng tên thiết bị
+            var allDevices = await _thietBiService.GetAll();
+            if (allDevices.Any(tb => tb.TenThietBi == txtTenThietBi.Text && tb.Id != curTB.Id))
             {
-                MessageBox.Show("Số lượng đầu thiết bị phải là số nguyên từ 1 đến 100!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Tên thiết bị đã tồn tại trong hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                txtTenThietBi.Focus();
                 return;
             }
 
@@ -76,14 +80,15 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                 };
                 _thietBiService.Update(thietBi.Id, thietBi);
 
-                // cập nhật số lượng đầu thiết bị thêm mới
-                _thietBiService.AddDauThietBi(thietBi.Id, soLuongDauThietBi);
-
+                // cập nhật số lượng đầu thiết bị thêm mới nếu có nhập
+                if (!string.IsNullOrWhiteSpace(txtDauThietBi.Text) && int.TryParse(txtDauThietBi.Text, out int soLuongDauThietBi))
+                {
+                    _thietBiService.AddDauThietBi(thietBi.Id, soLuongDauThietBi);
+                }
 
                 MessageBox.Show("Cập nhật thông tin thiết bị thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 _parentForm.RefreshDataGridView();
                 this.Close();
-
             }
         }
 

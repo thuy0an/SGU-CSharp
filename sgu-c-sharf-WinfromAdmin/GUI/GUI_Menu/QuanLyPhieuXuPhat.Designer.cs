@@ -33,6 +33,12 @@
             DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             pnlContent = new Panel();
             DataGrid = new DataGridView();
+            Id = new DataGridViewTextBoxColumn();
+            IdThanhVien = new DataGridViewTextBoxColumn();
+            TenThanhVien = new DataGridViewTextBoxColumn();
+            TrangThai = new DataGridViewTextBoxColumn();
+            NgayViPham = new DataGridViewTextBoxColumn();
+            ThoiGianXuPhat = new DataGridViewTextBoxColumn();
             pnlNavigate = new Panel();
             toDate = new DateTimePicker();
             label8 = new Label();
@@ -60,12 +66,6 @@
             label1 = new Label();
             btnEdit = new PictureBox();
             txtSearch = new TextBox();
-            Id = new DataGridViewTextBoxColumn();
-            IdThanhVien = new DataGridViewTextBoxColumn();
-            TenThanhVien = new DataGridViewTextBoxColumn();
-            TrangThai = new DataGridViewTextBoxColumn();
-            NgayViPham = new DataGridViewTextBoxColumn();
-            ThoiGianXuPhat = new DataGridViewTextBoxColumn();
             pnlContent.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DataGrid).BeginInit();
             pnlNavigate.SuspendLayout();
@@ -130,6 +130,45 @@
             DataGrid.Size = new Size(1479, 787);
             DataGrid.TabIndex = 1;
             DataGrid.CellContentClick += DataGrid_CellContentClick;
+            // 
+            // Id
+            // 
+            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            Id.HeaderText = "Mã phiếu";
+            Id.Name = "Id";
+            Id.ReadOnly = true;
+            // 
+            // IdThanhVien
+            // 
+            IdThanhVien.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            IdThanhVien.HeaderText = "Mã thành viên";
+            IdThanhVien.Name = "IdThanhVien";
+            IdThanhVien.ReadOnly = true;
+            // 
+            // TenThanhVien
+            // 
+            TenThanhVien.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            TenThanhVien.HeaderText = "Tên thành viên";
+            TenThanhVien.Name = "TenThanhVien";
+            TenThanhVien.ReadOnly = true;
+            // 
+            // TrangThai
+            // 
+            TrangThai.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            TrangThai.HeaderText = "Trạng thái";
+            TrangThai.Name = "TrangThai";
+            // 
+            // NgayViPham
+            // 
+            NgayViPham.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            NgayViPham.HeaderText = "Ngày vi phạm";
+            NgayViPham.Name = "NgayViPham";
+            // 
+            // ThoiGianXuPhat
+            // 
+            ThoiGianXuPhat.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            ThoiGianXuPhat.HeaderText = "Số ngày xử phạt";
+            ThoiGianXuPhat.Name = "ThoiGianXuPhat";
             // 
             // pnlNavigate
             // 
@@ -205,6 +244,7 @@
             // 
             // comboBoxTrangThai
             // 
+            comboBoxTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTrangThai.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxTrangThai.FormattingEnabled = true;
             comboBoxTrangThai.Location = new Point(98, 142);
@@ -450,45 +490,6 @@
             txtSearch.TabIndex = 0;
             txtSearch.Text = "Tìm kiếm";
             txtSearch.TextChanged += txtSearch_TextChanged;
-            // 
-            // Id
-            // 
-            Id.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            Id.HeaderText = "Mã phiếu";
-            Id.Name = "Id";
-            Id.ReadOnly = true;
-            // 
-            // IdThanhVien
-            // 
-            IdThanhVien.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            IdThanhVien.HeaderText = "Mã thành viên";
-            IdThanhVien.Name = "IdThanhVien";
-            IdThanhVien.ReadOnly = true;
-            // 
-            // TenThanhVien
-            // 
-            TenThanhVien.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            TenThanhVien.HeaderText = "Tên thành viên";
-            TenThanhVien.Name = "TenThanhVien";
-            TenThanhVien.ReadOnly = true;
-            // 
-            // TrangThai
-            // 
-            TrangThai.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            TrangThai.HeaderText = "Trạng thái";
-            TrangThai.Name = "TrangThai";
-            // 
-            // NgayViPham
-            // 
-            NgayViPham.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            NgayViPham.HeaderText = "Ngày vi phạm";
-            NgayViPham.Name = "NgayViPham";
-            // 
-            // ThoiGianXuPhat
-            // 
-            ThoiGianXuPhat.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            ThoiGianXuPhat.HeaderText = "Số ngày xử phạt";
-            ThoiGianXuPhat.Name = "ThoiGianXuPhat";
             // 
             // QuanLyPhieuXuPhat
             // 
