@@ -471,17 +471,15 @@
             });
 
             if (response.status == 200 && response.data) {
+                if (Array.isArray(response.data) && response.data.length === 0) {
+                    return true;
+                }
                 const data = response.data[0];
                 console.log(data);
 
                 if (data.trangThai == 1 || data.trangThai == 0) {
                     return true;
                 }
-
-                if (Array.isArray(response.data) && response.data.length === 0) {
-                    return true;
-                }
-
                 const ngayViPhamStr = data.ngayViPham;
                 const thoiHanXuPhat = data.thoiHanXuPhat;
 
