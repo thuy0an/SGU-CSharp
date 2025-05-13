@@ -74,7 +74,13 @@
         const datChoList = document.getElementById("datChoList");
 
         if (datCho.length === 0) {
-            datChoList.innerHTML = `<tr><td colspan="4" class="text-center">Không có thiết bị nào trong danh sách đặt chỗ.</td></tr>`;
+            datChoList.innerHTML = `<tr>
+                                        <td colspan="4" class="text-center">
+                                            Không có thiết bị nào trong danh sách đặt chỗ.
+                                            <br>
+                                            <a href="borrowdevices.php" class="btn btn-danger mt-2">Đặt thiết bị ngay</a>
+                                        </td>
+                                    </tr>`;
         } else {
             let html = "";
             datCho.forEach((item, index) => {
@@ -277,6 +283,12 @@
                 });
                 return;
             }
+
+            let choPhep = await kiemTraXuPhat(IdThanhVien);
+            if (!choPhep) {
+                return;
+            }
+
             if (datCho.length === 0) {
                 Swal.fire("Không có thiết bị nào để tạo phiếu!", "", "warning");
                 return;
@@ -329,9 +341,26 @@
                 return;
 
             } else {
-                ngayMuonISO = new Date(ngayMuon).toISOString();
+                let ngayMuonDate = new Date(ngayMuon);
+                let today = new Date();
+
+                // Xóa giờ phút giây để so sánh chính xác theo ngày
+                ngayMuonDate.setHours(0, 0, 0, 0);
+                today.setHours(0, 0, 0, 0);
+
+                if (ngayMuonDate < today) {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Ngày mượn không hợp lệ',
+                        text: 'Ngày mượn không được ở quá khứ!'
+                    });
+                    return;
+                }
+
+                ngayMuonISO = ngayMuonDate.toISOString();
                 console.log("ngayMuonISO:", ngayMuonISO);
             }
+
             try {
                 // Tạo phiếu mượn
 
@@ -432,6 +461,52 @@
                 Swal.fire("Lỗi khi tạo phiếu mượn!", error.message || "Unknown error", "error");
             }
         });
+    }
+
+    async function kiemTraXuPhat(IdThanhVien) {
+        try {
+            let response = await $.ajax({
+                url: `http://localhost:5244/api/phieu-xu-phat/user/${IdThanhVien}`,
+                method: "GET",
+            });
+
+            if (response.status == 200 && response.data) {
+                const ngayViPhamStr = response.data.ngayViPham;
+                const thoiHanXuPhat = response.data.thoiHanXuPhat;
+
+                const ngayViPham = new Date(ngayViPhamStr);
+                if (isNaN(ngayViPham.getTime()) || thoiHanXuPhat == null) {
+                    Swal.fire("Dữ liệu không hợp lệ!", "", "warning");
+                    return false;
+                }
+
+                const ngayHetViPham = new Date(ngayViPham);
+                ngayHetViPham.setDate(ngayHetViPham.getDate() + thoiHanXuPhat);
+
+                const ngayHienTai = new Date();
+                if (ngayHienTai <= ngayHetViPham) {
+                    Swal.fire({
+                        title: "Chưa hết xử phạt!",
+                        text: "Bạn vẫn còn trong thời gian xử phạt, vui lòng quay lại sau!",
+                        icon: "warning",
+                    });
+                    return false;
+                }
+            }
+        } catch (e) {
+            if (
+                e.responseJSON &&
+                e.responseJSON.status === 400
+            ) {
+                return true;
+            }
+            console.error("Lỗi khi kiểm tra xử phạt:", e);
+            Swal.fire("Không thể kiểm tra ngày vi phạm!", "", "error");
+            return false;
+        }
+
+        // Nếu mọi thứ ổn → tiếp tục xử lý
+        return true;
     }
 
     function capNhatLocalStorage(id, soLuong) {

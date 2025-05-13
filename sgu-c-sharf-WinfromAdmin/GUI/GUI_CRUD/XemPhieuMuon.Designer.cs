@@ -42,6 +42,7 @@
             txtMaPhieu = new TextBox();
             label3 = new Label();
             dataGrid = new DataGridView();
+            Column5 = new DataGridViewTextBoxColumn();
             Column1 = new DataGridViewTextBoxColumn();
             Column2 = new DataGridViewTextBoxColumn();
             Column3 = new DataGridViewTextBoxColumn();
@@ -191,7 +192,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, Column2, Column3, Column4 });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Column5, Column1, Column2, Column3, Column4 });
             dataGrid.ImeMode = ImeMode.NoControl;
             dataGrid.Location = new Point(26, 261);
             dataGrid.Name = "dataGrid";
@@ -209,6 +210,12 @@
             dataGrid.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGrid.Size = new Size(844, 300);
             dataGrid.TabIndex = 8;
+            // 
+            // Column5
+            // 
+            Column5.HeaderText = "Tên thiết bị";
+            Column5.Name = "Column5";
+            Column5.ReadOnly = true;
             // 
             // Column1
             // 
@@ -352,10 +359,6 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label4;
         private DataGridView dataGrid;
-        private DataGridViewTextBoxColumn Column1;
-        private DataGridViewTextBoxColumn Column2;
-        private DataGridViewTextBoxColumn Column3;
-        private DataGridViewTextBoxColumn Column4;
         private Panel panel2;
         private TextBox txtMaPhieu;
         private Label label3;
@@ -366,5 +369,10 @@
         private TextBox txtTrangThai;
         private TextBox txtTenNguoiDung;
         private TextBox txtNgayTao;
+        private DataGridViewTextBoxColumn Column5;
+        private DataGridViewTextBoxColumn Column1;
+        private DataGridViewTextBoxColumn Column2;
+        private DataGridViewTextBoxColumn Column3;
+        private DataGridViewTextBoxColumn Column4;
     }
 }

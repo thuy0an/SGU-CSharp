@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
@@ -73,6 +74,34 @@ namespace sgu_c_sharf_WinfromAdmin.Services
             {
                 Console.WriteLine($"Error: {ex.Message}");
                 return false;
+            }
+        }
+
+        public async Task<DauThietBiDetailResponseDto> GetDauThietBiById(int id)
+        {
+            string requestUrl = $"{BASE_URL}/{id}";
+
+            try
+            {
+                HttpResponseMessage res = await _httpClient.GetAsync(requestUrl);
+                string json = await res.Content.ReadAsStringAsync();
+
+                if (res.IsSuccessStatusCode && !string.IsNullOrEmpty(json))
+                {
+                    var apiResponse = JsonSerializer.Deserialize<ApiResponse<DauThietBiDetailResponseDto>>(json, new JsonSerializerOptions
+                    {
+                        PropertyNameCaseInsensitive = true
+                    });
+
+                    return apiResponse.Data;
+                }
+
+                return new DauThietBiDetailResponseDto();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error: {ex.Message}");
+                return new DauThietBiDetailResponseDto();
             }
         }
     }

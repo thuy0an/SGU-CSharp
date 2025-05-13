@@ -5,6 +5,8 @@ using sgu_c_sharf_backend.Models.PhieuMuon;
 using sgu_c_sharf_backend.Services;
 using sgu_c_sharf_backend.ApiResponse;
 using sgu_c_sharf_backend.Models.ThietBi;
+using sgu_c_sharf_backend.Models.ThanhVien;
+using sgu_c_sharf_backend.Models.PhieuXuPhat;
 
 namespace sgu_c_sharf_backend.Controllers
 {
@@ -17,16 +19,21 @@ namespace sgu_c_sharf_backend.Controllers
         public readonly DauThietBiService _dauThietBiService;
         public readonly ThietBiService _thietBiService;
 
+        private readonly PhieuXuPhatService _phieuXuPhatService;
+
+
 
         public PhieuMuonController(PhieuMuonService phieuMuonService,
         ChiTietPhieuMuonService chiTietPhieuMuonService,
         DauThietBiService dauThietBiService,
-        ThietBiService thietBiService)
+        ThietBiService thietBiService,
+        PhieuXuPhatService phieuXuPhatService)
         {
             _phieuMuonService = phieuMuonService;
             _chiTietPhieuMuonService = chiTietPhieuMuonService;
             _dauThietBiService = dauThietBiService;
             _thietBiService = thietBiService;
+            _phieuXuPhatService = phieuXuPhatService;
         }
 
         // Lấy danh sách phiếu mượn không có phân trang
@@ -72,12 +79,37 @@ namespace sgu_c_sharf_backend.Controllers
             return Ok(ApiResponse<List<PhieuMuonDetailDTO>>.Ok(res, "Thành công"));
         }
 
+        public DateTime? GetNgayHetViPham(DateTime ngayViPham, uint? thoiHanXuPhat)
+        {
+            if (thoiHanXuPhat.HasValue)
+            {
+                return ngayViPham.AddDays(thoiHanXuPhat.Value);
+            }
+            return null;
+        }
         // Thêm mới phiếu mượn 
         [HttpPost]
         public ActionResult<ApiResponse<int>> Add([FromBody] PhieuMuonCreateDTO pm)
         {
-            if (pm == null)
+
+            if (pm == null){
                 return BadRequest(ApiResponse<int>.Fail("Dữ liệu không hợp lệ"));
+            }
+
+            PhieuXuPhatDetailDTO? phieuXuPhatDetailDTO = _phieuXuPhatService.GetByIdUser((uint)pm.IdThanhVien);
+            if (phieuXuPhatDetailDTO != null
+            && (phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXOA))
+            {
+                DateTime ngayViPham = phieuXuPhatDetailDTO.NgayViPham;
+                uint? thoiHan = phieuXuPhatDetailDTO.ThoiHanXuPhat;
+
+                DateTime? ngayHetViPham = GetNgayHetViPham(ngayViPham, thoiHan);
+
+                if (ngayHetViPham.HasValue && DateTime.Now < ngayHetViPham.Value)
+                {
+                    return BadRequest(ApiResponse<int>.Fail("Thành viên vẫn đang trong thời gian bị xử phạt."));
+                }
+            }
 
             var phieuMuon = new PhieuMuonCreateDTO()
             {

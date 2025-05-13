@@ -167,7 +167,7 @@
             // ThoiGianXuPhat
             // 
             ThoiGianXuPhat.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            ThoiGianXuPhat.HeaderText = "Thời gian xử phạt";
+            ThoiGianXuPhat.HeaderText = "Số ngày xử phạt";
             ThoiGianXuPhat.Name = "ThoiGianXuPhat";
             // 
             // pnlNavigate
@@ -244,6 +244,7 @@
             // 
             // comboBoxTrangThai
             // 
+            comboBoxTrangThai.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTrangThai.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxTrangThai.FormattingEnabled = true;
             comboBoxTrangThai.Location = new Point(98, 142);

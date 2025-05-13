@@ -26,6 +26,11 @@ namespace sgu_c_sharf_backend.Services
             return _thanhVienRepository.GetById(id);
         }
 
+        public ThanhVien? GetByEmail(string email)
+        {
+            return _thanhVienRepository.GetByEmail(email);
+        }
+
         public ThanhVien? AddThanhVien(ThanhVien thanhVien)
         {
             // Mã hóa mật khẩu trước khi lưu

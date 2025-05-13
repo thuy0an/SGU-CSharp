@@ -18,8 +18,8 @@ namespace sgu_c_sharf_backend.Controllers
         private readonly DauThietBiService _dauThietBiService;
 
 
-        public TrangThaiPhieuMuonController(TrangThaiPhieuMuonService trangThaiPhieuMuonService, 
-                                            ChiTietPhieuMuonService chiTietPhieuMuonService, 
+        public TrangThaiPhieuMuonController(TrangThaiPhieuMuonService trangThaiPhieuMuonService,
+                                            ChiTietPhieuMuonService chiTietPhieuMuonService,
                                             DauThietBiService dauThietBiService)
         {
             _trangThaiPhieuMuonService = trangThaiPhieuMuonService;
@@ -113,7 +113,7 @@ namespace sgu_c_sharf_backend.Controllers
                     .Select(ct => ct.IdDauThietBi)
                     .ToList();
 
-                if (!dauThietBiIds.Any()) 
+                if (!dauThietBiIds.Any())
                 {
                     return StatusCode(404, ApiResponse<bool>.Fail("Không tìm thấy thiết bị nào"));
                 }
@@ -122,6 +122,10 @@ namespace sgu_c_sharf_backend.Controllers
                 if (dauThietBiList == null || !dauThietBiList.Any())
                 {
                     return NotFound(ApiResponse<bool>.Fail($"Không tìm thấy đầu thiết bị cho phiếu mượn ID {entity.IdPhieuMuon}"));
+                }
+                foreach (var dauThietBi in dauThietBiList)
+                {
+                    dauThietBi.TrangThai = TrangThaiDauThietBiEnum.KHADUNG;
                 }
 
                 var updateDauThietBiResult = _dauThietBiService.UpdateDanhSachDauThietBi(dauThietBiList);
@@ -134,7 +138,7 @@ namespace sgu_c_sharf_backend.Controllers
             }
             catch (Exception ex)
             {
-                        Console.WriteLine($"Exception: {ex.Message}\nStack Trace: {ex.StackTrace}");
+                Console.WriteLine($"Exception: {ex.Message}\nStack Trace: {ex.StackTrace}");
 
                 // Trả về lỗi nếu có exception
                 return StatusCode(500, ApiResponse<bool>.Fail($"Lỗi hệ thống: {ex.Message}"));

@@ -446,30 +446,33 @@
             // lblSD
             // 
             lblSD.AutoSize = true;
-            lblSD.Font = new Font("Arial", 14.25F);
-            lblSD.Location = new Point(878, 195);
+            lblSD.Font = new Font("Arial", 20.25F, FontStyle.Bold);
+            lblSD.ForeColor = Color.FromArgb(0, 123, 181);
+            lblSD.Location = new Point(969, 195);
             lblSD.Name = "lblSD";
-            lblSD.Size = new Size(247, 22);
+            lblSD.Size = new Size(390, 32);
             lblSD.TabIndex = 17;
             lblSD.Text = "Số lượng đang đặt/sử dụng:";
             // 
             // lblKD
             // 
             lblKD.AutoSize = true;
-            lblKD.Font = new Font("Arial", 14.25F);
-            lblKD.Location = new Point(554, 195);
+            lblKD.Font = new Font("Arial", 20.25F, FontStyle.Bold);
+            lblKD.ForeColor = Color.FromArgb(0, 123, 181);
+            lblKD.Location = new Point(566, 195);
             lblKD.Name = "lblKD";
-            lblKD.Size = new Size(175, 22);
+            lblKD.Size = new Size(279, 32);
             lblKD.TabIndex = 16;
             lblKD.Text = "Số lượng khả dụng:";
             // 
             // lblTong
             // 
             lblTong.AutoSize = true;
-            lblTong.Font = new Font("Arial", 14.25F);
-            lblTong.Location = new Point(205, 195);
+            lblTong.Font = new Font("Arial", 20.25F, FontStyle.Bold);
+            lblTong.ForeColor = Color.FromArgb(0, 123, 181);
+            lblTong.Location = new Point(111, 195);
             lblTong.Name = "lblTong";
-            lblTong.Size = new Size(200, 22);
+            lblTong.Size = new Size(321, 32);
             lblTong.TabIndex = 15;
             lblTong.Text = "Tổng số lượng thiết bị:";
             // 
@@ -571,11 +574,11 @@
             // lblTongTien
             // 
             lblTongTien.AutoSize = true;
-            lblTongTien.Font = new Font("Arial", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            lblTongTien.Font = new Font("Arial", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTongTien.ForeColor = Color.FromArgb(0, 123, 181);
-            lblTongTien.Location = new Point(523, 234);
+            lblTongTien.Location = new Point(502, 234);
             lblTongTien.Name = "lblTongTien";
-            lblTongTien.Size = new Size(424, 32);
+            lblTongTien.Size = new Size(466, 32);
             lblTongTien.TabIndex = 23;
             lblTongTien.Text = "Tổng số tiền đã được bồi thường:";
             // 

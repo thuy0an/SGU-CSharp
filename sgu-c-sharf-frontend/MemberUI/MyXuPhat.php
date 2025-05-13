@@ -387,11 +387,11 @@
         function mapStatus(status) {
             switch (status) {
                 case 0:
-                    return "pending";
-                case 1:
                     return "waived";
-                case 2:
+                case 1:
                     return "paid";
+                case 2:
+                    return "pending";
                 default:
                     return "pending";
             }
@@ -498,11 +498,11 @@
                     renderStats();
                 },
                 error: function(xhr, status, error) {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Lỗi',
-                        text: 'Không thể lấy dữ liệu vi phạm: ' + (xhr.responseJSON?.message || error),
-                    });
+                    // Swal.fire({
+                    //     icon: 'error',
+                    //     title: 'Lỗi',
+                    //     text: 'Không thể lấy dữ liệu vi phạm: ' + (xhr.responseJSON?.message || error),
+                    // });
                 }
             });
         }

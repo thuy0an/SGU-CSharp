@@ -46,6 +46,7 @@
             btnSua = new Button();
             btnThemDauThietBi = new Button();
             dataGrid = new DataGridView();
+            Column1 = new DataGridViewTextBoxColumn();
             IdDauThietBi = new DataGridViewTextBoxColumn();
             TrangThai = new DataGridViewTextBoxColumn();
             ThoiGianMuon = new DataGridViewTextBoxColumn();
@@ -242,7 +243,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.True;
             dataGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGrid.Columns.AddRange(new DataGridViewColumn[] { IdDauThietBi, TrangThai, ThoiGianMuon, ThoiGianTra });
+            dataGrid.Columns.AddRange(new DataGridViewColumn[] { Column1, IdDauThietBi, TrangThai, ThoiGianMuon, ThoiGianTra });
             dataGrid.ImeMode = ImeMode.NoControl;
             dataGrid.Location = new Point(32, 272);
             dataGrid.Name = "dataGrid";
@@ -261,6 +262,12 @@
             dataGrid.Size = new Size(594, 300);
             dataGrid.TabIndex = 8;
             dataGrid.CellContentClick += dataGrid_CellContentClick;
+            // 
+            // Column1
+            // 
+            Column1.HeaderText = "Tên thiết bị";
+            Column1.Name = "Column1";
+            Column1.ReadOnly = true;
             // 
             // IdDauThietBi
             // 
@@ -339,7 +346,6 @@
             txtMaThanhVien.Name = "txtMaThanhVien";
             txtMaThanhVien.Size = new Size(220, 29);
             txtMaThanhVien.TabIndex = 1;
-            txtMaThanhVien.Text = "abc";
             // 
             // label2
             // 
@@ -419,6 +425,7 @@
         private TextBox txtTenNguoiDung;
         private ComboBox cbbTrangThai;
         private TextBox txtNgayTao;
+        private DataGridViewTextBoxColumn Column1;
         private DataGridViewTextBoxColumn IdDauThietBi;
         private DataGridViewTextBoxColumn TrangThai;
         private DataGridViewTextBoxColumn ThoiGianMuon;

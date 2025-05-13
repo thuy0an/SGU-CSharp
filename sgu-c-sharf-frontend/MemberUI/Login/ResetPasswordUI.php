@@ -692,7 +692,7 @@
                     if (response.status === 200) {
                         showToast("Đặt lại mật khẩu thành công", "Mật khẩu của bạn đã được đặt lại thành công. Vui lòng đăng nhập với mật khẩu mới.");
                         setTimeout(() => {
-                            window.location.href = "/LoginUI.php";
+                            window.location.href = "./LoginUI.php";
                         }, 2000);
                     } else {
                         Swal.fire({

@@ -70,12 +70,14 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             _thietBis = await _thietBiService.GetAllWithAvailability();
         }
 
-        private void loadDataGrid()
+        private async Task loadDataGrid()
         {
             dataGrid.Rows.Clear();
             foreach (var item in _chiTietPhieuMuons)
             {
+                var dauThietBi = await _dauThietBiService.GetDauThietBiById(item.IdDauThietBi);
                 dataGrid.Rows.Add(
+                    dauThietBi.TenThietBi,
                     item.IdDauThietBi,
                     item.TrangThai.ToString(),
                     item.ThoiGianMuon?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
@@ -182,18 +184,20 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                                             : (trangThaiMoi == TrangThaiPhieuMuonEnum.CHODUYET)
                                                 ? (TrangThaiChiTietPhieuMuonEnum.CHODUYET)
                                                 : ct.TrangThai,
-                        ThoiGianTra = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI) ? DateTime.Now : ct.ThoiGianTra
+                        ThoiGianTra = (trangThaiMoi == TrangThaiPhieuMuonEnum.DATRATHIETBI
+                                        || trangThaiMoi == TrangThaiPhieuMuonEnum.HUY) ? DateTime.Now : ct.ThoiGianTra
                     }).ToList();
 
                     var dauThietBiUpdates = chiTietUpdates.Select(ct => new DauThietBi
                     {
                         Id = ct.IdDauThietBi,
-                        TrangThai = ct.TrangThai switch
+                        TrangThai = trangThaiMoi switch
                         {
-                            TrangThaiChiTietPhieuMuonEnum.CHODUYET => TrangThaiDauThietBi.DATTRUOC,
-                            TrangThaiChiTietPhieuMuonEnum.DANGMUON => TrangThaiDauThietBi.DANGMUON,
-                            TrangThaiChiTietPhieuMuonEnum.DATRATHIETBI => TrangThaiDauThietBi.KHADUNG,
-                            TrangThaiChiTietPhieuMuonEnum.DATHATLAC => TrangThaiDauThietBi.THATLAC,
+                            TrangThaiPhieuMuonEnum.CHODUYET => TrangThaiDauThietBi.DATTRUOC,
+                            TrangThaiPhieuMuonEnum.DATCHO => TrangThaiDauThietBi.DATTRUOC,
+                            TrangThaiPhieuMuonEnum.DANGSUDUNG => TrangThaiDauThietBi.DANGMUON,
+                            TrangThaiPhieuMuonEnum.DATRATHIETBI => TrangThaiDauThietBi.KHADUNG,
+                            TrangThaiPhieuMuonEnum.HUY => TrangThaiDauThietBi.KHADUNG,
                             _ => TrangThaiDauThietBi.KHADUNG
                         }
                     }).ToList();

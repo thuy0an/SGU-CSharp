@@ -147,8 +147,7 @@
             }
         }
 
-        // Hàm cập nhật màu sắc và thời gian cho trạng thái
-        function setColorAndTime(trangThaiValue, thoiGianValue) {
+        function resetColorAndTime(){
             const $line1 = $('#line1');
             const $line2 = $('#line2');
             const $line3 = $('#line3');
@@ -190,11 +189,32 @@
             $circleContainer4.css("border-color", "gray");
             $circleContainer5.css("border-color", "gray");
 
-            $thoiGian1.html("");
-            $thoiGian2.html("");
-            $thoiGian3.html("");
-            $thoiGian4.html("");
-            $thoiGian5.html("");
+        }
+        // Hàm cập nhật màu sắc và thời gian cho trạng thái
+        function setColorAndTime(trangThaiValue, thoiGianValue) {
+            const $line1 = $('#line1');
+            const $line2 = $('#line2');
+            const $line3 = $('#line3');
+            const $line4 = $('#line4');
+
+            const $thoiGian1 = $('#thoiGian1');
+            const $thoiGian2 = $('#thoiGian2');
+            const $thoiGian3 = $('#thoiGian3');
+            const $thoiGian4 = $('#thoiGian4');
+            const $thoiGian5 = $('#thoiGian5');
+
+            const $icon1 = $('#icon1');
+            const $icon2 = $('#icon2');
+            const $icon3 = $('#icon3');
+            const $icon4 = $('#icon4');
+            const $icon5 = $('#icon5');
+
+            const $circleContainer1 = $('#circle-container1');
+            const $circleContainer2 = $('#circle-container2');
+            const $circleContainer3 = $('#circle-container3');
+            const $circleContainer4 = $('#circle-container4');
+            const $circleContainer5 = $('#circle-container5');
+
 
             // Áp dụng màu sắc dựa trên trạng thái hiện tại
             switch (trangThaiValue) {
@@ -204,9 +224,6 @@
                     $thoiGian1.html(formatDateTime(thoiGianValue));
                     break;
                 case 1:
-                    $icon1.css("color", "green");
-                    $circleContainer1.css("border-color", "green");
-                    $thoiGian1.html(formatDateTime(thoiGianValue));
 
                     $icon2.css("color", "green");
                     $line1.css("color", "green");
@@ -214,44 +231,25 @@
                     $thoiGian2.html(formatDateTime(thoiGianValue));
                     break;
                 case 2:
-                    $icon1.css("color", "green");
-                    $circleContainer1.css("border-color", "green");
-                    $thoiGian1.html(formatDateTime(thoiGianValue));
-
-                    $icon2.css("color", "green");
-                    $line1.css("color", "green");
-                    $circleContainer2.css("border-color", "green");
-                    $thoiGian2.html(formatDateTime(thoiGianValue));
-
+      
                     $icon3.css("color", "green");
                     $line2.css("color", "green");
                     $circleContainer3.css("border-color", "green");
                     $thoiGian3.html(formatDateTime(thoiGianValue));
                     break;
                 case 3:
-                    $icon1.css("color", "green");
-                    $circleContainer1.css("border-color", "green");
-                    $thoiGian1.html(formatDateTime(thoiGianValue));
-
-                    $icon2.css("color", "green");
-                    $line1.css("color", "green");
-                    $circleContainer2.css("border-color", "green");
-                    $thoiGian2.html(formatDateTime(thoiGianValue));
-
-                    $icon3.css("color", "green");
-                    $line2.css("color", "green");
-                    $circleContainer3.css("border-color", "green");
-                    $thoiGian3.html(formatDateTime(thoiGianValue));
 
                     $icon4.css("color", "green");
                     $line3.css("color", "green");
                     $circleContainer4.css("border-color", "green");
                     $thoiGian4.html(formatDateTime(thoiGianValue));
+                    console.log("Hoàn trả thành công");
+
                     break;
                 case 4:
+
                     $icon1.css("color", "rgb(146, 26, 26)");
                     $circleContainer1.css("border-color", "rgb(146, 26, 26)");
-                    $thoiGian1.html(formatDateTime(thoiGianValue));
 
                     $icon2.css("color", "rgb(146, 26, 26)");
                     $line1.css("color", "rgb(146, 26, 26)");

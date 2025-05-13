@@ -16,12 +16,15 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
         private readonly int _idPhieuMuon;
         private readonly PhieuMuonService _phieuMuonService;
         private readonly ChiTietPhieuMuonService _chiTietPhieuMuonService;
+        private readonly DauThietBiService _dauThietBiService;
+
         public FormXemPhieuMuon(int IdPhieuMuon)
         {
             InitializeComponent();
             _idPhieuMuon = IdPhieuMuon;
             _phieuMuonService = new PhieuMuonService();
             _chiTietPhieuMuonService = new ChiTietPhieuMuonService();
+            _dauThietBiService = new DauThietBiService();
         }
         private async void FormXemPhieuMuon_Load(object sender, EventArgs e)
         {
@@ -51,9 +54,11 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
             dataGrid.Rows.Clear();
             foreach (var item in chiTietPhieuMuons)
             {
+                var dauThietBi = await _dauThietBiService.GetDauThietBiById(item.IdDauThietBi);
                 dataGrid.Rows.Add(
+                    dauThietBi.TenThietBi,
                     item.IdDauThietBi,
-                    item.TrangThai.ToString(), // Hiển thị enum dưới dạng string
+                    item.TrangThai.ToString(),
                     item.ThoiGianMuon?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
                     item.ThoiGianTra?.ToString("dd/MM/yyyy HH:mm:ss") ?? ""
                 );

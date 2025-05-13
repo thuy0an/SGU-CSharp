@@ -29,6 +29,8 @@
         private void InitializeComponent()
         {
             pnlContent = new Panel();
+            btnThemAnh = new Button();
+            hinhAnh = new PictureBox();
             panel2 = new Panel();
             txtDauThietBi = new TextBox();
             label3 = new Label();
@@ -44,6 +46,7 @@
             label2 = new Label();
             label1 = new Label();
             pnlContent.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)hinhAnh).BeginInit();
             panel2.SuspendLayout();
             panel7.SuspendLayout();
             panel3.SuspendLayout();
@@ -53,6 +56,8 @@
             // pnlContent
             // 
             pnlContent.BackColor = Color.White;
+            pnlContent.Controls.Add(btnThemAnh);
+            pnlContent.Controls.Add(hinhAnh);
             pnlContent.Controls.Add(panel2);
             pnlContent.Controls.Add(btnThem);
             pnlContent.Controls.Add(panel7);
@@ -63,14 +68,32 @@
             pnlContent.Location = new Point(0, 0);
             pnlContent.Margin = new Padding(4, 3, 4, 3);
             pnlContent.Name = "pnlContent";
-            pnlContent.Size = new Size(740, 591);
+            pnlContent.Size = new Size(859, 713);
             pnlContent.TabIndex = 0;
+            // 
+            // btnThemAnh
+            // 
+            btnThemAnh.Location = new Point(91, 367);
+            btnThemAnh.Name = "btnThemAnh";
+            btnThemAnh.Size = new Size(120, 40);
+            btnThemAnh.TabIndex = 13;
+            btnThemAnh.Text = "Thêm ảnh";
+            btnThemAnh.UseVisualStyleBackColor = true;
+            btnThemAnh.Click += button1_Click;
+            // 
+            // hinhAnh
+            // 
+            hinhAnh.Location = new Point(31, 74);
+            hinhAnh.Name = "hinhAnh";
+            hinhAnh.Size = new Size(241, 251);
+            hinhAnh.TabIndex = 12;
+            hinhAnh.TabStop = false;
             // 
             // panel2
             // 
             panel2.Controls.Add(txtDauThietBi);
             panel2.Controls.Add(label3);
-            panel2.Location = new Point(120, 339);
+            panel2.Location = new Point(346, 367);
             panel2.Margin = new Padding(4, 3, 4, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(500, 73);
@@ -102,7 +125,7 @@
             // btnThem
             // 
             btnThem.Font = new Font("Arial", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            btnThem.Location = new Point(310, 493);
+            btnThem.Location = new Point(369, 493);
             btnThem.Name = "btnThem";
             btnThem.Size = new Size(120, 40);
             btnThem.TabIndex = 11;
@@ -114,7 +137,7 @@
             // 
             panel7.Controls.Add(cbbLoaiThietBi);
             panel7.Controls.Add(label8);
-            panel7.Location = new Point(120, 224);
+            panel7.Location = new Point(346, 252);
             panel7.Margin = new Padding(4, 3, 4, 3);
             panel7.Name = "panel7";
             panel7.Size = new Size(500, 73);
@@ -148,7 +171,7 @@
             // 
             panel3.Controls.Add(txtTenThietBi);
             panel3.Controls.Add(label4);
-            panel3.Location = new Point(120, 135);
+            panel3.Location = new Point(346, 163);
             panel3.Margin = new Padding(4, 3, 4, 3);
             panel3.Name = "panel3";
             panel3.Size = new Size(500, 73);
@@ -163,7 +186,6 @@
             txtTenThietBi.Name = "txtTenThietBi";
             txtTenThietBi.Size = new Size(500, 29);
             txtTenThietBi.TabIndex = 1;
-            txtTenThietBi.Text = "abc";
             // 
             // label4
             // 
@@ -181,7 +203,7 @@
             // 
             panel1.Controls.Add(txtMaThietBi);
             panel1.Controls.Add(label2);
-            panel1.Location = new Point(120, 46);
+            panel1.Location = new Point(346, 74);
             panel1.Margin = new Padding(4, 3, 4, 3);
             panel1.Name = "panel1";
             panel1.Size = new Size(500, 73);
@@ -219,7 +241,7 @@
             label1.Location = new Point(0, 0);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(740, 43);
+            label1.Size = new Size(859, 43);
             label1.TabIndex = 0;
             label1.Text = "Tạo thiết bị";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -228,7 +250,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(740, 591);
+            ClientSize = new Size(859, 713);
             Controls.Add(pnlContent);
             FormBorderStyle = FormBorderStyle.FixedDialog;
             Margin = new Padding(4, 3, 4, 3);
@@ -237,6 +259,7 @@
             StartPosition = FormStartPosition.CenterScreen;
             Text = "ThemThietBi";
             pnlContent.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)hinhAnh).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             panel7.ResumeLayout(false);
@@ -265,5 +288,7 @@
         private Panel panel2;
         private TextBox txtDauThietBi;
         private Label label3;
+        private PictureBox hinhAnh;
+        private Button btnThemAnh;
     }
 }

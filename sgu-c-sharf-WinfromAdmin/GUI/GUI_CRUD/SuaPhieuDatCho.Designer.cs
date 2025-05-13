@@ -105,7 +105,6 @@
             txtThoiGianDat.Name = "txtThoiGianDat";
             txtThoiGianDat.Size = new Size(250, 29);
             txtThoiGianDat.TabIndex = 1;
-            txtThoiGianDat.Text = "abc";
             // 
             // label3
             // 
@@ -149,7 +148,6 @@
             txtTenThanhVien.Name = "txtTenThanhVien";
             txtTenThanhVien.Size = new Size(250, 29);
             txtTenThanhVien.TabIndex = 1;
-            txtTenThanhVien.Text = "abc";
             // 
             // label6
             // 
@@ -183,7 +181,6 @@
             txtNgayTaoPhieu.Name = "txtNgayTaoPhieu";
             txtNgayTaoPhieu.Size = new Size(250, 29);
             txtNgayTaoPhieu.TabIndex = 1;
-            txtNgayTaoPhieu.Text = "abc";
             // 
             // label7
             // 
@@ -295,7 +292,6 @@
             txtMaThanhVien.Name = "txtMaThanhVien";
             txtMaThanhVien.Size = new Size(250, 29);
             txtMaThanhVien.TabIndex = 1;
-            txtMaThanhVien.Text = "abc";
             // 
             // label4
             // 
@@ -330,7 +326,6 @@
             txtMaPhieu.Name = "txtMaPhieu";
             txtMaPhieu.Size = new Size(250, 29);
             txtMaPhieu.TabIndex = 1;
-            txtMaPhieu.Text = "abc";
             // 
             // label2
             // 

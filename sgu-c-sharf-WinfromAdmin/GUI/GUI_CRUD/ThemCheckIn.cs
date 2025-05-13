@@ -86,29 +86,31 @@ namespace sgu_c_sharf_WinfromAdmin.GUI.GUI_CRUD
                     switch (tv.TrangThai)
                     {
                         case TrangThaiEnum.HOATDONG:
+                            ThanhVien cur = await thanhVienService.GetById(tv.Id);
                             string time = await checkInService.AddCheckIn(tv.Id);
                             MessageBox.Show("Check in thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtMaThanhVien.Text = tv.Id.ToString();
-                            txtTenNguoiDung.Text = tv.HoTen;
-                            txtEmail.Text = tv.Email;
-                            txtNgaySinh.Text = tv.NgaySinh.ToString("dd/MM/yyyy");
-                            txtSoDienThoai.Text = tv.SoDienThoai;
-                            txtThoiGianDangKy.Text = tv.ThoiGianDangKy.ToString("dd/MM/yyyy HH:mm:ss");
+                            txtMaThanhVien.Text = cur.Id.ToString();
+                            txtTenNguoiDung.Text = cur.HoTen;
+                            txtEmail.Text = cur.Email;
+                            txtNgaySinh.Text = cur.NgaySinh.ToString("dd/MM/yyyy");
+                            txtSoDienThoai.Text = cur.SoDienThoai;
+                            txtThoiGianDangKy.Text = cur.ThoiGianDangKy.ToString("dd/MM/yyyy HH:mm:ss");
                             txtNow.Text = time;
 
                             txtCheckIn.Text="";
                             break;
 
                         case TrangThaiEnum.DINHCHI:
+                            ThanhVien cur2 = await thanhVienService.GetById(tv.Id);
                             MessageBox.Show("Thành viên đang bị đình chỉ, vẫn được phép check in", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                             string time1 = await checkInService.AddCheckIn(tv.Id);
                             MessageBox.Show("Check in thành công", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            txtMaThanhVien.Text = tv.Id.ToString();
-                            txtTenNguoiDung.Text = tv.HoTen;
-                            txtEmail.Text = tv.Email;
-                            txtNgaySinh.Text = tv.NgaySinh.ToString("dd/MM/yyyy");
-                            txtSoDienThoai.Text = tv.SoDienThoai;
-                            txtThoiGianDangKy.Text = tv.ThoiGianDangKy.ToString("dd/MM/yyyy HH:mm:ss");
+                            txtMaThanhVien.Text = cur2.Id.ToString();
+                            txtTenNguoiDung.Text = cur2.HoTen;
+                            txtEmail.Text = cur2.Email;
+                            txtNgaySinh.Text = cur2.NgaySinh.ToString("dd/MM/yyyy");
+                            txtSoDienThoai.Text = cur2.SoDienThoai;
+                            txtThoiGianDangKy.Text = cur2.ThoiGianDangKy.ToString("dd/MM/yyyy HH:mm:ss");
                             txtNow.Text = time1;
 
                             txtCheckIn.Text="";

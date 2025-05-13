@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using sgu_c_sharf_backend.ApiResponse;
+using sgu_c_sharf_backend.Models.PhieuMuon;
+using sgu_c_sharf_backend.Models.PhieuXuPhat;
 using sgu_c_sharf_backend.Models.ThanhVien;
 using sgu_c_sharf_backend.Services;
 
@@ -11,10 +13,13 @@ namespace sgu_c_sharf_backend.Controllers
     public class ThanhVienController : ControllerBase
     {
         private readonly ThanhVienService _service;
+        private readonly PhieuXuPhatService _phieuXuPhatService;
 
-        public ThanhVienController(ThanhVienService service)
+
+        public ThanhVienController(ThanhVienService service, PhieuXuPhatService phieuXuPhatService)
         {
             _service = service;
+            _phieuXuPhatService = phieuXuPhatService;
         }
 
         [HttpGet]
@@ -88,9 +93,47 @@ namespace sgu_c_sharf_backend.Controllers
             return Ok(ApiResponse<int>.Ok(isAdmin, "Kiểm tra quyền admin thành công."));
         }
 
+        public DateTime? GetNgayHetViPham(DateTime ngayViPham, uint? thoiHanXuPhat)
+        {
+            if (thoiHanXuPhat.HasValue)
+            {
+                return ngayViPham.AddDays(thoiHanXuPhat.Value);
+            }
+            return null;
+        }
         [HttpPost("login")]
         public ActionResult<ApiResponse<int>> Login([FromBody] LoginRequest request)
         {
+            ThanhVien? thanhVien = null;
+            if (int.TryParse(request.Identifier, out int id))
+            {
+                thanhVien = _service.GetById(id);
+            }
+            else
+            {
+                thanhVien = _service.GetByEmail(request.Identifier);
+            }
+            if (thanhVien == null)
+            {
+                return BadRequest(ApiResponse<int>.Fail("Đăng nhập thất bại, tài khoản không tồn tại."));
+            }
+
+            PhieuXuPhatDetailDTO? phieuXuPhatDetailDTO = _phieuXuPhatService.GetByIdUser((uint)thanhVien.Id);
+            if (phieuXuPhatDetailDTO != null
+            && (phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXOA
+                || phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXULY))
+            {
+                DateTime ngayViPham = phieuXuPhatDetailDTO.NgayViPham;
+                uint? thoiHan = phieuXuPhatDetailDTO.ThoiHanXuPhat;
+
+                DateTime? ngayHetViPham = GetNgayHetViPham(ngayViPham, thoiHan);
+
+                if (ngayHetViPham.HasValue && DateTime.Now < ngayHetViPham.Value)
+                {
+                    return BadRequest(ApiResponse<int>.Fail("Bạn vẫn đang trong thời gian bị xử phạt."));
+                }
+            }
+
             int userId = _service.Login(request);
 
             if (userId == -1)
@@ -121,7 +164,7 @@ namespace sgu_c_sharf_backend.Controllers
         public ActionResult<ApiResponse<bool>> ForgotPassword([FromForm] ForgotPassword request)
         {
             bool success = _service.ForgotPassword(request);
-            
+
 
             if (!success)
             {

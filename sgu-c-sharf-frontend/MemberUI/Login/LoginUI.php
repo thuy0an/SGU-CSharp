@@ -19,6 +19,7 @@
                 <h1>Create Account</h1>
                 <input type="email" placeholder="Email" id="email" name="Email" />
                 <input type="text" placeholder="Họ tên" id="hoTen" name="Hoten" />
+                <label for="ngaySinh">Ngày sinh</label>
                 <input type="date" placeholder="Ngày sinh" id="ngaySinh" name="NgaySinh" />
                 <input type="tel" placeholder="Số điện thoại" id="soDienThoai" name="SoDienThoai" />
                 <input type="password" placeholder="Mật khẩu" id="matKhau" name="MatKhau" />
@@ -357,9 +358,11 @@
 
             },
             error: function(xhr) {
+                console.log(xhr);
+                let errorMessage = xhr.responseJSON ? xhr.responseJSON.message : xhr.statusText;
                 Swal.fire({
                     title: 'Đăng nhập thất bại!',
-                    text: xhr.message ?? 'Email hoặc mật khẩu không đúng.',
+                    text: errorMessage,
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });

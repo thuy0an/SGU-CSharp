@@ -82,7 +82,6 @@
             txtSoLuongThietBi.Name = "txtSoLuongThietBi";
             txtSoLuongThietBi.Size = new Size(629, 29);
             txtSoLuongThietBi.TabIndex = 1;
-            txtSoLuongThietBi.Text = "abc";
             // 
             // label2
             // 
@@ -130,7 +129,6 @@
             txtTenLoaiThietBi.Name = "txtTenLoaiThietBi";
             txtTenLoaiThietBi.Size = new Size(629, 29);
             txtTenLoaiThietBi.TabIndex = 1;
-            txtTenLoaiThietBi.Text = "abc";
             // 
             // lblTenLoaiThietBi
             // 
@@ -166,7 +164,6 @@
             txtMaLoaiThietBi.Name = "txtMaLoaiThietBi";
             txtMaLoaiThietBi.Size = new Size(629, 29);
             txtMaLoaiThietBi.TabIndex = 1;
-            txtMaLoaiThietBi.Text = "abc";
             txtMaLoaiThietBi.TextChanged += txtMaThanhVien_TextChanged;
             // 
             // lblMaLoaiThietBi
