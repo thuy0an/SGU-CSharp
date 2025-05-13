@@ -188,6 +188,9 @@ VALUES
 -- Thêm dữ liệu vào bảng TrangThaiPhieuMuon
 INSERT INTO `TrangThaiPhieuMuon` (`IdPhieuMuon`, `TrangThai`, `ThoiGianCapNhat`)
 VALUES 
+    (1, "CHODUYET", "2025-03-20 09:10:00"),
+    (1, "DATCHO", "2025-03-20 09:20:00"),
     (1, "DANGSUDUNG", "2025-03-20 09:30:00"),
-    (1, "DATRATHIETBI", "2025-03-22 09:30:00"),
+    (1, "DATRATHIETBI", "2025-03-22 09:50:00"),
+	(1, "HUY", "2025-03-22 09:55:00"),
     (2, "DANGSUDUNG", "2025-03-21 10:45:00");
