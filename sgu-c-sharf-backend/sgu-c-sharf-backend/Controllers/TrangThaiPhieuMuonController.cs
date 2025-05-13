@@ -109,25 +109,16 @@ namespace sgu_c_sharf_backend.Controllers
                 {
                     return StatusCode(500, ApiResponse<bool>.Fail("Cập nhật chi tiết phiếu mượn thất bại"));
                 }
-                var dauThietBiIds = chiTietList
-                    .Select(ct => ct.IdDauThietBi)
-                    .ToList();
 
-                if (!dauThietBiIds.Any())
+                //3. capj nhat trang thai dau thiet bi
+                var dauThietBiList = chiTietUpdateList.Select(ct => new DauThietBiListDTO{
+                    Id = ct.IdDauThietBi,
+                    TrangThai = TrangThaiDauThietBiEnum.KHADUNG
+                }).ToList();
+                if (!dauThietBiList.Any())
                 {
                     return StatusCode(404, ApiResponse<bool>.Fail("Không tìm thấy thiết bị nào"));
                 }
-                // 3. Lấy danh sách đầu thiết bị
-                var dauThietBiList = _dauThietBiService.GetByListId(dauThietBiIds);
-                if (dauThietBiList == null || !dauThietBiList.Any())
-                {
-                    return NotFound(ApiResponse<bool>.Fail($"Không tìm thấy đầu thiết bị cho phiếu mượn ID {entity.IdPhieuMuon}"));
-                }
-                foreach (var dauThietBi in dauThietBiList)
-                {
-                    dauThietBi.TrangThai = TrangThaiDauThietBiEnum.KHADUNG;
-                }
-
                 var updateDauThietBiResult = _dauThietBiService.UpdateDanhSachDauThietBi(dauThietBiList);
                 if (!updateDauThietBiResult)
                 {

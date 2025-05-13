@@ -471,14 +471,19 @@
             });
 
             if (response.status == 200 && response.data) {
-                const data = response.data;
+                const data = response.data[0];
+                console.log(data);
 
-                if (Array.isArray(data) && data.length === 0) {
+                if (data.trangThai == 1 || data.trangThai == 0) {
                     return true;
                 }
-                
-                const ngayViPhamStr = response.data.ngayViPham;
-                const thoiHanXuPhat = response.data.thoiHanXuPhat;
+
+                if (Array.isArray(response.data) && response.data.length === 0) {
+                    return true;
+                }
+
+                const ngayViPhamStr = data.ngayViPham;
+                const thoiHanXuPhat = data.thoiHanXuPhat;
 
                 const ngayViPham = new Date(ngayViPhamStr);
                 if (isNaN(ngayViPham.getTime()) || thoiHanXuPhat == null) {
