@@ -471,6 +471,12 @@
             });
 
             if (response.status == 200 && response.data) {
+                const data = response.data;
+
+                if (Array.isArray(data) && data.length === 0) {
+                    return true;
+                }
+                
                 const ngayViPhamStr = response.data.ngayViPham;
                 const thoiHanXuPhat = response.data.thoiHanXuPhat;
 
