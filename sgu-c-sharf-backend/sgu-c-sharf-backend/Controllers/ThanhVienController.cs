@@ -119,8 +119,9 @@ namespace sgu_c_sharf_backend.Controllers
             }
 
             PhieuXuPhatDetailDTO? phieuXuPhatDetailDTO = _phieuXuPhatService.GetByIdUser((uint)thanhVien.Id);
-            if (phieuXuPhatDetailDTO != null 
-            && (phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXOA))
+            if (phieuXuPhatDetailDTO != null
+            && (phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXOA
+                || phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXULY))
             {
                 DateTime ngayViPham = phieuXuPhatDetailDTO.NgayViPham;
                 uint? thoiHan = phieuXuPhatDetailDTO.ThoiHanXuPhat;
