@@ -145,8 +145,9 @@ namespace sgu_c_sharf_backend.Controllers
         }
 
         [HttpPost("change-password")]
-        public ActionResult<ApiResponse<bool>> ChangePassword([FromForm] ChangePassword request)
+        public ActionResult<ApiResponse<bool>> ChangePassword([FromBody] ChangePassword request)
         {
+            
             bool success = _service.ChangePassword(request);
             if (request.MatKhauMoi.Equals(request.MatKhauCu))
             {

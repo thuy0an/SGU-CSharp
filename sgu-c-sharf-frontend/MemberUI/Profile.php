@@ -251,9 +251,9 @@
 
     
             const data = {
-                identifier: id,
-                matKhauCu: oldPassword,
-                matKhauMoi: newPassword
+                Identifier: id,
+                MatKhauCu: oldPassword,
+                MatKhauMoi: newPassword
             };
 
             $.ajax({
