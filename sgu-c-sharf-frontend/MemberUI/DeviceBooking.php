@@ -485,6 +485,7 @@
                     Swal.fire("Dữ liệu không hợp lệ!", "", "warning");
                     return false;
                 }
+                
 
                 const ngayHetViPham = new Date(ngayViPham);
                 ngayHetViPham.setDate(ngayHetViPham.getDate() + thoiHanXuPhat);

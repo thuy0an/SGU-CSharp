@@ -118,7 +118,7 @@ namespace sgu_c_sharf_backend.Controllers
                 return BadRequest(ApiResponse<int>.Fail("Đăng nhập thất bại, tài khoản không tồn tại."));
             }
 
-            PhieuXuPhatDetailDTO? phieuXuPhatDetailDTO = _phieuXuPhatService.GetByIdUser((uint)thanhVien.Id)[0];
+            PhieuXuPhatDetailDTO? phieuXuPhatDetailDTO = _phieuXuPhatService.GetByIdUser((uint)thanhVien.Id).FirstOrDefault();
             if (phieuXuPhatDetailDTO != null
             && (phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXOA
                 || phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXULY))
