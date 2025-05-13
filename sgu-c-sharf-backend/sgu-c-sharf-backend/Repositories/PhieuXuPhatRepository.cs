@@ -132,7 +132,7 @@ namespace sgu_c_sharf_backend.Repositories
             }
         }
 
-        public PhieuXuPhatDetailDTO? GetByIdUser(uint id)
+        public List<PhieuXuPhatDetailDTO> GetByIdUser(uint id)
         {
             using (var connection = new MySqlConnection(_connectionString))
             {
@@ -142,12 +142,10 @@ namespace sgu_c_sharf_backend.Repositories
                     if (id == 0)
                     {
                         Console.WriteLine($"Invalid ID provided: {id}");
-                        return null;
+                        return new List<PhieuXuPhatDetailDTO>();
                     }
 
-                    Console.WriteLine($"Opening connection with connection string: {_connectionString}");
                     connection.Open();
-                    Console.WriteLine("Connection opened successfully.");
 
                     string sql = @"
                 SELECT pxp.Id, pxp.TrangThai, pxp.NgayViPham, pxp.MoTa,
@@ -157,17 +155,15 @@ namespace sgu_c_sharf_backend.Repositories
                 INNER JOIN ThanhVien tv ON pxp.IdThanhVien = tv.Id
                 WHERE pxp.IdThanhVien = @Id AND pxp.TrangThai != 'DAXOA';";
 
-                    Console.WriteLine($"Executing SQL query: {sql} with parameter Id={id}");
-                    var result = connection.QueryFirstOrDefault<PhieuXuPhatDetailDTO>(sql, new { Id = id });
+                    var result = connection.Query<PhieuXuPhatDetailDTO>(sql, new { Id = id }).ToList();
 
-                    if (result == null)
+                    if (result.Count == 0)
                     {
-                        Console.WriteLine($"No record found for ID: {id}");
+                        Console.WriteLine($"No records found for user ID: {id}");
                     }
                     else
                     {
-                        Console.WriteLine(
-                            $"Retrieved record: Id={result.Id}, TrangThai={result.TrangThai}, NgayViPham={result.NgayViPham}");
+                        Console.WriteLine($"Retrieved {result.Count} records for user ID: {id}");
                     }
 
                     return result;
@@ -175,20 +171,18 @@ namespace sgu_c_sharf_backend.Repositories
                 catch (MySqlException ex)
                 {
                     Console.WriteLine($"MySQL Error: {ex.Message}, Number: {ex.Number}, StackTrace: {ex.StackTrace}");
-                    throw new Exception("Database error occurred while retrieving violation ticket", ex);
+                    throw new Exception("Database error occurred while retrieving violation tickets", ex);
                 }
                 catch (Exception ex)
                 {
                     Console.WriteLine($"General Error: {ex.Message}, StackTrace: {ex.StackTrace}");
-                    throw new Exception("Error retrieving violation ticket by ID", ex);
+                    throw new Exception("Error retrieving violation tickets by user ID", ex);
                 }
                 finally
                 {
                     if (connection.State != System.Data.ConnectionState.Closed)
                     {
-                        Console.WriteLine("Closing connection...");
                         connection.Close();
-                        Console.WriteLine("Connection closed.");
                     }
                 }
             }

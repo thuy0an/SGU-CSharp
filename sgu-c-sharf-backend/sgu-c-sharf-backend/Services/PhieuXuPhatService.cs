@@ -29,7 +29,7 @@ namespace sgu_c_sharf_backend.Services
         {
             return _phieuXuPhatRepository.GetById(id);
         }
-        public PhieuXuPhatDetailDTO? GetByIdUser(uint id)
+        public List<PhieuXuPhatDetailDTO> GetByIdUser(uint id)
         {
             return _phieuXuPhatRepository.GetByIdUser(id);
         }
