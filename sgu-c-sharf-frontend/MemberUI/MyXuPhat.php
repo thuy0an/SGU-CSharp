@@ -6,21 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lịch sử vi phạm</title>
 
-    <!-- External CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMlI4F/x3Rgx31ZobM4uZ5dI6cuJg6RZ/aXjmD" crossorigin="anonymous">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+        integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMlI4F/x3Rgx31ZobM4uZ5dI6cuJg6RZ/aXjmD" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <!-- Custom CSS -->
     <link rel="stylesheet" href="./HomePage.css">
     <link rel="stylesheet" href="./Profile.css">
     <link rel="stylesheet" href="./login.css">
 
-    <!-- External JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="../utils/formatOutput.js"></script>
 
-    <!-- Inline CSS -->
     <style>
         * {
             box-sizing: border-box;
@@ -282,7 +280,6 @@
     <?php require_once "./Header.php"; ?>
 
     <div class="main-container">
-        <!-- Sidebar Navigation -->
         <section class="user-history-nav" style="width: 20vw; padding: 20px;">
             <ul class="nav-tabs">
                 <li><a href="MyOrder.php">Lịch sử phiếu mượn</a></li>
@@ -291,10 +288,8 @@
             </ul>
         </section>
 
-        <!-- Main Content -->
         <div class="content-area">
             <div class="space-y-6">
-                <!-- Header -->
                 <div class="center-text" style="margin-top: 20px;">
                     <div class="title_section">
                         <div class="bar"></div>
@@ -302,7 +297,6 @@
                     </div>
                 </div>
 
-                <!-- Violations Table -->
                 <div class="card">
                     <div class="card-header">
                         <h2 class="card-title">Danh sách vi phạm</h2>
@@ -321,13 +315,11 @@
                                 </tr>
                             </thead>
                             <tbody id="violations-table-body">
-                                <!-- Table rows will be populated by JavaScript -->
                             </tbody>
                         </table>
                     </div>
                 </div>
 
-                <!-- Stats Card -->
                 <div class="card">
                     <div class="card-header">
                         <div class="flex items-center justify-between">
@@ -336,7 +328,8 @@
                                 <p class="card-description">Tổng kết các vi phạm theo thời gian</p>
                             </div>
                             <span class="badge badge-outline">
-                                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <svg class="h-3 w-3" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                                     <path d="M12 22s-8-4-8-10V5l8-3 8 3v7c0 6-8 10-8 10z" />
                                 </svg>
                                 Cập nhật lúc: <span id="update-time"></span>
@@ -369,33 +362,19 @@
     <script>
         let violations = []; // Array to store API data
         const statusMap = {
-            pending: {
+            2: {
                 text: "Chưa xử lý",
                 class: "badge-destructive"
             },
-            paid: {
+            1: {
                 text: "Đã xử lý",
                 class: "badge-default"
             },
-            waived: {
+            0: {
                 text: "Đã xóa",
                 class: "badge-secondary"
             }
         };
-
-        // Map numeric status to string
-        function mapStatus(status) {
-            switch (status) {
-                case 0:
-                    return "waived";
-                case 1:
-                    return "paid";
-                case 2:
-                    return "pending";
-                default:
-                    return "pending";
-            }
-        }
 
         // Calculate days between violation date and today (May 07, 2025)
         function calculateDaysSince(dateString) {
@@ -430,18 +409,18 @@
             const tbody = document.getElementById("violations-table-body");
             tbody.innerHTML = "";
             violations.forEach(violation => {
-                const daysSince = calculateDaysSince(violation.date);
+                const daysSince = calculateDaysSince(violation.ngayViPham);
                 const row = document.createElement("tr");
                 row.className = "table-row";
                 row.innerHTML = `
                     <td class="table-cell font-medium">${violation.id}</td>
-                    <td class="table-cell">${formatDate(violation.date)}</td>
-                    <td class="table-cell">${daysSince}</td>
-                    <td class="table-cell">${violation.description}</td>
-                    <td class="table-cell">${violation.penalty}</td>
+                    <td class="table-cell">${formatDate(violation.ngayViPham)}</td>
+                    <td class="table-cell">${violation.thoiHanXuPhat}</td>
+                    <td class="table-cell">${violation.moTa}</td>
+                    <td class="table-cell">${formatPenalty(violation.mucPhat)}</td>
                     <td class="table-cell">
-                        <span class="badge ${statusMap[violation.status].class}">
-                            ${statusMap[violation.status].text}
+                        <span class="badge ${statusMap[violation.trangThai].class}">
+                            ${statusMap[violation.trangThai].text}
                         </span>
                     </td>
                 `;
@@ -451,9 +430,9 @@
 
         function renderStats() {
             document.getElementById("total-violations").textContent = violations.length;
-            document.getElementById("pending-violations").textContent = violations.filter(v => v.status === "pending").length;
-            document.getElementById("paid-violations").textContent = violations.filter(v => v.status === "paid").length;
-            document.getElementById("waived-violations").textContent = violations.filter(v => v.status === "waived").length;
+            document.getElementById("pending-violations").textContent = violations.filter(v => v.trangThai === 2).length;
+            document.getElementById("paid-violations").textContent = violations.filter(v => v.trangThai === 1).length;
+            document.getElementById("waived-violations").textContent = violations.filter(v => v.trangThai === 0).length;
             document.getElementById("update-time").textContent = new Date().toLocaleTimeString('vi-VN');
         }
 
@@ -484,25 +463,19 @@
                     }
 
                     // Map API response to violations array
-                    const data = response.data;
-                    violations = [{
-                        id: data.id.toString(),
-                        date: data.ngayViPham,
-                        description: data.moTa,
-                        penalty: formatPenalty(data.mucPhat),
-                        status: mapStatus(data.trangThai)
-                    }];
+                    violations = response.data;
 
                     // Render table and stats
                     renderViolations();
                     renderStats();
                 },
                 error: function(xhr, status, error) {
-                    // Swal.fire({
-                    //     icon: 'error',
-                    //     title: 'Lỗi',
-                    //     text: 'Không thể lấy dữ liệu vi phạm: ' + (xhr.responseJSON?.message || error),
-                    // });
+                    console.error("Error fetching violations:", error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi',
+                        text: 'Không thể lấy dữ liệu vi phạm: ' + error,
+                    });
                 }
             });
         }
