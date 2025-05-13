@@ -140,7 +140,6 @@
 
             <!-- Phần hiển thị Đơn mượn -->
             <div class="orderManagement_order_history">
-                <p id="emptyCartMessage" class="empty_cart" style="text-align: center;">Bạn chưa có đơn phiếu mượn nào!</p>
                 <table class="order-table" id="orderHistoryTable">
                     <thead>
                         <tr>
@@ -151,10 +150,11 @@
                             <th>Thao tác</th>
                         </tr>
                     </thead>
+
                     <tbody id="orderHistoryBody"></tbody>
+
                 </table>
-
-
+                <p id="emptyCartMessage" class="empty_cart" style="text-align: center;">Bạn chưa có đơn phiếu mượn nào!</p>
             </div>
         </section>
     </content>

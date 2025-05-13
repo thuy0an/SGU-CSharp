@@ -29,6 +29,9 @@
         private void InitializeComponent()
         {
             pnlContent = new Panel();
+            panel5 = new Panel();
+            txtNgaySinh = new TextBox();
+            label6 = new Label();
             panel8 = new Panel();
             txtNow = new TextBox();
             label9 = new Label();
@@ -39,9 +42,6 @@
             panel6 = new Panel();
             txtEmail = new TextBox();
             label7 = new Label();
-            panel5 = new Panel();
-            txtNgaySinh = new TextBox();
-            label6 = new Label();
             panel4 = new Panel();
             txtThoiGianDangKy = new TextBox();
             label5 = new Label();
@@ -56,10 +56,10 @@
             label2 = new Label();
             label1 = new Label();
             pnlContent.SuspendLayout();
+            panel5.SuspendLayout();
             panel8.SuspendLayout();
             panel7.SuspendLayout();
             panel6.SuspendLayout();
-            panel5.SuspendLayout();
             panel4.SuspendLayout();
             panel3.SuspendLayout();
             panel2.SuspendLayout();
@@ -69,11 +69,11 @@
             // pnlContent
             // 
             pnlContent.BackColor = Color.White;
+            pnlContent.Controls.Add(panel5);
             pnlContent.Controls.Add(panel8);
             pnlContent.Controls.Add(btnCheckIn);
             pnlContent.Controls.Add(panel7);
             pnlContent.Controls.Add(panel6);
-            pnlContent.Controls.Add(panel5);
             pnlContent.Controls.Add(panel4);
             pnlContent.Controls.Add(panel3);
             pnlContent.Controls.Add(panel2);
@@ -86,6 +86,39 @@
             pnlContent.Size = new Size(740, 677);
             pnlContent.TabIndex = 0;
             pnlContent.Paint += pnlContent_Paint;
+            // 
+            // panel5
+            // 
+            panel5.Controls.Add(txtNgaySinh);
+            panel5.Controls.Add(label6);
+            panel5.Location = new Point(413, 296);
+            panel5.Margin = new Padding(4, 3, 4, 3);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(295, 73);
+            panel5.TabIndex = 8;
+            // 
+            // txtNgaySinh
+            // 
+            txtNgaySinh.Dock = DockStyle.Bottom;
+            txtNgaySinh.Enabled = false;
+            txtNgaySinh.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtNgaySinh.Location = new Point(0, 44);
+            txtNgaySinh.Margin = new Padding(4, 3, 4, 3);
+            txtNgaySinh.Name = "txtNgaySinh";
+            txtNgaySinh.Size = new Size(295, 29);
+            txtNgaySinh.TabIndex = 1;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Dock = DockStyle.Top;
+            label6.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(0, 0);
+            label6.Margin = new Padding(4, 0, 4, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(92, 22);
+            label6.TabIndex = 0;
+            label6.Text = "Ngày sinh";
             // 
             // panel8
             // 
@@ -198,40 +231,6 @@
             label7.Size = new Size(57, 22);
             label7.TabIndex = 0;
             label7.Text = "Email";
-            // 
-            // panel5
-            // 
-            panel5.Controls.Add(txtNgaySinh);
-            panel5.Controls.Add(label6);
-            panel5.Location = new Point(413, 296);
-            panel5.Margin = new Padding(4, 3, 4, 3);
-            panel5.Name = "panel5";
-            panel5.Size = new Size(295, 73);
-            panel5.TabIndex = 5;
-            panel5.Paint += panel5_Paint;
-            // 
-            // txtNgaySinh
-            // 
-            txtNgaySinh.Dock = DockStyle.Bottom;
-            txtNgaySinh.Enabled = false;
-            txtNgaySinh.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtNgaySinh.Location = new Point(0, 44);
-            txtNgaySinh.Margin = new Padding(4, 3, 4, 3);
-            txtNgaySinh.Name = "txtNgaySinh";
-            txtNgaySinh.Size = new Size(295, 29);
-            txtNgaySinh.TabIndex = 1;
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Dock = DockStyle.Top;
-            label6.Font = new Font("Arial", 14.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(0, 0);
-            label6.Margin = new Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(92, 22);
-            label6.TabIndex = 0;
-            label6.Text = "Ngày sinh";
             // 
             // panel4
             // 
@@ -397,14 +396,14 @@
             Text = "CheckIn";
             Load += FormSuaThanhVien_Load;
             pnlContent.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             panel6.ResumeLayout(false);
             panel6.PerformLayout();
-            panel5.ResumeLayout(false);
-            panel5.PerformLayout();
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             panel3.ResumeLayout(false);
@@ -423,9 +422,6 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox txtMaThanhVien;
-        private System.Windows.Forms.Panel panel5;
-        private System.Windows.Forms.TextBox txtNgaySinh;
-        private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.TextBox txtTenNguoiDung;
         private System.Windows.Forms.Label label4;
@@ -445,5 +441,8 @@
         private Panel panel8;
         private TextBox txtNow;
         private Label label9;
+        private Panel panel5;
+        private TextBox txtNgaySinh;
+        private Label label6;
     }
 }

@@ -27,7 +27,7 @@ namespace sgu_c_sharf_backend.Repositories
         SELECT Id, IdPhieuMuon, TrangThai, ThoiGianCapNhat 
         FROM TrangThaiPhieuMuon 
         WHERE IdPhieuMuon = @idPhieuMuon
-        ORDER BY ThoiGianCapNhat DESC";
+        ORDER BY ThoiGianCapNhat";
 
             using var cmd = new MySqlCommand(query, conn);
             cmd.Parameters.AddWithValue("@idPhieuMuon", idPhieuMuon);

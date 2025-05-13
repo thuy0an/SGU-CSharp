@@ -86,7 +86,7 @@ namespace sgu_c_sharf_backend.Controllers
 
 
         [HttpGet("user/{id}")]
-        public ActionResult<PhieuXuPhatDetailDTO> GetByIdUser(uint id)
+        public ActionResult<List<PhieuXuPhatDetailDTO>> GetByIdUser(uint id)
 
         {
             try
@@ -100,7 +100,7 @@ namespace sgu_c_sharf_backend.Controllers
                     return NotFound(ApiResponse<PhieuXuPhatDetailDTO>.Fail("Không tìm thấy phiếu xử phạt"));
                 }
 
-                return Ok(ApiResponse<PhieuXuPhatDetailDTO>.Ok(result));
+                return Ok(ApiResponse<List<PhieuXuPhatDetailDTO>>.Ok(result));
             }
 
             catch (Exception ex)

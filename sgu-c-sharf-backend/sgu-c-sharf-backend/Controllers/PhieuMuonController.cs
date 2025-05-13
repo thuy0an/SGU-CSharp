@@ -96,7 +96,7 @@ namespace sgu_c_sharf_backend.Controllers
                 return BadRequest(ApiResponse<int>.Fail("Dữ liệu không hợp lệ"));
             }
 
-            PhieuXuPhatDetailDTO? phieuXuPhatDetailDTO = _phieuXuPhatService.GetByIdUser((uint)pm.IdThanhVien);
+            PhieuXuPhatDetailDTO? phieuXuPhatDetailDTO = _phieuXuPhatService.GetByIdUser((uint)pm.IdThanhVien)[0];
             if (phieuXuPhatDetailDTO != null
             && (phieuXuPhatDetailDTO.TrangThai != TrangThaiPhieuXuPhatEnum.DAXOA))
             {
