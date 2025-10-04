@@ -12,5 +12,5 @@ Ngoài ra, repo còn lưu trữ code triển khai, tài liệu thiết kế và 
 
 ## 🎨 Figma Design
 Bạn có thể xem bản thiết kế UI/UX của **Library Management System** trên Figma tại đây:  
-[👉 Bản thiết kế trên Figma Prototype](https://www.figma.com/proto/cNGhh3t41tvsRJmlvia64m/C----Thi%E1%BA%BFt-k%E1%BA%BF-giao-di%E1%BB%87n?node-id=0-1&t=MjhwtDJIzzjHUC71-1)
+- [👉 Bản thiết kế trên Figma Prototype](https://www.figma.com/proto/cNGhh3t41tvsRJmlvia64m/C----Thi%E1%BA%BFt-k%E1%BA%BF-giao-di%E1%BB%87n?node-id=0-1&t=MjhwtDJIzzjHUC71-1)
 
